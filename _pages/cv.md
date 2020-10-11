@@ -23,8 +23,8 @@ Education
   
 Teaching
 ======
-*Principles of Economics (Fall 2018, Spring 2019, Spring 2020)
-*Introduction to Econometrics (Fall 2019)
+* Principles of Economics (Fall 2018, Spring 2019, Spring 2020)
+* Introduction to Econometrics (Fall 2019)
 
 
 Relevant work experience
