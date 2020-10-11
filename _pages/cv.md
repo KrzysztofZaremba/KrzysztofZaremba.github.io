@@ -1,6 +1,6 @@
 ---
 layout: archive
-title: "CV"
+title: "Curriculum Vitae"
 permalink: /cv/
 author_profile: true
 redirect_from:
@@ -11,49 +11,39 @@ redirect_from:
 
 Education
 ======
-* B.S. in GitHub, GitHub University, 2012
-* M.S. in Jekyll, GitHub University, 2014
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-
-Work experience
-======
-* Summer 2015: Research Assistant
-  * Github University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-
-* Fall 2015: Research Assistant
-  * Github University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+* Ph.D., Economics, Columbia University (2017-2022, expected) 
+* M.Sc., Economic and Social Sciences, Bocconi University (2014-2016)
+  * Summa cum Laude
+  * Full Graduate Merit Award
+* B.A., Sciences Po Paris (2011-2014)
+  * Dijon Campus
+  * Summa cum Laude in 2011/2012 and 2012/2013
+  * Exchange student at General Course, London School of Economics (2013-2014)
   
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
-
-Publications
-======
-  <ul>{% for post in site.publications %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks %}
-    {% include archive-single-talk-cv.html %}
-  {% endfor %}</ul>
   
 Teaching
 ======
-  <ul>{% for post in site.teaching %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
+*Principles of Economics (Fall 2018, Spring 2019, Spring 2020)
+*Introduction to Econometrics (Fall 2019)
+
+
+Relevant work experience
 ======
-* Currently signed in to 43 different slack teams
+* Research Assistant (Spring 2020-...)
+  * For Michael Best (Columbia University)
+* Research Assistant (Fall 2019)
+  * For Alessandra Casella  (Columbia University)
+* Trainee in DataLab, European Commission (Spring 2017)
+* Research Assistant (2016-2017)
+  * For Fernando Vega Redondo
+  
+Coding
+======
+* MATLAB, R, Python, STATA, SQL
+
+Languages
+======
+* Polish - native
+* English - fluent
+* French - fluent
+* Italian - upper intermediate
