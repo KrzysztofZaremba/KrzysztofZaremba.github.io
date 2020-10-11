@@ -9,7 +9,7 @@ redirect_from:
 
 {% include base_path %}
 
-Education
+### Education
 ======
 * Ph.D., Economics, Columbia University (2017-2022, expected) 
 * M.Sc., Economic and Social Sciences, Bocconi University (2014-2016)
@@ -21,13 +21,13 @@ Education
   * Exchange student at General Course, London School of Economics (2013-2014)
   
   
-Teaching
+### Teaching
 ======
 * Principles of Economics (Fall 2018, Spring 2019, Spring 2020)
 * Introduction to Econometrics (Fall 2019)
 
 
-Relevant work experience
+### Relevant work experience
 ======
 * Research Assistant (Spring 2020-...)
   * For Michael Best (Columbia University)
@@ -37,11 +37,11 @@ Relevant work experience
 * Research Assistant (2016-2017)
   * For Fernando Vega Redondo
   
-Coding
+### Coding
 ======
 * MATLAB, R, Python, STATA, SQL
 
-Languages
+### Languages
 ======
 * Polish - native
 * English - fluent
