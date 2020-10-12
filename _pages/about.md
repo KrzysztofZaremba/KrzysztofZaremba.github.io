@@ -8,6 +8,10 @@ redirect_from:
   - /about.html
 ---
 
-Welcome!
+## Welcome!
+
 I am a Ph.D. student in the department of Economics at Columbia University. 
-My research fields are networks and health.  Spreading and bla bla infectious diseases 
+
+My research is primarly in the fields of health and network economics. I am interested in economic aspects of infectious diseases. On the one hand, I investigate how economic behavior fuels the spread of infections. On the other hand, I look at the economic consequences of diseases. 
+
+I am passionate about data analysis and data visualizations. Please see below some of my data work.
