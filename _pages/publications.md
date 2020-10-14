@@ -26,3 +26,9 @@ Epidemics can have devastating health and economic consequences. This paper stud
 ### Beware of fake friends: Spurious links and peer effects in networks
 
 This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé , 2009) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
+
+<img src="../images/habit.png" align="left" width="400">
+
+### Spreading new habits
+
+Various behaviors of economic relevance, such as condom use or hand washing, are subject to habitual practice. This paper takes into account the habit formation to model the spread of new behaviors on networks. It augments traditional models of diffusion by a novel insight: the probability of abandoning a new behavior decreases with the time spent practicing it.  Three main results concerning interventions aiming to diffuse new behaviors stem from the augmented models. Firstly, repeated interventions are more successful at establishing new behaviors that require a long habit formation process. Secondly, there exists a trade-off between the minimum number of initial adopters needed to spread the behavior and intervention duration.  Thirdly, habit formation can introduce non-monotonicities in adoption patterns in time, identifying behaviors prone to habit. 
