@@ -35,7 +35,7 @@ redirect_from:
   * *For Alessandra Casella  (Columbia University)*
 * Trainee in DataLab, European Commission (Spring 2017)
 * Research Assistant (2016-2017)
-  * *For Fernando Vega Redondo*
+  * *For Fernando Vega Redondo (Bocconi University)*
   
 ### Coding
 
