@@ -4,6 +4,22 @@ permalink: /publications/
 author_profile: true
 ---
 
+<img src="../images/Updated_animation.gif" align="left" width="400">
+
+### Opening of hotels and ski facilities: impact on mobility and Covid-19 outcomes
+
+This paper investigates how the opening of hotels and ski facilities in Poland impacted mobility and
+Covid-19 outcomes. Leveraging geolocation data from Facebook, we show that ski resorts experienced a
+significant influx of tourists, increasing the number of local users by up to 50%. Furthermore, we show
+that there was an increase in the probability of meetings between pairs of users from distanced locations
+and pairs of users from touristic and non-touristic areas. As the policy impacted travels and gatherings,
+we then analyze its effect on the diffusion of Covid-19. We find a significant association between touristic
+movements and the severity of a major pandemic wave in Poland. In particular, we observe that counties
+with ski facilities experienced more infections after the opening. Moreover, counties strongly connected
+to the ski resorts during the opening had more subsequent cases than weakly connected counties.
+
+
+
 <img src="../images/Mortality_gonorrhea.png" align="right" width="400">
 
 ### The Effects of Prenatal Exposure to Sexually Transmitted Diseases 
