@@ -6,7 +6,7 @@ author_profile: true
 
 <img src="../images/Updated_animation.gif" align="left" width="400">
 
-### [Opening of hotels and ski facilities: impact on mobility and Covid-19 outcomes](KrzysztofZaremba/KrzysztofZaremba.github.io/files/Hotels_Opening_KZ.pdf)
+### <a href="KrzysztofZaremba/KrzysztofZaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility and Covid-19 outcomes </a>
 
 This paper investigates how the opening of hotels and ski facilities in Poland impacted mobility and
 Covid-19 outcomes. Leveraging geolocation data from Facebook, we show that ski resorts experienced a
