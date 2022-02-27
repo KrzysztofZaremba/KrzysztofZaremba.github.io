@@ -6,17 +6,20 @@ author_profile: true
 
 <img src="../images/Updated_animation.gif" align="left" width="400">
 
-### <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility and Covid-19 outcomes </a>
+### <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes
+ </a>
 
-This paper investigates how the opening of hotels and ski facilities in Poland impacted mobility and
-Covid-19 outcomes. Leveraging geolocation data from Facebook, we show that ski resorts experienced a
-significant influx of tourists, increasing the number of local users by up to 50%. Furthermore, we show
-that there was an increase in the probability of meetings between pairs of users from distanced locations
-and pairs of users from touristic and non-touristic areas. As the policy impacted travels and gatherings,
-we then analyze its effect on the diffusion of Covid-19. We find a significant association between touristic
-movements and the severity of a major pandemic wave in Poland. In particular, we observe that counties
-with ski facilities experienced more infections after the opening. Moreover, counties strongly connected
-to the ski resorts during the opening had more subsequent cases than weakly connected counties.
+This paper investigates how the opening of hotels and ski facilities in Poland impacted touristic
+spending, mobility and Covid-19 outcomes. We use administrative data from a government program
+subsidizing travel to show that the policy increased consumption of touristic services in ski resorts. Next,
+leveraging geolocation data from Facebook, we show that ski resorts experienced a significant influx of
+tourists, increasing the number of local users by up to 50%. Furthermore, we show that there was an
+increase in the probability of meetings between pairs of users from distanced locations and pairs of users
+from touristic and non-touristic areas. As the policy impacted travels and gatherings, we then analyze
+its effect on the diffusion of Covid-19. We find a significant association between touristic movements
+and the severity of a major pandemic wave in Poland. In particular, we observe that counties with ski
+facilities experienced more infections after the opening. Moreover, counties strongly connected to the ski
+resorts during the opening had more subsequent cases than weakly connected counties.
 
 
 
