@@ -24,7 +24,7 @@ bargaining power on the mothers’ health and birth outcomes.
 
 ## Working Papers
 
-<img src="../images/Updated_animation.gif" align="right" width="400">
+<img src="../images/Ski_pic.png" align="right" width="400">
 
 ### <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes</a> <em> (R&R in Health Economics) </em>
 
