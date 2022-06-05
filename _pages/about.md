@@ -17,5 +17,5 @@ My research is primarly in the fields of health and network economics. I am inte
 
 I am passionate about data analysis and data visualizations. Check out my app monitoring social distancing in Poland (in Polish): [https://kzaremba.shinyapps.io/Dystansowanie/](https://kzaremba.shinyapps.io/Dystansowanie/)
 
-<img src="../images/Centrality_animated_cc.gif" align="center" width="500">
+<img src="../images/Centrality_animated_cc.gif" fig.align="center" width=100%>
 
