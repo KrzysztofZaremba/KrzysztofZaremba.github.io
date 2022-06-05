@@ -6,8 +6,7 @@ author_profile: true
 
 <img src="../images/Updated_animation.gif" align="left" width="400">
 
-### <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes
- </a>
+### <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes</a>
 
 This paper investigates how the opening of hotels and ski facilities in Poland impacted touristic
 spending, mobility and Covid-19 outcomes. We use administrative data from a government program
