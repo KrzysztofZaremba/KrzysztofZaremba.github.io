@@ -9,11 +9,13 @@ redirect_from:
 ---
 
 
-I am a Ph.D. student in the department of Economics at Columbia University. 
+<br>
 
-My research is primarly in the fields of health and network economics. I am interested in economic aspects of infectious diseases. On the one hand, I investigate how economic behavior fuels the spread of infections. On the other hand, I look at the economic consequences of diseases. 
+I am a Ph.D. student in the Department of Economics at Columbia University. 
 
-I am passionate about data analysis and data visualizations. See my app monitoring social distancing in Poland (in Polish): [https://kzaremba.shinyapps.io/Dystansowanie/](https://kzaremba.shinyapps.io/Dystansowanie/)
+My research is primarly in the fields of health and network economics. I am interested in the economic aspects of infectious diseases. On the one hand, I investigate how economic behavior fuels the spread of infections. On the other hand, I look at the economic consequences of diseases. 
+
+I am passionate about data analysis and data visualizations. Check out my app monitoring social distancing in Poland (in Polish): [https://kzaremba.shinyapps.io/Dystansowanie/](https://kzaremba.shinyapps.io/Dystansowanie/)
 
 <img src="../images/Centrality_animated_cc.gif" align="center" width="500">
 
