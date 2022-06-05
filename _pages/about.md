@@ -11,11 +11,11 @@ redirect_from:
 
 <br>
 
-I am a Ph.D. student in the Department of Economics at Columbia University. 
+I am a Ph.D. student in the Department of Economics at Columbia University, on the job market 2022-23
 
-My research is primarly in the fields of health, family, and network economics. I am interested in the economic aspects of infectious diseases. On the one hand, I investigate how economic behavior fuels the spread of infections. On the other hand, I look at the economic consequences of diseases. 
+My research is primarily in <b>health</b>, <b>family</b>, and <b>network economics </b>. I strive to understand how economic incentives change health outcomes through their impact on contact networks and partnership formation. In my job market paper, I study the effects of partnership formation and within-couple bargaining on maternal and neonatal health. 
 
-I am passionate about data analysis and data visualizations. Check out my app monitoring social distancing in Poland (in Polish): [https://kzaremba.shinyapps.io/Dystansowanie/](https://kzaremba.shinyapps.io/Dystansowanie/). You can also see an example of visualizations from my work in the animation below. 
+I am particularly excited about network data analysis and data visualizations. Check out my app monitoring social distancing in Poland (in Polish): https://kzaremba.shinyapps.io/Dystansowanie/. You can also see an example of visualizations from my work in the animation below.
 
 <br>
 
