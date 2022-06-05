@@ -26,5 +26,5 @@ I am passionate about data analysis and data visualizations. Check out my app mo
 </p>
 
 <p align="center">
-<b>Relationship between a measure of centrality in commuting network and spread of Covid-19</b>
+<b>Relationship between the centrality in the commuting network and the spread of Covid-19</b>
 </p>
