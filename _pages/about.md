@@ -11,7 +11,7 @@ redirect_from:
 
 <br>
 
-I am a Ph.D. student in the Department of Economics at Columbia University, on the job market 2022-23
+I am a Ph.D. student in the Department of Economics at Columbia University. I will be on the 2022/23 Job Market.
 
 My research is primarily in <b>health</b>, <b>family</b>, and <b>network economics </b>. I strive to understand how economic incentives change health outcomes through their impact on contact networks and partnership formation. In my job market paper, I study the effects of partnership formation and within-couple bargaining on maternal and neonatal health. 
 
