@@ -11,14 +11,14 @@ redirect_from:
 
 ### Education
 
-* Ph.D., Economics, Columbia University (2017-2022, expected) 
+* Ph.D., Economics, Columbia University (2017-2023, expected) 
 * M.Sc., Economic and Social Sciences, Bocconi University (2014-2016)
-  * *Summa cum Laude*
+  * *Summa Cum Laude*
   * *Full Graduate Merit Award*
 * B.A., Sciences Po Paris (2011-2014)
   * *Dijon Campus*
-  * *Summa cum Laude in 2011/2012 and 2012/2013*
-  * *Exchange student at General Course, London School of Economics (2013-2014)*
+  * *Summa Cum Laude in 2011/2012 and 2012/2013*
+  * *Exchange Student at General Course, London School of Economics (2013-2014)*
   
   
 ### Teaching
@@ -39,11 +39,11 @@ redirect_from:
   
 ### Coding
 
-* MATLAB, R, Python, STATA, SQL
+* R, Python, MATLAB, STATA, SQL
 
 ### Languages
 
-* Polish - native
-* English - fluent
-* French - fluent
-* Italian - upper intermediate
+* Polish - Native
+* English - Fluent
+* French - Fluent
+* Italian - Fluent
