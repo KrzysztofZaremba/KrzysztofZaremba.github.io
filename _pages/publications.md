@@ -45,7 +45,6 @@ resorts during the opening had more subsequent cases than weakly connected count
 <img src="../images/net.png" align="right" width="400">
 
 ### <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Who are you sneezing at: Role of networks in spreading the flu</a>
-### 
 
 Epidemics can have devastating health and economic consequences. This paper studies the diffusion of flu through social and economic
 networks. Using almost two decades of weekly, county-level infection and mortality data from Poland, it examines within and across-counties flu transmission. Firstly, it evaluates the causal effect of school closures on viral transmission. The results show that closing schools for two weeks decreases the number of within county flu cases by 30-40%. The decline in infections extends to elderly and pre-school children. In addition, flu-related hospitalizations drop by 7.5%, and mortality related to respiratory diseases among the elderly drops by 3%. Secondly, the paper demonstrates a significant contribution of economic links to the diffusion across counties. The disease follows the paths of workers commuting between home and workplace. Together with the structure of the labor mobility networks, these results highlight the central role of regional capitals in sustaining and spreading the virus.
@@ -71,12 +70,12 @@ Sexually transmitted diseases are on the rise. They are particularly harmful amo
 <br>
 <img src="../images/true_0.png" align="right" width="400">
 
-### Beware of fake friends: Spurious links and peer effects in networks
+### Beware of Fake Friends: Spurious Links and Peer Effects in Networks
 
 This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé , 2009) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
 
 <img src="../images/habit.png" align="right" width="400">
 
-### Spreading new habits
+### Spreading New Habits
 
 Various behaviors of economic relevance, such as condom use or hand washing, are subject to habitual practice. This paper takes into account the habit formation to model the spread of new behaviors on networks. It augments traditional models of diffusion by a novel insight: the probability of abandoning a new behavior decreases with the time spent practicing it.  Three main results concerning interventions aiming to diffuse new behaviors stem from the augmented models. Firstly, repeated interventions are more successful at establishing new behaviors that require a long habit formation process. Secondly, there exists a trade-off between the minimum number of initial adopters needed to spread the behavior and intervention duration.  Thirdly, habit formation can introduce non-monotonicities in adoption patterns in time, identifying behaviors prone to habit. 
