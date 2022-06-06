@@ -97,7 +97,6 @@ affected inequalities in the STD prevalence.
 <p>
 <summary> <b>   The Effects of Prenatal Exposure to Sexually Transmitted Diseases </b> </summary>
 <br>
- <img src="../images/Mortality_gonorrhea.png" align="right" width="350">
  <div align="justify">
 Sexually transmitted diseases are on the rise. They are particularly harmful among pregnant women as they can cause stillbirth, preterm birth, and infections in newborns. Since the fetus development is at risk, STD in utero can affect a child's long-term outcomes. In this project, I exploit quarterly state variation in the number of Gonorrhea and Chlamydia cases to investigate the disease's impact on adult outcomes.
 
@@ -111,7 +110,6 @@ Sexually transmitted diseases are on the rise. They are particularly harmful amo
 <p>
 <summary> <b>  Beware of Fake Friends: Spurious Links and Peer Effects in Networks</b> </summary>
 <br>
-  <img src="../images/true_0.png" align="right" width="350">
  <div align="justify">
 This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé , 2009) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
 </div>
@@ -124,7 +122,6 @@ This paper discusses the robustness of the widely used IV method of estimating p
  <p> 
 <summary> <b>  Spreading New Habits </b> </summary>
 <br>
- <img src="../images/habit.png" align="right" width="350">
  <div align="justify">
 Various behaviors of economic relevance, such as condom use or hand washing, are subject to habitual practice. This paper takes into account the habit formation to model the spread of new behaviors on networks. It augments traditional models of diffusion by a novel insight: the probability of abandoning a new behavior decreases with the time spent practicing it.  Three main results concerning interventions aiming to diffuse new behaviors stem from the augmented models. Firstly, repeated interventions are more successful at establishing new behaviors that require a long habit formation process. Secondly, there exists a trade-off between the minimum number of initial adopters needed to spread the behavior and intervention duration.  Thirdly, habit formation can introduce non-monotonicities in adoption patterns in time, identifying behaviors prone to habit. 
  
