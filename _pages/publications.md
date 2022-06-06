@@ -13,25 +13,30 @@ author_profile: true
 
 <details>
  
-  <summary> <b> Effects of Intrahousehold Bargaining Power on the Maternal and Neonatal Health </b> </summary>
+ <img src="../images/JMP_pic.png" align="right" width=400> 
 
-  <table>
-    <tr>
-      <td valign="top"> This project aims to investigate the impact of intrahousehold bargaining power on maternal and neonatal health. We identify changes in bargaining power through deviations from a balanced sex ratio, which has been shown to play an essential role among the determinants of spouses’ respective bargaining power. To obtain causal estimates, contemporaneous sex ratio is instrumented with sex ratio at birth of a cohort. Next, using Vital Statistics Natality data, we evaluate the impact of the 
-bargaining power on the mothers’ health and birth outcomes. </td>
- <td valign="top"> <img src="../images/JMP_pic.png" align="right" width=4000> </td>
-        </tr>
-   </table> 
+  <summary> <b> Effects of Intrahousehold Bargaining Power on the Maternal and Neonatal Health </b> </summary>
+ <br>
+  <div align="justify">
+This project aims to investigate the impact of intrahousehold bargaining power on maternal and neonatal health. We identify changes in bargaining power through deviations from a balanced sex ratio, which has been shown to play an essential role among the determinants of spouses’ respective bargaining power. To obtain causal estimates, contemporaneous sex ratio is instrumented with sex ratio at birth of a cohort. Next, using Vital Statistics Natality data, we evaluate the impact of the 
+bargaining power on the mothers’ health and birth outcomes. 
+
+</div>
 </details>
 
 
 
 ## Working Papers
 
+<details>
 <img src="../images/Updated_animation.gif" align="right" width="400">
 
-### <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes</a> <em> (R&R in Health Economics) </em>
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes</a> <em> (R&R in Health Economics) </em>  </b> </summary>
 
+ <br>
+
+ <div align="justify">
+ 
 This paper investigates how the opening of hotels and ski facilities in Poland impacted touristic
 spending, mobility and Covid-19 outcomes. We use administrative data from a government program
 subsidizing travel to show that the policy increased consumption of touristic services in ski resorts. Next,
@@ -44,15 +49,26 @@ and the severity of a major pandemic wave in Poland. In particular, we observe t
 facilities experienced more infections after the opening. Moreover, counties strongly connected to the ski
 resorts during the opening had more subsequent cases than weakly connected counties.
 
-<br>
-<br>
+ </div>
+ 
+</details>
+ 
+<details>
 <img src="../images/net.png" align="right" width="400">
 
-### <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Who are you sneezing at: Role of networks in spreading the flu</a>
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Who are you sneezing at: Role of networks in spreading the flu</a> </b> </summary>
+
+ <br>
+
+ <div align="justify">
 
 Epidemics can have devastating health and economic consequences. This paper studies the diffusion of flu through social and economic
 networks. Using almost two decades of weekly, county-level infection and mortality data from Poland, it examines within and across-counties flu transmission. Firstly, it evaluates the causal effect of school closures on viral transmission. The results show that closing schools for two weeks decreases the number of within county flu cases by 30-40%. The decline in infections extends to elderly and pre-school children. In addition, flu-related hospitalizations drop by 7.5%, and mortality related to respiratory diseases among the elderly drops by 3%. Secondly, the paper demonstrates a significant contribution of economic links to the diffusion across counties. The disease follows the paths of workers commuting between home and workplace. Together with the structure of the labor mobility networks, these results highlight the central role of regional capitals in sustaining and spreading the virus.
 
+  </div>
+ 
+</details>
+ 
 ## Work in Progress
 
 ### Racial Disparities in Sexual Health and the Medicaid Expansion
