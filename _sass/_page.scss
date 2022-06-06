@@ -3,7 +3,9 @@
    ========================================================================== */
 
 #main {
-  @include container;
+  .container {
+  width: 90%;
+   }
   @include clearfix;
   margin-top: 2em;
   padding-left: 1em;
