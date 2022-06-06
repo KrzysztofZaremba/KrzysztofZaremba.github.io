@@ -15,7 +15,7 @@ author_profile: true
  
   <summary> <b> Effects of Intrahousehold Bargaining Power on the Maternal and Neonatal Health </b> </summary>
 
-  <table style="border:none;">
+  <table>
     <tr>
       <td valign="top"> This project aims to investigate the impact of intrahousehold bargaining power on maternal and neonatal health. We identify changes in bargaining power through deviations from a balanced sex ratio, which has been shown to play an essential role among the determinants of spouses’ respective bargaining power. To obtain causal estimates, contemporaneous sex ratio is instrumented with sex ratio at birth of a cohort. Next, using Vital Statistics Natality data, we evaluate the impact of the 
 bargaining power on the mothers’ health and birth outcomes. </td>
