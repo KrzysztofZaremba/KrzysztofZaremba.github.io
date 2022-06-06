@@ -9,7 +9,7 @@ Click on an arrow to see the abstract
 
 ## Job Market Paper 
 
-
+<section>
 
 <details>
  
@@ -26,6 +26,7 @@ bargaining power on the mothers’ health and birth outcomes.
  </p>
 </details>
 
+</section>
 
 
 ## Working Papers
