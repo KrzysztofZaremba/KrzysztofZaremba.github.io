@@ -5,7 +5,7 @@ author_profile: true
 ---
 
 
-
+Click on a title to read more!
 
 ## Job Market Paper 
 
@@ -13,10 +13,11 @@ author_profile: true
 
 <details>
  
- <img src="../images/JMP_pic.png" align="right" width=400> 
 
   <summary> <b> Effects of Intrahousehold Bargaining Power on the Maternal and Neonatal Health </b> </summary>
  <br>
+  <img src="../images/JMP_pic.png" align="right" width=400> 
+
   <div align="justify">
 This project aims to investigate the impact of intrahousehold bargaining power on maternal and neonatal health. We identify changes in bargaining power through deviations from a balanced sex ratio, which has been shown to play an essential role among the determinants of spouses’ respective bargaining power. To obtain causal estimates, contemporaneous sex ratio is instrumented with sex ratio at birth of a cohort. Next, using Vital Statistics Natality data, we evaluate the impact of the 
 bargaining power on the mothers’ health and birth outcomes. 
@@ -29,11 +30,11 @@ bargaining power on the mothers’ health and birth outcomes.
 ## Working Papers
 
 <details>
-<img src="../images/Updated_animation.gif" align="right" width="400">
 
 <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes</a> <em> (R&R in Health Economics) </em>  </b> </summary>
 
  <br>
+<img src="../images/Updated_animation.gif" align="right" width="400">
 
  <div align="justify">
  
@@ -54,11 +55,11 @@ resorts during the opening had more subsequent cases than weakly connected count
 </details>
  
 <details>
-<img src="../images/net.png" align="right" width="400">
 
 <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Who are you sneezing at: Role of networks in spreading the flu</a> </b> </summary>
 
  <br>
+<img src="../images/net.png" align="right" width="400">
 
  <div align="justify">
 
@@ -71,31 +72,48 @@ networks. Using almost two decades of weekly, county-level infection and mortali
  
 ## Work in Progress
 
-### Racial Disparities in Sexual Health and the Medicaid Expansion
-
+<details>
+ 
+<summary> <b>  Racial Disparities in Sexual Health and the Medicaid Expansion </b> </summary>
+<br>
+  <div align="justify">
 The prevalence of sexually transmitted diseases (STD) among black pregnant women is at least three times higher than white pregnant women. This project aims to further document racial inequalities in the prevalence of STDs and their consequences for maternal and neonatal health. Next, it attempts to understand the drivers of these inequalities. In particular, the project focuses on the role of health insurance and access to healthcare as causes of STD disparities. To measure the impact of insurance, I take advantage of the expansion of Medicaid eligibility related to the Affordable Care Act, which provided many underprivileged Americans with health insurance. By using a difference-in-differences framework and double robust estimation techniques, I analyze if the subsequent reduction in racial insurance gap
 affected inequalities in the STD prevalence.
 
+</div>
+</details>
+
+<details>
+ 
+
+<summary> <b>   The Effects of Prenatal Exposure to Sexually Transmitted Diseases </b> </summary>
 <br>
-<br>
-
-
-<img src="../images/Mortality_gonorrhea.png" align="right" width="400">
-
-### The Effects of Prenatal Exposure to Sexually Transmitted Diseases 
-
+ <img src="../images/Mortality_gonorrhea.png" align="right" width="400">
+ <div align="justify">
 Sexually transmitted diseases are on the rise. They are particularly harmful among pregnant women as they can cause stillbirth, preterm birth, and infections in newborns. Since the fetus development is at risk, STD in utero can affect a child's long-term outcomes. In this project, I exploit quarterly state variation in the number of Gonorrhea and Chlamydia cases to investigate the disease's impact on adult outcomes.
 
-<br>
-<br>
-<img src="../images/true_0.png" align="right" width="400">
+</div>
+</details>
 
-### Beware of Fake Friends: Spurious Links and Peer Effects in Networks
+ <details>
+  
 
+<summary> <b>  Beware of Fake Friends: Spurious Links and Peer Effects in Networks</b> </summary>
+<br>
+  <img src="../images/true_0.png" align="right" width="400">
+ <div align="justify">
 This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé , 2009) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
+</div>
+</details>
 
-<img src="../images/habit.png" align="right" width="400">
+  <details>
+   
 
-### Spreading New Habits
-
+<summary> <b>  Spreading New Habits </b> </summary>
+<br>
+   <img src="../images/habit.png" align="right" width="400">
+ <div align="justify">
 Various behaviors of economic relevance, such as condom use or hand washing, are subject to habitual practice. This paper takes into account the habit formation to model the spread of new behaviors on networks. It augments traditional models of diffusion by a novel insight: the probability of abandoning a new behavior decreases with the time spent practicing it.  Three main results concerning interventions aiming to diffuse new behaviors stem from the augmented models. Firstly, repeated interventions are more successful at establishing new behaviors that require a long habit formation process. Secondly, there exists a trade-off between the minimum number of initial adopters needed to spread the behavior and intervention duration.  Thirdly, habit formation can introduce non-monotonicities in adoption patterns in time, identifying behaviors prone to habit. 
+ 
+</div>
+</details>
