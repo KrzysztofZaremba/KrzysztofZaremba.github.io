@@ -22,9 +22,10 @@ This project aims to investigate the impact of intrahousehold bargaining power o
 bargaining power on the mothers’ health and birth outcomes. 
 </div>
   <br>
- <figure  align="right" width=350>
-<img src="../images/JMP_pic.png">
- </figure>
+ <p align="center">
+<img src="../images/JMP_pic.png" width="80%"> 
+</p>
+
 
  </p>
 </details>
@@ -40,7 +41,6 @@ bargaining power on the mothers’ health and birth outcomes.
 <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes</a> <em> (R&R in Health Economics) </em>  </b> </summary>
 
  <br>
-<img src="../images/Updated_animation.gif" align="right" width="350">
 
  <div align="justify">
  
@@ -57,6 +57,11 @@ facilities experienced more infections after the opening. Moreover, counties str
 resorts during the opening had more subsequent cases than weakly connected counties. 
   
  </div>
+ 
+  <p align="center">
+<img src="../images/Updated_animation.gif" width="80%"> 
+</p>
+ 
   </p>
 </details>
  
@@ -65,7 +70,7 @@ resorts during the opening had more subsequent cases than weakly connected count
 <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Who are you sneezing at: Role of networks in spreading the flu</a> </b> </summary>
 
  <br>
-<img src="../images/net.png" align="right" width="350">
+
 
  <div align="justify">
 
@@ -73,6 +78,9 @@ Epidemics can have devastating health and economic consequences. This paper stud
 networks. Using almost two decades of weekly, county-level infection and mortality data from Poland, it examines within and across-counties flu transmission. Firstly, it evaluates the causal effect of school closures on viral transmission. The results show that closing schools for two weeks decreases the number of within county flu cases by 30-40%. The decline in infections extends to elderly and pre-school children. In addition, flu-related hospitalizations drop by 7.5%, and mortality related to respiratory diseases among the elderly drops by 3%. Secondly, the paper demonstrates a significant contribution of economic links to the diffusion across counties. The disease follows the paths of workers commuting between home and workplace. Together with the structure of the labor mobility networks, these results highlight the central role of regional capitals in sustaining and spreading the virus.
 
   </div>
+   <p align="center">
+<img src="../images/net.png" width="80%"> 
+</p>
  </p>
  
 </details>
