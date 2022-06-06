@@ -23,16 +23,16 @@ This project aims to investigate the impact of intrahousehold bargaining power o
 bargaining power on the mothers’ health and birth outcomes. 
 
 </div>
- 
+ </p>
 </details>
 
-</p>
-<p>
+
 
 ## Working Papers
 
 <details>
-
+ 
+<p>
 <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes</a> <em> (R&R in Health Economics) </em>  </b> </summary>
 
  <br>
