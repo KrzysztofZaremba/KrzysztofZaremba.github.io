@@ -5,7 +5,7 @@ author_profile: true
 ---
 
 
-Click on a title to read more!
+Click on a title to see the abstract!
 
 ## Job Market Paper 
 
