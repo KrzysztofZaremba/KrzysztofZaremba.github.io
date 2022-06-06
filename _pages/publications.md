@@ -16,16 +16,18 @@ Click on an arrow to see the abstract!
 
   <summary> <b> Effects of Intrahousehold Bargaining Power on the Maternal and Neonatal Health </b> </summary>
  <br>
-  <img src="../images/JMP_pic.png" align="right" width=400> 
+<p><img src="../images/JMP_pic.png" align="right" width=400>&nbsp;
 
   <div align="justify">
 This project aims to investigate the impact of intrahousehold bargaining power on maternal and neonatal health. We identify changes in bargaining power through deviations from a balanced sex ratio, which has been shown to play an essential role among the determinants of spouses’ respective bargaining power. To obtain causal estimates, contemporaneous sex ratio is instrumented with sex ratio at birth of a cohort. Next, using Vital Statistics Natality data, we evaluate the impact of the 
 bargaining power on the mothers’ health and birth outcomes. 
 
 </div>
+ 
 </details>
 
-
+</p>
+<p>
 
 ## Working Papers
 
@@ -48,10 +50,10 @@ from touristic and non-touristic areas. As the policy impacted travels and gathe
 its effect on the diffusion of Covid-19. We find a significant association between touristic movements
 and the severity of a major pandemic wave in Poland. In particular, we observe that counties with ski
 facilities experienced more infections after the opening. Moreover, counties strongly connected to the ski
-resorts during the opening had more subsequent cases than weakly connected counties.
-
+resorts during the opening had more subsequent cases than weakly connected counties. 
+  
  </div>
- 
+  </p>
 </details>
  
 <details>
@@ -59,7 +61,7 @@ resorts during the opening had more subsequent cases than weakly connected count
 <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Who are you sneezing at: Role of networks in spreading the flu</a> </b> </summary>
 
  <br>
-<img src="../images/net.png" align="right" width="400">
+<p><img src="../images/net.png" align="right" width="400">
 
  <div align="justify">
 
@@ -67,6 +69,7 @@ Epidemics can have devastating health and economic consequences. This paper stud
 networks. Using almost two decades of weekly, county-level infection and mortality data from Poland, it examines within and across-counties flu transmission. Firstly, it evaluates the causal effect of school closures on viral transmission. The results show that closing schools for two weeks decreases the number of within county flu cases by 30-40%. The decline in infections extends to elderly and pre-school children. In addition, flu-related hospitalizations drop by 7.5%, and mortality related to respiratory diseases among the elderly drops by 3%. Secondly, the paper demonstrates a significant contribution of economic links to the diffusion across counties. The disease follows the paths of workers commuting between home and workplace. Together with the structure of the labor mobility networks, these results highlight the central role of regional capitals in sustaining and spreading the virus.
 
   </div>
+ </p>
  
 </details>
  
@@ -76,11 +79,13 @@ networks. Using almost two decades of weekly, county-level infection and mortali
  
 <summary> <b>  Racial Disparities in Sexual Health and the Medicaid Expansion </b> </summary>
 <br>
-  <div align="justify">
+<p>  <div align="justify">
 The prevalence of sexually transmitted diseases (STD) among black pregnant women is at least three times higher than white pregnant women. This project aims to further document racial inequalities in the prevalence of STDs and their consequences for maternal and neonatal health. Next, it attempts to understand the drivers of these inequalities. In particular, the project focuses on the role of health insurance and access to healthcare as causes of STD disparities. To measure the impact of insurance, I take advantage of the expansion of Medicaid eligibility related to the Affordable Care Act, which provided many underprivileged Americans with health insurance. By using a difference-in-differences framework and double robust estimation techniques, I analyze if the subsequent reduction in racial insurance gap
 affected inequalities in the STD prevalence.
 
 </div>
+ </p>
+ 
 </details>
 
 <details>
@@ -88,32 +93,35 @@ affected inequalities in the STD prevalence.
 
 <summary> <b>   The Effects of Prenatal Exposure to Sexually Transmitted Diseases </b> </summary>
 <br>
- <img src="../images/Mortality_gonorrhea.png" align="right" width="400">
+<p> <img src="../images/Mortality_gonorrhea.png" align="right" width="400">
  <div align="justify">
 Sexually transmitted diseases are on the rise. They are particularly harmful among pregnant women as they can cause stillbirth, preterm birth, and infections in newborns. Since the fetus development is at risk, STD in utero can affect a child's long-term outcomes. In this project, I exploit quarterly state variation in the number of Gonorrhea and Chlamydia cases to investigate the disease's impact on adult outcomes.
 
 </div>
 </details>
+ </p>
 
  <details>
   
 
 <summary> <b>  Beware of Fake Friends: Spurious Links and Peer Effects in Networks</b> </summary>
 <br>
-  <img src="../images/true_0.png" align="right" width="400">
+<p>  <img src="../images/true_0.png" align="right" width="400">
  <div align="justify">
 This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé , 2009) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
 </div>
 </details>
+ </p>
 
   <details>
    
 
 <summary> <b>  Spreading New Habits </b> </summary>
 <br>
-   <img src="../images/habit.png" align="right" width="400">
+ <p>  <img src="../images/habit.png" align="right" width="400">
  <div align="justify">
 Various behaviors of economic relevance, such as condom use or hand washing, are subject to habitual practice. This paper takes into account the habit formation to model the spread of new behaviors on networks. It augments traditional models of diffusion by a novel insight: the probability of abandoning a new behavior decreases with the time spent practicing it.  Three main results concerning interventions aiming to diffuse new behaviors stem from the augmented models. Firstly, repeated interventions are more successful at establishing new behaviors that require a long habit formation process. Secondly, there exists a trade-off between the minimum number of initial adopters needed to spread the behavior and intervention duration.  Thirdly, habit formation can introduce non-monotonicities in adoption patterns in time, identifying behaviors prone to habit. 
  
 </div>
+  </p>
 </details>
