@@ -23,7 +23,7 @@ bargaining power on the mothers’ health and birth outcomes.
 </div>
   <br>
  <p align="center">
-<img src="../images/JMP_pic.png" width="80%"> 
+<img src="../images/JMP_pic.png" width="70%"> 
 </p>
 
 
@@ -59,7 +59,7 @@ resorts during the opening had more subsequent cases than weakly connected count
  </div>
  
   <p align="center">
-<img src="../images/Updated_animation.gif" width="80%"> 
+<img src="../images/Updated_animation.gif" width="70%"> 
 </p>
  
   </p>
@@ -79,7 +79,7 @@ networks. Using almost two decades of weekly, county-level infection and mortali
 
   </div>
    <p align="center">
-<img src="../images/net.png" width="80%"> 
+<img src="../images/net.png" width="70%"> 
 </p>
  </p>
  
