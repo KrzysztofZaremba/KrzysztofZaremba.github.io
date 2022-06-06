@@ -12,7 +12,7 @@
   animation-delay: 0.35s;
 
   @include breakpoint($x-large) {
-     @include span(11 of 12 last);
+     @x-large;
   }
 }
 
