@@ -98,8 +98,9 @@ affected inequalities in the STD prevalence.
 Sexually transmitted diseases are on the rise. They are particularly harmful among pregnant women as they can cause stillbirth, preterm birth, and infections in newborns. Since the fetus development is at risk, STD in utero can affect a child's long-term outcomes. In this project, I exploit quarterly state variation in the number of Gonorrhea and Chlamydia cases to investigate the disease's impact on adult outcomes.
 
 </div>
+  </p>
+
 </details>
- </p>
 
  <details>
   
@@ -110,8 +111,9 @@ Sexually transmitted diseases are on the rise. They are particularly harmful amo
  <div align="justify">
 This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé , 2009) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
 </div>
+  </p>
 </details>
- </p>
+
 
   <details>
    
