@@ -22,7 +22,7 @@ I am particularly excited about network data analysis and data visualizations. C
 
 
 <p align="center">
-<img src="/images/Centrality_animated_cc.gif" width="75%"> 
+<img src="/images/Centrality_animated_cc.gif" width="65%"> 
 </p>
 
 <p align="center">
