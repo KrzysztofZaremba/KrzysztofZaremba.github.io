@@ -7,7 +7,7 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Home"
+title                    : "Krzysztof Zaremba"
 title_separator          : "-"
 name                     : &name "Krzysztof Zaremba"
 description              : &description "My personal description about me"
