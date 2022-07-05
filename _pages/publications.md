@@ -67,7 +67,7 @@ resorts during the opening had more subsequent cases than weakly connected count
  
 <details>
 <p>
-<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Who are you sneezing at: Role of networks in spreading the flu</a> </b> </summary>
+<summary> <b>  Who are you sneezing at: Role of networks in spreading the flu </b> </summary>
 
  <br>
 
