@@ -15,10 +15,10 @@ Click on an arrow to see the abstract
 <details>
  
 <p>
-  <summary> <b> Effects of Intrahousehold Bargaining Power on the Maternal and Neonatal Health </b> </summary>
+  <summary> <b> Effects of Intrahousehold Bargaining Power on Maternal and Neonatal Health </b> </summary>
  <br>
    <div align="justify">
-This paper provides evidence that the distribution of the bargaining power in a relationship shapes pregnancy outcomes. I measure female bargaining power with the availability of potential male partners in the local dating market. To circumvent endogeneity in the sex ratio, I use a novel instrument that leverages the randomness in sex at birth and the persistence of local demographics to isolate exogenous variation in the relative availability of men. Instrumental variables estimation shows that higher female bargaining power leads to fewer out-of-wedlock births, a lower rate of Chlamydia and Hypertension among mothers, and a lower share of infants with APGAR score below seven. These findings point to a significant contribution of the marriage market to racial disparities in pregnancy health, particularly between Black and White mothers. Black women face poor prospects when looking for a partner compared to White women: there is 102 White man per 100 White women but only 89
+This paper provides evidence that the distribution of bargaining power in a relationship shapes pregnancy outcomes. I measure female bargaining power with the availability of potential male partners in the local dating market. To circumvent endogeneity in the sex ratio, I use a novel, strong instrument that leverages the randomness in sex at birth and the persistence of local demographics to isolate exogenous variation in the relative availability of men. Instrumental variables estimation shows that higher female bargaining power leads to fewer out-of-wedlock births, a lower rate of chlamydia and hypertension among mothers, and a lower share of infants with APGAR score below seven. These findings point to a significant contribution of the marriage market to racial disparities in pregnancy health, particularly between Black and White mothers. Black women face poor prospects when looking for a partner compared to White women: there is 102 White man per 100 White women but only 89
 Black men per 100 Black women. According to my estimates, Black women’s disadvantage accounts for 5-10% of the racial gap in maternal and neonatal health. Next, I use a decomposition technique to demonstrate that the racial difference in male availability is mostly policy driven, as incarceration accounts for 45% of the gap. I show with simulations that a counterfactual policy equalizing incarceration rates for non-violent offenses between Black and White people could reduce health disparities by 1-4% through its effect on the female bargaining power.
 </div>
   <br>
@@ -38,7 +38,7 @@ Black men per 100 Black women. According to my estimates, Black women’s disadv
 <details>
  
 <p>
-<summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: impact on mobility, spending, and Covid-19 outcomes</a> <em> (R&R in Health Economics) </em>  </b> </summary>
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: Impact on mobility, spending, and Covid-19 outcomes</a> <em> (R&R at Health Economics) </em>  </b> </summary>
 
  <br>
 
@@ -67,7 +67,8 @@ resorts during the opening had more subsequent cases than weakly connected count
  
 <details>
 <p>
-<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Who are you sneezing at: Role of networks in spreading the flu</a> </b> </summary>
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Contribution of school and commuting networks to spreading
+influenza in Poland</a> </b> </summary>
  <br>
 
 
