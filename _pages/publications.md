@@ -23,7 +23,7 @@ Black men per 100 Black women. According to my estimates, Black women’s disadv
 </div>
   <br>
  <p align="center">
-<img src="../images/Prop_vis_OLS_mother.png" width="60%"> 
+<img src="../images/Prop_vis_ols_mother.png" width="80%"> 
 </p>
 
 
