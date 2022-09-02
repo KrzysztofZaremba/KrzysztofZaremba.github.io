@@ -118,7 +118,7 @@ Sexually transmitted diseases are on the rise. They are particularly harmful amo
 <summary> <b>  Beware of Fake Friends: Spurious Links and Peer Effects in Networks</b> </summary>
 <br>
  <div align="justify">
-This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé , 2009) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
+This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé, [2009]) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
 </div>
   </p>
 </details>
