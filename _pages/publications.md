@@ -59,7 +59,7 @@ resorts during the opening had more subsequent cases than weakly connected count
  </div>
  
   <p align="center">
-<img src="../images/Updated_animation.gif" width="60%"> 
+<img src="../images/Ski_hotels_population.png" width="60%"> 
 </p>
  
   </p>
