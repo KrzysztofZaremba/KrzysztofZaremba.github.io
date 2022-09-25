@@ -3,7 +3,9 @@ main:
   - title: "Research"
     url: /publications/
 
-  - title: "Curriculum Vitae"
+  - title: "Academic Curriculum Vitae"
     url: /cv/
     
+   - title: "Professional Resume"
+    url: /Resume/
 
