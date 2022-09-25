@@ -9,6 +9,8 @@ redirect_from:
 
 {% include base_path %}
 
+<embed src="{{ site.baseurl }}/files/Krzysztof_Zaremba_A_CV.pdf" width="600" height="700" type='application/pdf'>
+
 ### Education
 
 * Ph.D., Economics, Columbia University (2017-2023, expected) 
