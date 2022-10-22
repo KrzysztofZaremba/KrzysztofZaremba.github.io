@@ -15,7 +15,7 @@ Click on an arrow to see the abstract
 <details>
  
 <p>
- <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_JMP.pdf" target="_blank"> Effects of Intrahousehold Bargaining Power on Maternal and Neonatal Health</a> <em> (R&R at Health Economics) </em>  </b> </summary>
+ <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_JMP.pdf" target="_blank"> Effects of Intrahousehold Bargaining Power on Maternal and Neonatal Health</a>  </b> </summary>
  
  <br>
    <div align="justify">
