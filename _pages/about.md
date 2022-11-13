@@ -15,7 +15,7 @@ I am a Ph.D. student in the Department of Economics at Columbia University.  I a
 
 My research interests are <b>health economics</b>,  <b>network economics</b>, <b>family economics</b>, and <b>applied econometrics</b>. I strive to understand how economic incentives change health outcomes through their impact on contact networks and partnership formation. In my job market paper, I study the effects of partnership formation and within-couple bargaining on maternal and neonatal health. 
 
-I am particularly excited about network data analysis and data visualizations. Check out my app monitoring social distancing in Poland (in Polish):  <a href="https://kzaremba.shinyapps.io/Dystansowanie/" target="_blank"> https://kzaremba.shinyapps.io/Dystansowanie/</a>. You can also see an example of visualizations from my work in the animation below.
+I am particularly excited about network data analysis and data visualizations. Visit my <a href="https://kzaremba.shinyapps.io/Dystansowanie/" target="_blank"> app monitoring social distancing in Poland </a>. You can also see an example of visualizations from my work in the animation below.
 
 <br>
 
