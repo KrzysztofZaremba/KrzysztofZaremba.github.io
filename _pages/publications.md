@@ -44,17 +44,7 @@ This paper provides evidence that bargaining power in a relationship shapes preg
 
  <div align="justify">
  
-This paper investigates how the opening of hotels and ski facilities in Poland impacted touristic
-spending, mobility and Covid-19 outcomes. We use administrative data from a government program
-subsidizing travel to show that the policy increased consumption of touristic services in ski resorts. Next,
-leveraging geolocation data from Facebook, we show that ski resorts experienced a significant influx of
-tourists, increasing the number of local users by up to 50%. Furthermore, we show that there was an
-increase in the probability of meetings between pairs of users from distanced locations and pairs of users
-from touristic and non-touristic areas. As the policy impacted travels and gatherings, we then analyze
-its effect on the diffusion of Covid-19. We find a significant association between touristic movements
-and the severity of a major pandemic wave in Poland. In particular, we observe that counties with ski
-facilities experienced more infections after the opening. Moreover, counties strongly connected to the ski
-resorts during the opening had more subsequent cases than weakly connected counties. 
+This paper investigates how reopening hotels and ski facilities in Poland impacted tourism spending, mobility, and COVID-19 outcomes. We used administrative data from a government program that subsidizes travel to show that the policy increased the consumption of tourism services in ski resorts. By leveraging geolocation data from Facebook, we showed that ski resorts experienced a significant influx of tourists, increasing the number of local users by up to 50%. Furthermore, we confirmed an increase in the probability of meetings between pairs of users from distanced locations and users from tourist and non-tourist areas. As the policy impacted travel and gatherings, we then analyzed its effect on the diffusion of COVID-19. We found that counties with ski facilities experienced more infections after the reopening. Moreover, counties strongly connected to the ski resorts during the reopening had more subsequent cases than weakly connected counties. Cost-benefit analysis shows that costs stemming from additional hospitalizations and deaths vastly outweighed the economic benefits of reopening, even in the ski resorts.
   
  </div>
  
