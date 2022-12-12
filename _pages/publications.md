@@ -82,10 +82,8 @@ Epidemics can have devastating health and economic consequences. This paper stud
 <br>
   <div align="justify">
 Being a victim of medical malpractice might have serious consequences for patient's health and should be relevant when choosing a physician.  This project utilizes machine learning techniques to predict which physicians are likely to be disciplined for the malpractice by the
-New York Medical Conduct Board. Predictions are based on a compilation of datasets describing 100 000 physicians
-licensed to practice in NY and include their characteristics, location, employment history, networks, education,
-and disciplinary actions. The goal of is to assign each physician a risk score of committing
-professional misconduct. In the next phase of the project, we will use these scores to understand whether the risk of malpractice drives the choice of the provider and the prices of medical services offered. 
+New York Medical Conduct Board. To build the predictions, we compiled a comprehensive datasets describing 100 000 physicians
+licensed to practice in NY which include their characteristics, location, employment history, networks, education, and disciplinary actions. The goal is to assign each physician a risk score of committing professional misconduct. In the next phase of the project, we will use these scores to understand whether the risk of malpractice drives the choice of the provider and the prices of medical services offered. 
 
 </div>
  </p>
