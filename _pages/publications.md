@@ -78,29 +78,20 @@ Epidemics can have devastating health and economic consequences. This paper stud
 
 <details>
  <p>
-<summary> <b>  Racial Disparities in Sexual Health and the Medicaid Expansion </b> </summary>
+<summary> <b>  Malpractice among New York Physicians </b> </summary>
 <br>
   <div align="justify">
-The prevalence of sexually transmitted diseases (STD) among black pregnant women is at least three times higher than white pregnant women. This project aims to further document racial inequalities in the prevalence of STDs and their consequences for maternal and neonatal health. Next, it attempts to understand the drivers of these inequalities. In particular, the project focuses on the role of health insurance and access to healthcare as causes of STD disparities. To measure the impact of insurance, I take advantage of the expansion of Medicaid eligibility related to the Affordable Care Act, which provided many underprivileged Americans with health insurance. By using a difference-in-differences framework and double robust estimation techniques, I analyze if the subsequent reduction in racial insurance gap
-affected inequalities in the STD prevalence.
+Being a victim of medical malpractice might have serious consequences for patient's health and should be relevant when choosing a physician.  This project utilizes machine learning techniques to predict which physicians are likely to be disciplined for the malpractice by the
+New York Medical Conduct Board. Predictions are based on a compilation of datasets describing 100 000 physicians
+licensed to practice in NY and include their characteristics, location, employment history, networks, education,
+and disciplinary actions. The goal of is to assign each physician a risk score of committing
+professional misconduct. In the next phase of the project, we will use these scores to understand whether the risk of malpractice drives the choice of the provider and the prices of medical services offered. 
 
 </div>
  </p>
  
 </details>
 
-<details>
- 
-<p>
-<summary> <b>   The Effects of Prenatal Exposure to Sexually Transmitted Diseases </b> </summary>
-<br>
- <div align="justify">
-Sexually transmitted diseases are on the rise. They are particularly harmful among pregnant women as they can cause stillbirth, preterm birth, and infections in newborns. Since the fetus development is at risk, STD in utero can affect a child's long-term outcomes. In this project, I exploit quarterly state variation in the number of Gonorrhea and Chlamydia cases to investigate the disease's impact on adult outcomes.
-
-</div>
-  </p>
-
-</details>
 
  <details>
   
