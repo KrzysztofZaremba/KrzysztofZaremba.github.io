@@ -38,7 +38,7 @@ This paper provides evidence that bargaining power in a relationship shapes preg
 <details>
  
 <p>
-<summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: Impact on mobility, spending, and Covid-19 outcomes</a> <em> (Forthcoming in Health Economics) </em>  </b> </summary>
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: Impact on mobility, spending, and Covid-19 outcomes</a> </b> <em> Health Economics, 2023. </em>   </summary>
 
  <br>
 
