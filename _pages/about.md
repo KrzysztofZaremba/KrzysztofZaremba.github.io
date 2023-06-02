@@ -11,10 +11,7 @@ redirect_from:
 
 <br>
 
-I recently completed my Ph.D. in economics from Columbia University, and this fall, I will be joining the Business School at Instituto Tecnológico Autónomo de México as an assistant professor. 
-
-My main research fields are <b>health economics</b>,  <b>network economics</b>, and <b>family economics</b>.
-
+I am an economicst doing research in <b>health economics</b>,  <b>network economics</b>, and <b>family economics</b>. I recently completed my Ph.D. in economics at Columbia University. This fall, I will be joining the Business School at Instituto Tecnológico Autónomo de México (ITAM) as an assistant professor. 
 
 <br>
 
