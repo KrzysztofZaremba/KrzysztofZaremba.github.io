@@ -11,7 +11,7 @@ redirect_from:
 
 <br>
 
-I am an economicst doing research in <b>health economics</b>,  <b>network economics</b>, and <b>family economics</b>. I recently completed my Ph.D. in economics at Columbia University. This fall, I will be joining the Business School at Instituto Tecnológico Autónomo de México (ITAM) as an assistant professor. 
+I am an economicst doing research in <b>health economics</b>,  <b>network economics</b>, and <b>family economics</b>. I recently completed my Ph.D. in economics at Columbia University and I joined the Business School at Instituto Tecnológico Autónomo de México (ITAM) as an assistant professor. 
 
 <br>
 
