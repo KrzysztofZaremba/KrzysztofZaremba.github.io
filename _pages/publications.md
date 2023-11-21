@@ -8,9 +8,7 @@ classes: wide
 
 Click on an arrow to see the abstract
 
-## Job Market Paper 
-
-<section>
+## Working Papers
 
 <details>
  
@@ -30,10 +28,47 @@ This paper provides evidence that bargaining power in a relationship shapes preg
  </p>
 </details>
 
-</section>
+<details>
+ 
+<p>
+ <summary> <b> <a href="https://www.dropbox.com/scl/fi/ap94oo700i984azgnbn93/infection_DZ_1015.pdf?rlkey=u2ye1rlw03h57ihrm35vxzvjw&dl=0" target="_blank"> Household Penalty</a>  </b> </summary> with Xinming Du
+ 
+ <br>
+   <div align="justify">
+We investigate an underexplored driver of gender income disparity: the influence of spousal health shocks on labor supply outcomes. Our study proposes that, among working couples, caregiving norms may result in a disproportionate burden on women’s health and labor supply when their male partners experience health issues. This hypothesis is tested using two distinct datasets from diverse contexts: insurance claims data from the United States and a labor survey from Mexico. Employing a difference-in-difference design in the U.S. insurance claims data, we find that spousal health shocks lead to a 1.2 percent higher probability of infection for male household members and a 2.2 percent higher probability for female household members, highlighting gender disparities in health outcomes. In the Mexican labor survey, we leverage the longitudinal framework and discover that following a male partner’s health shock, women are 11 percentage points more likely to report illness and experience a 4.6-hour reduction in labor supply, surpassing the effects observed when women themselves are the ones facing illness, which leads to a 3.8 percentage point increase and a 3-hour reduction in male labor supply. Moreover, our findings align with the predictions of our model, elucidating that household specialization partly drives the divergent impacts. Specifically, as the share of female income within households rises, the penalty on female labor supply diminishes, while the corresponding penalty for males amplifies. These results underscore the role of healthcare and social security policies in perpetuating gender disparities in labor supply outcomes.
+</div>
+  <br>
+ <p align="center">
+<img src="../images/Prop_vis_ols_mother.png" width="90%"> 
+</p>
 
 
-## Working Papers
+ </p>
+</details>
+
+
+
+
+<details>
+<p>
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Contribution of school and commuting networks to spreading
+influenza in Poland</a> </b> </summary>
+ <br>
+
+
+ <div align="justify">
+
+Epidemics can have devastating health and economic consequences. This paper studies the diffusion of influenza-like illnesses (ILI) through social and economic networks. Using almost two decades of weekly, county-level infection and mortality data from Poland, it studies within and across-counties ILI transmission. Firstly, it evaluates the causal effect of school closures on viral transmission. The results show that closing schools for two weeks decreases the number of within county cases by 30-40%. The decline in infections extends to elderly and pre-school children. In addition, flu-related hospitalizations drop by 7.5%, and mortality related to respiratory diseases among the elderly drops by 3%. Secondly, the paper demonstrates the significant contribution of economic links to diffusion across counties. The disease follows the paths of workers commuting between home and workplace. Together with the structure of the labor mobility networks, these results highlight the central role of regional capitals in sustaining and spreading the virus.
+
+  </div>
+   <p align="center">
+<img src="../images/net.png" width="60%"> 
+</p>
+ </p>
+ 
+</details>
+
+## Published Papers
 
 <details>
  
@@ -54,26 +89,7 @@ This paper investigates how reopening hotels and ski facilities in Poland impact
  
   </p>
 </details>
- 
-<details>
-<p>
-<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Contribution of school and commuting networks to spreading
-influenza in Poland</a> </b> </summary>
- <br>
 
-
- <div align="justify">
-
-Epidemics can have devastating health and economic consequences. This paper studies the diffusion of influenza-like illnesses (ILI) through social and economic networks. Using almost two decades of weekly, county-level infection and mortality data from Poland, it studies within and across-counties ILI transmission. Firstly, it evaluates the causal effect of school closures on viral transmission. The results show that closing schools for two weeks decreases the number of within county cases by 30-40%. The decline in infections extends to elderly and pre-school children. In addition, flu-related hospitalizations drop by 7.5%, and mortality related to respiratory diseases among the elderly drops by 3%. Secondly, the paper demonstrates the significant contribution of economic links to diffusion across counties. The disease follows the paths of workers commuting between home and workplace. Together with the structure of the labor mobility networks, these results highlight the central role of regional capitals in sustaining and spreading the virus.
-
-  </div>
-   <p align="center">
-<img src="../images/net.png" width="60%"> 
-</p>
- </p>
- 
-</details>
- 
 ## Work in Progress
 
 <details>
