@@ -38,9 +38,7 @@ This paper provides evidence that bargaining power in a relationship shapes preg
 We investigate an underexplored driver of gender income disparity: the influence of spousal health shocks on labor supply outcomes. Our study proposes that, among working couples, caregiving norms may result in a disproportionate burden on women’s health and labor supply when their male partners experience health issues. This hypothesis is tested using two distinct datasets from diverse contexts: insurance claims data from the United States and a labor survey from Mexico. Employing a difference-in-difference design in the U.S. insurance claims data, we find that spousal health shocks lead to a 1.2 percent higher probability of infection for male household members and a 2.2 percent higher probability for female household members, highlighting gender disparities in health outcomes. In the Mexican labor survey, we leverage the longitudinal framework and discover that following a male partner’s health shock, women are 11 percentage points more likely to report illness and experience a 4.6-hour reduction in labor supply, surpassing the effects observed when women themselves are the ones facing illness, which leads to a 3.8 percentage point increase and a 3-hour reduction in male labor supply. Moreover, our findings align with the predictions of our model, elucidating that household specialization partly drives the divergent impacts. Specifically, as the share of female income within households rises, the penalty on female labor supply diminishes, while the corresponding penalty for males amplifies. These results underscore the role of healthcare and social security policies in perpetuating gender disparities in labor supply outcomes.
 </div>
   <br>
- <p align="center">
-<img src="../images/Prop_vis_ols_mother.png" width="90%"> 
-</p>
+
 
 
  </p>
