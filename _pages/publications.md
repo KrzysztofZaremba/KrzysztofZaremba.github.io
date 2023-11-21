@@ -31,7 +31,7 @@ This paper provides evidence that bargaining power in a relationship shapes preg
 <details>
  
 <p>
- <summary> <b> <a href="https://www.dropbox.com/scl/fi/ap94oo700i984azgnbn93/infection_DZ_1015.pdf?rlkey=u2ye1rlw03h57ihrm35vxzvjw&dl=0" target="_blank"> Household Penalty</a>  </b> </summary> with Xinming Du
+ <summary> <b> <a href="https://www.dropbox.com/scl/fi/ap94oo700i984azgnbn93/infection_DZ_1015.pdf?rlkey=u2ye1rlw03h57ihrm35vxzvjw&dl=0" target="_blank"> Household Penalty</a>  </b> with Xinming Du </summary> 
  
  <br>
    <div align="justify">
