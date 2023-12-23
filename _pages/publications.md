@@ -14,7 +14,7 @@ Click on an arrow to see the abstract
 <details>
  
 <p>
-Abstract:
+<summary> Abstract: </summary>
 
  <br>
    <div align="justify">
@@ -33,7 +33,7 @@ This paper provides evidence that bargaining power in a relationship shapes preg
 <details>
  
 <p>
-Abstract:
+<summary> Abstract: </summary>
  <br>
    <div align="justify">
 We investigate an underexplored driver of gender income disparity: the influence of spousal health shocks on labor supply outcomes. Our study proposes that, among working couples, caregiving norms may result in a disproportionate burden on women’s health and labor supply when their male partners experience health issues. This hypothesis is tested using two distinct datasets from diverse contexts: insurance claims data from the United States and a labor survey from Mexico. Employing a difference-in-difference design in the U.S. insurance claims data, we find that spousal health shocks lead to a 1.2 percent higher probability of infection for male household members and a 2.2 percent higher probability for female household members, highlighting gender disparities in health outcomes. In the Mexican labor survey, we leverage the longitudinal framework and discover that following a male partner’s health shock, women are 11 percentage points more likely to report illness and experience a 4.6-hour reduction in labor supply, surpassing the effects observed when women themselves are the ones facing illness, which leads to a 3.8 percentage point increase and a 3-hour reduction in male labor supply. Moreover, our findings align with the predictions of our model, elucidating that household specialization partly drives the divergent impacts. Specifically, as the share of female income within households rises, the penalty on female labor supply diminishes, while the corresponding penalty for males amplifies. These results underscore the role of healthcare and social security policies in perpetuating gender disparities in labor supply outcomes.
@@ -51,7 +51,7 @@ influenza in Poland</a> </b> </summary>
 
 <details>
 <p>
- Abstract:
+<summary> Abstract: </summary>
 
  <br>
 
@@ -76,7 +76,7 @@ Epidemics can have devastating health and economic consequences. This paper stud
 <details>
  
 <p>
- Abstract:
+<summary> Abstract: </summary>
  <br>
 
  <div align="justify">
@@ -97,7 +97,7 @@ This paper investigates how reopening hotels and ski facilities in Poland impact
 <summary> <b>  Malpractice among New York Physicians </b> </summary>
 <details>
  <p>
-    Abstract:
+<summary> Abstract: </summary>
 <br>
   <div align="justify">
 Being a victim of medical malpractice might have serious consequences for patient's health and should be relevant when choosing a physician.  This project utilizes machine learning techniques to predict which physicians are likely to be disciplined for the malpractice by the
@@ -114,7 +114,7 @@ licensed to practice in NY which include their characteristics, location, employ
  <details>
   
 <p>
-   Abstract:
+<summary> Abstract: </summary>
 <br>
  <div align="justify">
 This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé, [2009]) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
@@ -127,7 +127,7 @@ This paper discusses the robustness of the widely used IV method of estimating p
   <details>
    
  <p> 
-  Abstract:
+<summary> Abstract: </summary>
 <br>
  <div align="justify">
 Various behaviors of economic relevance, such as condom use or hand washing, are subject to habitual practice. This paper takes into account the habit formation to model the spread of new behaviors on networks. It augments traditional models of diffusion by a novel insight: the probability of abandoning a new behavior decreases with the time spent practicing it.  Three main results concerning interventions aiming to diffuse new behaviors stem from the augmented models. Firstly, repeated interventions are more successful at establishing new behaviors that require a long habit formation process. Secondly, there exists a trade-off between the minimum number of initial adopters needed to spread the behavior and intervention duration.  Thirdly, habit formation can introduce non-monotonicities in adoption patterns in time, identifying behaviors prone to habit. 
