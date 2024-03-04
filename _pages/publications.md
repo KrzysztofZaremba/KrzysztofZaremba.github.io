@@ -28,7 +28,7 @@ Click on an arrow to see the abstract
 
  </p>
 </details>
- <summary> <b> <a href="https://www.dropbox.com/scl/fi/ap94oo700i984azgnbn93/infection_DZ_1015.pdf?rlkey=u2ye1rlw03h57ihrm35vxzvjw&dl=0" target="_blank"> Household Penalty</a>  </b> with Xinming Du </summary> 
+ <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Household_penalty_Chicago.pdf" target="_blank"> Household Penalty</a>  </b> with Xinming Du </summary> 
  
 <details>
  
@@ -36,8 +36,7 @@ Click on an arrow to see the abstract
 <summary> Abstract </summary>
  <br>
    <div align="justify">
-Our research examines how spousal health shocks contribute to gender disparity in health and labor outcomes. We utilize data from U.S. insurance claims and a Mexican labor survey to explore the asymmetric burden placed on women when male partners face health issues. In the US, we apply a difference-in-difference approach, revealing that partners' infection increases own infection probabilities by 1.2 pp (percentage points) for males and 2.2 pp for females in the household. Leveraging the longitudinal nature of the Mexican data, we show that women's labor supply decreases by 4.6 hours following their male partner's health shock, with an 11 pp higher probability of their own illness. This effect surpasses a 3-hour labor reduction and a 3.8 pp rise in illness probability for men when their female partner is ill. Our findings suggest household specialization as a key factor: as women's income share increases, their penalty decreases, while men's penalty increases. This highlights the significant role of informal caregiving in reinforcing health and labor market gender disparities.
-
+This paper examines how spousal health shocks affect gender disparity in health and labor outcomes. We define “household penalty” as the burden on family members resulting from other members’ health issues. Using insurance claims in the US, a difference-in-difference analysis shows partners’ infection increases their own infection probabilities by 1.2 pp (percentage points) for males and 2.2 pp for females. Mexican labor surveys show women’s labor supply decreases by 4.6 hours after their partner’s health shock, while men experience a 3-hour reduction. The mechanism lies in household specialization: as women’s income share increases, their penalty decreases, while men’s penalty increases.
 </div>
   <br>
 
