@@ -18,7 +18,7 @@ Click on an arrow to see the abstract
 
  <br>
    <div align="justify">
-		This paper establishes the first causal link between relationship bargaining power and US pregnancy outcomes. I introduce a novel instrument based on randomness in sex at birth to address endogeneity in the availability of adult male partners, which proxies for female bargaining power. Higher female bargaining power causes fewer out-of-wedlock births, reduces chlamydia and hypertension in mothers, and lowers the incidence of low APGAR score in newborns. Connecting this to racial health disparities, Black women's limited partner prospects contribute to 5-10\% of the racial health gap. Eliminating racial disparities in incarceration would prevent 200-700 adverse outcomes annually among Black mothers.
+		This paper establishes the first causal link between relationship bargaining power and US pregnancy outcomes. I introduce a novel instrument based on randomness in sex at birth to address endogeneity in the availability of adult male partners, which proxies for female bargaining power. Higher female bargaining power causes fewer out-of-wedlock births, reduces chlamydia and hypertension in mothers, and lowers the incidence of low APGAR score in newborns. Connecting this to racial health disparities, Black women's limited partner prospects contribute to 5-10% of the racial health gap. Eliminating racial disparities in incarceration would prevent 200-700 adverse outcomes annually among Black mothers.
 </div>
   <br>
  <p align="center">
