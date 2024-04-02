@@ -46,8 +46,7 @@ This paper examines how spousal health shocks affect gender disparity in health 
 </details>
 
 
-<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> Contribution of school and commuting networks to spreading
-influenza in Poland</a> </b> </summary>
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> School Closures and Respiratory Infections Transmission and Mortality: Evidence from School Holidays in Poland</a> </b> </summary>
 
 <details>
 <p>
@@ -93,45 +92,13 @@ This paper investigates how reopening hotels and ski facilities in Poland impact
 </details>
 
 ## Work in Progress
-
-<summary> <b>  Malpractice among New York Physicians </b> </summary>
-<details>
- <p>
-<summary> Abstract</summary>
-<br>
-  <div align="justify">
-Being a victim of medical malpractice might have serious consequences for patient's health and should be relevant when choosing a physician.  This project utilizes machine learning techniques to predict which physicians are likely to be disciplined for the malpractice by the
-New York Medical Conduct Board. To build the predictions, we compiled a comprehensive datasets describing 100 000 physicians
-licensed to practice in NY which include their characteristics, location, employment history, networks, education, and disciplinary actions. The goal is to assign each physician a risk score of committing professional misconduct. In the next phase of the project, we will use these scores to understand whether the risk of malpractice drives the choice of the provider and the prices of medical services offered. 
-
-</div>
- </p>
- 
-</details>
-
-<summary> <b>  Beware of Fake Friends: Spurious Links and Peer Effects in Networks</b> </summary>
-
- <details>
-  
 <p>
-<summary> Abstract </summary>
-<br>
- <div align="justify">
-This paper discusses the robustness of the widely used IV method of estimating peer effects (from Bramoullé, [2009]) to spurious links. Spurious links are "false positive" connections which do not exist in reality, but are observed by a researcher. I show that this estimator is inconsistent when spurious links are present and it can indicate significant peer effects even if there are none. Next I suggest an unbiased test for the existence of peer effects and show its performance in simulations. 
-</div>
-  </p>
-</details>
+<b>  Intergenerational Health Consequences of Air Pollution </b> with Xinming Du 
+<p>
+</p>
+<b>  Beware of Fake Friends: Spurious Links and Peer Effects in Networks</b>
+</p>
+<p>
+ <b>  Prescription Drug Subsidies: Effects on Drugs’ Consumption, Health Outcomes, and Financial Well-Being </b> with Gosia Majewska 
+</p>
 
-<summary> <b>  Spreading New Habits </b> </summary>
-
-  <details>
-   
- <p> 
-<summary> Abstract </summary>
-<br>
- <div align="justify">
-Various behaviors of economic relevance, such as condom use or hand washing, are subject to habitual practice. This paper takes into account the habit formation to model the spread of new behaviors on networks. It augments traditional models of diffusion by a novel insight: the probability of abandoning a new behavior decreases with the time spent practicing it.  Three main results concerning interventions aiming to diffuse new behaviors stem from the augmented models. Firstly, repeated interventions are more successful at establishing new behaviors that require a long habit formation process. Secondly, there exists a trade-off between the minimum number of initial adopters needed to spread the behavior and intervention duration.  Thirdly, habit formation can introduce non-monotonicities in adoption patterns in time, identifying behaviors prone to habit. 
- 
-</div>
-  </p>
-</details>
