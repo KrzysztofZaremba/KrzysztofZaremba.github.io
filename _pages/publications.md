@@ -46,7 +46,7 @@ This paper examines how spousal health shocks affect gender disparity in health 
 </details>
 
 
-<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> School Closures and Respiratory Infections Transmission and Mortality: Evidence from School Holidays in Poland</a> </b> R&R American Journal of Epidemiology</summary>
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> School Closures and Respiratory Infections Transmission and Mortality: Evidence from School Holidays in Poland</a> </b> <em> R&R American Journal of Epidemiology </em> </summary>
 
 <details>
 <p>
