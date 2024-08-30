@@ -9,7 +9,8 @@ classes: wide
 Click on an arrow to see the abstract
 
 ## Working Papers
- <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_JMP.pdf" target="_blank"> Effects of Intrahousehold Bargaining Power on Maternal and Neonatal Health</a>  </b> </summary>
+ <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_JMP.pdf" target="_blank"> The Role of Dating Markets in Shaping Maternal and Neonatal
+Health: Evidence from Sex Ratios at Birth</a>  </b> </summary>
  
 <details>
  
@@ -18,7 +19,7 @@ Click on an arrow to see the abstract
 
  <br>
    <div align="justify">
-		This paper establishes the first causal link between relationship bargaining power and US pregnancy outcomes. I introduce a novel instrument based on randomness in sex at birth to address endogeneity in the availability of adult male partners, which proxies for female bargaining power. Higher female bargaining power causes fewer out-of-wedlock births, reduces chlamydia and hypertension in mothers, and lowers the incidence of low APGAR score in newborns. Connecting this to racial health disparities, Black women's limited partner prospects contribute to 5-10% of the racial health gap. Eliminating racial disparities in incarceration would prevent 200-700 adverse outcomes annually among Black mothers.
+		This paper provides the first causal evidence on how the strength of women’s position in the dating market influences maternal and neonatal health outcomes. I proxy the strength of women’s position by the availability of adult male partners. I introduce a novel instrument based on randomness in sex at birth to address the endogeneity of this variable. A stronger female position in the dating market leads to a reduction in out-of-wedlock births, lowers rates of chlamydia and hypertension in mothers, and decreases the incidence of low APGAR scores in newborns. Connecting this to racial health disparities, Black women’s limited partner prospects contribute to 5-10% of the racial health gap. Eliminating racial disparities in incarceration would prevent 200-700 adverse outcomes annually among Black mothers.
 </div>
   <br>
  <p align="center">
@@ -57,11 +58,11 @@ This paper examines how spousal health shocks affect gender disparity in health 
 
  <div align="justify">
 
-Epidemics can have devastating health and economic consequences. This paper studies the diffusion of influenza-like illnesses (ILI) through social and economic networks. Using almost two decades of weekly, county-level infection and mortality data from Poland, it studies within and across-counties ILI transmission. Firstly, it evaluates the causal effect of school closures on viral transmission. The results show that closing schools for two weeks decreases the number of within county cases by 30-40%. The decline in infections extends to elderly and pre-school children. In addition, flu-related hospitalizations drop by 7.5%, and mortality related to respiratory diseases among the elderly drops by 3%. Secondly, the paper demonstrates the significant contribution of economic links to diffusion across counties. The disease follows the paths of workers commuting between home and workplace. Together with the structure of the labor mobility networks, these results highlight the central role of regional capitals in sustaining and spreading the virus.
+This study examines the impact of temporary school closures on influenza transmission and respiratory mortality, leveraging a natural experiment from winter break timings in Polish schools. Analyzing 12 years of ILI (Influenza-Like Illness) data and two decades of respiratory death records, findings indicate significant reductions in ILI incidence post-closures: 75% among schoolaged children, 55% in adults, 52% in pre-school children, and 41% in the elderly. Notably, a 7% decrease in respiratory mortality was observed among the elderly, highlighting school closures as an effective public health intervention for reducing influenza spread and mortality among high-risk groups.
 
   </div>
    <p align="center">
-<img src="../images/net.png" width="60%"> 
+<img src="../images/Infections_by_ferie_week_school_kids_first_vs_last.png" width="60%"> 
 </p>
  </p>
  
