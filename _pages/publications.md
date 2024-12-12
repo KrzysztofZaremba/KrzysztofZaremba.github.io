@@ -47,7 +47,11 @@ This paper examines how spousal health shocks affect gender disparity in health 
 </details>
 
 
-<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> School Closures and Respiratory Infections Transmission and Mortality: Evidence from School Holidays in Poland</a> </b> <em> Forthcoming at American Journal of Epidemiology </em> </summary>
+
+
+## Published Papers
+
+<summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_Flu.pdf" target="_blank"> School Closures and Respiratory Infections Transmission and Mortality: Evidence from School Holidays in Poland</a> </b> <em> American Journal of Epidemiology, 2024 </em> </summary>
 
 <details>
 <p>
@@ -67,8 +71,6 @@ This study examines the impact of temporary school closures on influenza transmi
  </p>
  
 </details>
-
-## Published Papers
 
 <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Hotels_Opening_KZ.pdf" target="_blank"> Opening of hotels and ski facilities: Impact on mobility, spending, and Covid-19 outcomes</a> </b> <em> Health Economics, 2023. </em>   </summary>
 
