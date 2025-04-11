@@ -10,7 +10,7 @@ Click on an arrow to see the abstract
 
 ## Working Papers
 
- <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Majewska_Zaremba.pdf.pdf" target="_blank"> Universal Subsidies in Pharmaceutical Markets: Lessons from Poland’s Drugs 75+ Policy</a>  </b> with Gosia Majewska </summary> 
+ <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Majewska_Zaremba.pdf" target="_blank"> Universal Subsidies in Pharmaceutical Markets: Lessons from Poland’s Drugs 75+ Policy</a>  </b> with Gosia Majewska </summary> 
  
 <details>
  
