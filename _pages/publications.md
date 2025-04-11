@@ -23,7 +23,7 @@ Widely used public policies fully subsidizing essential goods and services aim t
   <br>
 
  <p align="center">
-<img src="../images/raw_avg_price_trt.png" width="90%"> 
+<img src="../images/raw_avg_price_trt.png" width="70%"> 
 </p>
 
  </p>
@@ -42,7 +42,7 @@ While economic and health dynamics across generations have been well studied, th
   <br>
 
  <p align="center">
-<img src="../images/Mexico_City_Lead.png" width="90%"> 
+<img src="../images/Mexico_City_Lead.png" width="70%"> 
 </p>
 
  </p>
