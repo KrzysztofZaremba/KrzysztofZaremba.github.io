@@ -9,6 +9,47 @@ classes: wide
 Click on an arrow to see the abstract
 
 ## Working Papers
+
+ <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Majewska_Zaremba.pdf.pdf" target="_blank"> {Universal Subsidies in Pharmaceutical Markets: Lessons from Poland’s Drugs 75+ Policy</a>  </b> with Gosia Majewska </summary> 
+ 
+<details>
+ 
+<p>
+<summary> Abstract </summary>
+ <br>
+   <div align="justify">
+Widely used public policies fully subsidizing essential goods and services aim to improve access, but removing price signals may also produce distortions. We investigate this problem by leveraging Poland’s Drugs 75+ program, which provides free prescription medications to individuals aged 75 and older, as a natural experiment. Using a difference-in-discontinuities approach, event studies, and detailed administrative and survey data, we draw three main conclusions. First, the program reduced out-of-pocket medication expenditures for seniors, substantially alleviating the risk of catastrophic health costs. Second, it improved access: medication consumption increased, particularly for higher-cost products, to some extent displacing cheaper alternatives. Third, the shift in consumption patterns increased public payer costs per dose of treatment. These findings highlight the challenges of subsidy programs that eliminate price signals, as they can alter demand in ways that improve access but undermine cost-effectiveness.
+</div>
+  <br>
+
+ <p align="center">
+<img src="../images/raw_avg_price_trt.png" width="90%"> 
+</p>
+
+ </p>
+</details>
+
+ <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Inter_generational_health_d.pdf" target="_blank"> Lead Effects Through Generations</a>  </b> with Xinming Du </summary> 
+ 
+<details>
+ 
+<p>
+<summary> Abstract </summary>
+ <br>
+   <div align="justify">
+While economic and health dynamics across generations have been well studied, the role of environmental factors in driving intergenerational persistence remains underexplored. This paper examines the first- and second-generation effects of leadborne pollution on health and fertility outcomes. We exploit the phase-out of leaded gasoline in Mexico in the 1990s, which led to a sharp decline in air lead pollution. Using a shift-share design to identify variation in prenatal lead exposure, we find that a full reduction in lead exposure results in a 1.97 per thousand reduction in fetal deaths, a 0.53 per thousand increase in birth rates, and a 3.33 per thousand decrease in infant mortality. Female children exposed to higher in-utero lead levels are more likely to give birth earlier and less likely to migrate.  In the second generation, the effects of in utero exposure vary by local socioeconomic conditions: in better-off municipalities,  long-term effects are null, whereas in marginalized municipalities,  children of exposed mothers experience significantly lower birth weights and elevated rates of preterm birth. These findings highlight how structural disadvantage mediates the intergenerational transmission of environmental shocks.
+</div>
+  <br>
+
+ <p align="center">
+<img src="../images/Mexico_City_Lead.png" width="90%"> 
+</p>
+
+ </p>
+</details>
+
+
+
  <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_JMP.pdf" target="_blank"> The Role of Dating Markets in Shaping Maternal and Neonatal
 Health: Evidence from Sex Ratios at Birth</a>  </b> </summary>
  
@@ -29,7 +70,9 @@ Health: Evidence from Sex Ratios at Birth</a>  </b> </summary>
 
  </p>
 </details>
- <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Household_penalty_Chicago.pdf" target="_blank"> Household Penalty</a>  </b> with Xinming Du </summary> 
+ <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Household_penalty_Chicago.pdf" target="_blank"> Household Penalty:
+Gendered Costs of Spousal Infectious Diseases on
+Labor and Health</a>  </b> with Xinming Du </summary> 
  
 <details>
  
@@ -37,7 +80,7 @@ Health: Evidence from Sex Ratios at Birth</a>  </b> </summary>
 <summary> Abstract </summary>
  <br>
    <div align="justify">
-This paper examines how spousal health shocks affect gender disparity in health and labor outcomes. We define “household penalty” as the burden on family members resulting from other members’ health issues. Using insurance claims in the US, a difference-in-difference analysis shows partners’ infection increases their own infection probabilities by 1.2 pp (percentage points) for males and 2.2 pp for females. Mexican labor surveys show women’s labor supply decreases by 4.6 hours after their partner’s health shock, while men experience a 3-hour reduction. The mechanism lies in household specialization: as women’s income share increases, their penalty decreases, while men’s penalty increases.
+This paper examines the gendered impact of spousal health shocks on labor and health outcomes. Using Mexican labor surveys and a difference-in-differences approach, we find women’s labor supply decreases by 15% after a partner’s health shock, compared to a 10% reduction for men. A significant part of this is driven by women’s higher probability of household infection. Analysis of U.S. insurance claims shows a partner’s infection increases infection risk by 1.2 percentage points for men and 2.2 for women. Household specialization underpins these effects: as women’s income share rises, their penalty decreases while men’s increases.
 </div>
   <br>
 
@@ -96,12 +139,7 @@ This paper investigates how reopening hotels and ski facilities in Poland impact
 
 ## Work in Progress
 <p>
-<b>  Intergenerational Health Consequences of Air Pollution </b> with Xinming Du 
-<p>
-</p>
 <b>  Beware of Fake Friends: Spurious Links and Peer Effects in Networks</b>
 </p>
-<p>
- <b>  Prescription Drug Subsidies: Effects on Drugs’ Consumption, Health Outcomes, and Financial Well-Being </b> with Gosia Majewska 
-</p>
+
 
