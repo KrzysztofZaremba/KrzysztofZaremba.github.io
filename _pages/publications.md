@@ -29,7 +29,7 @@ Widely used public policies fully subsidizing essential goods and services aim t
  </p>
 </details>
 
- <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Inter_generational_health_d.pdf" target="_blank"> Lead Effects Through Generations</a>  </b> with Xinming Du </summary> 
+ <summary> <b> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank"> Lead Effects Through Generations</a>  </b> with Xinming Du </summary> 
  
 <details>
  
@@ -50,11 +50,11 @@ While economic and health dynamics across generations have been well studied, th
 
 
 
- <summary> <b> <a href="https://krzysztofzaremba.github.io/files/KZ_JMP.pdf" target="_blank"> The Role of Dating Markets in Shaping Maternal and Neonatal
+ <summary> <b> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5218496" target="_blank"> The Role of Dating Markets in Shaping Maternal and Neonatal
 Health: Evidence from Sex Ratios at Birth</a>  </b> </summary>
  
 <details>
- 
+
 <p>
 <summary> Abstract </summary>
 
