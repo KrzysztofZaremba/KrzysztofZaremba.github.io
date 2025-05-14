@@ -72,7 +72,7 @@ Health: Evidence from Sex Ratios at Birth</a>  </b> </summary>
 </details>
  <summary> <b> <a href="https://krzysztofzaremba.github.io/files/Household_penalty_Chicago.pdf" target="_blank"> Household Penalty:
 Gendered Costs of Spousal Infectious Diseases on
-Labor and Health</a>  </b> with Xinming Du </summary> 
+Labor and Health</a>  </b> with Xinming Du (R&R in the Economic Development and Cultural Change) </summary> 
  
 <details>
  
