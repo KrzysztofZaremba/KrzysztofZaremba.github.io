@@ -18,7 +18,7 @@ Click on an arrow to see the abstract
 <summary> Abstract </summary>
  <br>
    <div align="justify">
-Widely used public policies fully subsidizing essential goods and services aim to improve access, but removing price signals may also produce distortions. We investigate this problem by leveraging Poland’s Drugs 75+ program, which provides free prescription medications to individuals aged 75 and older, as a natural experiment. Using a difference-in-discontinuities approach, event studies, and detailed administrative and survey data, we draw three main conclusions. First, the program reduced out-of-pocket medication expenditures for seniors, substantially alleviating the risk of catastrophic health costs. Second, it improved access: medication consumption increased, particularly for higher-cost products, to some extent displacing cheaper alternatives. Third, the shift in consumption patterns increased public payer costs per dose of treatment. These findings highlight the challenges of subsidy programs that eliminate price signals, as they can alter demand in ways that improve access but undermine cost-effectiveness.
+Widely used public policies fully subsidizing essential goods and services aim to improve access, but removing price signals may also produce distortions. We investigate this problem by leveraging Poland’s Free Drugs for Seniors program, which provides free prescription medications to individuals above an age threshold, as a natural experiment. Using event studies, detailed administrative and survey data, we draw two main conclusions. First, the program improved access: medication consumption increased, particularly for higher-cost products, to some extent displacing cheaper alternatives. Second, the shift in consumption patterns increased public payer costs per dose of treatment. These findings highlight the challenges of subsidy programs that eliminate price signals, as they can alter demand in ways that improve access but undermine cost-effectiveness.
 </div>
   <br>
 
@@ -28,6 +28,27 @@ Widely used public policies fully subsidizing essential goods and services aim t
 
  </p>
 </details>
+
+ <summary> <b> <a href="https://krzysztofzaremba.github.io/files/budgets.pdf" target="_blank"> The Financial and Behavioral Effects of Free Prescription Drugs: Evidence from a Policy Discontinuity in Poland</a>  </b> with Gosia Majewska </summary>  (R&R at Health Economics) 
+ 
+<details>
+ 
+<p>
+<summary> Abstract </summary>
+ <br>
+   <div align="justify">
+We provide causal evidence on the financial consequences and moral hazard effects of a universal prescription drug subsidy for seniors—a policy widely implemented in many countries. Our analysis leverages Poland’s introduction of such a subsidy, which fully eliminated out-of-pocket costs for selected medications at age 75. Exploiting the sharp age eligibility threshold and policy timing, we apply a difference-in-discontinuities design to detailed household expenditure data. We find substantial reductions in medication spending and a 62\% decrease in catastrophic drug expenditures, indicative of a strong insurance effect. However, these financial gains disproportionately accrued to wealthier households, raising distributional concerns. We also document increased household spending on alcohol and cigarettes, consistent with ex ante moral hazard. These findings demonstrate that while universal drug subsidies effectively reduce financial risk among older adults, they may also induce unintended behavioral responses and amplify existing inequities.
+</div>
+  <br>
+
+ <p align="center">
+<img src="../images/Post_policy_exp.png" width="70%"> 
+</p>
+
+ </p>
+</details>
+
+
 
  <summary> <b> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank"> Lead Effects Through Generations</a>  </b> with Xinming Du (Reject & Resubmit at the Journal of Public Economics) </summary> 
  
