@@ -48,8 +48,6 @@ We provide causal evidence on the financial consequences and moral hazard effect
  </p>
 </details>
 
-
-
  <summary> <b> <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank"> Lead Effects Through Generations</a>  </b> with Xinming Du (Reject & Resubmit at the Journal of Public Economics) </summary> 
  
 <details>
