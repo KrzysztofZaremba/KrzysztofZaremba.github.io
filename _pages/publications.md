@@ -30,9 +30,7 @@ Widely used public policies fully subsidizing essential goods and services aim t
 </details>
 
  <summary> <b> <a href="https://krzysztofzaremba.github.io/files/budgets.pdf" target="_blank"> The Financial and Behavioral Effects of Free Prescription Drugs: Evidence from a Policy Discontinuity in Poland</a>  </b> with Gosia Majewska </summary>  (R&R at Health Economics) 
- 
 <details>
- 
 <p>
 <summary> Abstract </summary>
  <br>
