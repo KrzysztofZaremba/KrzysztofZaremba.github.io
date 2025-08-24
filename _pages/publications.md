@@ -73,7 +73,7 @@ classes: wide
     <a href="https://krzysztofzaremba.github.io/files/budgets.pdf" target="_blank">
       The Financial and Behavioral Effects of Free Prescription Drugs: Evidence from a Policy Discontinuity in Poland
     </a>
-    <span class="badge badge-rr">R&R at Health Economics</span>
+    <span class="badge badge-rr">Revise & Resubmit at Health Economics</span>
   </h3>
   <p><em>with Gosia Majewska</em></p>
   <details>
@@ -94,7 +94,7 @@ classes: wide
     <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank">
       Lead Effects Through Generations
     </a>
-    <span class="badge badge-rr">R&R at Journal of Public Economics</span>
+    <span class="badge badge-rr">Reject & Resubmit at Journal of Public Economics</span>
   </h3>
   <p><em>with Xinming Du</em></p>
   <details>
@@ -115,7 +115,7 @@ classes: wide
     <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5218496" target="_blank">
       The Role of Dating Markets in Shaping Maternal and Neonatal Health: Evidence from Sex Ratios at Birth
     </a>
-    <span class="badge badge-rr">R&R at Journal of Public Economics</span>
+    <span class="badge badge-rr">Reject & Resubmit at Journal of Public Economics</span>
   </h3>
   <details>
     <summary><em>Click to view abstract & figure</em></summary>
@@ -135,7 +135,7 @@ classes: wide
     <a href="https://krzysztofzaremba.github.io/files/Household_penalty_Chicago.pdf" target="_blank">
       Household Penalty: Gendered Costs of Spousal Infectious Diseases on Labor and Health
     </a>
-    <span class="badge badge-rr">R&R at EDCC</span>
+    <span class="badge badge-rr">Revise & Resubmit at Economic Development & Cultural Change</span>
   </h3>
   <p><em>with Xinming Du</em></p>
   <details>
