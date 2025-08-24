@@ -36,7 +36,7 @@ classes: wide
 }
 
 .paper-image img {
-  max-width: 400px;   
+  max-width: 600px;   
   object-fit: contain;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
