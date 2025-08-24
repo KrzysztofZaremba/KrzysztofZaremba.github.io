@@ -12,7 +12,7 @@ classes: wide
   margin-bottom: 1.2em;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   font-size: 0.9em;
-  max-width: 900px;   /* wider on big screens */
+  max-width: 1400px;   /* wider on big screens */
   margin-left: auto;
   margin-right: auto;
 }
@@ -36,7 +36,7 @@ classes: wide
 }
 
 .paper-image img {
-  max-width: 360px;   
+  max-width: 400px;   
   object-fit: contain;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
