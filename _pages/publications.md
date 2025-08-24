@@ -18,43 +18,29 @@ classes: wide
 }
 
 .paper-flex {
-  display: flex;
-  gap: 1em;
-  align-items: flex-start;
+  display: block;   /* disable flexbox → stack content */
   margin-top: 0.8em;
 }
 
 .abstract {
-  flex: 3;   /* text column takes ~75% */
   font-size: 0.85em;
   text-align: justify;
   line-height: 1.4;
+  margin-bottom: 0.8em; /* space before image */
 }
 
 .paper-image {
-  flex: 1;   /* image column ~25% */
+  text-align: center; /* center figures nicely */
 }
 
 .paper-image img {
-  max-width: 600px;   
-  object-fit: contain;
+  max-width: 600px;   /* set figure size */
+  width: 100%;
+  height: auto;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* 📱 Responsive rule: on screens <= 768px (phones) stack vertically */
-@media (max-width: 768px) {
-  .paper-flex {
-    flex-direction: column;  /* stack instead of side-by-side */
-  }
-  .paper-image {
-    margin-top: 0.8em;
-  }
-  .paper-image img {
-    max-width: 100%;   /* let image expand naturally on phone */
-    max-height: none;
-  }
-}
 </style>
 
 ---
