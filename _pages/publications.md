@@ -4,7 +4,7 @@ permalink: /publications/
 author_profile: true
 classes: wide
 ---
-
+<style>
 .paper-card {
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -55,7 +55,7 @@ classes: wide
     max-height: none;
   }
 }
-
+</style>
 
 ---
 
