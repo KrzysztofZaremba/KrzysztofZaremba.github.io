@@ -50,7 +50,7 @@ details summary {
   flex: 1;
 }
 .paper-image img {
-  max-width: 180px;
+  max-width: 340px;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
