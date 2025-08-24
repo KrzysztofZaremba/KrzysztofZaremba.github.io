@@ -5,7 +5,6 @@ author_profile: true
 classes: wide
 ---
 
-<style>
 .paper-card {
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -13,50 +12,50 @@ classes: wide
   margin-bottom: 1.2em;
   box-shadow: 0 1px 3px rgba(0,0,0,0.06);
   font-size: 0.9em;
+  max-width: 900px;   /* wider on big screens */
+  margin-left: auto;
+  margin-right: auto;
 }
-.paper-card h3 {
-  font-size: 1em;
-  margin-bottom: 0.2em;
-}
-.badge {
-  font-size: 0.7em;
-  padding: 1px 5px;
-  border-radius: 4px;
-  margin-left: 6px;
-  color: #333;
-}
-.badge-wip { background: #ffe599; }
-.badge-pub { background: #b6d7a8; }
-.badge-rr  { background: #ffd966; }
-details summary {
-  cursor: pointer;
-  font-size: 0.85em;
-  margin-top: 0.3em;
-  margin-bottom: 0.5em;
-}
+
 .paper-flex {
   display: flex;
   gap: 1em;
   align-items: flex-start;
   margin-top: 0.8em;
 }
+
 .abstract {
-  flex: 2;
+  flex: 3;   /* text column takes ~75% */
   font-size: 0.85em;
   text-align: justify;
   line-height: 1.4;
 }
+
 .paper-image {
-  flex: 1;
+  flex: 1;   /* image column ~25% */
 }
+
 .paper-image img {
-  max-width: 340px;
+  max-width: 360px;   
+  object-fit: contain;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
-</style>
 
-Welcome! Below you’ll find my research organized into **Working Papers**, **Published Papers**, and **Work in Progress**.  
+/* 📱 Responsive rule: on screens <= 768px (phones) stack vertically */
+@media (max-width: 768px) {
+  .paper-flex {
+    flex-direction: column;  /* stack instead of side-by-side */
+  }
+  .paper-image {
+    margin-top: 0.8em;
+  }
+  .paper-image img {
+    max-width: 100%;   /* let image expand naturally on phone */
+    max-height: none;
+  }
+}
+
 
 ---
 
