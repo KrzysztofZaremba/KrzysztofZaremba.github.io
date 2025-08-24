@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Hello!"
+title: "About me"
 excerpt: "Hello!"
 author_profile: true
 redirect_from: 
@@ -10,7 +10,7 @@ redirect_from:
 
 <style>
 .hero {
-  text-align: center;
+  text-align: left;
   margin-bottom: 2em;
 }
 .hero h1 {
