@@ -80,5 +80,5 @@ redirect_from:
 
 <div class="figure-card">
   <img src="/images/Mexico_LWB.png" alt="Map of Mexico LWB">
-  <p><b>Geographic variation in lead exposure across Mexico</b></p>
+  <p><b>Geographic variation in low birthweight across Mexico</b></p>
 </div>
