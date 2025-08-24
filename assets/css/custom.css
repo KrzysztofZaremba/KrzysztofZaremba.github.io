@@ -1,0 +1,49 @@
+.paper-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0.8em 1em;
+  margin-bottom: 1em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  font-size: 0.9em;
+}
+
+.paper-card h3 {
+  font-size: 1em;
+  margin-bottom: 0.2em;
+}
+
+.badge {
+  font-size: 0.7em;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 6px;
+  color: #333;
+}
+.badge-wip { background: #ffe599; }
+.badge-pub { background: #b6d7a8; }
+.badge-rr  { background: #ffd966; }
+
+.paper-flex {
+  display: flex;
+  gap: 0.8em;
+  align-items: flex-start;
+}
+
+.abstract {
+  flex: 2;
+  font-size: 0.85em;
+  text-align: justify;
+  line-height: 1.4;
+}
+
+.paper-image {
+  flex: 1;
+  text-align: right;
+}
+.paper-image img {
+  width: 100%;
+  max-width: 180px;   /* ✅ smaller */
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
