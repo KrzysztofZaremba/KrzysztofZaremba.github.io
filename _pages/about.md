@@ -66,12 +66,11 @@ redirect_from:
     I am currently Assistant Professor at ITAM Business School in Mexico City.
   </p>
   <div class="buttons">
-    <a href="/files/CV.pdf" target="_blank">📄 CV</a>
+    <a href="/cv/" target="_blank">📄 CV</a>
     <a href="/publications/">📚 Publications</a>
-    <a href="mailto:kzysiek92@gmail.com">✉️ Contact</a>
+    <a href="mailto:zaremba@itam.mx">✉️ Email Contact</a>
   </div>
 </div>
-
 ---
 
 <div class="figure-card">
