@@ -93,7 +93,7 @@ classes: wide
   <h3>
     <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank">
       Lead Effects Through Generations
-    </a>
+    </a>    <span class="badge badge-wip">Working Paper</span>
   </h3>
   <p><em>with Xinming Du</em></p>
   <details>
