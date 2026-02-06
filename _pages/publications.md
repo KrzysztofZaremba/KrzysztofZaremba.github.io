@@ -68,26 +68,7 @@ classes: wide
   </details>
 </div>
 
-<div class="paper-card">
-  <h3>
-    <a href="https://krzysztofzaremba.github.io/files/budgets.pdf" target="_blank">
-      The Financial and Behavioral Effects of Free Prescription Drugs: Evidence from a Policy Discontinuity in Poland
-    </a>
-    <span class="badge badge-rr">Forthcoming at Health Economics</span>
-  </h3>
-  <p><em>with Gosia Majewska</em></p>
-  <details>
-    <summary><em>Click to view abstract & figure</em></summary>
-    <div class="paper-flex">
-      <div class="abstract">
-        We provide causal evidence on the financial consequences and moral hazard effects of a universal prescription drug subsidy for seniors—a policy widely implemented in many countries. Our analysis leverages Poland’s introduction of such a subsidy, which fully eliminated out-of-pocket costs for selected medications at age 75. Exploiting the sharp age eligibility threshold and policy timing, we apply a difference-in-discontinuities design to detailed household expenditure data. We find substantial reductions in medication spending and a 62% decrease in catastrophic drug expenditures, indicative of a strong insurance effect. However, these financial gains disproportionately accrued to wealthier households, raising distributional concerns. We also document increased household spending on alcohol and cigarettes, consistent with ex ante moral hazard. These findings demonstrate that while universal drug subsidies effectively reduce financial risk among older adults, they may also induce unintended behavioral responses and amplify existing inequities.
-      </div>
-      <div class="paper-image">
-        <img src="../images/Post_policy_exp.png">
-      </div>
-    </div>
-  </details>
-</div>
+
 
 <div class="paper-card">
   <h3>
@@ -152,6 +133,28 @@ classes: wide
 ---
 
 ## ✅ Published Papers
+
+<div class="paper-card">
+  <h3>
+    <a href="https://krzysztofzaremba.github.io/files/budgets.pdf" target="_blank">
+      The Financial and Behavioral Effects of Free Prescription Drugs: Evidence from a Policy Discontinuity in Poland
+    </a>
+    <span class="badge badge-rr">Health Economics, Forthcoming </span>
+  </h3>
+  <p><em>with Gosia Majewska</em></p>
+  <details>
+    <summary><em>Click to view abstract & figure</em></summary>
+    <div class="paper-flex">
+      <div class="abstract">
+        We provide causal evidence on the financial consequences and moral hazard effects of a universal prescription drug subsidy for seniors—a policy widely implemented in many countries. Our analysis leverages Poland’s introduction of such a subsidy, which fully eliminated out-of-pocket costs for selected medications at age 75. Exploiting the sharp age eligibility threshold and policy timing, we apply a difference-in-discontinuities design to detailed household expenditure data. We find substantial reductions in medication spending and a 62% decrease in catastrophic drug expenditures, indicative of a strong insurance effect. However, these financial gains disproportionately accrued to wealthier households, raising distributional concerns. We also document increased household spending on alcohol and cigarettes, consistent with ex ante moral hazard. These findings demonstrate that while universal drug subsidies effectively reduce financial risk among older adults, they may also induce unintended behavioral responses and amplify existing inequities.
+      </div>
+      <div class="paper-image">
+        <img src="../images/Post_policy_exp.png">
+      </div>
+    </div>
+  </details>
+</div>
+
 
 <div class="paper-card">
   <h3>
