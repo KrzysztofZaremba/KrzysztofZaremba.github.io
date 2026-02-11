@@ -139,7 +139,7 @@ classes: wide
     <a href="https://krzysztofzaremba.github.io/files/budgets.pdf" target="_blank">
       The Financial and Behavioral Effects of Free Prescription Drugs: Evidence from a Policy Discontinuity in Poland
     </a>
-    <span class="badge badge-rr">Health Economics, Forthcoming </span>
+    <span class="badge badge-rr">Health Economics, 2026 </span>
   </h3>
   <p><em>with Gosia Majewska</em></p>
   <details>
