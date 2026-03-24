@@ -377,6 +377,11 @@ function stp5(){
 function stp6(){
   let h=stepHead(6,'Set the derivative to zero!','At the minimum, moving b slightly in any direction won\u2019t improve SSE. That means the derivative must equal zero.');
   h+='<div class="card" style="margin-top:0;border-top:none;">';
+  h+='<div class="proof-step"><div class="label">Recall: SSE as a function of b</div>';
+  h+='<div class="eq eq-sm">SSE(b) = <span style="color:var(--accent);border-bottom:2px dashed var(--accent);">y<sup>\u22A4</sup>y</span> \u2212 2<span style="color:var(--blue);border-bottom:2px dashed var(--blue);">b<sup>\u22A4</sup>'+XT+'y</span> + <span style="color:var(--orange);border-bottom:2px dashed var(--orange);">b<sup>\u22A4</sup>'+XT+'Xb</span></div>';
+  h+='<div style="text-align:center;font-size:.88rem;margin-top:4px;">';
+  h+='<span style="color:var(--accent);">\u25B2 constant</span> &emsp; <span style="color:var(--blue);">\u25B2 linear in b</span> &emsp; <span style="color:var(--orange);">\u25B2 quadratic in b</span>';
+  h+='</div></div>';
   h+='<div class="proof-step"><div class="label">Matrix derivative rules</div>';
   h+='<div style="font-family:Georgia,serif;font-size:.95rem;">';
   h+='<table style="border-collapse:collapse;margin:0 auto"><tr><td style="padding:4px 12px;border-bottom:1px solid var(--border)">f(b) = c\u1D40b &ensp;(linear)</td><td style="padding:4px 12px;border-bottom:1px solid var(--border)">\u2192 \u2202f/\u2202b = c</td></tr>';
