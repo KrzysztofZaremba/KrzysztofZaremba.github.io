@@ -727,7 +727,6 @@ footer a { color: var(--accent); text-decoration: none; }
     <div class="computation-display" id="s1Computation"></div>
 
     <div class="btn-row">
-      <button class="btn btn-primary" id="btnPlayAll">&#9654; Play All</button>
       <button class="btn btn-secondary" id="btnReset1">Reset</button>
     </div>
 
@@ -904,6 +903,7 @@ let s1Busy = false;
 let s1Filled = [[false,false],[false,false]];
 // Track which cells are in "step 1" (pairs shown, waiting for step 2)
 let s1PendingStep2 = [[false,false],[false,false]];
+let s1PendingStep3 = {};
 
 function initSection1(){
   buildMatrixDOM('matA', A);
@@ -912,6 +912,7 @@ function initSection1(){
   buildMatrixDOM('matC', qm, {clickable:true});
   s1Filled = [[false,false],[false,false]];
   s1PendingStep2 = [[false,false],[false,false]];
+  s1PendingStep3 = {};
   document.getElementById('s1Computation').innerHTML = '';
   document.getElementById('s1Workspace').style.display = 'none';
   document.getElementById('s1Workspace').innerHTML = '';
@@ -921,38 +922,30 @@ function initSection1(){
     cell.addEventListener('click', function(){
       if(s1Busy) return;
       const ri = +this.dataset.r, ci = +this.dataset.c;
-      if(s1PendingStep2[ri][ci]){
-        animateS1Step2(ri, ci);
-      } else if(!s1Filled[ri][ci]){
+      if(!s1Filled[ri][ci] && !s1PendingStep2[ri][ci] && !s1PendingStep3[ri+','+ci]){
         animateS1Step1(ri, ci);
       }
     });
   });
 }
 
-// Step 1: Show pairs
-async function animateS1Step1(ri, ci){
-  if(s1Busy || s1Filled[ri][ci] || s1PendingStep2[ri][ci]) return;
+// Step 1: Show pairs (no auto-advance — waits for click)
+function animateS1Step1(ri, ci){
+  if(s1Busy || s1Filled[ri][ci] || s1PendingStep2[ri][ci] || s1PendingStep3[ri+','+ci]) return;
   s1Busy = true;
 
-  // Clear any previous workspace
   const workspace = document.getElementById('s1Workspace');
   const compDisp = document.getElementById('s1Computation');
   workspace.innerHTML = '';
   compDisp.innerHTML = '';
   clearOverlay('s1Overlay');
 
-  // Clear previous highlights
   document.querySelectorAll('#matA .matrix-cell').forEach(c => c.classList.remove('highlight-row'));
   document.querySelectorAll('#matB .matrix-cell').forEach(c => c.classList.remove('highlight-col'));
 
-  // Highlight row of A
   for(let c=0;c<3;c++) getCell('matA',ri,c).classList.add('highlight-row');
-  // Highlight col of B
   for(let r=0;r<3;r++) getCell('matB',r,ci).classList.add('highlight-col');
-  await sleep(400);
 
-  // Show workspace with pairs
   workspace.style.display = 'block';
   workspace.classList.add('active');
 
@@ -965,33 +958,29 @@ async function animateS1Step1(ri, ci){
     pairsHTML += '</div>';
   }
   pairsHTML += '</div>';
-  pairsHTML += '<div class="workspace-hint">Click the result cell again (or click "Compute") to see the multiplication and sum.</div>';
+  pairsHTML += '<div class="workspace-hint">Numbers paired. Click "Multiply" to compute each product.</div>';
   pairsHTML += '<div style="text-align:center;margin-top:10px;">';
-  pairsHTML += '<button class="btn-next-step" id="btnComputeStep2" data-r="'+ri+'" data-c="'+ci+'">Compute &rarr;</button>';
+  pairsHTML += '<button class="btn-next-step" id="btnMultiply" data-r="'+ri+'" data-c="'+ci+'">Multiply &rarr;</button>';
   pairsHTML += '</div>';
 
   workspace.innerHTML = pairsHTML;
-
-  // Attach event to compute button
-  document.getElementById('btnComputeStep2').addEventListener('click', function(){
-    if(!s1Busy) animateS1Step2(+this.dataset.r, +this.dataset.c);
+  document.getElementById('btnMultiply').addEventListener('click', function(){
+    animateS1Step2(+this.dataset.r, +this.dataset.c);
   });
 
-  compDisp.innerHTML = '<span style="color:var(--text-muted);">Row ' + (ri+1) + ' of A paired with Column ' + (ci+1) + ' of B</span>';
-
+  compDisp.innerHTML = '<span style="color:var(--text-muted);">Row ' + (ri+1) + ' of A &times; Column ' + (ci+1) + ' of B</span>';
   s1PendingStep2[ri][ci] = true;
   s1Busy = false;
 }
 
-// Step 2: Compute and show result
-async function animateS1Step2(ri, ci){
+// Step 2: Show products (waits for click to sum)
+function animateS1Step2(ri, ci){
   if(s1Busy || !s1PendingStep2[ri][ci]) return;
   s1Busy = true;
 
   const workspace = document.getElementById('s1Workspace');
   const compDisp = document.getElementById('s1Computation');
 
-  // Show multiplication results
   const products = [];
   let pairsHTML = '<div class="pair-display">';
   for(let k=0;k<3;k++){
@@ -1006,52 +995,54 @@ async function animateS1Step2(ri, ci){
     pairsHTML += '</div>';
   }
   pairsHTML += '</div>';
+  pairsHTML += '<div class="workspace-hint">Products computed. Click "Sum" to add them up.</div>';
+  pairsHTML += '<div style="text-align:center;margin-top:10px;">';
+  pairsHTML += '<button class="btn-next-step" id="btnSum" data-r="'+ri+'" data-c="'+ci+'">Sum &rarr;</button>';
+  pairsHTML += '</div>';
 
   workspace.innerHTML = pairsHTML;
+  compDisp.innerHTML = products.join(' + ') + ' = ?';
 
-  compDisp.innerHTML = products.join(' + ');
-  await sleep(800);
+  document.getElementById('btnSum').addEventListener('click', function(){
+    animateS1Step3(+this.dataset.r, +this.dataset.c, products);
+  });
 
-  // Show sum
+  s1PendingStep2[ri][ci] = false;
+  s1PendingStep3[ri+','+ci] = true;
+  s1Busy = false;
+}
+
+// Step 3: Sum and fill result cell
+function animateS1Step3(ri, ci, products){
+  if(s1Busy) return;
+  s1Busy = true;
+
+  const workspace = document.getElementById('s1Workspace');
+  const compDisp = document.getElementById('s1Computation');
   const total = products.reduce((a,b)=>a+b,0);
-  const sumHTML = '<div class="sum-line">' + products.join(' + ') + ' = <strong>' + total + '</strong></div>';
+
+  const sumHTML = '<div class="sum-line" style="font-size:1.3em;text-align:center;padding:15px;background:var(--accent-pale);border-radius:8px;margin-top:10px;">' + products.join(' + ') + ' = <strong style="color:var(--accent);font-size:1.3em;">' + total + '</strong></div>';
   workspace.innerHTML += sumHTML;
   compDisp.innerHTML = products.join(' + ') + ' = <strong>' + total + '</strong>';
-  await sleep(600);
 
-  // Fill result cell
   const resultCell = getCell('matC', ri, ci);
   resultCell.textContent = total;
   resultCell.classList.add('result-filled','result-flash');
   resultCell.classList.remove('clickable');
   s1Filled[ri][ci] = true;
-  s1PendingStep2[ri][ci] = false;
+  delete s1PendingStep3[ri+','+ci];
 
-  // Cleanup highlights
   for(let c=0;c<3;c++) getCell('matA',ri,c).classList.remove('highlight-row');
   for(let r=0;r<3;r++) getCell('matB',r,ci).classList.remove('highlight-col');
 
-  await sleep(400);
-  workspace.style.display = 'none';
-  workspace.innerHTML = '';
-  workspace.classList.remove('active');
-  s1Busy = false;
+  setTimeout(function(){
+    workspace.style.display = 'none';
+    workspace.innerHTML = '';
+    workspace.classList.remove('active');
+    s1Busy = false;
+  }, 1500);
 }
 
-async function playAllS1(){
-  if(s1Busy) return;
-  initSection1();
-  await sleep(300);
-  const order = [[0,0],[0,1],[1,0],[1,1]];
-  for(const [r,c] of order){
-    await animateS1Step1(r,c);
-    await sleep(600);
-    await animateS1Step2(r,c);
-    await sleep(500);
-  }
-}
-
-document.getElementById('btnPlayAll').addEventListener('click', playAllS1);
 document.getElementById('btnReset1').addEventListener('click', initSection1);
 initSection1();
 
