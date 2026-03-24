@@ -1354,7 +1354,7 @@ function buildNode(f, topicId, showTopicBadge) {
 
   var formulaHtml = '';
   if(f.formula) {
-    formulaHtml = '<div class="rc-formula"><span class="rc-formula-icon">\u2211</span><div class="rc-formula-math">'
+    formulaHtml = '<div class="rc-formula"><span class="rc-formula-icon">f(x)</span><div class="rc-formula-math">'
       + esc(f.formula.text) + '<br><span class="note">' + esc(f.formula.note) + '</span></div></div>';
   }
 
@@ -1389,12 +1389,12 @@ function buildNode(f, topicId, showTopicBadge) {
   return '<div class="rc-node" ' + accentStyle + ' data-id="'+f.id+'">'
     + '<div class="rc-node-head">'
     + '<span class="rc-node-func">' + esc(f.code) + '</span>'
-    + '<span class="rc-node-brief">' + esc(f.brief) + '</span>'
-    + formulaPreview
+    + '<span class="rc-node-brief">' + esc(f.brief.split('. In this course')[0]) + '</span>'
     + badge
     + '<span class="rc-node-arrow">\u25B6</span>'
     + '</div>'
     + '<div class="rc-node-body"><div class="rc-node-inner">'
+    + '<div class="rc-label">What it does</div><p style="font-size:0.88rem;color:var(--text-secondary);margin:0 0 12px;line-height:1.5">' + esc(f.brief) + '</p>'
     + formulaHtml
     + (f.visual ? '<div class="rc-visual">' + f.visual + '</div>' : '')
     + whenHtml
