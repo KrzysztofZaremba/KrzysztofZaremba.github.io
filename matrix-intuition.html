@@ -322,8 +322,11 @@ function updateLive(){
 }
 
 /* --- Individual step builders --- */
+function stepHead(num,title,sub){
+  return '<div class="card"><div style="margin-bottom:12px;"><span style="display:inline-block;background:var(--accent);color:#fff;border-radius:50%;width:28px;height:28px;text-align:center;line-height:28px;font-weight:700;font-size:.85rem;margin-right:8px;">'+num+'</span><strong style="font-size:1.1rem;color:var(--accent);">'+title+'</strong><p style="margin:4px 0 0 36px;font-size:.92rem;color:var(--fg);opacity:.75;">'+sub+'</p></div>';
+}
 function stp1(){
-  let h='<div class="card"><h3>Step 1: The Model</h3>';
+  let h=stepHead(1,'This is the model we want to estimate','We believe sales depend linearly on employees and floor space \u2014 but we don\u2019t know the coefficients yet.');
   h+='<div class="eq">y = X\u03B2 + u</div>';
   h+='<div class="two-col"><div>';
   h+='<h3 style="font-size:.95rem">\u{1F4D0} Symbolic</h3>';
@@ -336,45 +339,44 @@ function stp1(){
   h+='<p style="font-size:.82rem;margin-bottom:4px"><em>Intercept | Employees | Floor space (100 sqft) \u2192 Sales ($k)</em></p>';
   h+='<div style="text-align:center;overflow-x:auto">';
   h+=mxV(y,'y: sales')+' = '+mx(X,'X: predictors')+' '+mxV(['?','?','?'],'\u03B2 = ?')+' + '+mxV(y.map(()=>'?'),'u: errors');
-  h+='</div></div></div>';
-  h+='<p style="margin-top:10px">Each row is one store. We observe sales (y) and predictors (X). We want to find coefficients \u03B2 that best predict sales from number of employees and floor space.</p></div>';
+  h+='</div></div></div></div>';
   return h;
 }
 function stp2(){
-  let h=sliderBlock();
-  h+='<div class="card"><h3>Step 2: See Xb Live</h3>';
-  h+='<div class="eq eq-sm">\u0177 = Xb &emsp;\u2192&emsp; e = y \u2212 \u0177 &emsp;\u2192&emsp; SSE = \u03A3 e<sub>i</sub>\u00b2</div>';
-  h+='<p style="margin-bottom:8px">Adjust sliders \u2192 matrix Xb updates \u2192 predictions, errors, and SSE all change in real time.</p>';
+  let h=stepHead(2,'Making predictions: \u0177 = Xb','If we pick some coefficients b, we can predict sales for every store. Try different values!');
+  h+=sliderBlock();
+  h+='<div class="card" style="margin-top:0;border-top:none;">';
   h+='<div id="liveCalc"></div></div>';
   return h;
 }
 function stp3(){
-  let h=sliderBlock();
-  h+='<div class="card"><h3>Step 3: Errors e = y \u2212 Xb</h3>';
+  let h=stepHead(3,'Best predictions = smallest errors','The error for each store is the gap between actual and predicted sales. We want all errors as close to zero as possible.');
+  h+=sliderBlock();
+  h+='<div class="card" style="margin-top:0;border-top:none;">';
   h+='<div class="eq eq-sm">e = y \u2212 Xb</div>';
-  h+='<p>Each error is the difference between actual and predicted sales. <span class="e-green">Green</span> = small (&lt;0.5), <span class="e-orange">orange</span> = medium (0.5\u20132), <span class="e-red">red</span> = large (&gt;2).</p>';
+  h+='<p><span class="e-green">Green</span> = small (&lt;0.5), <span class="e-orange">orange</span> = medium, <span class="e-red">red</span> = large. Try to make them all green!</p>';
   h+='<div id="liveStep3" style="margin-top:10px"></div></div>';
   return h;
 }
 function stp4(){
-  let h=sliderBlock();
-  h+='<div class="card"><h3>Step 4: SSE = e<sup>\u22A4</sup>e</h3>';
-  h+='<div class="eq eq-sm">SSE = e<sup>\u22A4</sup>e = \u03A3 e<sub>i</sub>\u00b2</div>';
-  h+='<p>We square each error and sum them. OLS finds the b that minimizes this quantity.</p>';
+  let h=stepHead(4,'Summarizing errors: SSE = e\u1D40e','We need one number that captures total error. SSE squares each error (so negatives don\u2019t cancel) and adds them up. Which b gives the smallest SSE?');
+  h+=sliderBlock();
+  h+='<div class="card" style="margin-top:0;border-top:none;">';
+  h+='<div class="eq eq-sm">SSE = e<sup>\u22A4</sup>e = e\u2081\u00b2 + e\u2082\u00b2 + \u2026 + e<sub>n</sub>\u00b2</div>';
   h+='<div id="liveStep4" style="margin-top:10px"></div></div>';
   return h;
 }
 function stp5(){
-  let h=sliderBlock();
-  h+='<div class="card"><h3>Step 5: SSE in Matrix Form</h3>';
+  let h=stepHead(5,'How exactly does SSE depend on b?','Let\u2019s expand SSE algebraically. It\u2019s a quadratic function of b \u2014 a bowl with a single minimum.');
+  h+=sliderBlock();
+  h+='<div class="card" style="margin-top:0;border-top:none;">';
   h+='<div class="eq eq-sm">SSE(b) = (y \u2212 Xb)<sup>\u22A4</sup>(y \u2212 Xb) = y<sup>\u22A4</sup>y \u2212 2b<sup>\u22A4</sup>'+XT+'y + b<sup>\u22A4</sup>'+XT+'Xb</div>';
-  h+='<p style="margin:10px 0">All in one equation with matrices and your current b:</p>';
   h+='<div id="liveStep5" style="margin-top:10px"></div></div>';
   return h;
 }
 function stp6(){
-  let h='<div class="card"><h3>Step 6: Minimize SSE \u2014 Derivative Rules</h3>';
-  h+='<p style="margin-bottom:10px">We take the derivative of SSE w.r.t. b and set it to zero.</p>';
+  let h=stepHead(6,'Set the derivative to zero!','At the minimum, moving b slightly in any direction won\u2019t improve SSE. That means the derivative must equal zero.');
+  h+='<div class="card" style="margin-top:0;border-top:none;">';
   h+='<div class="proof-step"><div class="label">Matrix derivative rules</div>';
   h+='<div style="font-family:Georgia,serif;font-size:.95rem;">';
   h+='<table style="border-collapse:collapse;margin:0 auto"><tr><td style="padding:4px 12px;border-bottom:1px solid var(--border)">f(b) = c\u1D40b &ensp;(linear)</td><td style="padding:4px 12px;border-bottom:1px solid var(--border)">\u2192 \u2202f/\u2202b = c</td></tr>';
@@ -423,7 +425,8 @@ function stp6(){
   return h;
 }
 function stp7(){
-  let h='<div class="card"><h3>Step 7: Intuition \u2014 What Does Each Piece Do?</h3>';
+  let h=stepHead(7,'The OLS formula \u2014 coefficients that minimize errors','This is the formula that gives us the best possible linear predictions. Here\u2019s what each piece does.');
+  h+='<div class="card" style="margin-top:0;border-top:none;">';
   h+='<div class="eq">'+H('\u03B2')+' = <span style="color:var(--orange)">('+XT+'X)<sup>\u22121</sup></span> <span style="color:var(--blue)">'+XT+'y</span></div>';
   h+='<div class="i-card i-blue"><strong style="color:var(--blue)">'+XT+'y \u2014 Raw Association</strong>';
   h+='<p>This vector captures how much each predictor correlates with the outcome. It sums up x<sub>i</sub> \u00d7 y<sub>i</sub> for each predictor. Alone, this would give biased coefficients because it ignores correlations between predictors.</p>';
