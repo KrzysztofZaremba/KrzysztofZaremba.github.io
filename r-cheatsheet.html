@@ -1,0 +1,1594 @@
+---
+layout: default
+title: "R Cheatsheet"
+permalink: /r-cheatsheet/
+---
+
+<style>
+/* ── CSS Custom Properties ──────────────────────────────── */
+:root {
+  --bg: #f5f5f7;
+  --bg-card: #ffffff;
+  --bg-code: #1d1d1f;
+  --text: #1d1d1f;
+  --text-secondary: #6e6e73;
+  --text-muted: #aeaeb2;
+  --border: #d2d2d7;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', Consolas, monospace;
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  --color-data: #007aff;
+  --color-data-bg: linear-gradient(135deg, #e8f4fd, #d0e8ff);
+  --color-desc: #ff9500;
+  --color-desc-bg: linear-gradient(135deg, #fff4e0, #ffe8c2);
+  --color-freq: #ff2d55;
+  --color-freq-bg: linear-gradient(135deg, #ffe5eb, #ffc8d4);
+  --color-covcor: #30d158;
+  --color-covcor-bg: linear-gradient(135deg, #e0fce8, #c0f5d0);
+  --color-dist: #af52de;
+  --color-dist-bg: linear-gradient(135deg, #f3e5fa, #e4c8f5);
+  --color-reg: #ff3b30;
+  --color-reg-bg: linear-gradient(135deg, #ffe5e3, #ffc8c5);
+  --color-plot: #00c7be;
+  --color-plot-bg: linear-gradient(135deg, #e0faf9, #c0f2f0);
+  --color-math: #8e8e93;
+  --color-math-bg: linear-gradient(135deg, #ececf0, #dddde3);
+  --transition: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+[data-theme="dark"] {
+  --bg: #000000;
+  --bg-card: #1c1c1e;
+  --bg-code: #0a0a0a;
+  --text: #f5f5f7;
+  --text-secondary: #a1a1a6;
+  --text-muted: #636366;
+  --border: #38383a;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.4);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.5);
+  --color-data-bg: linear-gradient(135deg, #0a1e33, #0d2844);
+  --color-desc-bg: linear-gradient(135deg, #2a1d00, #3a2800);
+  --color-freq-bg: linear-gradient(135deg, #2a0a14, #3a1020);
+  --color-covcor-bg: linear-gradient(135deg, #0a2a12, #103a18);
+  --color-dist-bg: linear-gradient(135deg, #1a0a2a, #24103a);
+  --color-reg-bg: linear-gradient(135deg, #2a0a08, #3a100c);
+  --color-plot-bg: linear-gradient(135deg, #002a28, #003a36);
+  --color-math-bg: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+}
+
+/* ── Reset & Base ─────────────────────────────────────── */
+.rc *, .rc *::before, .rc *::after { box-sizing: border-box; margin: 0; padding: 0; }
+.rc {
+  max-width: 1100px;
+  margin: 0 auto;
+  font-family: var(--sans);
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+  padding: 0 20px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Utility ────────────────────────────────────────── */
+.rc-hidden { display: none !important; }
+
+/* ── Header ─────────────────────────────────────────── */
+.rc-hero {
+  text-align: center;
+  padding: 60px 20px 40px;
+  position: relative;
+}
+.rc-hero h1 {
+  font-size: 2.8rem;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  background: linear-gradient(135deg, #007aff, #af52de, #ff3b30);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+.rc-hero p {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ── Top Bar ──────────────────────────────────────────── */
+.rc-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+.rc-search {
+  width: 100%;
+  max-width: 480px;
+  padding: 12px 20px 12px 44px;
+  font-size: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-card);
+  color: var(--text);
+  outline: none;
+  font-family: var(--sans);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.rc-search:focus {
+  border-color: #007aff;
+  box-shadow: 0 0 0 4px rgba(0,122,255,0.12);
+}
+.rc-search-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+}
+.rc-search-wrap::before {
+  content: "\1F50D";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  pointer-events: none;
+  opacity: 0.5;
+}
+.rc-theme-btn {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+  flex-shrink: 0;
+}
+.rc-theme-btn:hover { border-color: #007aff; transform: scale(1.05); }
+
+/* ── Topic Grid ───────────────────────────────────────── */
+.rc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+  margin-bottom: 40px;
+}
+.rc-tile {
+  background: var(--color-data-bg);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  cursor: pointer;
+  transition: transform var(--transition), box-shadow var(--transition);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+[data-theme="dark"] .rc-tile { border-color: rgba(255,255,255,0.06); }
+.rc-tile:hover { transform: translateY(-4px) scale(1.01); box-shadow: var(--shadow-lg); }
+.rc-tile:active { transform: scale(0.98); }
+.rc-tile-icon {
+  font-size: 2.2rem;
+  margin-bottom: 12px;
+  display: block;
+}
+.rc-tile-name {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text);
+}
+.rc-tile-count {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.rc-tile-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+.rc-tile[data-topic="data"] { background: var(--color-data-bg); }
+.rc-tile[data-topic="desc"] { background: var(--color-desc-bg); }
+.rc-tile[data-topic="freq"] { background: var(--color-freq-bg); }
+.rc-tile[data-topic="covcor"] { background: var(--color-covcor-bg); }
+.rc-tile[data-topic="dist"] { background: var(--color-dist-bg); }
+.rc-tile[data-topic="reg"] { background: var(--color-reg-bg); }
+.rc-tile[data-topic="plot"] { background: var(--color-plot-bg); }
+.rc-tile[data-topic="math"] { background: var(--color-math-bg); }
+
+/* ── Topic Detail View ────────────────────────────────── */
+.rc-topic-view {
+  animation: rcFadeIn 0.35s ease;
+}
+@keyframes rcFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rc-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #007aff;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 0;
+  margin-bottom: 20px;
+  font-family: var(--sans);
+  transition: opacity var(--transition);
+}
+.rc-back-btn:hover { opacity: 0.7; }
+.rc-back-btn::before { content: "\2190"; font-size: 1.2rem; }
+.rc-topic-header {
+  margin-bottom: 32px;
+}
+.rc-topic-header h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 6px;
+}
+.rc-topic-header p {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ── Flow Container ───────────────────────────────────── */
+.rc-flow {
+  position: relative;
+  padding-left: 2px;
+}
+
+/* Flow section label */
+.rc-flow-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--text-muted);
+  margin: 32px 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.rc-flow-label:first-child { margin-top: 0; }
+.rc-flow-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* Flow connector line */
+.rc-flow-line {
+  display: flex;
+  align-items: stretch;
+  margin-bottom: 4px;
+}
+.rc-flow-connector {
+  width: 32px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.rc-flow-connector .dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+  margin-top: 20px;
+  transition: background var(--transition);
+}
+.rc-flow-connector .line {
+  width: 2px;
+  flex: 1;
+  background: var(--border);
+}
+.rc-flow-line:last-child .rc-flow-connector .line { background: transparent; }
+
+/* Flow node (function card) */
+.rc-node {
+  flex: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: box-shadow var(--transition), border-color var(--transition);
+}
+.rc-node:hover { box-shadow: var(--shadow-md); }
+.rc-node.open { border-color: var(--node-accent, var(--border)); }
+.rc-node-head {
+  padding: 14px 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  user-select: none;
+}
+.rc-node-func {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+  white-space: nowrap;
+  padding: 3px 10px;
+  background: var(--bg);
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.rc-node-brief {
+  flex: 1;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.3;
+}
+.rc-node-arrow {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  transition: transform var(--transition);
+  flex-shrink: 0;
+}
+.rc-node.open .rc-node-arrow { transform: rotate(90deg); }
+.rc-node-formula {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Node body (expanded detail) */
+.rc-node-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+.rc-node.open .rc-node-body { max-height: 1500px; }
+.rc-node-inner {
+  padding: 0 18px 18px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── Annotated Code ──────────────────────────────────── */
+.rc-annotated {
+  background: var(--bg-code);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin: 14px 0;
+  position: relative;
+  overflow-x: auto;
+}
+.rc-annotated-line {
+  font-family: var(--mono);
+  font-size: 0.92rem;
+  color: #e5e5ea;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.rc-annotated .arg-hl {
+  color: #64d2ff;
+  cursor: pointer;
+  border-bottom: 1px dashed rgba(100,210,255,0.4);
+  transition: color var(--transition), border-color var(--transition);
+  position: relative;
+}
+.rc-annotated .arg-hl:hover, .rc-annotated .arg-hl.active {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+.rc-annotated .func-name { color: #ff6482; font-weight: 600; }
+.rc-annotated .str-lit { color: #32d74b; }
+.rc-annotated .num-lit { color: #ffd60a; }
+.rc-annotated .kw-lit { color: #64d2ff; }
+.rc-annotated .cmt { color: #636366; }
+
+/* Argument annotations below the code */
+.rc-arg-annotations {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.rc-arg-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg);
+  border-radius: 8px;
+  border-left: 3px solid var(--node-accent, #007aff);
+  cursor: pointer;
+  transition: background var(--transition), opacity var(--transition);
+  opacity: 0.75;
+}
+.rc-arg-note:hover, .rc-arg-note.active {
+  opacity: 1;
+  background: var(--bg-card);
+}
+.rc-arg-note-name {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64d2ff;
+  white-space: nowrap;
+  min-width: 80px;
+}
+[data-theme="dark"] .rc-arg-note-name { color: #64d2ff; }
+:root .rc-arg-note-name { color: #0066cc; }
+.rc-arg-note-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+.rc-arg-note-default {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Formula Box ──────────────────────────────────────── */
+.rc-formula {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin: 14px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.rc-formula-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.6;
+}
+.rc-formula-math {
+  font-family: var(--mono);
+  font-size: 0.9rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+.rc-formula-math .note {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+/* ── Example Block ────────────────────────────────────── */
+.rc-example {
+  position: relative;
+  background: var(--bg-code);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  margin: 14px 0;
+  overflow-x: auto;
+}
+.rc-example pre {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: #e5e5ea;
+  line-height: 1.7;
+  margin: 0;
+  white-space: pre-wrap;
+}
+.rc-example .cm { color: #636366; }
+.rc-example .fn { color: #ff6482; }
+.rc-example .st { color: #32d74b; }
+.rc-example .nu { color: #ffd60a; }
+.rc-example .kw { color: #64d2ff; }
+.rc-copy {
+  position: absolute;
+  top: 8px; right: 8px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #a1a1a6;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 0.72rem;
+  cursor: pointer;
+  font-family: var(--sans);
+  transition: all var(--transition);
+}
+.rc-copy:hover { background: rgba(255,255,255,0.16); color: #e5e5ea; }
+
+/* ── Returns Box ──────────────────────────────────────── */
+.rc-returns {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  margin: 14px 0;
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+.rc-returns-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+.rc-returns--success { background: #ecfdf5; color: #065f46; }
+.rc-returns--success .rc-returns-icon { color: #10b981; }
+[data-theme="dark"] .rc-returns--success { background: rgba(16,185,129,0.08); color: #6ee7b7; }
+
+/* ── Section mini-title ───────────────────────────────── */
+.rc-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+  margin: 18px 0 6px;
+}
+
+/* ── Visual Data Diagram ──────────────────────────────── */
+.rc-diagram {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin: 16px 0;
+  overflow-x: auto;
+}
+.rc-diagram table {
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  width: auto;
+}
+.rc-diagram th {
+  padding: 6px 16px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-align: center;
+  font-size: 0.78rem;
+  border-bottom: 2px solid var(--border);
+}
+.rc-diagram td {
+  padding: 8px 16px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+.rc-diagram .row-label {
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: left;
+  padding-right: 20px;
+}
+.rc-diagram-caption {
+  margin-top: 14px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.rc-diagram-caption code {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* ── Concept Cards (side by side) ─────────────────────── */
+.rc-concepts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.rc-concept {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+}
+.rc-concept-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.rc-concept-items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+/* ── Distribution split ───────────────────────────────── */
+.rc-dist-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.rc-dist-col {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 20px;
+}
+.rc-dist-col h4 {
+  font-size: 0.88rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.rc-dist-col .subtitle {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+  font-family: var(--mono);
+}
+
+/* ── No results ───────────────────────────────────────── */
+.rc-no-results {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  display: none;
+}
+
+/* ── Search Results ───────────────────────────────────── */
+.rc-search-results {
+  animation: rcFadeIn 0.25s ease;
+}
+.rc-search-results .rc-node {
+  margin-bottom: 8px;
+}
+.rc-search-result-topic {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 700px) {
+  .rc-hero h1 { font-size: 2rem; }
+  .rc-hero { padding: 40px 10px 24px; }
+  .rc-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rc-tile { padding: 20px 16px; }
+  .rc-tile-icon { font-size: 1.8rem; }
+  .rc-tile-name { font-size: 1.05rem; }
+  .rc-dist-split { grid-template-columns: 1fr; }
+  .rc-node-head { flex-wrap: wrap; gap: 8px; padding: 12px 14px; }
+  .rc-node-func { font-size: 0.85rem; }
+  .rc-node-formula { display: none; }
+  .rc-flow-connector { width: 24px; }
+  .rc-concepts { grid-template-columns: 1fr; }
+  .rc-annotated { padding: 14px; }
+  .rc-arg-note { flex-direction: column; gap: 4px; }
+  .rc-arg-note-name { min-width: unset; }
+}
+@media (max-width: 400px) {
+  .rc-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<div class="rc" id="rcApp">
+
+<!-- Hero -->
+<div class="rc-hero">
+  <h1>R Cheatsheet</h1>
+  <p>Your friendly guide to R functions. Click a topic to start exploring.</p>
+</div>
+
+<!-- Top bar -->
+<div class="rc-topbar">
+  <div class="rc-search-wrap">
+    <input class="rc-search" type="text" id="rcSearch" placeholder="Search any function, topic, or keyword..." autocomplete="off">
+  </div>
+  <button class="rc-theme-btn" id="rcThemeBtn" title="Toggle dark mode" aria-label="Toggle dark mode">
+    <span id="rcThemeIcon">&#9790;</span>
+  </button>
+</div>
+
+<!-- Main content area -->
+<div id="rcMainArea"></div>
+<div class="rc-no-results" id="rcNoResults">No matching functions found.</div>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ═══════════════════════════════════════════════════════════
+   FUNCTION DATA
+   ═══════════════════════════════════════════════════════════ */
+var FUNCS = {
+data: [
+  { id:"df_col", code:"df$x", brief:"Grab a column from your data. In this course, we use it constantly to pull out variables like df$income or df$age for analysis.",
+    annotated:{ line:'df<span class="func-name">$</span>age', args:[
+      {name:'df', desc:'Your data frame (the spreadsheet-like object)', hl:'df'},
+      {name:'$age', desc:'The column name you want. Returns all values in that column as a list of numbers.', hl:'age'}
+    ]},
+    example:'<span class="cm"># Get the age column</span>\nages &lt;- df$age\n<span class="fn">mean</span>(df$age)',
+    returns:'A vector (list) of all values in that column.'
+  },
+  { id:"df_bracket", code:"df[, 3]", brief:"Access column by position number. In this course, we mostly use df$name instead, but brackets are useful when filtering rows.",
+    annotated:{ line:'df[ rows , <span class="num-lit">3</span> ]', args:[
+      {name:'rows', desc:'Which rows? Leave blank for all rows. Or put a condition like 1:10', hl:'rows'},
+      {name:'3', desc:'Column number. The 3rd column from the left.', hl:'3'}
+    ]},
+    example:'<span class="cm"># Get the 3rd column</span>\nthird_col &lt;- df[, <span class="nu">3</span>]\n\n<span class="cm"># Get rows 1 through 10, column 2</span>\ndf[<span class="nu">1</span>:<span class="nu">10</span>, <span class="nu">2</span>]',
+    returns:'A vector (if one column) or a smaller data frame (if multiple columns).'
+  },
+  { id:"df_new", code:"df$new_var <- expr", brief:"Create a new column by combining existing ones. In this course, we use it to create things like log-transformed variables or total spending.",
+    annotated:{ line:'df<span class="func-name">$</span>total <span class="kw-lit">&lt;-</span> df$food <span class="func-name">+</span> df$rent', args:[
+      {name:'df$total', desc:'The name for your new column. It gets added to df.', hl:'total'},
+      {name:'expression', desc:'Any math using existing columns. Here we add food + rent.', hl:'df$food + df$rent'}
+    ]},
+    example:'<span class="cm"># Create total spending</span>\ndf$total &lt;- df$food + df$rent\n\n<span class="cm"># Log-transform income</span>\ndf$log_income &lt;- <span class="fn">log</span>(df$income)',
+    returns:'Your data frame df now has an extra column.'
+  },
+  { id:"df_save", code:"v <- df$x", brief:"Save a column as its own variable so you can type a short name instead of df$column every time.",
+    annotated:{ line:'income <span class="kw-lit">&lt;-</span> df<span class="func-name">$</span>income', args:[
+      {name:'income', desc:'A name you pick. Now you can just type income instead of df$income.', hl:'income'},
+      {name:'df$income', desc:'The column you are copying out of the data frame.', hl:'df$income'}
+    ]},
+    example:'income &lt;- df$income\n<span class="fn">mean</span>(income)\n<span class="fn">sd</span>(income)',
+    returns:'A standalone vector you can use anywhere.'
+  },
+  { id:"df_filter", code:"df[df$x > 0, ]", brief:"Keep only rows matching a condition. In this course, we use it to subset data, like keeping only positive incomes or only female respondents.",
+    annotated:{ line:'df[ df$income <span class="func-name">&gt;</span> <span class="num-lit">0</span> , ]', args:[
+      {name:'condition', desc:'A TRUE/FALSE test for each row. Only rows where this is TRUE are kept.', hl:'df$income > 0'},
+      {name:', ]', desc:'The comma + nothing means "keep all columns." You are only filtering rows.', hl:', ]'}
+    ]},
+    example:'<span class="cm"># Keep only positive income</span>\nrich &lt;- df[df$income &gt; <span class="nu">0</span>, ]\n\n<span class="cm"># Keep only females</span>\nfemales &lt;- df[df$gender == <span class="st">"F"</span>, ]',
+    returns:'A smaller data frame with fewer rows.'
+  }
+],
+desc: [
+  { id:"mean", code:"mean(x, na.rm=TRUE)", brief:"Calculates the average. In this course, we use it to find things like average income or the mean of X (which we need for the regression formula).",
+    formula:{ text:'x\u0304 = (1/n) \u2211 x\u1d62', note:'\u2211 adds up all values, then divide by n' },
+    annotated:{ line:'<span class="func-name">mean</span>( <span class="arg-hl">x</span> , na.rm = <span class="kw-lit">TRUE</span> )', args:[
+      {name:'x', desc:'Your numbers. Usually df$column_name.', hl:'x'},
+      {name:'na.rm', desc:'Ignore missing values? TRUE = skip NAs. FALSE (default) = error if any NA exists.', default:'FALSE', hl:'na.rm'}
+    ]},
+    example:'<span class="fn">mean</span>(df$income, na.rm = <span class="kw">TRUE</span>)\n<span class="cm"># [1] 45230.5</span>',
+    returns:'A single number: the average.'
+  },
+  { id:"median", code:"median(x, na.rm=TRUE)", brief:"The middle value when you sort the data. In this course, we compare it to the mean to check for skewness in variables like income.",
+    formula:{ text:'Sort all values. Pick the one in the middle.', note:'More robust to outliers than mean' },
+    annotated:{ line:'<span class="func-name">median</span>( <span class="arg-hl">x</span> , na.rm = <span class="kw-lit">TRUE</span> )', args:[
+      {name:'x', desc:'Your numbers.', hl:'x'},
+      {name:'na.rm', desc:'Ignore missing values?', default:'FALSE', hl:'na.rm'}
+    ]},
+    example:'<span class="fn">median</span>(df$age, na.rm = <span class="kw">TRUE</span>)\n<span class="cm"># [1] 34</span>',
+    returns:'A single number: the median.'
+  },
+  { id:"var", code:"var(x, na.rm=TRUE)", brief:"Measures how spread out your data is (in squared units). In this course, we use it to compute things like SST, SSR, SSE and to understand dispersion.",
+    formula:{ text:'s\u00B2 = \u2211(x\u1d62 - x\u0304)\u00B2 / (n - 1)', note:'Average squared distance from the mean. Units are squared.' },
+    annotated:{ line:'<span class="func-name">var</span>( <span class="arg-hl">x</span> , na.rm = <span class="kw-lit">TRUE</span> )', args:[
+      {name:'x', desc:'Your numbers.', hl:'x'},
+      {name:'na.rm', desc:'Ignore missing values?', default:'FALSE', hl:'na.rm'}
+    ]},
+    example:'<span class="fn">var</span>(df$income, na.rm = <span class="kw">TRUE</span>)\n<span class="cm"># [1] 25000000</span>',
+    returns:'A single number: the sample variance (in squared units).'
+  },
+  { id:"sd", code:"sd(x, na.rm=TRUE)", brief:"Standard deviation -- same units as your data, easier to interpret than variance. In this course, we use it for things like describing income spread or computing standard errors.",
+    formula:{ text:'s = \u221A[ \u2211(x\u1d62 - x\u0304)\u00B2 / (n - 1) ]', note:'Same units as your data. Easier to interpret than variance.' },
+    annotated:{ line:'<span class="func-name">sd</span>( <span class="arg-hl">x</span> , na.rm = <span class="kw-lit">TRUE</span> )', args:[
+      {name:'x', desc:'Your numbers.', hl:'x'},
+      {name:'na.rm', desc:'Ignore missing values?', default:'FALSE', hl:'na.rm'}
+    ]},
+    example:'<span class="fn">sd</span>(df$income, na.rm = <span class="kw">TRUE</span>)\n<span class="cm"># [1] 5000</span>',
+    returns:'A single number: the standard deviation.'
+  },
+  { id:"min", code:"min(x, na.rm=TRUE)", brief:"Finds the smallest value. In this course, we use it to check for data issues (like negative incomes) or describe the range of a variable.",
+    annotated:{ line:'<span class="func-name">min</span>( <span class="arg-hl">x</span> , na.rm = <span class="kw-lit">TRUE</span> )', args:[
+      {name:'x', desc:'Your numbers.', hl:'x'},
+      {name:'na.rm', desc:'Ignore missing values?', default:'FALSE', hl:'na.rm'}
+    ]},
+    example:'<span class="fn">min</span>(df$age, na.rm = <span class="kw">TRUE</span>)\n<span class="cm"># [1] 18</span>',
+    returns:'The minimum value.'
+  },
+  { id:"max", code:"max(x, na.rm=TRUE)", brief:"Finds the largest value. In this course, we use it to spot outliers or describe the range of a variable.",
+    annotated:{ line:'<span class="func-name">max</span>( <span class="arg-hl">x</span> , na.rm = <span class="kw-lit">TRUE</span> )', args:[
+      {name:'x', desc:'Your numbers.', hl:'x'},
+      {name:'na.rm', desc:'Ignore missing values?', default:'FALSE', hl:'na.rm'}
+    ]},
+    example:'<span class="fn">max</span>(df$age, na.rm = <span class="kw">TRUE</span>)\n<span class="cm"># [1] 89</span>',
+    returns:'The maximum value.'
+  },
+  { id:"quantile", code:"quantile(x, 0.8, na.rm=TRUE)", brief:"Finds any percentile you want. In this course, we use it to answer questions like 'what income level is the 80th percentile?' or to find Q1 and Q3.",
+    formula:{ text:'80th percentile = value below which 80% of data falls', note:'0.25 = Q1, 0.5 = median, 0.75 = Q3' },
+    annotated:{ line:'<span class="func-name">quantile</span>( <span class="arg-hl">x</span> , <span class="num-lit">0.8</span> , na.rm = <span class="kw-lit">TRUE</span> )', args:[
+      {name:'x', desc:'Your numbers.', hl:'x'},
+      {name:'probs', desc:'Which percentile? 0.8 = 80th percentile. Can be any number between 0 and 1.', hl:'0.8'},
+      {name:'na.rm', desc:'Ignore missing values?', default:'FALSE', hl:'na.rm'}
+    ]},
+    example:'<span class="cm"># 80th percentile of income</span>\n<span class="fn">quantile</span>(df$income, <span class="nu">0.8</span>, na.rm = <span class="kw">TRUE</span>)\n<span class="cm">#  80% \n# 62000</span>',
+    returns:'The value at that percentile.'
+  }
+],
+freq: [
+  { id:"table1", code:"table(x)", brief:"Counts how many times each category appears. In this course, we use it for things like 'how many male vs female respondents?' or building frequency tables from survey data.",
+    annotated:{ line:'<span class="func-name">table</span>( <span class="arg-hl">x</span> )', args:[
+      {name:'x', desc:'A categorical variable (like gender, region, color). Counts how many times each value appears.', hl:'x'}
+    ]},
+    example:'<span class="fn">table</span>(df$gender)\n<span class="cm">#   F   M\n# 245 255</span>',
+    returns:'A named list of counts for each category.'
+  },
+  { id:"proptable1", code:"prop.table(table(x))", brief:"Converts counts to proportions (fractions of the total). In this course, we use it to say things like '49% of respondents are female.'",
+    annotated:{ line:'<span class="func-name">prop.table</span>( <span class="func-name">table</span>(<span class="arg-hl">x</span>) )', args:[
+      {name:'table(...)', desc:'First make a frequency table with table(), then wrap it in prop.table() to get proportions.', hl:'table(x)'}
+    ]},
+    example:'<span class="fn">prop.table</span>(<span class="fn">table</span>(df$gender))\n<span class="cm">#     F     M\n# 0.490 0.510</span>',
+    returns:'Proportions that add up to 1.'
+  },
+  { id:"table2", code:"table(g, c)", brief:"Cross-tabulation: counts for every combination of two categories. In this course, we use it to see things like 'how many female smokers vs male smokers.'",
+    annotated:{ line:'<span class="func-name">table</span>( <span class="arg-hl">rows</span> , <span class="arg-hl">cols</span> )', args:[
+      {name:'rows', desc:'First categorical variable (becomes the rows).', hl:'rows'},
+      {name:'cols', desc:'Second categorical variable (becomes the columns).', hl:'cols'}
+    ]},
+    example:'<span class="fn">table</span>(df$gender, df$smoker)\n<span class="cm">#     No Yes\n#  F 200  45\n#  M 180  75</span>',
+    returns:'A grid of counts.'
+  },
+  { id:"proptable2", code:"prop.table(table(g,c), margin=1)", brief:"Shows conditional proportions: 'given you are female, what fraction smokes?' In this course, we use it to compare rates across groups.",
+    annotated:{ line:'<span class="func-name">prop.table</span>( <span class="func-name">table</span>(g, c) , margin = <span class="num-lit">1</span> )', args:[
+      {name:'table(g,c)', desc:'A two-way table you already made.', hl:'table(g, c)'},
+      {name:'margin', desc:'1 = each ROW sums to 1 (read as "given this row, what proportion..."). 2 = each COLUMN sums to 1.', hl:'margin'}
+    ]},
+    example:'<span class="cm"># P(smoker | gender) - each row sums to 1</span>\n<span class="fn">prop.table</span>(<span class="fn">table</span>(df$gender, df$smoker), margin = <span class="nu">1</span>)\n<span class="cm">#       No    Yes\n#  F  0.816  0.184\n#  M  0.706  0.294</span>',
+    returns:'A table where each row (or column) adds up to 1.'
+  }
+],
+covcor: [
+  { id:"cov", code:'cov(x, y, use="complete.obs")', brief:"Measures whether two variables move together (in original units). In this course, we use it to see if income and spending tend to increase together.",
+    formula:{ text:'cov(x,y) = \u2211(x\u1d62 - x\u0304)(y\u1d62 - y\u0304) / (n - 1)', note:'Positive = both go up together. Negative = one goes up, other goes down.' },
+    annotated:{ line:'<span class="func-name">cov</span>( <span class="arg-hl">x</span> , <span class="arg-hl">y</span> , use = <span class="str-lit">"complete.obs"</span> )', args:[
+      {name:'x', desc:'First numeric variable.', hl:'x'},
+      {name:'y', desc:'Second numeric variable.', hl:'y'},
+      {name:'use', desc:'"complete.obs" means: if either value is missing (NA), skip that pair.', default:'"everything"', hl:'use'}
+    ]},
+    example:'<span class="fn">cov</span>(df$income, df$spending, use = <span class="st">"complete.obs"</span>)\n<span class="cm"># [1] 1250000</span>',
+    returns:'A single number. Units = (units of x) times (units of y).'
+  },
+  { id:"cor", code:'cor(x, y, use="complete.obs")', brief:"Standardized measure of linear relationship, always between -1 and +1. In this course, we use it to quantify how strongly two variables are related before running regression.",
+    formula:{ text:'r = cov(x,y) / (s\u2093 \u00D7 s\u1D67). Always between -1 and +1', note:'Dividing by the standard deviations removes units. Result is always -1 to +1.' },
+    annotated:{ line:'<span class="func-name">cor</span>( <span class="arg-hl">x</span> , <span class="arg-hl">y</span> , use = <span class="str-lit">"complete.obs"</span> )', args:[
+      {name:'x', desc:'First numeric variable.', hl:'x'},
+      {name:'y', desc:'Second numeric variable.', hl:'y'},
+      {name:'use', desc:'How to handle NAs. Use "complete.obs" to skip pairs with missing data.', default:'"everything"', hl:'use'}
+    ]},
+    example:'<span class="fn">cor</span>(df$income, df$spending, use = <span class="st">"complete.obs"</span>)\n<span class="cm"># [1] 0.72</span>',
+    returns:'A number between -1 (perfect negative) and +1 (perfect positive). 0 = no linear relationship.'
+  }
+],
+dist: [
+  { id:"pnorm", code:"pnorm(q, mean, sd)", brief:"Tells you what percentage of data falls below a value in a normal distribution. In this course, we use it to find p-values for hypothesis tests with large samples.",
+    formula:{ text:'P(X \u2264 q) = area under the curve to the LEFT of q', note:'Standard normal: mean=0, sd=1' },
+    annotated:{ line:'<span class="func-name">pnorm</span>( <span class="arg-hl">q</span> , mean = <span class="num-lit">0</span> , sd = <span class="num-lit">1</span> )', args:[
+      {name:'q', desc:'The value you have. "What is the probability of getting this or less?"', hl:'q'},
+      {name:'mean', desc:'Center of the bell curve.', default:'0', hl:'mean'},
+      {name:'sd', desc:'Width of the bell curve.', default:'1', hl:'sd'}
+    ]},
+    example:'<span class="cm"># P(Z \u2264 1.96) for standard normal</span>\n<span class="fn">pnorm</span>(<span class="nu">1.96</span>)\n<span class="cm"># [1] 0.975</span>\n\n<span class="cm"># P(income \u2264 50000) if Normal(45000, 5000)</span>\n<span class="fn">pnorm</span>(<span class="nu">50000</span>, mean = <span class="nu">45000</span>, sd = <span class="nu">5000</span>)\n<span class="cm"># [1] 0.8413</span>',
+    returns:'A probability between 0 and 1.'
+  },
+  { id:"qnorm", code:"qnorm(p, mean, sd)", brief:"Finds the cutoff value where a given percentage of the normal distribution falls below. In this course, we use it to get z critical values like 1.96 for 95% confidence intervals.",
+    formula:{ text:'Find q such that P(X \u2264 q) = p. The inverse of pnorm.', note:'You give it an area, it gives you the cutoff value.' },
+    annotated:{ line:'<span class="func-name">qnorm</span>( <span class="arg-hl">p</span> , mean = <span class="num-lit">0</span> , sd = <span class="num-lit">1</span> )', args:[
+      {name:'p', desc:'The probability you have. "What value has this much area to its left?"', hl:'p'},
+      {name:'mean', desc:'Center of the bell curve.', default:'0', hl:'mean'},
+      {name:'sd', desc:'Width of the bell curve.', default:'1', hl:'sd'}
+    ]},
+    example:'<span class="cm"># 97.5th percentile \u2192 z* for 95% CI</span>\n<span class="fn">qnorm</span>(<span class="nu">0.975</span>)\n<span class="cm"># [1] 1.96</span>',
+    returns:'A value (quantile) in the same units as the distribution.'
+  },
+  { id:"pt", code:"pt(t, df)", brief:"Tells you the probability of getting a t-value this small or smaller. In this course, we use it to compute p-values from regression t-statistics.",
+    formula:{ text:'P(T \u2264 t) = area to the left of t under the t-distribution', note:'Like Normal but with fatter tails. Use when n is small.' },
+    annotated:{ line:'<span class="func-name">pt</span>( <span class="arg-hl">t</span> , df = <span class="num-lit">498</span> )', args:[
+      {name:'t', desc:'Your t-value (like a z-score but from a t-distribution).', hl:'t'},
+      {name:'df', desc:'Degrees of freedom. For simple regression: n - 2.', hl:'df'}
+    ]},
+    example:'<span class="cm"># P(T \u2264 2.1) with 498 df</span>\n<span class="fn">pt</span>(<span class="nu">2.1</span>, df = <span class="nu">498</span>)\n<span class="cm"># [1] 0.982</span>\n\n<span class="cm"># Two-sided p-value</span>\n<span class="nu">2</span> * (<span class="nu">1</span> - <span class="fn">pt</span>(<span class="fn">abs</span>(t_stat), df = <span class="nu">498</span>))',
+    returns:'A probability between 0 and 1.'
+  },
+  { id:"qt", code:"qt(p, df)", brief:"Finds the t critical value for a given probability. In this course, we use it to build confidence intervals: coefficient +/- qt(0.975, df) * SE.",
+    formula:{ text:'Find t* such that P(T \u2264 t*) = p. Used for confidence intervals.', note:'b \u00B1 t* \u00D7 SE(b)' },
+    annotated:{ line:'<span class="func-name">qt</span>( <span class="arg-hl">p</span> , df = <span class="num-lit">498</span> )', args:[
+      {name:'p', desc:'The probability. For 95% CI, use 0.975 (two-sided).', hl:'p'},
+      {name:'df', desc:'Degrees of freedom. For simple regression: n - 2.', hl:'df'}
+    ]},
+    example:'<span class="cm"># Critical value for 95% CI</span>\n<span class="fn">qt</span>(<span class="nu">0.975</span>, df = <span class="nu">498</span>)\n<span class="cm"># [1] 1.965</span>\n\n<span class="cm"># Then: CI = b1 \u00B1 1.965 \u00D7 SE</span>',
+    returns:'A critical value (t-score).'
+  },
+  { id:"pchisq", code:"pchisq(x2, df)", brief:"Tells you the probability for a chi-squared distribution. In this course, we use it for the Jarque-Bera normality test: 1 - pchisq(JB, df=2) gives the p-value.",
+    formula:{ text:'P(\u03C7\u00B2 \u2264 x2) = area to the left under the \u03C7\u00B2 distribution', note:'df=2 for Jarque-Bera test' },
+    annotated:{ line:'<span class="func-name">pchisq</span>( <span class="arg-hl">q</span> , df = <span class="num-lit">2</span> )', args:[
+      {name:'q', desc:'The chi-squared statistic you computed.', hl:'q'},
+      {name:'df', desc:'Degrees of freedom. For Jarque-Bera: 2.', hl:'df'}
+    ]},
+    example:'<span class="cm"># p-value for Jarque-Bera test</span>\n<span class="nu">1</span> - <span class="fn">pchisq</span>(JB_stat, df = <span class="nu">2</span>)',
+    returns:'A probability between 0 and 1.'
+  },
+  { id:"qchisq", code:"qchisq(p, df)", brief:"Finds the chi-squared critical value for a given probability. In this course, we use it to get the cutoff for the Jarque-Bera test at 1% or 5% significance.",
+    formula:{ text:'Find c such that P(\u03C7\u00B2 \u2264 c) = p', note:'Compare your test statistic to this critical value' },
+    annotated:{ line:'<span class="func-name">qchisq</span>( <span class="arg-hl">p</span> , df = <span class="num-lit">2</span> )', args:[
+      {name:'p', desc:'The probability. For 1% significance, use 0.99.', hl:'p'},
+      {name:'df', desc:'Degrees of freedom.', hl:'df'}
+    ]},
+    example:'<span class="cm"># Critical value at 1% for JB test</span>\n<span class="fn">qchisq</span>(<span class="nu">0.99</span>, df = <span class="nu">2</span>)\n<span class="cm"># [1] 9.21</span>',
+    returns:'A critical value.'
+  },
+  { id:"pf", code:"pf(f, df1, df2)", brief:"Tells you the probability for an F-distribution. In this course, we use it to find the p-value for the overall F-test in regression.",
+    formula:{ text:'P(F \u2264 f) = area to the left under the F-distribution', note:'F = MSR/MSE from the anova table' },
+    annotated:{ line:'<span class="func-name">pf</span>( <span class="arg-hl">q</span> , df1 = <span class="num-lit">1</span> , df2 = <span class="num-lit">498</span> )', args:[
+      {name:'q', desc:'Your F-statistic.', hl:'q'},
+      {name:'df1', desc:'Numerator df. For simple regression: 1.', hl:'df1'},
+      {name:'df2', desc:'Denominator df. For simple regression: n - 2.', hl:'df2'}
+    ]},
+    example:'<span class="cm"># p-value for F-test</span>\n<span class="nu">1</span> - <span class="fn">pf</span>(F_stat, df1 = <span class="nu">1</span>, df2 = <span class="nu">498</span>)',
+    returns:'A probability between 0 and 1.'
+  },
+  { id:"qf", code:"qf(p, df1, df2)", brief:"Finds the F critical value for a given probability. In this course, we use it to get the cutoff: if your F-statistic exceeds this, the regression is significant.",
+    formula:{ text:'Find f* such that P(F \u2264 f*) = p', note:'If your F > f*, the regression is significant' },
+    annotated:{ line:'<span class="func-name">qf</span>( <span class="arg-hl">p</span> , df1 = <span class="num-lit">1</span> , df2 = <span class="num-lit">498</span> )', args:[
+      {name:'p', desc:'The probability. For 1% significance, use 0.99.', hl:'p'},
+      {name:'df1', desc:'Numerator df.', hl:'df1'},
+      {name:'df2', desc:'Denominator df.', hl:'df2'}
+    ]},
+    example:'<span class="cm"># Critical value for F-test at 1%</span>\n<span class="fn">qf</span>(<span class="nu">0.99</span>, df1 = <span class="nu">1</span>, df2 = <span class="nu">498</span>)\n<span class="cm"># [1] 6.686</span>',
+    returns:'A critical value.'
+  }
+],
+reg: [
+  { id:"lm", code:"lm(y ~ x, data = df)", brief:"Fits a straight line through your data -- finds the best intercept and slope. In this course, we use it every time we run a regression, like predicting house prices from square footage.",
+    formula:{ text:'y\u1d62 = b\u2080 + b\u2081x\u1d62 + e\u1d62', note:'b\u2080 = intercept (predicted y when x=0), b\u2081 = slope (change in y per unit x), e\u1d62 = residual' },
+    annotated:{ line:'reg <span class="kw-lit">&lt;-</span> <span class="func-name">lm</span>( <span class="arg-hl">y</span> <span class="func-name">~</span> <span class="arg-hl">x</span> , data = <span class="arg-hl">df</span> )', args:[
+      {name:'y ~ x', desc:'The formula. Read ~ as "depends on." For multiple regression: y ~ x1 + x2.', hl:'y ~ x'},
+      {name:'data', desc:'Your data frame. Column names in the formula must match columns here.', hl:'df'}
+    ]},
+    example:'<span class="cm"># Simple regression</span>\nreg &lt;- <span class="fn">lm</span>(sales ~ advertising, data = stores)\n\n<span class="cm"># Multiple regression</span>\nreg &lt;- <span class="fn">lm</span>(sales ~ advertising + employees, data = stores)',
+    returns:'A model object. Save it (reg &lt;-) then use summary(), predict(), etc.'
+  },
+  { id:"summary_reg", code:"summary(reg)", brief:"Shows everything about your regression: coefficients, standard errors, t-values, p-values, R-squared. In this course, this is the main output we read and interpret.",
+    formula:{ text:'t = b / SE(b). R\u00B2 = 1 - SSE/SST', note:'t-stat tests if coefficient \u2260 0. R\u00B2 = fraction of variance explained.' },
+    annotated:{ line:'<span class="func-name">summary</span>( <span class="arg-hl">reg</span> )', args:[
+      {name:'reg', desc:'The regression object you saved from lm(). Shows everything: coefficients, std errors, t-values, p-values, R\u00B2, F-stat.', hl:'reg'}
+    ]},
+    example:'reg &lt;- <span class="fn">lm</span>(sales ~ advertising, data = stores)\n<span class="fn">summary</span>(reg)\n<span class="cm"># Coefficients:\n#              Estimate Std.Error t value Pr(>|t|)\n# (Intercept)   399.6    9.93     40.24   <2e-16\n# advertising     1.85    0.17    10.88   <2e-16\n# R-squared: 0.192</span>',
+    returns:'Printed output with all the regression statistics you need to report.'
+  },
+  { id:"residuals", code:"residuals(reg)", brief:"Gives you the errors -- how far each actual data point is from the regression line. In this course, we check residuals to see if OLS assumptions hold: are they normal? Is there a pattern?",
+    formula:{ text:'e\u1d62 = y\u1d62 - \u0177\u1d62', note:'\u2211e\u1d62 = 0 always. How far each point is from the line.' },
+    annotated:{ line:'e <span class="kw-lit">&lt;-</span> <span class="func-name">residuals</span>( <span class="arg-hl">reg</span> )', args:[
+      {name:'reg', desc:'Your regression object. Also works as reg$residuals.', hl:'reg'}
+    ]},
+    example:'e &lt;- <span class="fn">residuals</span>(reg)\n<span class="fn">mean</span>(e)     <span class="cm"># always ~ 0</span>\n<span class="fn">cor</span>(e, df$x) <span class="cm"># always ~ 0</span>',
+    returns:'A vector with one residual per observation (n numbers).'
+  },
+  { id:"fitted", code:"fitted(reg)", brief:"Gets the predicted y for every observation in your data. In this course, we use fitted values to plot the regression line or compute residuals manually.",
+    formula:{ text:'\u0177\u1d62 = b\u2080 + b\u2081x\u1d62', note:'The points ON the regression line. One predicted value per observation.' },
+    annotated:{ line:'yhat <span class="kw-lit">&lt;-</span> <span class="func-name">fitted</span>( <span class="arg-hl">reg</span> )', args:[
+      {name:'reg', desc:'Your regression object. Also works as reg$fitted.values.', hl:'reg'}
+    ]},
+    example:'yhat &lt;- <span class="fn">fitted</span>(reg)\n<span class="fn">head</span>(yhat)',
+    returns:'A vector with one predicted value per observation.'
+  },
+  { id:"anova", code:"anova(reg)", brief:"Breaks down total variation in Y into explained (SSR) and unexplained (SSE). In this course, we use it to test whether the regression variable explains significant variation via the F-test.",
+    formula:{ text:'F = MSR / MSE = (SSR/k) / (SSE/(n-k-1))', note:'Tests: "Does x explain a significant amount of variation in y?"' },
+    annotated:{ line:'<span class="func-name">anova</span>( <span class="arg-hl">reg</span> )', args:[
+      {name:'reg', desc:'Your regression object. Shows the sum-of-squares breakdown.', hl:'reg'}
+    ]},
+    example:'<span class="fn">anova</span>(reg)\n<span class="cm"># Df  Sum Sq  Mean Sq  F value  Pr(>F)\n# x    1  50832   50832   74.65   <2e-16\n# Res 498 339204    681</span>',
+    returns:'Table with SSR, SSE, df, MSR, MSE, F-stat, and p-value.'
+  },
+  { id:"predict_ci", code:'predict(reg, newdata, interval="confidence")', brief:"Predicts the AVERAGE y at a new x and gives a confidence interval. In this course, we use it to ask 'on average, what are sales when ad spend is $20K?'",
+    formula:{ text:'\u0177 \u00B1 t* \u00D7 \u03C3\u0302\u221A(1/n + (x\u2080 - x\u0304)\u00B2 / \u2211(x\u1d62 - x\u0304)\u00B2)', note:'Narrower interval. For the AVERAGE y at this x.' },
+    annotated:{ line:'<span class="func-name">predict</span>( <span class="arg-hl">reg</span> , newdata = <span class="func-name">data.frame</span>(<span class="arg-hl">x</span> = <span class="num-lit">20</span>) , interval = <span class="str-lit">"confidence"</span> , level = <span class="num-lit">0.95</span> )', args:[
+      {name:'reg', desc:'Your regression object from lm().', hl:'reg'},
+      {name:'newdata', desc:'New x value(s) as a data.frame. Column name must match the x in your formula!', hl:'x = 20'},
+      {name:'interval', desc:'"confidence" = interval for the AVERAGE response. "prediction" = for a single new observation.', hl:'"confidence"'},
+      {name:'level', desc:'Confidence level. 0.95 = 95%.', default:'0.95', hl:'0.95'}
+    ]},
+    example:'<span class="cm"># Average sales when advertising = 20</span>\nnew &lt;- <span class="fn">data.frame</span>(advertising = <span class="nu">20</span>)\n<span class="fn">predict</span>(reg, newdata = new, interval = <span class="st">"confidence"</span>)\n<span class="cm">#    fit    lwr    upr\n# 145.3  142.1  148.5</span>',
+    returns:'A row with fit (point estimate), lwr (lower bound), upr (upper bound).'
+  },
+  { id:"predict_pi", code:'predict(reg, newdata, interval="prediction")', brief:"Predicts a value for a SINGLE new observation with a wider prediction interval. In this course, we use it when asking 'what will THIS specific store sell?' -- wider than confidence because individual observations are more uncertain.",
+    formula:{ text:'\u0177 \u00B1 t* \u00D7 \u03C3\u0302\u221A(1 + 1/n + (x\u2080 - x\u0304)\u00B2 / \u2211(x\u1d62 - x\u0304)\u00B2)', note:'Wider interval (extra \"1 +\" inside the root). For a SINGLE observation.' },
+    annotated:{ line:'<span class="func-name">predict</span>( <span class="arg-hl">reg</span> , newdata = <span class="func-name">data.frame</span>(<span class="arg-hl">x</span> = <span class="num-lit">20</span>) , interval = <span class="str-lit">"prediction"</span> , level = <span class="num-lit">0.95</span> )', args:[
+      {name:'reg', desc:'Your regression object from lm().', hl:'reg'},
+      {name:'newdata', desc:'New x value(s) as a data.frame.', hl:'x = 20'},
+      {name:'interval', desc:'"prediction" = wider interval for a SINGLE new observation.', hl:'"prediction"'},
+      {name:'level', desc:'Confidence level.', default:'0.95', hl:'0.95'}
+    ]},
+    example:'<span class="cm"># Predict ONE specific store with ad spend = 20</span>\nnew &lt;- <span class="fn">data.frame</span>(advertising = <span class="nu">20</span>)\n<span class="fn">predict</span>(reg, newdata = new, interval = <span class="st">"prediction"</span>)\n<span class="cm">#    fit    lwr    upr\n# 145.3   98.2  192.4</span>',
+    returns:'Same format as confidence, but lwr/upr are much wider.'
+  },
+  { id:"confint", code:"confint(reg, level = 0.95)", brief:"Builds a confidence interval for each regression coefficient. In this course, we use it to say things like 'we are 95% confident the true effect of education on earnings is between $X and $Y per year.'",
+    formula:{ text:'b \u00B1 t* \u00D7 SE(b)', note:'Does the interval contain 0? If not, the coefficient is significant.' },
+    annotated:{ line:'<span class="func-name">confint</span>( <span class="arg-hl">reg</span> , level = <span class="num-lit">0.95</span> )', args:[
+      {name:'reg', desc:'Your regression object from lm().', hl:'reg'},
+      {name:'level', desc:'Confidence level. 0.99 for 99% CI.', default:'0.95', hl:'0.95'}
+    ]},
+    example:'<span class="fn">confint</span>(reg, level = <span class="nu">0.95</span>)\n<span class="cm">#              2.5%   97.5%\n# (Intercept) 380.1   419.1\n# advertising   1.5     2.2</span>',
+    returns:'Lower and upper bounds for each coefficient.'
+  },
+  { id:"vcov", code:"vcov(reg)", brief:"Shows the variance-covariance matrix of the estimated coefficients. In this course, we use it to get standard errors (square root of diagonal) or to see how coefficient estimates are related.",
+    formula:{ text:'Var(b\u1d62) = diagonal entries. SE(b\u1d62) = \u221AVar(b\u1d62)', note:'Off-diagonal = Cov(b\u1d62, b\u2c7c) = how the estimates covary.' },
+    annotated:{ line:'<span class="func-name">vcov</span>( <span class="arg-hl">reg</span> )', args:[
+      {name:'reg', desc:'Your regression object from lm(). Diagonal elements are the squared standard errors.', hl:'reg'}
+    ]},
+    example:'<span class="fn">vcov</span>(reg)\n<span class="cm">#              (Intercept) advertising\n# (Intercept)    25.32       -0.45\n# advertising    -0.45        0.03</span>',
+    returns:'A matrix. sqrt(diagonal) = standard errors from summary().'
+  }
+],
+plot: [
+  { id:"plot", code:"plot(x, y)", brief:"Makes a scatterplot to see the relationship between two numeric variables. In this course, we use it to visualize data before running regression and to check if the relationship looks linear.",
+    annotated:{ line:'<span class="func-name">plot</span>( <span class="arg-hl">x</span> , <span class="arg-hl">y</span> , main = <span class="str-lit">"Title"</span> , xlab = <span class="str-lit">"X axis"</span> , ylab = <span class="str-lit">"Y axis"</span> )', args:[
+      {name:'x', desc:'Horizontal axis values.', hl:'x'},
+      {name:'y', desc:'Vertical axis values.', hl:'y'},
+      {name:'main', desc:'Plot title (optional).', default:'""', hl:'main'},
+      {name:'xlab, ylab', desc:'Axis labels (optional).', hl:'xlab'},
+      {name:'col', desc:'Point color: "red", "blue", "#3b82f6".', default:'"black"', hl:'col'},
+      {name:'pch', desc:'Point shape: 1=circle, 16=filled circle, 19=large filled.', default:'1', hl:'pch'}
+    ]},
+    when:'You want to see if two numeric variables are related.',
+    example:'<span class="fn">plot</span>(df$advertising, df$sales,\n     main = <span class="st">"Sales vs Advertising"</span>,\n     xlab = <span class="st">"Ad Spend ($)"</span>,\n     ylab = <span class="st">"Sales ($)"</span>)',
+    returns:'A plot in the Plots pane.'
+  },
+  { id:"hist", code:"hist(x, breaks=30)", brief:"Makes a histogram to see the shape/distribution of one variable. In this course, we use it to check if residuals look normal or if a variable is skewed.",
+    annotated:{ line:'<span class="func-name">hist</span>( <span class="arg-hl">x</span> , breaks = <span class="num-lit">30</span> , col = <span class="str-lit">"lightblue"</span> , main = <span class="str-lit">"Title"</span> )', args:[
+      {name:'x', desc:'Your numeric variable.', hl:'x'},
+      {name:'breaks', desc:'Number of bins (bars). More bins = more detail.', default:'auto', hl:'breaks'},
+      {name:'col', desc:'Bar fill color.', default:'"white"', hl:'col'},
+      {name:'main', desc:'Plot title.', default:'""', hl:'main'}
+    ]},
+    when:'You want to see the distribution of a single numeric variable.',
+    example:'<span class="fn">hist</span>(df$income, breaks = <span class="nu">30</span>,\n     main = <span class="st">"Income Distribution"</span>,\n     col = <span class="st">"lightblue"</span>)',
+    returns:'A histogram in the Plots pane.'
+  },
+  { id:"barplot", code:"barplot(table(x))", brief:"Makes a bar chart to compare counts across categories. In this course, we use it to visualize frequency tables, like stores by region.",
+    annotated:{ line:'<span class="func-name">barplot</span>( <span class="func-name">table</span>(<span class="arg-hl">x</span>) , col = <span class="str-lit">"steelblue"</span> , main = <span class="str-lit">"Title"</span> )', args:[
+      {name:'table(x)', desc:'A frequency table. Use table() first, then feed it to barplot().', hl:'table(x)'},
+      {name:'col', desc:'Bar fill color.', default:'"grey"', hl:'col'},
+      {name:'main', desc:'Plot title.', default:'""', hl:'main'}
+    ]},
+    when:'You want to compare counts across categories (like gender, region).',
+    example:'<span class="fn">barplot</span>(<span class="fn">table</span>(df$region),\n        col = <span class="st">"steelblue"</span>,\n        main = <span class="st">"Stores by Region"</span>)',
+    returns:'A bar chart in the Plots pane.'
+  },
+  { id:"boxplot", code:"boxplot(x)", brief:"Makes a boxplot showing median, spread, and outliers. In this course, we use it to compare distributions across groups (e.g., income by gender) and spot outliers.",
+    annotated:{ line:'<span class="func-name">boxplot</span>( <span class="arg-hl">y</span> ~ <span class="arg-hl">group</span> , data = <span class="arg-hl">df</span> )', args:[
+      {name:'y ~ group', desc:'Compare y across groups. Or just boxplot(x) for one variable.', hl:'y ~ group'},
+      {name:'data', desc:'Your data frame (when using formula).', hl:'df'},
+      {name:'col', desc:'Box fill color.', default:'"white"', hl:'col'},
+      {name:'main', desc:'Plot title.', default:'""', hl:'main'}
+    ]},
+    when:'You want to compare distributions across groups, or spot outliers.',
+    example:'<span class="cm"># Compare income by gender</span>\n<span class="fn">boxplot</span>(income ~ gender, data = df)\n\n<span class="cm"># Single variable</span>\n<span class="fn">boxplot</span>(df$income)',
+    returns:'A boxplot in the Plots pane.'
+  }
+],
+math: [
+  { id:"arithmetic", code:"+ - * / ^", brief:"Basic arithmetic that works on single numbers AND entire columns. In this course, we use these to compute things like total spending (food + rent) or squared deviations.",
+    annotated:{ line:'x <span class="func-name">+</span> y   x <span class="func-name">-</span> y   x <span class="func-name">*</span> y   x <span class="func-name">/</span> y   x <span class="func-name">^</span> y', args:[
+      {name:'+  -  *  /', desc:'Add, subtract, multiply, divide. Works on single numbers AND entire columns.', hl:'operators'},
+      {name:'^', desc:'Power/exponent. 2^3 = 8.', hl:'^'}
+    ]},
+    example:'x &lt;- <span class="nu">10</span>; y &lt;- <span class="nu">3</span>\nx + y   <span class="cm"># 13</span>\nx / y   <span class="cm"># 3.333</span>\nx ^ y   <span class="cm"># 1000</span>',
+    returns:'A number (or a vector if inputs are vectors).'
+  },
+  { id:"round", code:"round(x, 2)", brief:"Rounds a number to the specified decimal places. In this course, we use it to clean up output for reporting results.",
+    annotated:{ line:'<span class="func-name">round</span>( <span class="arg-hl">x</span> , <span class="num-lit">2</span> )', args:[
+      {name:'x', desc:'The number(s) to round.', hl:'x'},
+      {name:'digits', desc:'How many decimal places? 2 = two decimals (e.g. 3.14).', default:'0', hl:'2'}
+    ]},
+    example:'<span class="fn">round</span>(<span class="nu">3.14159</span>, <span class="nu">2</span>)\n<span class="cm"># [1] 3.14</span>\n\n<span class="fn">round</span>(<span class="nu">0.00647</span>, <span class="nu">4</span>)\n<span class="cm"># [1] 0.0065</span>',
+    returns:'The rounded number.'
+  },
+  { id:"abs", code:"abs(x)", brief:"Absolute value -- drops the minus sign. In this course, we use it for two-sided hypothesis tests: compare abs(t-stat) to the critical value.",
+    annotated:{ line:'<span class="func-name">abs</span>( <span class="arg-hl">x</span> )', args:[
+      {name:'x', desc:'Any number. abs(-5) = 5. Useful for two-sided tests: compare |t| to critical value.', hl:'x'}
+    ]},
+    example:'<span class="fn">abs</span>(-<span class="nu">2.45</span>)\n<span class="cm"># [1] 2.45</span>\n\n<span class="cm"># Two-sided p-value</span>\n<span class="nu">2</span> * (<span class="nu">1</span> - <span class="fn">pt</span>(<span class="fn">abs</span>(t_stat), df = n - <span class="nu">2</span>))',
+    returns:'A non-negative number.'
+  },
+  { id:"sqrt", code:"sqrt(x)", brief:"Takes the square root. In this course, we use it to go from variance to standard deviation, or to compute standard errors from the vcov matrix.",
+    annotated:{ line:'<span class="func-name">sqrt</span>( <span class="arg-hl">x</span> )', args:[
+      {name:'x', desc:'A non-negative number. sqrt(9) = 3. Used in SE formulas.', hl:'x'}
+    ]},
+    example:'<span class="fn">sqrt</span>(<span class="nu">9</span>)\n<span class="cm"># [1] 3</span>\n\n<span class="cm"># SE of slope manually</span>\nSE_b1 &lt;- sigma_hat / <span class="fn">sqrt</span>(Sxx)',
+    returns:'The square root.'
+  },
+  { id:"sum", code:"sum(x)", brief:"Adds up all values in a vector. In this course, we use it to compute SST, SSR, SSE manually: sum((y - mean(y))^2).",
+    annotated:{ line:'<span class="func-name">sum</span>( <span class="arg-hl">x</span> )', args:[
+      {name:'x', desc:'A vector of numbers. Adds them all up. Essential for SST, SSR, SSE.', hl:'x'}
+    ]},
+    example:'<span class="cm"># SST = sum of (y - ybar)^2</span>\nSST &lt;- <span class="fn">sum</span>((y - <span class="fn">mean</span>(y))^<span class="nu">2</span>)\n\n<span class="cm"># Sxx</span>\nSxx &lt;- <span class="fn">sum</span>((x - <span class="fn">mean</span>(x))^<span class="nu">2</span>)',
+    returns:'A single number: the total.'
+  },
+  { id:"length", code:"length(x)", brief:"Counts how many values are in a vector -- your sample size n. In this course, we use it to get n for degrees of freedom calculations (n-2 for simple regression).",
+    annotated:{ line:'<span class="func-name">length</span>( <span class="arg-hl">x</span> )', args:[
+      {name:'x', desc:'Any vector. Returns the count of elements = your sample size n.', hl:'x'}
+    ]},
+    example:'n &lt;- <span class="fn">length</span>(df$income)\n<span class="cm"># or equivalently:</span>\nn &lt;- <span class="fn">nrow</span>(df)',
+    returns:'An integer: the count of elements.'
+  }
+]
+};
+
+/* ═══════════════════════════════════════════════════════════
+   TOPIC METADATA
+   ═══════════════════════════════════════════════════════════ */
+var TOPICS = [
+  { id:'data', icon:'\uD83D\uDCCB', name:'Data Frames', desc:'Access, filter, and create columns in your data',
+    color:'var(--color-data)', intro:'A data frame is like a spreadsheet: rows are observations, columns are variables. Here is how you work with them.' },
+  { id:'desc', icon:'\uD83D\uDCCA', name:'Descriptives', desc:'Summarize your numbers: center and spread',
+    color:'var(--color-desc)', intro:'These functions take a column of numbers and give you a single summary number.' },
+  { id:'freq', icon:'\uD83D\uDCD1', name:'Frequency Tables', desc:'Count categories and compute proportions',
+    color:'var(--color-freq)', intro:'When your variable is categorical (like gender, region, yes/no), use these to count and compare.' },
+  { id:'covcor', icon:'\uD83D\uDD17', name:'Covariance & Correlation', desc:'Do two variables move together?',
+    color:'var(--color-covcor)', intro:'These measure the relationship between two numeric variables.' },
+  { id:'dist', icon:'\uD83D\uDD14', name:'Distributions', desc:'Convert between values and probabilities',
+    color:'var(--color-dist)', intro:'Two directions: "p" functions take a value and give you a probability (for p-values). "q" functions take a probability and give you a value (for critical values). They are inverses of each other.' },
+  { id:'reg', icon:'\uD83D\uDCC8', name:'Regression', desc:'Fit lines, get predictions, test hypotheses',
+    color:'var(--color-reg)', intro:'The full workflow: fit a model with lm(), see the results with summary(), then predict and build confidence intervals.' },
+  { id:'plot', icon:'\uD83C\uDFA8', name:'Plots', desc:'Visualize your data',
+    color:'var(--color-plot)', intro:'Choosing the right plot depends on what you are exploring.' },
+  { id:'math', icon:'\uD83D\uDD22', name:'Arithmetic', desc:'Basic math operations, rounding, sums',
+    color:'var(--color-math)', intro:'R is a calculator. These all work on single numbers and on entire columns.' }
+];
+
+/* ═══════════════════════════════════════════════════════════
+   TOPIC FLOW STRUCTURES
+   ═══════════════════════════════════════════════════════════ */
+var FLOWS = {
+  data: [
+    { label:'YOUR DATA FRAME', funcs:['df_col','df_bracket'] },
+    { label:'MODIFY YOUR DATA', funcs:['df_new','df_save'] },
+    { label:'FILTER ROWS', funcs:['df_filter'] }
+  ],
+  desc: [
+    { label:'CENTER: Where is the middle?', funcs:['mean','median'] },
+    { label:'SPREAD: How spread out?', funcs:['var','sd','min','max'] },
+    { label:'POSITION: Where does a specific percentile fall?', funcs:['quantile'] }
+  ],
+  freq: [
+    { label:'ONE VARIABLE: Count categories', funcs:['table1','proptable1'] },
+    { label:'TWO VARIABLES: Cross-tabulate', funcs:['table2','proptable2'] }
+  ],
+  covcor: [
+    { label:'MEASURE THE RELATIONSHIP', funcs:['cov','cor'] }
+  ],
+  dist: [
+    { label:'I HAVE A VALUE, WHAT IS THE PROBABILITY? (p functions)', funcs:['pnorm','pt','pchisq','pf'] },
+    { label:'I HAVE A PROBABILITY, WHAT IS THE VALUE? (q functions)', funcs:['qnorm','qt','qchisq','qf'] }
+  ],
+  reg: [
+    { label:'STEP 1: FIT THE MODEL', funcs:['lm'] },
+    { label:'STEP 2: EXAMINE RESULTS', funcs:['summary_reg','anova','vcov'] },
+    { label:'STEP 3: EXTRACT COMPONENTS', funcs:['residuals','fitted'] },
+    { label:'STEP 4: MAKE PREDICTIONS', funcs:['predict_ci','predict_pi'] },
+    { label:'STEP 5: CONFIDENCE INTERVALS FOR COEFFICIENTS', funcs:['confint'] }
+  ],
+  plot: [
+    { label:'CHOOSE YOUR PLOT', funcs:['plot','hist','barplot','boxplot'] }
+  ],
+  math: [
+    { label:'BASIC OPERATIONS', funcs:['arithmetic','round','abs','sqrt','sum','length'] }
+  ]
+};
+
+/* ═══════════════════════════════════════════════════════════
+   SPECIAL TOPIC CONTENT (diagrams, concept boxes)
+   ═══════════════════════════════════════════════════════════ */
+var SPECIAL = {
+  data: '<div class="rc-diagram"><table><tr><th></th><th>income</th><th>gender</th><th>age</th></tr>'
+    +'<tr><td class="row-label">row 1</td><td>52000</td><td>"F"</td><td>29</td></tr>'
+    +'<tr><td class="row-label">row 2</td><td>34000</td><td>"M"</td><td>45</td></tr>'
+    +'<tr><td class="row-label">row 3</td><td>78000</td><td>"F"</td><td>31</td></tr>'
+    +'</table>'
+    +'<div class="rc-diagram-caption">'
+    +'<code>df$income</code> grabs the whole income column: <code>c(52000, 34000, 78000)</code><br>'
+    +'<code>df[df$income > 40000, ]</code> keeps only rows 1 and 3 (where income > 40000)<br>'
+    +'<code>df[, 2]</code> grabs the 2nd column (gender)'
+    +'</div></div>',
+
+  desc: '<div class="rc-concepts">'
+    +'<div class="rc-concept"><div class="rc-concept-label">Center</div><div class="rc-concept-items" style="font-family:var(--mono);font-size:0.85rem;color:var(--text)">mean() &bull; median()</div></div>'
+    +'<div class="rc-concept"><div class="rc-concept-label">Spread</div><div class="rc-concept-items" style="font-family:var(--mono);font-size:0.85rem;color:var(--text)">var() &bull; sd() &bull; min() &bull; max()</div></div>'
+    +'<div class="rc-concept"><div class="rc-concept-label">Position</div><div class="rc-concept-items" style="font-family:var(--mono);font-size:0.85rem;color:var(--text)">quantile()</div></div>'
+    +'</div>',
+
+  freq: '<div class="rc-diagram"><table>'
+    +'<tr><th>Gender</th><th>Count</th><th>Proportion</th></tr>'
+    +'<tr><td>F</td><td>245</td><td>0.490</td></tr>'
+    +'<tr><td>M</td><td>255</td><td>0.510</td></tr>'
+    +'<tr><td class="row-label" style="font-weight:700">Total</td><td style="font-weight:700">500</td><td style="font-weight:700">1.000</td></tr>'
+    +'</table>'
+    +'<div class="rc-diagram-caption"><code>table()</code> gives you the Count column. <code>prop.table(table())</code> gives you the Proportion column.</div>'
+    +'</div>',
+
+  covcor: '<div class="rc-formula" style="margin:16px 0">'
+    +'<span class="rc-formula-icon">\uD83D\uDCA1</span>'
+    +'<div class="rc-formula-math">'
+    +'correlation = covariance / (sd of x times sd of y)<br>'
+    +'<span class="note">Correlation is just covariance divided by both standard deviations. This removes the units and forces the result to be between -1 and +1. So if you know cov, sd(x), and sd(y), you can compute cor by hand.</span>'
+    +'</div></div>',
+
+  dist: '<div class="rc-dist-split">'
+    +'<div class="rc-dist-col"><h4>I have a VALUE \u2192 What is the PROBABILITY?</h4><div class="subtitle">These are the p functions (p for probability)</div>'
+    +'<div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.8">'
+    +'Example: "A student got a t-statistic of 2.1. What is the probability of getting something this extreme or less?" \u2192 Use <strong>pt(2.1, df=498)</strong><br><br>'
+    +'You give it a number on the x-axis \u2192 it tells you the area to the left.<br><br>'
+    +'<strong>pnorm()</strong> \u2014 Normal (bell curve)<br>'
+    +'<strong>pt()</strong> \u2014 t (like Normal, fatter tails)<br>'
+    +'<strong>pchisq()</strong> \u2014 Chi-squared<br>'
+    +'<strong>pf()</strong> \u2014 F-distribution</div></div>'
+    +'<div class="rc-dist-col"><h4>I have a PROBABILITY \u2192 What is the VALUE?</h4><div class="subtitle">These are the q functions (q for quantile)</div>'
+    +'<div style="font-size:0.88rem;color:var(--text-secondary);line-height:1.8">'
+    +'Example: "I want the cutoff where 97.5% of the distribution falls below." \u2192 Use <strong>qt(0.975, df=498)</strong><br><br>'
+    +'You give it an area \u2192 it tells you the number on the x-axis.<br><br>'
+    +'<strong>qnorm()</strong> \u2014 z critical values<br>'
+    +'<strong>qt()</strong> \u2014 t critical values for CIs<br>'
+    +'<strong>qchisq()</strong> \u2014 JB test critical value<br>'
+    +'<strong>qf()</strong> \u2014 F-test critical value</div></div></div>'
+    +'<div class="rc-formula" style="margin:16px 0">'
+    +'<span class="rc-formula-icon">\uD83D\uDCA1</span>'
+    +'<div class="rc-formula-math">'
+    +'<strong>Key insight:</strong> p and q are INVERSES of each other. If pnorm(1.96) = 0.975, then qnorm(0.975) = 1.96. You use p-functions to find p-values, and q-functions to find critical values for confidence intervals.'
+    +'</div></div>',
+
+  reg: '<div class="rc-formula" style="margin:16px 0">'
+    +'<span class="rc-formula-icon">\uD83D\uDCC8</span>'
+    +'<div class="rc-formula-math">'
+    +'<strong>The workflow:</strong> lm() \u2192 summary() \u2192 predict() / confint()<br><br>'
+    +'predicted y = intercept + slope times x + error<br>'
+    +'<span class="note">intercept = predicted y when x=0, slope = change in y per unit x, error = what the line misses</span><br><br>'
+    +'R-squared = SSR/SST = 1 - SSE/SST<br>'
+    +'<span class="note">Fraction of variance in y explained by x. Closer to 1 = better fit.</span>'
+    +'</div></div>',
+
+  plot: '<div class="rc-concepts">'
+    +'<div class="rc-concept"><div class="rc-concept-label">Two numeric vars?</div><div style="font-family:var(--mono);font-size:0.85rem;color:var(--text)">plot(x, y)</div></div>'
+    +'<div class="rc-concept"><div class="rc-concept-label">Distribution of one var?</div><div style="font-family:var(--mono);font-size:0.85rem;color:var(--text)">hist(x)</div></div>'
+    +'<div class="rc-concept"><div class="rc-concept-label">Compare categories?</div><div style="font-family:var(--mono);font-size:0.85rem;color:var(--text)">barplot(table(x))</div></div>'
+    +'<div class="rc-concept"><div class="rc-concept-label">Compare groups?</div><div style="font-family:var(--mono);font-size:0.85rem;color:var(--text)">boxplot(y ~ group)</div></div>'
+    +'</div>'
+};
+
+/* ═══════════════════════════════════════════════════════════
+   DOM
+   ═══════════════════════════════════════════════════════════ */
+var mainArea = document.getElementById('rcMainArea');
+var searchEl = document.getElementById('rcSearch');
+var noResults = document.getElementById('rcNoResults');
+var currentView = 'grid'; // 'grid', 'topic', 'search'
+
+/* ═══════════════════════════════════════════════════════════
+   HELPER: Build function node HTML
+   ═══════════════════════════════════════════════════════════ */
+function esc(s){ var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+
+function buildNode(f, topicId, showTopicBadge) {
+  var topic = null;
+  for(var i=0;i<TOPICS.length;i++) if(TOPICS[i].id===topicId) topic=TOPICS[i];
+  var accentStyle = topic ? 'style="--node-accent:'+topic.color+'"' : '';
+  var badge = '';
+  if(showTopicBadge && topic) {
+    badge = '<span class="rc-search-result-topic" style="background:'+topic.color+'1a;color:'+topic.color+'">'+esc(topic.name)+'</span>';
+  }
+
+  var formulaHtml = '';
+  if(f.formula) {
+    formulaHtml = '<div class="rc-formula"><span class="rc-formula-icon">\u2211</span><div class="rc-formula-math">'
+      + esc(f.formula.text) + '<br><span class="note">' + esc(f.formula.note) + '</span></div></div>';
+  }
+
+  var formulaPreview = f.formula ? '<span class="rc-node-formula">' + esc(f.formula.text) + '</span>' : '';
+
+  // Annotated code
+  var annoHtml = '';
+  if(f.annotated) {
+    var a = f.annotated;
+    annoHtml = '<div class="rc-label">Syntax</div><div class="rc-annotated"><div class="rc-annotated-line">' + a.line + '</div></div>';
+    annoHtml += '<div class="rc-arg-annotations">';
+    for(var j=0;j<a.args.length;j++){
+      var arg = a.args[j];
+      var defHtml = arg.default ? '<div class="rc-arg-note-default">Default: ' + esc(arg.default) + '</div>' : '';
+      annoHtml += '<div class="rc-arg-note" ' + accentStyle + '>'
+        + '<div class="rc-arg-note-name">' + esc(arg.name) + '</div>'
+        + '<div><div class="rc-arg-note-desc">' + esc(arg.desc) + '</div>' + defHtml + '</div></div>';
+    }
+    annoHtml += '</div>';
+  }
+
+  // When to use (for plots)
+  var whenHtml = f.when ? '<div class="rc-label">When to use</div><p style="font-size:0.88rem;color:var(--text-secondary);margin:4px 0 8px;line-height:1.5">' + esc(f.when) + '</p>' : '';
+
+  // Example
+  var exHtml = '<div class="rc-label">Example</div><div class="rc-example"><pre>' + f.example + '</pre>'
+    + '<button class="rc-copy" title="Copy code">\u{1F4CB} Copy</button></div>';
+
+  // Returns
+  var retHtml = '<div class="rc-label">Returns</div><div class="rc-returns rc-returns--success"><span class="rc-returns-icon">\u2192</span><span>' + esc(f.returns) + '</span></div>';
+
+  return '<div class="rc-node" ' + accentStyle + ' data-id="'+f.id+'">'
+    + '<div class="rc-node-head">'
+    + '<span class="rc-node-func">' + esc(f.code) + '</span>'
+    + '<span class="rc-node-brief">' + esc(f.brief) + '</span>'
+    + formulaPreview
+    + badge
+    + '<span class="rc-node-arrow">\u25B6</span>'
+    + '</div>'
+    + '<div class="rc-node-body"><div class="rc-node-inner">'
+    + formulaHtml
+    + whenHtml
+    + annoHtml
+    + exHtml
+    + retHtml
+    + '</div></div></div>';
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER: Topic Grid (main page)
+   ═══════════════════════════════════════════════════════════ */
+function renderGrid() {
+  currentView = 'grid';
+  noResults.style.display = 'none';
+  var h = '<div class="rc-grid">';
+  for(var i=0;i<TOPICS.length;i++){
+    var t = TOPICS[i];
+    var count = FUNCS[t.id] ? FUNCS[t.id].length : 0;
+    h += '<div class="rc-tile" data-topic="'+t.id+'">'
+      + '<span class="rc-tile-icon">' + t.icon + '</span>'
+      + '<div class="rc-tile-name">' + esc(t.name) + '</div>'
+      + '<div class="rc-tile-count">' + count + ' function' + (count!==1?'s':'') + '</div>'
+      + '<div class="rc-tile-desc">' + esc(t.desc) + '</div></div>';
+  }
+  h += '</div>';
+  mainArea.innerHTML = h;
+
+  // Tile click handlers
+  var tiles = mainArea.querySelectorAll('.rc-tile');
+  for(var j=0;j<tiles.length;j++){
+    tiles[j].addEventListener('click', function(){
+      renderTopic(this.getAttribute('data-topic'));
+    });
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER: Topic Detail View
+   ═══════════════════════════════════════════════════════════ */
+function renderTopic(topicId) {
+  currentView = 'topic';
+  noResults.style.display = 'none';
+  var topic = null;
+  for(var i=0;i<TOPICS.length;i++) if(TOPICS[i].id===topicId) topic=TOPICS[i];
+  if(!topic) return renderGrid();
+
+  var flows = FLOWS[topicId] || [];
+  var funcs = FUNCS[topicId] || [];
+
+  var h = '<div class="rc-topic-view">';
+  h += '<button class="rc-back-btn" id="rcBack">Back to all topics</button>';
+  h += '<div class="rc-topic-header"><h2>' + topic.icon + ' ' + esc(topic.name) + '</h2>';
+  h += '<p>' + esc(topic.intro) + '</p></div>';
+
+  // Special visual content
+  if(SPECIAL[topicId]) h += SPECIAL[topicId];
+
+  // Flow sections
+  for(var s=0;s<flows.length;s++){
+    var section = flows[s];
+    h += '<div class="rc-flow">';
+    h += '<div class="rc-flow-label">' + esc(section.label) + '</div>';
+
+    for(var fi=0;fi<section.funcs.length;fi++){
+      var funcId = section.funcs[fi];
+      var func = null;
+      for(var k=0;k<funcs.length;k++) if(funcs[k].id===funcId) func=funcs[k];
+      if(!func) continue;
+
+      h += '<div class="rc-flow-line">';
+      h += '<div class="rc-flow-connector"><div class="dot" style="background:'+topic.color+'"></div><div class="line"></div></div>';
+      h += buildNode(func, topicId, false);
+      h += '</div>';
+    }
+    h += '</div>';
+  }
+
+  h += '</div>';
+  mainArea.innerHTML = h;
+
+  // Scroll to top
+  window.scrollTo({top:0, behavior:'smooth'});
+
+  // Back button
+  document.getElementById('rcBack').addEventListener('click', function(){
+    searchEl.value = '';
+    renderGrid();
+  });
+
+  attachNodeEvents();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER: Search Results
+   ═══════════════════════════════════════════════════════════ */
+function renderSearch(query) {
+  currentView = 'search';
+  var q = query.toLowerCase().trim();
+  if(!q) { renderGrid(); return; }
+
+  var results = [];
+  var topicIds = Object.keys(FUNCS);
+  for(var i=0;i<topicIds.length;i++){
+    var tid = topicIds[i];
+    var arr = FUNCS[tid];
+    for(var j=0;j<arr.length;j++){
+      var f = arr[j];
+      var text = (f.code + ' ' + f.brief + ' ' + (f.formula ? f.formula.text + ' ' + f.formula.note : '') + ' ' + (f.when || '')).toLowerCase();
+      // Also search topic name
+      for(var t=0;t<TOPICS.length;t++){
+        if(TOPICS[t].id===tid) text += ' ' + TOPICS[t].name.toLowerCase();
+      }
+      if(text.indexOf(q) !== -1) results.push({func:f, topic:tid});
+    }
+  }
+
+  if(results.length === 0){
+    mainArea.innerHTML = '';
+    noResults.style.display = 'block';
+    return;
+  }
+
+  noResults.style.display = 'none';
+  var h = '<div class="rc-search-results">';
+  h += '<button class="rc-back-btn" id="rcBack">Back to all topics</button>';
+  h += '<p style="color:var(--text-secondary);margin-bottom:20px;font-size:0.95rem">' + results.length + ' result' + (results.length!==1?'s':'') + ' for "' + esc(query) + '"</p>';
+
+  for(var r=0;r<results.length;r++){
+    h += buildNode(results[r].func, results[r].topic, true);
+  }
+  h += '</div>';
+  mainArea.innerHTML = h;
+
+  document.getElementById('rcBack').addEventListener('click', function(){
+    searchEl.value = '';
+    renderGrid();
+  });
+
+  attachNodeEvents();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   ATTACH NODE EVENTS (toggle, copy, arg highlight)
+   ═══════════════════════════════════════════════════════════ */
+function attachNodeEvents() {
+  // Toggle
+  var heads = mainArea.querySelectorAll('.rc-node-head');
+  for(var i=0;i<heads.length;i++){
+    heads[i].addEventListener('click', function(){
+      this.parentElement.classList.toggle('open');
+    });
+  }
+
+  // Copy
+  var copyBtns = mainArea.querySelectorAll('.rc-copy');
+  for(var j=0;j<copyBtns.length;j++){
+    copyBtns[j].addEventListener('click', function(ev){
+      ev.stopPropagation();
+      var pre = this.previousElementSibling;
+      var text = pre.textContent || pre.innerText;
+      var btn = this;
+      if(navigator.clipboard){
+        navigator.clipboard.writeText(text).then(function(){
+          btn.textContent = '\u2713 Copied!';
+          setTimeout(function(){ btn.innerHTML = '\uD83D\uDCCB Copy'; }, 1500);
+        });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        btn.textContent = '\u2713 Copied!';
+        setTimeout(function(){ btn.innerHTML = '\uD83D\uDCCB Copy'; }, 1500);
+      }
+    });
+  }
+
+  // Arg note hover highlight
+  var notes = mainArea.querySelectorAll('.rc-arg-note');
+  for(var k=0;k<notes.length;k++){
+    notes[k].addEventListener('mouseenter', function(){ this.classList.add('active'); });
+    notes[k].addEventListener('mouseleave', function(){ this.classList.remove('active'); });
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SEARCH
+   ═══════════════════════════════════════════════════════════ */
+var searchTimer = null;
+searchEl.addEventListener('input', function(){
+  clearTimeout(searchTimer);
+  var v = searchEl.value;
+  searchTimer = setTimeout(function(){
+    if(v.trim()) renderSearch(v);
+    else renderGrid();
+  }, 150);
+});
+
+/* Keyboard shortcuts */
+document.addEventListener('keydown', function(ev){
+  if(ev.key === '/' && document.activeElement !== searchEl){
+    ev.preventDefault();
+    searchEl.focus();
+  }
+  if(ev.key === 'Escape'){
+    if(searchEl.value) {
+      searchEl.value = '';
+      renderGrid();
+    }
+    searchEl.blur();
+  }
+});
+
+/* ═══════════════════════════════════════════════════════════
+   DARK MODE
+   ═══════════════════════════════════════════════════════════ */
+var themeBtn = document.getElementById('rcThemeBtn');
+var themeIcon = document.getElementById('rcThemeIcon');
+var root = document.documentElement;
+
+function setTheme(dark){
+  if(dark){
+    root.setAttribute('data-theme','dark');
+    themeIcon.innerHTML = '&#9788;';
+  } else {
+    root.removeAttribute('data-theme');
+    themeIcon.innerHTML = '&#9790;';
+  }
+  try { localStorage.setItem('rc-theme', dark?'dark':'light'); } catch(e){}
+}
+
+var saved = null;
+try { saved = localStorage.getItem('rc-theme'); } catch(e){}
+if(saved === 'dark') setTheme(true);
+
+themeBtn.addEventListener('click', function(){
+  setTheme(root.getAttribute('data-theme') !== 'dark');
+});
+
+/* ═══════════════════════════════════════════════════════════
+   INITIAL RENDER
+   ═══════════════════════════════════════════════════════════ */
+renderGrid();
+
+})();
+</script>
