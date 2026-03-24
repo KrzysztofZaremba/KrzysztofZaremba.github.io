@@ -1071,78 +1071,113 @@ function renderDerivStep(step){
 
   let html = '<div class="derivation-step"><h3>'+derivTitles[step]+'</h3>';
 
+  // Use the same data as Section 3 for consistency
+  const dX = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15]];
+  const dY = [13,19,29,24,35];
+  const dBeta = [2,3,1]; // true: y = 2 + 3*x1 + 1*x2
+  const dYhat = dX.map(r => dBeta[0]+dBeta[1]*r[1]+dBeta[2]*r[2]);
+  const dE = dY.map((v,i) => v - dYhat[i]);
+  const dSSE = dE.reduce((s,e)=>s+e*e, 0);
+
+  function matrixTable(data, opts){
+    opts = opts || {};
+    const cols = data[0].length || 1;
+    let h = '<table style="border-collapse:collapse;margin:0 auto;'+((opts.style)||'')+'">';
+    for(const row of data){
+      h += '<tr>';
+      const cells = Array.isArray(row) ? row : [row];
+      for(const v of cells){
+        const bg = opts.highlight ? 'background:var(--accent-pale);' : '';
+        h += '<td style="border:1px solid var(--border);padding:4px 10px;text-align:center;font-family:monospace;font-size:0.95rem;'+bg+'">'+v+'</td>';
+      }
+      h += '</tr>';
+    }
+    h += '</table>';
+    return h;
+  }
+
   if(step===0){
-    html += '<div class="formula-box">y = X\u03B2 + u</div>';
-    html += '<div style="text-align:center;margin:20px 0;overflow-x:auto;">';
-    html += '<div class="matrix-display">';
-    html += '[\u2009y\u2081\u2009]   [\u20091  x\u2081\u2081  x\u2081\u2082\u2009] [\u2009\u03B2\u2080\u2009]   [\u2009u\u2081\u2009]\n';
-    html += '[\u2009y\u2082\u2009]   [\u20091  x\u2082\u2081  x\u2082\u2082\u2009] [\u2009\u03B2\u2081\u2009]   [\u2009u\u2082\u2009]\n';
-    html += '[\u2009y\u2083\u2009] = [\u20091  x\u2083\u2081  x\u2083\u2082\u2009] [\u2009\u03B2\u2082\u2009] + [\u2009u\u2083\u2009]\n';
-    html += '[\u2009y\u2084\u2009]   [\u20091  x\u2084\u2081  x\u2084\u2082\u2009]         [\u2009u\u2084\u2009]\n';
-    html += '[\u2009y\u2085\u2009]   [\u20091  x\u2085\u2081  x\u2085\u2082\u2009]         [\u2009u\u2085\u2009]';
+    html += '<div class="formula-box" style="font-size:1.2rem;text-align:center;">y = X\u03B2 + u</div>';
+    html += '<div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0;">';
+    html += '<div style="text-align:center;"><div style="color:var(--highlight-row);font-weight:bold;margin-bottom:4px;">y</div>' + matrixTable(dY.map(v=>[v])) + '</div>';
+    html += '<span style="font-size:1.5rem;">=</span>';
+    html += '<div style="text-align:center;"><div style="color:var(--accent);font-weight:bold;margin-bottom:4px;">X</div>' + matrixTable(dX.map(r=>['<span style=color:#999>'+r[0]+'</span>',r[1],r[2]])) + '</div>';
+    html += '<div style="text-align:center;"><div style="color:var(--highlight-col);font-weight:bold;margin-bottom:4px;">\u03B2</div>' + matrixTable(['\u03B2\u2080','\u03B2\u2081','\u03B2\u2082'].map(v=>[v])) + '</div>';
+    html += '<span style="font-size:1.5rem;">+</span>';
+    html += '<div style="text-align:center;"><div style="color:var(--text-muted);font-weight:bold;margin-bottom:4px;">u</div>' + matrixTable(['u\u2081','u\u2082','u\u2083','u\u2084','u\u2085'].map(v=>[v])) + '</div>';
     html += '</div>';
+    html += '<div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:10px 0;font-size:0.9rem;">';
+    html += '<span><strong style="color:var(--highlight-row);">y</strong> = exam scores</span>';
+    html += '<span>X col 1 = <span style="color:#999">intercept (1s)</span></span>';
+    html += '<span>X col 2 = Hours Studied</span>';
+    html += '<span>X col 3 = Hours Slept</span>';
     html += '</div>';
-    html += '<div style="text-align:center;margin:12px 0;">';
-    html += '<span class="deriv-label y-label">y = outcomes</span> ';
-    html += '<span class="deriv-label x-label">X = predictors (with intercept column)</span> ';
-    html += '<span class="deriv-label beta-label">\u03B2 = coefficients we want to find</span> ';
-    html += '<span class="deriv-label u-label">u = errors</span>';
-    html += '</div>';
-    html += '<div class="explain-box">This is the linear regression model written in matrix form. Each row represents one observation. The first column of X is all 1s (the intercept). The vector \u03B2 contains the unknown coefficients. The vector u contains the error terms &mdash; what our model cannot explain.</div>';
+    html += '<div class="explain-box">Each row is one student. We observe y (scores) and X (predictors). We want to find \u03B2 &mdash; the coefficients that best explain the scores.</div>';
   }
   else if(step===1){
-    html += '<div class="formula-box">e = y &minus; X\u03B2\u0302</div>';
-    html += '<div class="explain-box">The <strong>prediction error</strong> (or residual) for each observation is the difference between the actual outcome y and the predicted value \u0177 = X\u03B2\u0302. Here, \u03B2\u0302 denotes our <em>estimate</em> of the true coefficients. We want to find the \u03B2\u0302 that makes these errors as small as possible.</div>';
-    html += '<div class="formula-box" style="font-size:1rem;">';
-    html += 'e\u2081 = y\u2081 &minus; (\u03B2\u0302\u2080 + \u03B2\u0302\u2081x\u2081\u2081 + \u03B2\u0302\u2082x\u2081\u2082)<br>';
-    html += 'e\u2082 = y\u2082 &minus; (\u03B2\u0302\u2080 + \u03B2\u0302\u2081x\u2082\u2081 + \u03B2\u0302\u2082x\u2082\u2082)<br>';
-    html += '&vellip;<br>';
-    html += 'e\u2085 = y\u2085 &minus; (\u03B2\u0302\u2080 + \u03B2\u0302\u2081x\u2085\u2081 + \u03B2\u0302\u2082x\u2085\u2082)';
+    html += '<div class="formula-box" style="font-size:1.2rem;text-align:center;">\u0177 = X\u03B2\u0302 &nbsp;&nbsp;&rarr;&nbsp;&nbsp; e = y &minus; \u0177</div>';
+    html += '<p style="text-align:center;margin:8px 0;">Once we have coefficients \u03B2\u0302, we can compute <strong>predictions</strong> and <strong>errors</strong>:</p>';
+    html += '<div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0;">';
+    html += '<div style="text-align:center;"><div style="font-weight:bold;margin-bottom:4px;">y</div>' + matrixTable(dY.map(v=>[v])) + '</div>';
+    html += '<span style="font-size:1.5rem;">&minus;</span>';
+    html += '<div style="text-align:center;"><div style="font-weight:bold;color:var(--accent);margin-bottom:4px;">\u0177 = X\u03B2\u0302</div>' + matrixTable(dYhat.map(v=>[v.toFixed(0)])) + '</div>';
+    html += '<span style="font-size:1.5rem;">=</span>';
+    html += '<div style="text-align:center;"><div style="font-weight:bold;color:var(--not-controlling-color);margin-bottom:4px;">e (errors)</div>' + matrixTable(dE.map(v=>[v.toFixed(0)]), {highlight:true}) + '</div>';
     html += '</div>';
+    html += '<div class="explain-box">The <strong>error</strong> for each student is the difference between their actual score and our prediction. We want to find the \u03B2\u0302 that makes these errors as small as possible.</div>';
+    html += '<div class="explain-box" style="margin-top:8px;"><strong>In matrix form:</strong> e = y &minus; X\u03B2\u0302. Each element: e\u1D62 = y\u1D62 &minus; (\u03B2\u0302\u2080 + \u03B2\u0302\u2081x\u1D621 + \u03B2\u0302\u2082x\u1D622)</div>';
   }
   else if(step===2){
-    html += '<div class="formula-box">SSE = e\'e = (y &minus; X\u03B2\u0302)\'(y &minus; X\u03B2\u0302)</div>';
-    html += '<div class="explain-box">The <strong>Sum of Squared Errors</strong> &mdash; we want to make this as small as possible. Squaring the errors ensures that positive and negative errors don\'t cancel out, and penalizes large errors more than small ones.</div>';
-    html += '<div class="formula-box" style="font-size:1rem;">';
-    html += 'SSE = e\u2081\u00B2 + e\u2082\u00B2 + e\u2083\u00B2 + e\u2084\u00B2 + e\u2085\u00B2 = \u03A3 e\u1D62\u00B2';
+    html += '<div class="formula-box" style="font-size:1.2rem;text-align:center;">SSE = e\u1D40e = e\u2081\u00B2 + e\u2082\u00B2 + \u2026 + e\u2085\u00B2</div>';
+    html += '<p style="text-align:center;margin:8px 0;">We measure total error by <strong>summing the squared errors</strong>:</p>';
+    html += '<div style="display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin:16px 0;">';
+    html += '<div style="text-align:center;"><div style="font-weight:bold;margin-bottom:4px;">e\u1D40 (transpose)</div>' + matrixTable([dE.map(v=>v.toFixed(0))]) + '</div>';
+    html += '<span style="font-size:1.5rem;">\u00D7</span>';
+    html += '<div style="text-align:center;"><div style="font-weight:bold;margin-bottom:4px;">e</div>' + matrixTable(dE.map(v=>[v.toFixed(0)])) + '</div>';
+    html += '<span style="font-size:1.5rem;">=</span>';
+    html += '<div style="text-align:center;font-size:1.3rem;font-weight:bold;color:var(--accent);">' + dSSE.toFixed(0) + '</div>';
     html += '</div>';
-    html += '<div class="explain-box">In matrix notation, <strong>e\'e</strong> means "transpose e and multiply by e." This is exactly the sum of each element squared &mdash; a compact way of writing the sum of squared errors.</div>';
+    html += '<div class="formula-box" style="font-size:0.95rem;text-align:center;">';
+    html += dE.map(v => v.toFixed(0)+'\u00B2').join(' + ') + ' = ' + dE.map(v => (v*v).toFixed(0)).join(' + ') + ' = <strong>' + dSSE.toFixed(0) + '</strong>';
+    html += '</div>';
+    html += '<div class="explain-box"><strong>e\u1D40e</strong> means "transpose e and multiply by e" &mdash; this is exactly the dot product, which equals the sum of squares. We want to find \u03B2\u0302 that makes this number as small as possible.</div>';
   }
   else if(step===3){
-    html += '<div class="formula-box">\u2202SSE / \u2202\u03B2 = &minus;2X\'y + 2X\'X\u03B2\u0302 = 0</div>';
-    html += '<div class="explain-box"><strong>Calculus tells us:</strong> at the minimum, the derivative equals zero. We take the derivative of SSE with respect to \u03B2\u0302 and set it equal to zero. This gives us the condition that the optimal coefficients must satisfy.</div>';
-    html += '<div class="formula-box" style="font-size:1rem;">';
-    html += 'Expanding SSE:<br>';
-    html += 'SSE = y\'y &minus; 2\u03B2\u0302\'X\'y + \u03B2\u0302\'X\'X\u03B2\u0302<br><br>';
-    html += 'Taking the derivative with respect to \u03B2\u0302:<br>';
-    html += '\u2202SSE / \u2202\u03B2\u0302 = &minus;2X\'y + 2X\'X\u03B2\u0302<br><br>';
-    html += 'Setting equal to zero:<br>';
-    html += '&minus;2X\'y + 2X\'X\u03B2\u0302 = 0';
+    html += '<div class="formula-box" style="font-size:1.1rem;text-align:center;">\u2202SSE / \u2202\u03B2\u0302 = &minus;2X\u1D40y + 2X\u1D40X\u03B2\u0302 = 0</div>';
+    html += '<div class="explain-box"><strong>Calculus:</strong> to find the minimum of SSE, take the derivative with respect to \u03B2\u0302 and set it to zero.</div>';
+    html += '<div class="formula-box" style="font-size:0.95rem;">';
+    html += '<strong>Step 1:</strong> Expand SSE in matrix form:<br>';
+    html += 'SSE = (y &minus; X\u03B2\u0302)\u1D40(y &minus; X\u03B2\u0302) = y\u1D40y &minus; 2\u03B2\u0302\u1D40X\u1D40y + \u03B2\u0302\u1D40X\u1D40X\u03B2\u0302<br><br>';
+    html += '<strong>Step 2:</strong> Differentiate with respect to \u03B2\u0302:<br>';
+    html += '\u2202SSE/\u2202\u03B2\u0302 = &minus;2X\u1D40y + 2X\u1D40X\u03B2\u0302<br><br>';
+    html += '<strong>Step 3:</strong> Set equal to zero:<br>';
+    html += '&minus;2X\u1D40y + 2X\u1D40X\u03B2\u0302 = 0';
     html += '</div>';
   }
   else if(step===4){
-    html += '<div class="explain-box" style="font-size:1.05rem;">Starting from the first-order condition, we solve for \u03B2\u0302 in two algebraic steps:</div>';
+    html += '<div class="explain-box" style="font-size:1.05rem;">Solve for \u03B2\u0302 in two steps:</div>';
     html += '<div class="formula-box" style="font-size:1.05rem;">';
-    html += '<strong>Step A:</strong> Rearrange to get the <em>normal equations</em>:<br>';
-    html += 'X\'X\u03B2\u0302 = X\'y';
+    html += '<strong>Step A:</strong> Rearrange &rarr; the <em>normal equations</em>:<br>';
+    html += '<div style="text-align:center;font-size:1.2rem;margin:8px 0;">X\u1D40X\u03B2\u0302 = X\u1D40y</div>';
     html += '</div>';
     html += '<div class="formula-box" style="font-size:1.05rem;">';
-    html += '<strong>Step B:</strong> Multiply both sides by (X\'X)\u207B\u00B9:<br>';
-    html += '(X\'X)\u207B\u00B9 X\'X \u03B2\u0302 = (X\'X)\u207B\u00B9 X\'y<br>';
-    html += 'I \u00B7 \u03B2\u0302 = (X\'X)\u207B\u00B9 X\'y';
+    html += '<strong>Step B:</strong> Multiply both sides by (X\u1D40X)\u207B\u00B9:<br>';
+    html += '<div style="text-align:center;font-size:1rem;margin:8px 0;">(X\u1D40X)\u207B\u00B9 X\u1D40X \u03B2\u0302 = (X\u1D40X)\u207B\u00B9 X\u1D40y<br>I \u00B7 \u03B2\u0302 = (X\u1D40X)\u207B\u00B9 X\u1D40y</div>';
     html += '</div>';
-    html += '<div class="formula-box highlight" style="font-size:1.3rem;">';
-    html += '<strong>\u03B2\u0302 = (X\'X)\u207B\u00B9 X\'y</strong>';
+    html += '<div class="formula-box highlight" style="font-size:1.4rem;text-align:center;padding:16px;">';
+    html += '<strong>\u03B2\u0302 = (X\u1D40X)\u207B\u00B9 X\u1D40y</strong>';
     html += '</div>';
-    html += '<div class="explain-box">This is the <strong>OLS formula</strong>. It gives us the coefficients that minimize the sum of squared errors. Section 3 below walks through each piece numerically.</div>';
+    html += '<div class="explain-box">This is the <strong>OLS formula</strong>. Section 3 below computes each piece with actual numbers.</div>';
   }
   else if(step===5){
-    html += '<div class="formula-box" style="font-size:1.1rem;">\u03B2\u0302 = <span style="border-bottom:2px solid var(--highlight-col);">(X\'X)\u207B\u00B9</span> <span style="border-bottom:2px solid var(--highlight-row);">X\'y</span></div>';
-    html += '<div class="explain-box" style="font-size:1.05rem;">';
-    html += '<strong style="color:var(--highlight-col);">(X\'X)\u207B\u00B9</strong> accounts for <strong>correlations between predictors</strong>. If two predictors move together, this matrix "untangles" their effects so each coefficient reflects only its own contribution.<br><br>';
-    html += '<strong style="color:var(--highlight-row);">X\'y</strong> measures <strong>how each predictor relates to the outcome</strong>. It captures the raw association between each predictor and y.<br><br>';
-    html += 'Together, they give each variable its own <strong>isolated effect</strong> &mdash; the effect of changing one predictor while holding all others constant. This is what makes multiple regression so powerful: it separates the individual contributions even when predictors are correlated.';
+    html += '<div class="formula-box" style="font-size:1.2rem;text-align:center;">\u03B2\u0302 = <span style="border-bottom:3px solid var(--highlight-col);padding:2px 4px;">(X\u1D40X)\u207B\u00B9</span> <span style="border-bottom:3px solid var(--highlight-row);padding:2px 4px;">X\u1D40y</span></div>';
+    html += '<div style="display:flex;justify-content:center;gap:30px;flex-wrap:wrap;margin:20px 0;">';
+    html += '<div style="background:rgba(232,145,58,0.1);border:2px solid var(--highlight-col);border-radius:12px;padding:16px 20px;max-width:300px;">';
+    html += '<strong style="color:var(--highlight-col);">(X\u1D40X)\u207B\u00B9</strong><br><br>Accounts for <strong>correlations between predictors</strong>. "Untangles" their effects so each coefficient reflects only its own contribution.</div>';
+    html += '<div style="background:rgba(74,144,217,0.1);border:2px solid var(--highlight-row);border-radius:12px;padding:16px 20px;max-width:300px;">';
+    html += '<strong style="color:var(--highlight-row);">X\u1D40y</strong><br><br>Measures <strong>how each predictor relates to the outcome</strong>. The raw association between each predictor and y.</div>';
     html += '</div>';
+    html += '<div class="explain-box" style="font-size:1.05rem;text-align:center;">Together, they give each variable its own <strong>isolated effect</strong> &mdash; the change in y when only that predictor changes, holding everything else constant.</div>';
   }
 
   html += '</div>';
