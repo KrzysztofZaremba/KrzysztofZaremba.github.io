@@ -1129,49 +1129,66 @@ function renderDerivStep(step){
     html += '<div class="explain-box">Each row is one student. We observe <strong>y</strong> (exam scores) and <strong>X</strong> (how much they studied and slept). We want to find \u03B2 &mdash; the coefficients that best predict scores from studying and sleeping hours.</div>';
   }
   else if(step===1){
+    // Use "b" (a guess) not β̂ (the optimal)
+    var guessB = [4, 2.5, 1]; // a reasonable but non-optimal guess
+    var guessYhat = dX.map(r => +(guessB[0]+guessB[1]*r[1]+guessB[2]*r[2]).toFixed(1));
+    var guessE = dY.map((v,i) => +(v - guessYhat[i]).toFixed(1));
     html += dualDisplay(
-      '<div style="font-size:1.2rem;text-align:center;margin:8px 0;"><strong>\u0177 = X\u03B2\u0302</strong></div>' +
-      '<div style="font-size:0.9rem;margin-top:8px;">For each student, the <strong>predicted score</strong> is:<br>\u0177\u1D62 = \u03B2\u0302\u2080 + \u03B2\u0302\u2081 \u00D7 (Hours Studied)\u1D62 + \u03B2\u0302\u2082 \u00D7 (Hours Slept)\u1D62<br><br>We multiply the X matrix by the \u03B2\u0302 vector to get all predictions at once.</div>',
+      '<div style="font-size:1.2rem;text-align:center;margin:8px 0;"><strong>\u0177 = Xb</strong></div>' +
+      '<div style="font-size:0.9rem;margin-top:8px;">Suppose we <strong>guess</strong> some coefficients <strong>b</strong> (not optimal yet!).<br><br>' +
+      'For each student, the predicted score is:<br>\u0177\u1D62 = b\u2080 + b\u2081 \u00D7 (Hours Studied)\u1D62 + b\u2082 \u00D7 (Hours Slept)\u1D62<br><br>' +
+      '<em>b is just a guess &mdash; we haven\'t found the best coefficients yet.</em></div>',
 
-      '<div style="font-size:0.9rem;">Using \u03B2\u0302 = [' + dBeta.join(', ') + ']:<br><br>' +
+      '<div style="font-size:0.9rem;">Using a guess <strong>b</strong> = [' + guessB.join(', ') + ']:<br><br>' +
       '<table style="border-collapse:collapse;font-size:0.85rem;width:100%;">' +
       '<tr style="background:var(--accent-pale);"><th style="padding:3px 6px;">Student</th><th>Calculation</th><th>\u0177</th></tr>' +
-      dX.map((r,i) => '<tr><td style="padding:3px 6px;text-align:center;">'+(i+1)+'</td><td style="padding:3px 6px;">'+dBeta[0]+' + '+dBeta[1]+'\u00D7'+r[1]+' + '+dBeta[2]+'\u00D7'+r[2]+'</td><td style="padding:3px 6px;text-align:center;font-weight:bold;">'+dYhat[i]+'</td></tr>').join('') +
+      dX.map((r,i) => '<tr><td style="padding:3px 6px;text-align:center;">'+(i+1)+'</td><td style="padding:3px 6px;">'+guessB[0]+' + '+guessB[1]+'\u00D7'+r[1]+' + '+guessB[2]+'\u00D7'+r[2]+'</td><td style="padding:3px 6px;text-align:center;font-weight:bold;">'+guessYhat[i]+'</td></tr>').join('') +
       '</table></div>'
     );
-    html += '<div class="explain-box">We plug our estimated coefficients into the model to get a <strong>predicted score</strong> for each student. The predictions come from multiplying X by \u03B2\u0302.</div>';
+    html += '<div class="explain-box">With this <strong>guess</strong> b, we get predictions. But are they any good? Let\'s check the errors \u2192</div>';
   }
   else if(step===2){
+    var guessB = [4, 2.5, 1];
+    var guessYhat = dX.map(r => +(guessB[0]+guessB[1]*r[1]+guessB[2]*r[2]).toFixed(1));
+    var guessE = dY.map((v,i) => +(v - guessYhat[i]).toFixed(1));
     html += dualDisplay(
-      '<div style="font-size:1.2rem;text-align:center;margin:8px 0;"><strong>e = y &minus; \u0177 = y &minus; X\u03B2\u0302</strong></div>' +
-      '<div style="font-size:0.9rem;margin-top:8px;">The <strong>residual</strong> (error) for each student is:<br>e\u1D62 = y\u1D62 &minus; \u0177\u1D62<br><br>This is how far off our prediction was for that student.</div>',
+      '<div style="font-size:1.2rem;text-align:center;margin:8px 0;"><strong>e = y &minus; Xb</strong></div>' +
+      '<div style="font-size:0.9rem;margin-top:8px;">The <strong>error</strong> for each student is the difference between actual score and our prediction:<br>e\u1D62 = y\u1D62 &minus; \u0177\u1D62<br><br>' +
+      'With a <strong>different guess</strong> b, we\'d get different errors. Our goal: find the b that makes errors smallest.</div>',
 
       '<div style="display:flex;justify-content:center;align-items:center;gap:8px;">' +
-      '<div style="text-align:center;"><div style="font-weight:bold;font-size:0.8rem;">y</div>' + matrixTable(dY.map(v=>[v])) + '</div>' +
+      '<div style="text-align:center;"><div style="font-weight:bold;font-size:0.8rem;">y (actual)</div>' + matrixTable(dY.map(v=>[v])) + '</div>' +
       '<span style="font-size:1.3rem;">&minus;</span>' +
-      '<div style="text-align:center;"><div style="font-weight:bold;color:var(--accent);font-size:0.8rem;">\u0177</div>' + matrixTable(dYhat.map(v=>[v])) + '</div>' +
+      '<div style="text-align:center;"><div style="font-weight:bold;color:var(--accent);font-size:0.8rem;">\u0177 = Xb</div>' + matrixTable(guessYhat.map(v=>[v])) + '</div>' +
       '<span style="font-size:1.3rem;">=</span>' +
-      '<div style="text-align:center;"><div style="font-weight:bold;color:var(--not-controlling-color);font-size:0.8rem;">e</div>' + matrixTable(dE.map(v=>[v]), {highlight:true}) + '</div></div>'
+      '<div style="text-align:center;"><div style="font-weight:bold;color:var(--not-controlling-color);font-size:0.8rem;">e (errors)</div>' + matrixTable(guessE.map(v=>[v]), {highlight:true}) + '</div></div>'
     );
-    html += '<div class="explain-box">Some errors are positive (we under-predicted), some negative (we over-predicted). We want to find \u03B2\u0302 that makes these errors <strong>as small as possible overall</strong>.</div>';
+    html += '<div class="explain-box">These errors are <strong>not zero</strong> &mdash; our guess b = ['+guessB.join(', ')+'] isn\'t perfect. Some predictions are too high, others too low. Next: how do we measure the <em>total</em> error?</div>';
   }
   else if(step===3){
+    var guessB = [4, 2.5, 1];
+    var guessYhat = dX.map(r => +(guessB[0]+guessB[1]*r[1]+guessB[2]*r[2]).toFixed(1));
+    var guessE = dY.map((v,i) => +(v - guessYhat[i]).toFixed(1));
+    var guessSSE = +(guessE.reduce((s,e)=>s+e*e, 0)).toFixed(2);
     html += dualDisplay(
-      '<div style="font-size:1.1rem;text-align:center;margin:8px 0;"><strong>SSE = e\u1D40e</strong></div>' +
+      '<div style="font-size:1.1rem;text-align:center;margin:8px 0;"><strong>SSE(b) = e\u1D40e = (y &minus; Xb)\u1D40(y &minus; Xb)</strong></div>' +
       '<div style="font-size:0.9rem;margin-top:8px;">In matrix notation, <strong>e\u1D40e</strong> means "transpose e and dot-product with itself":<br><br>' +
       'SSE = e\u2081\u00B2 + e\u2082\u00B2 + \u2026 + e\u2088\u00B2<br><br>' +
-      'Squaring ensures positive + negative errors don\'t cancel. Large errors get penalized more.</div>',
+      'Squaring ensures positive + negative errors don\'t cancel. Large errors get penalized more.<br><br>' +
+      '<strong>SSE depends on our choice of b!</strong> Different b \u2192 different errors \u2192 different SSE. We want to find the b that gives the <em>smallest</em> SSE.</div>',
 
       '<div style="font-size:0.9rem;text-align:center;">' +
+      '<div style="margin-bottom:6px;">With guess b = [' + guessB.join(', ') + ']:</div>' +
       '<div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:8px;">' +
-      '<div><div style="font-size:0.75rem;font-weight:bold;">e\u1D40</div>' + matrixTable([dE]) + '</div>' +
+      '<div><div style="font-size:0.75rem;font-weight:bold;">e\u1D40</div>' + matrixTable([guessE]) + '</div>' +
       '<span>\u00D7</span>' +
-      '<div><div style="font-size:0.75rem;font-weight:bold;">e</div>' + matrixTable(dE.map(v=>[v])) + '</div></div>' +
-      '<div style="margin-top:8px;">' + dE.map(v => '('+v+')\u00B2').join(' + ') + '</div>' +
-      '<div style="margin-top:4px;">' + dE.map(v => (v*v).toFixed(2)).join(' + ') + '</div>' +
-      '<div style="margin-top:8px;font-size:1.2rem;font-weight:bold;color:var(--accent);">SSE = ' + dSSE + '</div></div>'
+      '<div><div style="font-size:0.75rem;font-weight:bold;">e</div>' + matrixTable(guessE.map(v=>[v])) + '</div></div>' +
+      '<div style="margin-top:8px;">' + guessE.map(v => '('+v+')\u00B2').join(' + ') + '</div>' +
+      '<div style="margin-top:4px;">' + guessE.map(v => (v*v).toFixed(2)).join(' + ') + '</div>' +
+      '<div style="margin-top:8px;font-size:1.2rem;font-weight:bold;color:var(--accent);">SSE(b) = ' + guessSSE + '</div>' +
+      '<div style="margin-top:6px;font-size:0.85rem;color:var(--text-muted);">Can we do better? The optimal \u03B2\u0302 will give SSE = ' + dSSE + ' (smaller!)</div></div>'
     );
-    html += '<div class="explain-box">We want to find the \u03B2\u0302 that makes SSE <strong>as small as possible</strong>. How? Use calculus &mdash; next step!</div>';
+    html += '<div class="explain-box">SSE is a function of b. We want to <strong>minimize</strong> it. How? Use calculus &mdash; take the derivative and set it to zero!</div>';
   }
   else if(step===4){
     html += dualDisplay(
@@ -1297,19 +1314,19 @@ document.querySelectorAll('#derivStepNav .step-dot').forEach(d=>d.addEventListen
 renderDerivStep(0);
 
 /* ========== SECTION 3: OLS Building Blocks (was Section 2) ========== */
-const X = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15]];
-const y = [[13],[19],[29],[24],[35]];
-// X' (3x5)
-const Xt = [[1,1,1,1,1],[2,3,5,4,6],[5,8,12,10,15]];
+const X = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15],[1,1,4],[1,7,11],[1,3,6]];
+const y = [[14],[18],[30],[24],[34],[11],[33],[18]];
+// X' (3x8)
+const Xt = [[1,1,1,1,1,1,1,1],[2,3,5,4,6,1,7,3],[5,8,12,10,15,4,11,6]];
 // X'X (3x3)
-const XtX = [[5,20,50],[20,90,224],[50,224,558]];
+const XtX = [[8,31,71],[31,149,323],[71,323,731]];
 // X'y (3x1)
-const Xty = [[120,534,1330]]; // stored as row for display
-const XtyCol = [[120],[534],[1330]];
-// (X'X)^-1  (det=20)
-const XtXinv = [[2.200, 2.000, -1.000],[2.000, 14.500, -6.000],[-1.000, -6.000, 2.500]];
-// beta = (X'X)^-1 X'y  =>  y = 2 + 3*x1 + 1*x2
-const beta = [[2.00],[3.00],[1.00]];
+const Xty = [[182,828,1839]]; // stored as row for display
+const XtyCol = [[182],[828],[1839]];
+// (X'X)^-1
+const XtXinv = [[0.9243, 0.0548, -0.1140],[0.0548, 0.1625, -0.0771],[-0.1140, -0.0771, 0.0465]];
+// beta = (X'X)^-1 X'y  =>  approx [3.97, 2.69, 0.94]
+const beta = [[3.97],[2.69],[0.94]];
 
 let currentStep = 0;
 const stepTitles = [
@@ -1337,30 +1354,30 @@ function renderStep(step){
 
   if(step===0){
     html += '<div class="matrix-area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X (5\u00d73)</span><div class="matrix" id="s2X" style="grid-template-columns:repeat(3,42px);"></div></div>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">y (5\u00d71)</span><div class="matrix" id="s2y" style="grid-template-columns:42px;"></div></div>';
+    html += '<div class="matrix-wrapper"><span class="matrix-label">X (8\u00d73)</span><div class="matrix" id="s2X" style="grid-template-columns:repeat(3,42px);"></div></div>';
+    html += '<div class="matrix-wrapper"><span class="matrix-label">y (8\u00d71)</span><div class="matrix" id="s2y" style="grid-template-columns:42px;"></div></div>';
     html += '</div>';
-    html += '<div class="explain-box">Each row is a student observation. <strong>Column 1</strong> is always 1 (the intercept term). <strong>Column 2</strong> is "Hours Studied" and <strong>Column 3</strong> is "Hours Slept." The vector y contains each student\'s exam score.</div>';
+    html += '<div class="explain-box">Each row is one of 8 students. <strong>Column 1</strong> is always 1 (the intercept term). <strong>Column 2</strong> is "Hours Studied" and <strong>Column 3</strong> is "Hours Slept." The vector y contains each student\'s exam score.</div>';
     cont.innerHTML = html;
     buildMatrixDOM('s2X', X, {small:true});
     buildMatrixDOM('s2y', y, {small:true});
   }
   else if(step===1){
     html += '<div class="matrix-area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X (5\u00d73)</span><div class="matrix" id="s2X2" style="grid-template-columns:repeat(3,42px);"></div></div>';
+    html += '<div class="matrix-wrapper"><span class="matrix-label">X (8\u00d73)</span><div class="matrix" id="s2X2" style="grid-template-columns:repeat(3,42px);"></div></div>';
     html += '<span class="operator">\u2192</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d75)</span><div class="matrix" id="s2Xt" style="grid-template-columns:repeat(5,42px);"></div></div>';
+    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d78)</span><div class="matrix" id="s2Xt" style="grid-template-columns:repeat(8,36px);"></div></div>';
     html += '</div>';
-    html += '<div class="explain-box">The <strong>transpose</strong> X\' flips rows into columns. Row 1 of X (all the 1s) becomes column 1 of X\'. Each original column &mdash; intercept, Hours Studied, Hours Slept &mdash; becomes a row in X\'. The shape changes from 5\u00d73 to 3\u00d75.</div>';
+    html += '<div class="explain-box">The <strong>transpose</strong> X\' flips rows into columns. Row 1 of X (all the 1s) becomes column 1 of X\'. Each original column &mdash; intercept, Hours Studied, Hours Slept &mdash; becomes a row in X\'. The shape changes from 8\u00d73 to 3\u00d78.</div>';
     cont.innerHTML = html;
     buildMatrixDOM('s2X2', X, {small:true});
     buildMatrixDOM('s2Xt', Xt, {small:true});
   }
   else if(step===2){
     html += '<div class="matrix-area" id="s2Step3Area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d75)</span><div class="matrix" id="s2Xt2" style="grid-template-columns:repeat(5,36px);"></div></div>';
+    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d78)</span><div class="matrix" id="s2Xt2" style="grid-template-columns:repeat(8,32px);"></div></div>';
     html += '<span class="operator">\u00d7</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X (5\u00d73)</span><div class="matrix" id="s2X3" style="grid-template-columns:repeat(3,36px);"></div></div>';
+    html += '<div class="matrix-wrapper"><span class="matrix-label">X (8\u00d73)</span><div class="matrix" id="s2X3" style="grid-template-columns:repeat(3,36px);"></div></div>';
     html += '<span class="equals">=</span>';
     html += '<div class="matrix-wrapper"><span class="matrix-label">X\'X (3\u00d73)</span><div class="matrix" id="s2XtX" style="grid-template-columns:repeat(3,50px);"></div></div>';
     html += '</div>';
@@ -1372,13 +1389,13 @@ function renderStep(step){
   }
   else if(step===3){
     html += '<div class="matrix-area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d75)</span><div class="matrix" id="s2Xt3" style="grid-template-columns:repeat(5,36px);"></div></div>';
+    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d78)</span><div class="matrix" id="s2Xt3" style="grid-template-columns:repeat(8,32px);"></div></div>';
     html += '<span class="operator">\u00d7</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">y (5\u00d71)</span><div class="matrix" id="s2y2" style="grid-template-columns:42px;"></div></div>';
+    html += '<div class="matrix-wrapper"><span class="matrix-label">y (8\u00d71)</span><div class="matrix" id="s2y2" style="grid-template-columns:42px;"></div></div>';
     html += '<span class="equals">=</span>';
     html += '<div class="matrix-wrapper"><span class="matrix-label">X\'y (3\u00d71)</span><div class="matrix" id="s2Xty" style="grid-template-columns:50px;"></div></div>';
     html += '</div>';
-    html += '<div class="explain-box"><strong>X\'y</strong> is a 3\u00d71 vector that captures how each predictor relates to the outcome. The first entry (120) is the sum of all y values. The second (534) is the sum of Hours Studied \u00d7 Score. The third (1330) is the sum of Hours Slept \u00d7 Score. These are the "raw associations."</div>';
+    html += '<div class="explain-box"><strong>X\'y</strong> is a 3\u00d71 vector that captures how each predictor relates to the outcome. The first entry (182) is the sum of all y values. The second (828) is the sum of Hours Studied \u00d7 Score. The third (1839) is the sum of Hours Slept \u00d7 Score. These are the "raw associations."</div>';
     cont.innerHTML = html;
     buildMatrixDOM('s2Xt3', Xt, {tiny:true});
     buildMatrixDOM('s2y2', y, {small:true});
@@ -1390,7 +1407,7 @@ function renderStep(step){
     html += '</div>';
     html += '<div class="explain-box">Inverting <strong>X\'X</strong> "removes" the correlations between predictors. Where X\'X tells you how predictors overlap, (X\'X)\u207B\u00B9 undoes that overlap so each coefficient reflects its <strong>own unique effect</strong>. Without this step, a coefficient would conflate a predictor\'s direct effect with the indirect effect through correlated variables.</div>';
     cont.innerHTML = html;
-    buildMatrixDOM('s2inv', XtXinv.map(r=>r.map(v=>v.toFixed(3))));
+    buildMatrixDOM('s2inv', XtXinv.map(r=>r.map(v=>v.toFixed(4))));
     document.querySelectorAll('#s2inv .matrix-cell').forEach(c=>c.style.width='64px');
   }
   else if(step===5){
@@ -1402,10 +1419,10 @@ function renderStep(step){
     html += '<div class="matrix-wrapper"><span class="matrix-label">\u03B2</span><div class="matrix" id="s2beta" style="grid-template-columns:64px;"></div></div>';
     html += '</div>';
     html += '<div class="explain-box" style="text-align:center;font-size:1.1rem;">';
-    html += '<strong>\u03B2\u2080</strong> (Intercept) = <strong>2.00</strong> &nbsp;&bull;&nbsp; ';
-    html += '<strong>\u03B2\u2081</strong> (Hours Studied) = <strong>3.00</strong> &nbsp;&bull;&nbsp; ';
-    html += '<strong>\u03B2\u2082</strong> (Hours Slept) = <strong>1.00</strong>';
-    html += '<br><br>Interpretation: Holding hours slept constant, one additional hour of studying is associated with a <strong>3-point</strong> increase in the exam score. Holding studying constant, one additional hour of sleep is associated with a <strong>1-point</strong> increase. The intercept of <strong>2</strong> is the predicted score when both predictors are zero.';
+    html += '<strong>\u03B2\u0302\u2080</strong> (Intercept) = <strong>3.97</strong> &nbsp;&bull;&nbsp; ';
+    html += '<strong>\u03B2\u0302\u2081</strong> (Hours Studied) = <strong>2.69</strong> &nbsp;&bull;&nbsp; ';
+    html += '<strong>\u03B2\u0302\u2082</strong> (Hours Slept) = <strong>0.94</strong>';
+    html += '<br><br>Each additional hour of studying increases the predicted score by <strong>2.69 points</strong> (holding sleep constant). Each additional hour of sleep increases it by <strong>0.94 points</strong> (holding studying constant).';
     html += '</div>';
     cont.innerHTML = html;
     buildMatrixDOM('s2inv2', XtXinv.map(r=>r.map(v=>v.toFixed(2))), {small:true});
