@@ -289,24 +289,30 @@ function updateLive(){
     h+='<div class="sse-box">Your SSE = <strong>'+sse+'</strong> &emsp;|&emsp; Optimal SSE = <strong>4.64</strong></div>';
     p4.innerHTML=h;
   }
-  /* Step 5 panel — show full expansion with current b */
+  /* Step 5 panel — one combined equation with all matrices */
   const p5=$('#liveStep5');
   if(p5){
     const b=bVals;
     const bTXTy = R(b[0]*Xty[0]+b[1]*Xty[1]+b[2]*Xty[2]);
-    // b'X'Xb
     let bXXb=0;
     for(let i=0;i<3;i++) for(let j=0;j<3;j++) bXXb+=b[i]*XtX[i][j]*b[j];
     bXXb=R(bXXb);
     const sseCalc = R(yty - 2*bTXTy + bXXb);
-    let h='<div class="proof-step"><div class="label">With your b = ['+b.map(v=>R(v,1)).join(', ')+']</div>';
-    h+='<div style="font-family:Georgia,serif;font-size:.95rem;text-align:center;">';
-    h+='SSE = y\u1D40y \u2212 2b\u1D40'+XT+'y + b\u1D40'+XT+'Xb<br><br>';
-    h+='= '+yty+' \u2212 2\u00d7'+bTXTy+' + '+bXXb+'<br><br>';
-    h+='= '+yty+' \u2212 '+(2*bTXTy).toFixed(2)+' + '+bXXb+'<br><br>';
-    h+='= <strong style="color:var(--accent);font-size:1.2rem">'+sseCalc+'</strong>';
-    h+='</div></div>';
-    h+='<div class="sse-box">SSE(b) = <strong>'+sseCalc+'</strong> &emsp;|&emsp; Optimal SSE = <strong>4.64</strong></div>';
+    let h='<div style="overflow-x:auto;text-align:center;font-family:Georgia,serif;font-size:.95rem;line-height:2;">';
+    // Show: SSE = y'y - 2 b' X'y + b' X'X b  with actual matrices
+    h+='<div style="margin:8px 0"><strong>SSE =</strong> ';
+    h+=mxRow(y,'y\u1D40')+' '+mxV(y,'y');
+    h+=' \u2212 2 '+mxRow(b.map(v=>R(v,1)),'b\u1D40')+' '+mxV(Xty,XT+'y');
+    h+=' + '+mxRow(b.map(v=>R(v,1)),'b\u1D40')+' '+mx(XtX,XT+'X')+' '+mxV(b.map(v=>R(v,1)),'b');
+    h+='</div>';
+    h+='<div style="margin:12px 0;font-size:1.05rem;">';
+    h+='= <strong>'+yty+'</strong> \u2212 2 \u00d7 <strong>'+bTXTy+'</strong> + <strong>'+bXXb+'</strong>';
+    h+='</div>';
+    h+='<div style="margin:8px 0;font-size:1.05rem;">';
+    h+='= '+yty+' \u2212 '+(2*bTXTy).toFixed(2)+' + '+bXXb;
+    h+='</div>';
+    h+='</div>';
+    h+='<div class="sse-box">SSE(b) = <strong style="font-size:1.3rem;">'+sseCalc+'</strong> &emsp;|&emsp; Optimal SSE = <strong>4.64</strong></div>';
     p5.innerHTML=h;
   }
 }
@@ -357,34 +363,40 @@ function stp4(){
 function stp5(){
   let h=sliderBlock();
   h+='<div class="card"><h3>Step 5: SSE in Matrix Form</h3>';
-  h+='<div class="eq eq-sm">SSE = (y \u2212 Xb)<sup>\u22A4</sup>(y \u2212 Xb) = y<sup>\u22A4</sup>y \u2212 2b<sup>\u22A4</sup>'+XT+'y + b<sup>\u22A4</sup>'+XT+'Xb</div>';
-  h+='<p style="margin:10px 0">Three building blocks (constant matrices from data) + your choice of b:</p>';
-  h+='<div class="proof-step"><div class="label">\u2460 y<sup>\u22A4</sup>y (constant = '+yty+')</div>';
-  h+='<div style="overflow-x:auto;text-align:center">'+mxRow(y,'y\u1D40')+' \u00d7 '+mxV(y,'y')+' = <strong>'+yty+'</strong></div></div>';
-  h+='<div class="proof-step"><div class="label">\u2461 '+XT+'X (constant 3\u00d73 matrix)</div>';
-  h+='<div style="overflow-x:auto;text-align:center">'+mx(XtX,XT+'X')+'</div></div>';
-  h+='<div class="proof-step"><div class="label">\u2462 '+XT+'y (constant 3\u00d71 vector)</div>';
-  h+='<div style="overflow-x:auto;text-align:center">'+mxV(Xty,XT+'y')+'</div></div>';
+  h+='<div class="eq eq-sm">SSE(b) = (y \u2212 Xb)<sup>\u22A4</sup>(y \u2212 Xb) = y<sup>\u22A4</sup>y \u2212 2b<sup>\u22A4</sup>'+XT+'y + b<sup>\u22A4</sup>'+XT+'Xb</div>';
+  h+='<p style="margin:10px 0">All in one equation with matrices and your current b:</p>';
   h+='<div id="liveStep5" style="margin-top:10px"></div></div>';
   return h;
 }
 function stp6(){
   let h='<div class="card"><h3>Step 6: Minimize SSE \u2014 Derivative Rules</h3>';
-  h+='<p style="margin-bottom:10px">To minimize SSE(b) = y\u1D40y \u2212 2b\u1D40'+XT+'y + b\u1D40'+XT+'Xb, we take the derivative w.r.t. b and set it to zero.</p>';
+  h+='<p style="margin-bottom:10px">We take the derivative of SSE w.r.t. b and set it to zero.</p>';
   h+='<div class="proof-step"><div class="label">Matrix derivative rules</div>';
   h+='<div style="font-family:Georgia,serif;font-size:.95rem;">';
-  h+='<table style="border-collapse:collapse;margin:0 auto"><tr><td style="padding:4px 12px;border-bottom:1px solid var(--border)">If f(b) = c\u1D40b &ensp;(linear)</td><td style="padding:4px 12px;border-bottom:1px solid var(--border)">\u2192 \u2202f/\u2202b = c</td></tr>';
-  h+='<tr><td style="padding:4px 12px;border-bottom:1px solid var(--border)">If f(b) = b\u1D40Ab &ensp;(quadratic, A symmetric)</td><td style="padding:4px 12px;border-bottom:1px solid var(--border)">\u2192 \u2202f/\u2202b = 2Ab</td></tr>';
-  h+='<tr><td style="padding:4px 12px">If f(b) = constant</td><td style="padding:4px 12px">\u2192 \u2202f/\u2202b = 0</td></tr></table></div></div>';
-  h+='<div class="proof-step"><div class="label">Apply to SSE</div>';
+  h+='<table style="border-collapse:collapse;margin:0 auto"><tr><td style="padding:4px 12px;border-bottom:1px solid var(--border)">f(b) = c\u1D40b &ensp;(linear)</td><td style="padding:4px 12px;border-bottom:1px solid var(--border)">\u2192 \u2202f/\u2202b = c</td></tr>';
+  h+='<tr><td style="padding:4px 12px;border-bottom:1px solid var(--border)">f(b) = b\u1D40Ab &ensp;(quadratic, A sym.)</td><td style="padding:4px 12px;border-bottom:1px solid var(--border)">\u2192 \u2202f/\u2202b = 2Ab</td></tr>';
+  h+='<tr><td style="padding:4px 12px">f(b) = constant</td><td style="padding:4px 12px">\u2192 \u2202f/\u2202b = 0</td></tr></table></div></div>';
+  h+='<div class="proof-step"><div class="label">Apply to each term</div>';
   h+='<div style="font-family:Georgia,serif;font-size:.95rem;">';
-  h+='<p>\u2202/\u2202b [y\u1D40y] = 0 &emsp;<span style="color:var(--accent)">(constant, no b)</span></p>';
-  h+='<p>\u2202/\u2202b [\u22122b\u1D40'+XT+'y] = \u22122'+XT+'y &emsp;<span style="color:var(--accent)">(linear rule, c = '+XT+'y)</span></p>';
-  h+='<p>\u2202/\u2202b [b\u1D40'+XT+'Xb] = 2'+XT+'Xb &emsp;<span style="color:var(--accent)">(quadratic rule, A = '+XT+'X)</span></p>';
+  h+='<p>\u2202/\u2202b [y\u1D40y] = <strong>0</strong> &emsp;<span style="color:var(--accent)">(constant)</span></p>';
+  h+='<p>\u2202/\u2202b [\u22122b\u1D40'+XT+'y] = <strong>\u22122'+XT+'y</strong> &emsp;<span style="color:var(--accent)">(linear rule)</span></p>';
+  h+='<p>\u2202/\u2202b [b\u1D40'+XT+'Xb] = <strong>2'+XT+'Xb</strong> &emsp;<span style="color:var(--accent)">(quadratic rule)</span></p>';
   h+='</div></div>';
-  h+='<div class="proof-step"><div class="label">Set to zero \u2192 Normal equations</div>';
-  h+='<div class="eq eq-sm">\u22122'+XT+'y + 2'+XT+'Xb = 0 &ensp;\u2192&ensp; '+XT+'X'+H('\u03B2')+' = '+XT+'y</div></div>';
-  h+='<p style="margin:10px 0">With our data:</p>';
+  h+='<div class="proof-step"><div class="label">Set equal to the zero vector</div>';
+  h+='<div class="eq eq-sm">\u22122'+XT+'y + 2'+XT+'X'+H('\u03B2')+' = '+mxV(['0','0','0'],'0')+'</div>';
+  h+='<div style="font-family:Georgia,serif;font-size:.95rem;text-align:center;margin:8px 0;">';
+  h+='\u2192 &ensp; '+XT+'X'+H('\u03B2')+' = '+XT+'y';
+  h+='</div></div>';
+  h+='<p style="margin:10px 0"><strong>Symbolic form with matrices:</strong></p>';
+  h+='<div style="text-align:center;overflow-x:auto">';
+  h+=mx([['1','x<sub>11</sub>','x<sub>12</sub>'],['\u22EE','\u22EE','\u22EE'],['1','x<sub>n1</sub>','x<sub>n2</sub>']],XT)+' ';
+  h+=mx([['1','\u2026','1'],['x<sub>11</sub>','\u2026','x<sub>n1</sub>'],['x<sub>12</sub>','\u2026','x<sub>n2</sub>']],'X')+' ';
+  h+=mxV([H('\u03B2')+'\u2080',H('\u03B2')+'\u2081',H('\u03B2')+'\u2082'],H('\u03B2'));
+  h+=' = ';
+  h+=mx([['1','x<sub>11</sub>','x<sub>12</sub>'],['\u22EE','\u22EE','\u22EE'],['1','x<sub>n1</sub>','x<sub>n2</sub>']],XT)+' ';
+  h+=mxV(['y\u2081','\u22EE','y<sub>n</sub>'],'y');
+  h+='</div>';
+  h+='<p style="margin:10px 0"><strong>With our data:</strong></p>';
   h+='<div style="text-align:center;overflow-x:auto">'+mx(XtX,XT+'X')+' \u00d7 '+mxV([H('\u03B2')+'\u2080',H('\u03B2')+'\u2081',H('\u03B2')+'\u2082'],H('\u03B2'))+' = '+mxV(Xty,XT+'y')+'</div>';
   h+='<p style="margin-top:10px">3 equations, 3 unknowns. Solve by inverting '+XT+'X.</p></div>';
   return h;
