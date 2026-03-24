@@ -623,6 +623,39 @@ permalink: /r-cheatsheet/
   justify-content: center;
 }
 
+/* ── Distribution visual ─────────────────────────────── */
+.rc-visual {
+  text-align: center;
+  margin: 16px 0;
+  padding: 12px;
+  background: var(--bg);
+  border-radius: var(--radius-sm);
+}
+.rc-visual svg {
+  max-width: 400px;
+  width: 100%;
+}
+.rc-visual svg text {
+  font-family: var(--sans);
+}
+.rc-visual svg .svg-axis {
+  stroke: var(--text-secondary);
+}
+.rc-visual svg .svg-curve {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 2;
+}
+.rc-visual svg .svg-label {
+  fill: var(--text);
+  font-size: 11px;
+}
+.rc-visual svg .svg-sublabel {
+  fill: var(--text-secondary);
+  font-size: 9px;
+  font-style: italic;
+}
+
 /* ── Distribution split ───────────────────────────────── */
 .rc-dist-split {
   display: grid;
@@ -900,6 +933,7 @@ dist: [
       {name:'lower.tail', desc:'TRUE (default): area to the LEFT = P(X \u2264 q). Set to FALSE to get the area to the RIGHT = P(X > q). We often use lower.tail=FALSE to get upper-tail p-values.', default:'TRUE', hl:'lower.tail'}
     ]},
     example:'<span class="cm"># P(Z \u2264 1.96) = area to the LEFT</span>\n<span class="fn">pnorm</span>(<span class="nu">1.96</span>)\n<span class="cm"># [1] 0.975</span>\n\n<span class="cm"># P(Z > 1.96) = area to the RIGHT</span>\n<span class="fn">pnorm</span>(<span class="nu">1.96</span>, lower.tail = <span class="nu">FALSE</span>)\n<span class="cm"># [1] 0.025</span>\n<span class="cm"># same as: 1 - pnorm(1.96)</span>',
+    visual:'<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="pnorm-left"><rect x="20" y="0" width="228" height="140"/></clipPath></defs><line x1="20" y1="138" x2="380" y2="138" class="svg-axis" stroke-width="1"/><path d="M 20,138 C 60,138 80,136 120,118 C 140,108 160,78 180,38 C 190,18 210,18 220,38 C 240,78 260,108 280,118 C 320,136 340,138 380,138" class="svg-curve"/><path d="M 20,138 C 60,138 80,136 120,118 C 140,108 160,78 180,38 C 190,18 210,18 220,38 C 240,78 260,108 280,118 C 320,136 340,138 380,138 Z" fill="#007aff" opacity="0.25" clip-path="url(#pnorm-left)"/><line x1="248" y1="0" x2="248" y2="138" stroke="#007aff" stroke-width="1.5" stroke-dasharray="4,3"/><text x="248" y="155" text-anchor="middle" class="svg-label">q = 1.96</text><text x="140" y="90" text-anchor="middle" class="svg-label" fill="#007aff">P(X \u2264 1.96) = 0.975</text><text x="140" y="105" text-anchor="middle" class="svg-sublabel">This is what pnorm returns</text></svg>',
     returns:'A probability between 0 and 1.'
   },
   { id:"qnorm", code:"qnorm(p, mean, sd)", brief:"Returns the quantile (cutoff value) where a given percentage of the normal distribution falls below. In this course, we use it to get z critical values like 1.96 for 95% confidence intervals.",
@@ -910,6 +944,7 @@ dist: [
       {name:'sd', desc:'Width of the bell curve.', default:'1', hl:'sd'}
     ]},
     example:'<span class="cm"># The 97.5th percentile (quantile) of the standard normal</span>\n<span class="fn">qnorm</span>(<span class="nu">0.975</span>)\n<span class="cm"># [1] 1.96  \u2190 this is the z* critical value for 95% CI</span>',
+    visual:'<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="qnorm-left"><rect x="20" y="0" width="228" height="140"/></clipPath></defs><line x1="20" y1="138" x2="380" y2="138" class="svg-axis" stroke-width="1"/><path d="M 20,138 C 60,138 80,136 120,118 C 140,108 160,78 180,38 C 190,18 210,18 220,38 C 240,78 260,108 280,118 C 320,136 340,138 380,138" class="svg-curve"/><path d="M 20,138 C 60,138 80,136 120,118 C 140,108 160,78 180,38 C 190,18 210,18 220,38 C 240,78 260,108 280,118 C 320,136 340,138 380,138 Z" fill="#007aff" opacity="0.25" clip-path="url(#qnorm-left)"/><line x1="248" y1="0" x2="248" y2="138" stroke="#007aff" stroke-width="1.5" stroke-dasharray="4,3"/><text x="140" y="90" text-anchor="middle" class="svg-label" fill="#007aff">p = 0.975</text><polygon points="248,120 243,110 253,110" fill="#007aff"/><text x="248" y="155" text-anchor="middle" class="svg-label" fill="#007aff" font-weight="bold">q = 1.96 \u2190 qnorm returns this</text><text x="140" y="105" text-anchor="middle" class="svg-sublabel">You give the area, get the cutoff</text></svg>',
     returns:'A quantile — a value on the x-axis of the distribution.'
   },
   { id:"pt", code:"pt(t, df)", brief:"Tells you the probability of getting a t-value this small or smaller. In this course, we use it to compute p-values from regression t-statistics.",
@@ -920,6 +955,7 @@ dist: [
       {name:'lower.tail', desc:'TRUE (default): P(T \u2264 t). Set to FALSE to get P(T > t) — the upper-tail probability. We often use lower.tail=FALSE for one-sided p-values.', default:'TRUE', hl:'lower.tail'}
     ]},
     example:'<span class="cm"># P(T \u2264 2.1) = area to the LEFT</span>\n<span class="fn">pt</span>(<span class="nu">2.1</span>, df = <span class="nu">498</span>)\n<span class="cm"># [1] 0.982</span>\n\n<span class="cm"># One-sided p-value: P(T > 2.1)</span>\n<span class="fn">pt</span>(<span class="nu">2.1</span>, df = <span class="nu">498</span>, lower.tail = <span class="nu">FALSE</span>)\n<span class="cm"># [1] 0.018</span>\n\n<span class="cm"># Two-sided p-value</span>\n<span class="nu">2</span> * <span class="fn">pt</span>(<span class="fn">abs</span>(t_stat), df = <span class="nu">498</span>, lower.tail = <span class="nu">FALSE</span>)',
+    visual:'<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="pt-left"><rect x="20" y="0" width="232" height="140"/></clipPath></defs><line x1="20" y1="138" x2="380" y2="138" class="svg-axis" stroke-width="1"/><path d="M 20,138 C 50,137 70,135 110,120 C 135,110 155,82 180,42 C 192,20 208,20 220,42 C 245,82 265,110 290,120 C 330,135 350,137 380,138" class="svg-curve"/><path d="M 20,138 C 50,137 70,135 110,120 C 135,110 155,82 180,42 C 192,20 208,20 220,42 C 245,82 265,110 290,120 C 330,135 350,137 380,138 Z" fill="#007aff" opacity="0.25" clip-path="url(#pt-left)"/><line x1="252" y1="0" x2="252" y2="138" stroke="#007aff" stroke-width="1.5" stroke-dasharray="4,3"/><text x="252" y="155" text-anchor="middle" class="svg-label">t = 2.1</text><text x="140" y="90" text-anchor="middle" class="svg-label" fill="#007aff">P(T \u2264 2.1) = 0.982</text><text x="140" y="105" text-anchor="middle" class="svg-sublabel">t-distribution (fatter tails)</text></svg>',
     returns:'A probability between 0 and 1.'
   },
   { id:"qt", code:"qt(p, df)", brief:"Returns the t quantile (critical value) for a given probability. In this course, we use it to build confidence intervals: coefficient +/- qt(0.975, df) * SE.",
@@ -929,6 +965,7 @@ dist: [
       {name:'df', desc:'Degrees of freedom. For simple regression: n - 2.', hl:'df'}
     ]},
     example:'<span class="cm"># The 97.5% quantile of t with 498 df</span>\n<span class="fn">qt</span>(<span class="nu">0.975</span>, df = <span class="nu">498</span>)\n<span class="cm"># [1] 1.965  \u2190 this is t* for 95% CI</span>\n\n<span class="cm"># Then: CI = b1 \u00B1 1.965 \u00D7 SE</span>',
+    visual:'<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="qt-left"><rect x="20" y="0" width="228" height="140"/></clipPath></defs><line x1="20" y1="138" x2="380" y2="138" class="svg-axis" stroke-width="1"/><path d="M 20,138 C 50,137 70,135 110,120 C 135,110 155,82 180,42 C 192,20 208,20 220,42 C 245,82 265,110 290,120 C 330,135 350,137 380,138" class="svg-curve"/><path d="M 20,138 C 50,137 70,135 110,120 C 135,110 155,82 180,42 C 192,20 208,20 220,42 C 245,82 265,110 290,120 C 330,135 350,137 380,138 Z" fill="#007aff" opacity="0.25" clip-path="url(#qt-left)"/><line x1="248" y1="0" x2="248" y2="138" stroke="#007aff" stroke-width="1.5" stroke-dasharray="4,3"/><text x="140" y="90" text-anchor="middle" class="svg-label" fill="#007aff">p = 0.975</text><polygon points="248,120 243,110 253,110" fill="#007aff"/><text x="248" y="155" text-anchor="middle" class="svg-label" fill="#007aff" font-weight="bold">t* = 1.965 \u2190 qt returns this</text><text x="140" y="105" text-anchor="middle" class="svg-sublabel">You give the area, get the critical value</text></svg>',
     returns:'A quantile (critical value) from the t-distribution.'
   },
   { id:"pchisq", code:"pchisq(x2, df)", brief:"Tells you the probability for a chi-squared distribution. In this course, we use it for the Jarque-Bera normality test: 1 - pchisq(JB, df=2) gives the p-value.",
@@ -939,6 +976,7 @@ dist: [
       {name:'lower.tail', desc:'TRUE (default): P(\u03C7\u00B2 \u2264 q). Set to FALSE to get P(\u03C7\u00B2 > q) directly — this is the p-value for chi-squared tests.', default:'TRUE', hl:'lower.tail'}
     ]},
     example:'<span class="cm"># p-value for Jarque-Bera test (upper tail)</span>\n<span class="fn">pchisq</span>(JB_stat, df = <span class="nu">2</span>, lower.tail = <span class="nu">FALSE</span>)\n<span class="cm"># same as: 1 - pchisq(JB_stat, df = 2)</span>',
+    visual:'<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="pchisq-right"><rect x="200" y="0" width="180" height="140"/></clipPath></defs><line x1="20" y1="138" x2="380" y2="138" class="svg-axis" stroke-width="1"/><path d="M 30,138 C 40,138 50,60 70,22 C 90,60 150,120 250,134 C 310,137 350,138 380,138" class="svg-curve"/><path d="M 30,138 C 40,138 50,60 70,22 C 90,60 150,120 250,134 C 310,137 350,138 380,138 Z" fill="#ff3b30" opacity="0.25" clip-path="url(#pchisq-right)"/><line x1="200" y1="0" x2="200" y2="138" stroke="#ff3b30" stroke-width="1.5" stroke-dasharray="4,3"/><text x="200" y="155" text-anchor="middle" class="svg-label">\u03C7\u00B2 statistic</text><text x="290" y="90" text-anchor="middle" class="svg-label" fill="#ff3b30">p-value</text><text x="290" y="105" text-anchor="middle" class="svg-sublabel">P(\u03C7\u00B2 > q) = pchisq(q, df, lower.tail=FALSE)</text></svg>',
     returns:'A probability between 0 and 1.'
   },
   { id:"qchisq", code:"qchisq(p, df)", brief:"Returns the chi-squared quantile (critical value) for a given probability. In this course, we use it to get the cutoff for the Jarque-Bera test at 1% or 5% significance.",
@@ -948,6 +986,7 @@ dist: [
       {name:'df', desc:'Degrees of freedom.', hl:'df'}
     ]},
     example:'<span class="cm"># The 99% quantile of chi-squared with df=2</span>\n<span class="fn">qchisq</span>(<span class="nu">0.99</span>, df = <span class="nu">2</span>)\n<span class="cm"># [1] 9.21  \u2190 reject if JB > 9.21</span>',
+    visual:'<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="qchisq-left"><rect x="20" y="0" width="180" height="140"/></clipPath></defs><line x1="20" y1="138" x2="380" y2="138" class="svg-axis" stroke-width="1"/><path d="M 30,138 C 40,138 50,60 70,22 C 90,60 150,120 250,134 C 310,137 350,138 380,138" class="svg-curve"/><path d="M 30,138 C 40,138 50,60 70,22 C 90,60 150,120 250,134 C 310,137 350,138 380,138 Z" fill="#007aff" opacity="0.25" clip-path="url(#qchisq-left)"/><line x1="200" y1="0" x2="200" y2="138" stroke="#007aff" stroke-width="1.5" stroke-dasharray="4,3"/><text x="110" y="90" text-anchor="middle" class="svg-label" fill="#007aff">p = 0.99</text><polygon points="200,120 195,110 205,110" fill="#007aff"/><text x="200" y="155" text-anchor="middle" class="svg-label" fill="#007aff" font-weight="bold">c = 9.21 \u2190 qchisq returns this</text><text x="110" y="105" text-anchor="middle" class="svg-sublabel">You give the area, get the critical value</text></svg>',
     returns:'A quantile (critical value) from the chi-squared distribution.'
   },
   { id:"pf", code:"pf(f, df1, df2)", brief:"Tells you the probability for an F-distribution. In this course, we use it to find the p-value for the overall F-test in regression.",
@@ -959,6 +998,7 @@ dist: [
       {name:'lower.tail', desc:'TRUE (default): P(F \u2264 q). Set to FALSE to get P(F > q) — the p-value for the F-test directly.', default:'TRUE', hl:'lower.tail'}
     ]},
     example:'<span class="cm"># p-value for F-test (upper tail)</span>\n<span class="fn">pf</span>(F_stat, df1 = <span class="nu">1</span>, df2 = <span class="nu">498</span>, lower.tail = <span class="nu">FALSE</span>)\n<span class="cm"># same as: 1 - pf(F_stat, df1=1, df2=498)</span>',
+    visual:'<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="pf-right"><rect x="220" y="0" width="160" height="140"/></clipPath></defs><line x1="20" y1="138" x2="380" y2="138" class="svg-axis" stroke-width="1"/><path d="M 30,138 C 45,138 60,70 85,25 C 110,65 170,118 260,133 C 320,137 355,138 380,138" class="svg-curve"/><path d="M 30,138 C 45,138 60,70 85,25 C 110,65 170,118 260,133 C 320,137 355,138 380,138 Z" fill="#ff3b30" opacity="0.25" clip-path="url(#pf-right)"/><line x1="220" y1="0" x2="220" y2="138" stroke="#ff3b30" stroke-width="1.5" stroke-dasharray="4,3"/><text x="220" y="155" text-anchor="middle" class="svg-label">F statistic</text><text x="300" y="90" text-anchor="middle" class="svg-label" fill="#ff3b30">p-value</text><text x="300" y="105" text-anchor="middle" class="svg-sublabel">P(F > q) = pf(q, df1, df2, lower.tail=FALSE)</text></svg>',
     returns:'A probability between 0 and 1.'
   },
   { id:"qf", code:"qf(p, df1, df2)", brief:"Returns the F quantile (critical value) for a given probability. In this course, we use it to get the cutoff: if your F-statistic exceeds this, the regression is significant.",
@@ -969,6 +1009,7 @@ dist: [
       {name:'df2', desc:'Denominator df.', hl:'df2'}
     ]},
     example:'<span class="cm"># The 99% quantile of F(1, 498)</span>\n<span class="fn">qf</span>(<span class="nu">0.99</span>, df1 = <span class="nu">1</span>, df2 = <span class="nu">498</span>)\n<span class="cm"># [1] 6.686  \u2190 reject if F > 6.686</span>',
+    visual:'<svg viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="qf-left"><rect x="20" y="0" width="200" height="140"/></clipPath></defs><line x1="20" y1="138" x2="380" y2="138" class="svg-axis" stroke-width="1"/><path d="M 30,138 C 45,138 60,70 85,25 C 110,65 170,118 260,133 C 320,137 355,138 380,138" class="svg-curve"/><path d="M 30,138 C 45,138 60,70 85,25 C 110,65 170,118 260,133 C 320,137 355,138 380,138 Z" fill="#007aff" opacity="0.25" clip-path="url(#qf-left)"/><line x1="220" y1="0" x2="220" y2="138" stroke="#007aff" stroke-width="1.5" stroke-dasharray="4,3"/><text x="120" y="90" text-anchor="middle" class="svg-label" fill="#007aff">p = 0.99</text><polygon points="220,120 215,110 225,110" fill="#007aff"/><text x="220" y="155" text-anchor="middle" class="svg-label" fill="#007aff" font-weight="bold">f* = 6.686 \u2190 qf returns this</text><text x="120" y="105" text-anchor="middle" class="svg-sublabel">You give the area, get the critical value</text></svg>',
     returns:'A quantile (critical value) from the F-distribution.'
   }
 ],
@@ -1355,6 +1396,7 @@ function buildNode(f, topicId, showTopicBadge) {
     + '</div>'
     + '<div class="rc-node-body"><div class="rc-node-inner">'
     + formulaHtml
+    + (f.visual ? '<div class="rc-visual">' + f.visual + '</div>' : '')
     + whenHtml
     + annoHtml
     + exHtml
