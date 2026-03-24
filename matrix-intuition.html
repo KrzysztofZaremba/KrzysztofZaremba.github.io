@@ -749,6 +749,8 @@ footer a { color: var(--accent); text-decoration: none; }
       <div class="step-dot" data-step="3">4</div>
       <div class="step-dot" data-step="4">5</div>
       <div class="step-dot" data-step="5">6</div>
+      <div class="step-dot" data-step="6">7</div>
+      <div class="step-dot" data-step="7">8</div>
     </div>
 
     <div id="derivContent" class="step-content">
@@ -1054,7 +1056,9 @@ const derivTitles = [
   'Step 3: We Want to Minimize Total Error',
   'Step 4: Take the Derivative and Set to Zero',
   'Step 5: Solve for \u03B2\u0302',
-  'Step 6: What This Means'
+  'Step 6: What This Means',
+  'Step 7: Unbiasedness of OLS',
+  'Step 8: Variance of OLS'
 ];
 
 function renderDerivStep(step){
@@ -1066,8 +1070,8 @@ function renderDerivStep(step){
     else if(i<step) d.classList.add('done');
   });
   document.getElementById('btnPrevDeriv').disabled = step===0;
-  document.getElementById('btnNextDeriv').disabled = step===5;
-  document.getElementById('btnNextDeriv').textContent = step<5 ? 'Next \u2192' : 'Done \u2713';
+  document.getElementById('btnNextDeriv').disabled = step===7;
+  document.getElementById('btnNextDeriv').textContent = step<7 ? 'Next \u2192' : 'Done \u2713';
 
   let html = '<div class="derivation-step"><h3>'+derivTitles[step]+'</h3>';
 
@@ -1179,12 +1183,76 @@ function renderDerivStep(step){
     html += '</div>';
     html += '<div class="explain-box" style="font-size:1.05rem;text-align:center;">Together, they give each variable its own <strong>isolated effect</strong> &mdash; the change in y when only that predictor changes, holding everything else constant.</div>';
   }
+  else if(step===6){
+    html += '<div class="formula-box" style="font-size:1.1rem;text-align:center;">Is \u03B2\u0302 unbiased? &nbsp; E(\u03B2\u0302) = \u03B2 ?</div>';
+    html += '<div class="explain-box">We need to check: on average (across many samples), does our estimator give us the true coefficients?</div>';
+    html += '<div class="formula-box" style="font-size:0.95rem;">';
+    html += '<strong>Start:</strong> Substitute y = X\u03B2 + u into the OLS formula:<br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += '\u03B2\u0302 = (X\u1D40X)\u207B\u00B9X\u1D40<strong>y</strong> = (X\u1D40X)\u207B\u00B9X\u1D40(<strong>X\u03B2 + u</strong>)';
+    html += '</div><br>';
+    html += '<strong>Expand:</strong><br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += '= (X\u1D40X)\u207B\u00B9X\u1D40X\u03B2 + (X\u1D40X)\u207B\u00B9X\u1D40u';
+    html += '</div><br>';
+    html += '<strong>Simplify:</strong> (X\u1D40X)\u207B\u00B9X\u1D40X = I (identity matrix), so:<br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += '= I\u00B7\u03B2 + (X\u1D40X)\u207B\u00B9X\u1D40u = <strong>\u03B2 + (X\u1D40X)\u207B\u00B9X\u1D40u</strong>';
+    html += '</div><br>';
+    html += '<strong>Take expectations:</strong><br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += 'E(\u03B2\u0302) = \u03B2 + (X\u1D40X)\u207B\u00B9X\u1D40<span style="color:var(--accent);font-weight:bold;">E(u)</span>';
+    html += '</div><br>';
+    html += 'Since <span style="color:var(--accent);font-weight:bold;">E(u) = 0</span> (our key assumption):';
+    html += '</div>';
+    html += '<div class="formula-box highlight" style="font-size:1.3rem;text-align:center;padding:16px;">';
+    html += '<strong>E(\u03B2\u0302) = \u03B2</strong> &nbsp; \u2714 Unbiased!';
+    html += '</div>';
+    html += '<div class="explain-box">On average, OLS gives us the true coefficients. The "noise" term (X\u1D40X)\u207B\u00B9X\u1D40u averages out to zero across samples because errors have mean zero.</div>';
+  }
+  else if(step===7){
+    html += '<div class="formula-box" style="font-size:1.1rem;text-align:center;">Var(\u03B2\u0302) = ?</div>';
+    html += '<div class="explain-box">We know \u03B2\u0302 is unbiased, but how much does it vary across samples? How <strong>precise</strong> are our estimates?</div>';
+    html += '<div class="formula-box" style="font-size:0.95rem;">';
+    html += '<strong>Start:</strong> From the previous step, we know:<br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += '\u03B2\u0302 &minus; \u03B2 = (X\u1D40X)\u207B\u00B9X\u1D40u';
+    html += '</div><br>';
+    html += '<strong>Apply the variance formula:</strong><br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += 'Var(\u03B2\u0302) = E[(\u03B2\u0302 &minus; \u03B2)(\u03B2\u0302 &minus; \u03B2)\u1D40]';
+    html += '</div><br>';
+    html += '<strong>Substitute:</strong><br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += '= E[(X\u1D40X)\u207B\u00B9X\u1D40u \u00B7 u\u1D40X(X\u1D40X)\u207B\u00B9]';
+    html += '</div><br>';
+    html += '<strong>Pull out constants</strong> (X is fixed, not random):<br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += '= (X\u1D40X)\u207B\u00B9X\u1D40 <span style="background:rgba(67,65,138,0.15);padding:2px 8px;border-radius:4px;"><strong>E[uu\u1D40]</strong></span> X(X\u1D40X)\u207B\u00B9';
+    html += '</div><br>';
+    html += '<strong>Key assumption:</strong> E[uu\u1D40] = \u03C3\u00B2I &nbsp;(errors are homoskedastic and uncorrelated)<br><br>';
+    html += '<div style="text-align:center;font-size:1.05rem;">';
+    html += '= (X\u1D40X)\u207B\u00B9X\u1D40 \u00B7 <span style="color:var(--accent);font-weight:bold;">\u03C3\u00B2I</span> \u00B7 X(X\u1D40X)\u207B\u00B9';
+    html += '</div><br>';
+    html += '<strong>Simplify:</strong> X\u1D40 \u00B7 I \u00B7 X = X\u1D40X, then (X\u1D40X)\u207B\u00B9(X\u1D40X) = I:<br>';
+    html += '</div>';
+    html += '<div class="formula-box highlight" style="font-size:1.3rem;text-align:center;padding:16px;">';
+    html += '<strong>Var(\u03B2\u0302) = \u03C3\u00B2(X\u1D40X)\u207B\u00B9</strong>';
+    html += '</div>';
+    html += '<div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:16px 0;">';
+    html += '<div style="background:rgba(232,145,58,0.1);border:2px solid var(--highlight-col);border-radius:12px;padding:14px 18px;max-width:280px;font-size:0.95rem;">';
+    html += '<strong style="color:var(--highlight-col);">\u03C3\u00B2</strong><br>The error variance &mdash; more noise in the data means less precise estimates.</div>';
+    html += '<div style="background:rgba(74,144,217,0.1);border:2px solid var(--highlight-row);border-radius:12px;padding:14px 18px;max-width:280px;font-size:0.95rem;">';
+    html += '<strong style="color:var(--highlight-row);">(X\u1D40X)\u207B\u00B9</strong><br>Captures predictor correlations. More correlated predictors \u2192 larger diagonal entries \u2192 less precise estimates (multicollinearity!).</div>';
+    html += '</div>';
+    html += '<div class="explain-box">The variance of each individual coefficient \u03B2\u0302\u2096 is the corresponding <strong>diagonal element</strong>: Var(\u03B2\u0302\u2096) = \u03C3\u00B2 \u00B7 [(X\u1D40X)\u207B\u00B9]\u2096\u2096. The standard error is the square root of this.</div>';
+  }
 
   html += '</div>';
   cont.innerHTML = html;
 }
 
-document.getElementById('btnNextDeriv').addEventListener('click', ()=>{ if(derivStep<5) renderDerivStep(derivStep+1); });
+document.getElementById('btnNextDeriv').addEventListener('click', ()=>{ if(derivStep<7) renderDerivStep(derivStep+1); });
 document.getElementById('btnPrevDeriv').addEventListener('click', ()=>{ if(derivStep>0) renderDerivStep(derivStep-1); });
 document.querySelectorAll('#derivStepNav .step-dot').forEach(d=>d.addEventListener('click', function(){ renderDerivStep(+this.dataset.step); }));
 renderDerivStep(0);
