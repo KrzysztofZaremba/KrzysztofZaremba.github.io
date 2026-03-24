@@ -28,6 +28,8 @@ layout: null
   --code-bg: #f0f0f8;
   --slider-track: #d4d3e8;
   --transition: 0.3s ease;
+  --controlling-color: #4a90d9;
+  --not-controlling-color: #d94a4a;
 }
 
 [data-theme="dark"] {
@@ -45,6 +47,8 @@ layout: null
   --accent-pale: #2a2a50;
   --code-bg: #1a1a35;
   --slider-track: #3a3a60;
+  --controlling-color: #6aacf0;
+  --not-controlling-color: #f06a6a;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -273,6 +277,54 @@ h3 {
   box-shadow: 0 2px 12px rgba(67,65,138,0.3);
 }
 
+/* Pair display for step 1 of animation */
+.pair-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  min-height: 60px;
+}
+.pair-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: var(--accent-pale);
+  border: 2px solid var(--accent-light);
+  font-size: 1.15rem;
+  font-weight: 700;
+  animation: fadeIn 0.4s ease;
+}
+.pair-item .row-val {
+  color: var(--highlight-row);
+}
+.pair-item .col-val {
+  color: var(--highlight-col);
+}
+.pair-item .times-sign {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.pair-item .equals-sign {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.pair-item .product-val {
+  color: var(--accent);
+}
+.sum-line {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin: 12px 0;
+  animation: fadeIn 0.4s ease;
+}
+
 /* Buttons */
 .btn-row {
   display: flex;
@@ -307,7 +359,24 @@ h3 {
   transform: none !important;
 }
 
-/* Explanation box */
+/* Next step button for animation */
+.btn-next-step {
+  display: inline-block;
+  padding: 8px 20px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  animation: fadeIn 0.4s ease;
+  pointer-events: auto;
+}
+.btn-next-step:hover { background: var(--accent-light); transform: translateY(-1px); }
+
+/* Explain box */
 .explain-box {
   background: var(--accent-pale);
   border-left: 4px solid var(--accent);
@@ -334,6 +403,28 @@ h3 {
   color: var(--accent);
   margin: 12px 0;
   flex-wrap: wrap;
+}
+
+/* Workspace area for pairing animation */
+.workspace-area {
+  margin: 16px 0;
+  padding: 16px;
+  background: var(--cell-bg);
+  border-radius: 12px;
+  border: 2px dashed var(--cell-border);
+  min-height: 80px;
+  text-align: center;
+  transition: all 0.3s;
+}
+.workspace-area.active {
+  border-color: var(--accent-light);
+}
+.workspace-hint {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-style: italic;
 }
 
 /* Section 2 stepper */
@@ -366,6 +457,54 @@ h3 {
   background: var(--accent-pale);
   color: var(--accent);
 }
+
+/* OLS Derivation section */
+.derivation-step {
+  animation: fadeIn 0.4s ease;
+}
+.formula-box {
+  background: var(--code-bg);
+  border: 2px solid var(--accent-light);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.8;
+}
+.formula-box.highlight {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+.formula-box.highlight strong { color: #fff; }
+.matrix-display {
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  background: var(--code-bg);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 16px auto;
+  display: inline-block;
+  text-align: left;
+  border: 1px solid var(--cell-border);
+  white-space: pre;
+}
+.deriv-label {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin: 4px;
+}
+.deriv-label.y-label { background: rgba(74,144,217,0.15); color: var(--highlight-row); }
+.deriv-label.x-label { background: rgba(232,145,58,0.15); color: var(--highlight-col); }
+.deriv-label.beta-label { background: rgba(67,65,138,0.15); color: var(--accent); }
+.deriv-label.u-label { background: rgba(200,80,80,0.15); color: #c85050; }
 
 /* Section 3 slider */
 .slider-container {
@@ -407,30 +546,46 @@ h3 {
 }
 .coeff-card {
   background: var(--cell-bg);
-  border: 2px solid var(--cell-border);
+  border: 3px solid var(--cell-border);
   border-radius: 12px;
-  padding: 20px 28px;
-  min-width: 240px;
+  padding: 24px 32px;
+  min-width: 260px;
   text-align: center;
   transition: all 0.3s;
 }
 .coeff-card h4 {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   color: var(--text-muted);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   font-weight: 600;
 }
 .coeff-value {
-  font-size: 2rem;
+  font-size: 2.4rem;
   font-weight: 700;
-  color: var(--accent);
   transition: color 0.3s;
+}
+.coeff-card.controlling {
+  border-color: var(--controlling-color);
+}
+.coeff-card.controlling .coeff-value {
+  color: var(--controlling-color);
+}
+.coeff-card.not-controlling {
+  border-color: var(--not-controlling-color);
+}
+.coeff-card.not-controlling .coeff-value {
+  color: var(--not-controlling-color);
 }
 .coeff-card.diverging {
   border-color: var(--highlight-col);
 }
 .coeff-card.diverging .coeff-value {
   color: var(--highlight-col);
+}
+.true-value-note {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 6px;
 }
 
 /* Canvas for scatter */
@@ -440,6 +595,30 @@ canvas#scatterCanvas {
   border-radius: 12px;
   border: 1px solid var(--cell-border);
   max-width: 100%;
+}
+
+/* Correlation intro */
+.corr-intro {
+  background: var(--cell-bg);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin: 20px 0 28px;
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+.corr-intro ul {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+.corr-intro ul li {
+  padding: 8px 0 8px 0;
+}
+.corr-intro ul li strong.blue {
+  color: var(--controlling-color);
+}
+.corr-intro ul li strong.red {
+  color: var(--not-controlling-color);
 }
 
 /* Footer */
@@ -458,6 +637,8 @@ footer a { color: var(--accent); text-decoration: none; }
   .matrix-cell { width: 38px; height: 38px; font-size: 0.85rem; }
   .matrix-area { gap: 10px; }
   .coeff-cards { flex-direction: column; align-items: center; }
+  .coeff-value { font-size: 1.8rem; }
+  .pair-item { font-size: 0.95rem; padding: 8px 12px; }
 }
 
 /* Small matrix variant */
@@ -515,17 +696,16 @@ footer a { color: var(--accent); text-decoration: none; }
   </div>
 </header>
 
-<!-- SECTION 1 -->
+<!-- SECTION 1: Matrix Multiplication Basics -->
 <section class="container">
   <div class="section-card">
     <h2>1. Matrix Multiplication Basics</h2>
-    <p class="subtitle">Click any cell in the result matrix to see how it is computed. Watch the row and column pair up, multiply, and sum.</p>
+    <p class="subtitle">Click any cell in the result matrix to see how it is computed. The animation has two steps: first you see which numbers pair up, then you see the computation.</p>
 
     <div class="matrix-area" id="s1Area">
       <div class="matrix-wrapper">
         <span class="matrix-label">A (2x3)</span>
         <div class="matrix" id="matA" style="grid-template-columns: repeat(3, 50px);">
-          <!-- filled by JS -->
         </div>
       </div>
       <span class="operator">&times;</span>
@@ -543,6 +723,7 @@ footer a { color: var(--accent); text-decoration: none; }
       <div class="anim-overlay" id="s1Overlay"></div>
     </div>
 
+    <div class="workspace-area" id="s1Workspace" style="display:none;"></div>
     <div class="computation-display" id="s1Computation"></div>
 
     <div class="btn-row">
@@ -556,10 +737,35 @@ footer a { color: var(--accent); text-decoration: none; }
   </div>
 </section>
 
-<!-- SECTION 2 -->
+<!-- SECTION 2: OLS Derivation -->
 <section class="container">
   <div class="section-card">
-    <h2>2. The OLS Building Blocks: X'X, X'y, and &beta;</h2>
+    <h2>2. From Model to Formula: How OLS Works</h2>
+    <p class="subtitle">A step-by-step visual derivation of the OLS formula. Use the buttons to walk through the algebra.</p>
+
+    <div class="step-nav" id="derivStepNav">
+      <div class="step-dot active" data-step="0">1</div>
+      <div class="step-dot" data-step="1">2</div>
+      <div class="step-dot" data-step="2">3</div>
+      <div class="step-dot" data-step="3">4</div>
+      <div class="step-dot" data-step="4">5</div>
+      <div class="step-dot" data-step="5">6</div>
+    </div>
+
+    <div id="derivContent" class="step-content">
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary" id="btnPrevDeriv" disabled>&larr; Previous</button>
+      <button class="btn btn-primary" id="btnNextDeriv">Next &rarr;</button>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: OLS Building Blocks -->
+<section class="container">
+  <div class="section-card">
+    <h2>3. The OLS Building Blocks: X'X, X'y, and &beta;</h2>
     <p class="subtitle">Walk through each step of computing OLS coefficients from real data. Click the step numbers to navigate.</p>
 
     <div class="step-nav" id="stepNav">
@@ -572,7 +778,6 @@ footer a { color: var(--accent); text-decoration: none; }
     </div>
 
     <div id="s2Content" class="step-content">
-      <!-- filled by JS -->
     </div>
 
     <div class="btn-row">
@@ -582,11 +787,20 @@ footer a { color: var(--accent); text-decoration: none; }
   </div>
 </section>
 
-<!-- SECTION 3 -->
+<!-- SECTION 4: Correlation Demo -->
 <section class="container">
   <div class="section-card">
-    <h2>3. Why Does Controlling for Correlation Matter?</h2>
+    <h2>4. Why Does Controlling for Correlation Matter?</h2>
     <p class="subtitle">Adjust the correlation between x<sub>1</sub> and x<sub>2</sub> and see how it affects the estimated coefficient on x<sub>1</sub>.</p>
+
+    <div class="corr-intro">
+      <p>Imagine you want to measure the effect of <strong>advertising</strong> (x<sub>1</sub>) on <strong>sales</strong>. But advertising spending is correlated with <strong>store size</strong> (x<sub>2</sub>), and bigger stores also have more sales.</p>
+      <ul>
+        <li><strong class="red">Simple regression</strong> (only x<sub>1</sub>): The coefficient on advertising captures BOTH its own effect AND part of the store-size effect, because the two are tangled together.</li>
+        <li><strong class="blue">Multiple regression</strong> (x<sub>1</sub> and x<sub>2</sub>): The coefficient on advertising captures ONLY its own effect, because we control for store size.</li>
+      </ul>
+      <p>The slider below lets you see this in action. As the correlation between x<sub>1</sub> and x<sub>2</sub> increases, the simple regression coefficient becomes more biased &mdash; it picks up effects that actually belong to x<sub>2</sub>.</p>
+    </div>
 
     <div class="slider-container">
       <label>Correlation between x<sub>1</sub> and x<sub>2</sub>:</label><br>
@@ -597,13 +811,15 @@ footer a { color: var(--accent); text-decoration: none; }
     <canvas id="scatterCanvas" width="480" height="340"></canvas>
 
     <div class="coeff-cards">
-      <div class="coeff-card" id="cardSimple">
+      <div class="coeff-card not-controlling" id="cardSimple">
         <h4>Simple Regression (ignoring x<sub>2</sub>)</h4>
         <div class="coeff-value" id="betaSimple">&beta;<sub>1</sub> = 2.00</div>
+        <div class="true-value-note">True value: 2.00</div>
       </div>
-      <div class="coeff-card" id="cardMultiple">
+      <div class="coeff-card controlling" id="cardMultiple">
         <h4>Multiple Regression (controlling for x<sub>2</sub>)</h4>
         <div class="coeff-value" id="betaMultiple">&beta;<sub>1</sub> = 2.00</div>
+        <div class="true-value-note">True value: 2.00</div>
       </div>
     </div>
 
@@ -680,155 +896,145 @@ function clearOverlay(id){ document.getElementById(id).innerHTML = ''; }
 
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-/* ========== SECTION 1: Matrix Multiplication ========== */
+/* ========== SECTION 1: Matrix Multiplication (Two-Step) ========== */
 const A = [[2,3,4],[1,0,2]];
 const B = [[5,1],[1,3],[6,2]];
-const C = [[37,19],[17,5]];
+const C_result = [[37,19],[17,5]];
 let s1Busy = false;
 let s1Filled = [[false,false],[false,false]];
+// Track which cells are in "step 1" (pairs shown, waiting for step 2)
+let s1PendingStep2 = [[false,false],[false,false]];
 
 function initSection1(){
   buildMatrixDOM('matA', A);
   buildMatrixDOM('matB', B);
-  const qm = C.map(r=>r.map(()=>'?'));
+  const qm = C_result.map(r=>r.map(()=>'?'));
   buildMatrixDOM('matC', qm, {clickable:true});
   s1Filled = [[false,false],[false,false]];
+  s1PendingStep2 = [[false,false],[false,false]];
   document.getElementById('s1Computation').innerHTML = '';
+  document.getElementById('s1Workspace').style.display = 'none';
+  document.getElementById('s1Workspace').innerHTML = '';
   clearOverlay('s1Overlay');
   // attach click
   document.querySelectorAll('#matC .matrix-cell').forEach(cell=>{
     cell.addEventListener('click', function(){
       if(s1Busy) return;
-      animateS1Cell(+this.dataset.r, +this.dataset.c);
+      const ri = +this.dataset.r, ci = +this.dataset.c;
+      if(s1PendingStep2[ri][ci]){
+        animateS1Step2(ri, ci);
+      } else if(!s1Filled[ri][ci]){
+        animateS1Step1(ri, ci);
+      }
     });
   });
 }
 
-async function animateS1Cell(ri, ci){
-  if(s1Busy || s1Filled[ri][ci]) return;
+// Step 1: Show pairs
+async function animateS1Step1(ri, ci){
+  if(s1Busy || s1Filled[ri][ci] || s1PendingStep2[ri][ci]) return;
   s1Busy = true;
-  const overlay = document.getElementById('s1Overlay');
-  const compDisp = document.getElementById('s1Computation');
-  overlay.innerHTML = '';
-  compDisp.innerHTML = '';
 
-  // highlight row of A
+  // Clear any previous workspace
+  const workspace = document.getElementById('s1Workspace');
+  const compDisp = document.getElementById('s1Computation');
+  workspace.innerHTML = '';
+  compDisp.innerHTML = '';
+  clearOverlay('s1Overlay');
+
+  // Clear previous highlights
+  document.querySelectorAll('#matA .matrix-cell').forEach(c => c.classList.remove('highlight-row'));
+  document.querySelectorAll('#matB .matrix-cell').forEach(c => c.classList.remove('highlight-col'));
+
+  // Highlight row of A
   for(let c=0;c<3;c++) getCell('matA',ri,c).classList.add('highlight-row');
-  // highlight col of B
+  // Highlight col of B
   for(let r=0;r<3;r++) getCell('matB',r,ci).classList.add('highlight-col');
   await sleep(400);
 
-  const areaRect = document.getElementById('s1Area').getBoundingClientRect();
-  const overlayRect = overlay.getBoundingClientRect();
-  // gather positions
-  const rowVals = [], colVals = [], rowPos = [], colPos = [];
+  // Show workspace with pairs
+  workspace.style.display = 'block';
+  workspace.classList.add('active');
+
+  let pairsHTML = '<div class="pair-display">';
   for(let k=0;k<3;k++){
-    rowVals.push(A[ri][k]);
-    colVals.push(B[k][ci]);
-    rowPos.push(getCellRect('matA',ri,k,'s1Area'));
-    colPos.push(getCellRect('matB',k,ci,'s1Area'));
+    pairsHTML += '<div class="pair-item">';
+    pairsHTML += '<span class="row-val">' + A[ri][k] + '</span>';
+    pairsHTML += '<span class="times-sign"> &times; </span>';
+    pairsHTML += '<span class="col-val">' + B[k][ci] + '</span>';
+    pairsHTML += '</div>';
   }
+  pairsHTML += '</div>';
+  pairsHTML += '<div class="workspace-hint">Click the result cell again (or click "Compute") to see the multiplication and sum.</div>';
+  pairsHTML += '<div style="text-align:center;margin-top:10px;">';
+  pairsHTML += '<button class="btn-next-step" id="btnComputeStep2" data-r="'+ri+'" data-c="'+ci+'">Compute &rarr;</button>';
+  pairsHTML += '</div>';
 
-  // Create flying numbers at source positions
-  const flyEls = [];
-  const midX = overlay.offsetWidth / 2;
-  const midY = overlay.offsetHeight / 2;
-  for(let k=0;k<3;k++){
-    const rEl = document.createElement('div');
-    rEl.className = 'flying-number row-num';
-    rEl.textContent = rowVals[k];
-    rEl.style.left = rowPos[k].x + 'px';
-    rEl.style.top = rowPos[k].y + 'px';
-    rEl.style.transform = 'translate(-50%,-50%)';
-    rEl.style.opacity = '0';
-    overlay.appendChild(rEl);
+  workspace.innerHTML = pairsHTML;
 
-    const cEl = document.createElement('div');
-    cEl.className = 'flying-number col-num';
-    cEl.textContent = colVals[k];
-    cEl.style.left = colPos[k].x + 'px';
-    cEl.style.top = colPos[k].y + 'px';
-    cEl.style.transform = 'translate(-50%,-50%)';
-    cEl.style.opacity = '0';
-    overlay.appendChild(cEl);
-    flyEls.push({rEl, cEl});
-  }
-  await sleep(50);
-  // Fade in
-  flyEls.forEach(f=>{ f.rEl.style.opacity='1'; f.cEl.style.opacity='1'; });
-  await sleep(400);
+  // Attach event to compute button
+  document.getElementById('btnComputeStep2').addEventListener('click', function(){
+    if(!s1Busy) animateS1Step2(+this.dataset.r, +this.dataset.c);
+  });
 
-  // Move to meeting points (middle area)
-  const spacing = 80;
-  const startY = midY - spacing;
-  for(let k=0;k<3;k++){
-    const ty = startY + k * spacing;
-    flyEls[k].rEl.style.left = (midX - 50) + 'px';
-    flyEls[k].rEl.style.top = ty + 'px';
-    flyEls[k].cEl.style.left = (midX + 50) + 'px';
-    flyEls[k].cEl.style.top = ty + 'px';
-  }
-  await sleep(600);
+  compDisp.innerHTML = '<span style="color:var(--text-muted);">Row ' + (ri+1) + ' of A paired with Column ' + (ci+1) + ' of B</span>';
 
-  // Show multiplication labels
-  for(let k=0;k<3;k++){
-    const ty = startY + k * spacing;
-    flyEls[k].rEl.textContent = rowVals[k] + ' \u00d7 ' + colVals[k];
-    flyEls[k].rEl.className = 'flying-number product';
-    flyEls[k].rEl.style.left = midX + 'px';
-    flyEls[k].cEl.style.opacity = '0';
-  }
-  await sleep(500);
+  s1PendingStep2[ri][ci] = true;
+  s1Busy = false;
+}
 
-  // Resolve to products
+// Step 2: Compute and show result
+async function animateS1Step2(ri, ci){
+  if(s1Busy || !s1PendingStep2[ri][ci]) return;
+  s1Busy = true;
+
+  const workspace = document.getElementById('s1Workspace');
+  const compDisp = document.getElementById('s1Computation');
+
+  // Show multiplication results
   const products = [];
+  let pairsHTML = '<div class="pair-display">';
   for(let k=0;k<3;k++){
-    products.push(rowVals[k]*colVals[k]);
-    flyEls[k].rEl.textContent = products[k];
+    const prod = A[ri][k] * B[k][ci];
+    products.push(prod);
+    pairsHTML += '<div class="pair-item">';
+    pairsHTML += '<span class="row-val">' + A[ri][k] + '</span>';
+    pairsHTML += '<span class="times-sign"> &times; </span>';
+    pairsHTML += '<span class="col-val">' + B[k][ci] + '</span>';
+    pairsHTML += '<span class="equals-sign"> = </span>';
+    pairsHTML += '<span class="product-val">' + prod + '</span>';
+    pairsHTML += '</div>';
   }
-  compDisp.innerHTML = products.join(' + ');
-  await sleep(500);
+  pairsHTML += '</div>';
 
-  // Sum them up - move to single line
-  const sumY = midY;
-  for(let k=0;k<3;k++){
-    flyEls[k].rEl.style.top = sumY + 'px';
-    flyEls[k].rEl.style.left = (midX - 60 + k*60) + 'px';
-  }
-  await sleep(400);
+  workspace.innerHTML = pairsHTML;
+
+  compDisp.innerHTML = products.join(' + ');
+  await sleep(800);
 
   // Show sum
   const total = products.reduce((a,b)=>a+b,0);
+  const sumHTML = '<div class="sum-line">' + products.join(' + ') + ' = <strong>' + total + '</strong></div>';
+  workspace.innerHTML += sumHTML;
   compDisp.innerHTML = products.join(' + ') + ' = <strong>' + total + '</strong>';
+  await sleep(600);
 
-  // Collapse into one
-  for(let k=0;k<3;k++){
-    flyEls[k].rEl.style.left = midX + 'px';
-    flyEls[k].rEl.style.top = sumY + 'px';
-    if(k>0) flyEls[k].rEl.style.opacity = '0';
-  }
-  flyEls[0].rEl.textContent = total;
-  flyEls[0].rEl.className = 'flying-number sum-result';
-  await sleep(400);
-
-  // Fly to result cell
-  const target = getCellRect('matC', ri, ci, 's1Area');
-  flyEls[0].rEl.style.left = target.x + 'px';
-  flyEls[0].rEl.style.top = target.y + 'px';
-  await sleep(500);
-
-  // Fill cell
+  // Fill result cell
   const resultCell = getCell('matC', ri, ci);
   resultCell.textContent = total;
   resultCell.classList.add('result-filled','result-flash');
   resultCell.classList.remove('clickable');
   s1Filled[ri][ci] = true;
+  s1PendingStep2[ri][ci] = false;
 
   // Cleanup highlights
   for(let c=0;c<3;c++) getCell('matA',ri,c).classList.remove('highlight-row');
   for(let r=0;r<3;r++) getCell('matB',r,ci).classList.remove('highlight-col');
-  overlay.innerHTML = '';
-  await sleep(200);
+
+  await sleep(400);
+  workspace.style.display = 'none';
+  workspace.innerHTML = '';
+  workspace.classList.remove('active');
   s1Busy = false;
 }
 
@@ -838,7 +1044,9 @@ async function playAllS1(){
   await sleep(300);
   const order = [[0,0],[0,1],[1,0],[1,1]];
   for(const [r,c] of order){
-    await animateS1Cell(r,c);
+    await animateS1Step1(r,c);
+    await sleep(600);
+    await animateS1Step2(r,c);
     await sleep(500);
   }
 }
@@ -847,7 +1055,115 @@ document.getElementById('btnPlayAll').addEventListener('click', playAllS1);
 document.getElementById('btnReset1').addEventListener('click', initSection1);
 initSection1();
 
-/* ========== SECTION 2: OLS Steps ========== */
+/* ========== SECTION 2: OLS Derivation ========== */
+let derivStep = 0;
+const derivTitles = [
+  'Step 1: The Model in Matrix Form',
+  'Step 2: Prediction Errors',
+  'Step 3: We Want to Minimize Total Error',
+  'Step 4: Take the Derivative and Set to Zero',
+  'Step 5: Solve for \u03B2\u0302',
+  'Step 6: What This Means'
+];
+
+function renderDerivStep(step){
+  derivStep = step;
+  const cont = document.getElementById('derivContent');
+  document.querySelectorAll('#derivStepNav .step-dot').forEach((d,i)=>{
+    d.classList.remove('active','done');
+    if(i===step) d.classList.add('active');
+    else if(i<step) d.classList.add('done');
+  });
+  document.getElementById('btnPrevDeriv').disabled = step===0;
+  document.getElementById('btnNextDeriv').disabled = step===5;
+  document.getElementById('btnNextDeriv').textContent = step<5 ? 'Next \u2192' : 'Done \u2713';
+
+  let html = '<div class="derivation-step"><h3>'+derivTitles[step]+'</h3>';
+
+  if(step===0){
+    html += '<div class="formula-box">y = X\u03B2 + u</div>';
+    html += '<div style="text-align:center;margin:20px 0;overflow-x:auto;">';
+    html += '<div class="matrix-display">';
+    html += '[\u2009y\u2081\u2009]   [\u20091  x\u2081\u2081  x\u2081\u2082\u2009] [\u2009\u03B2\u2080\u2009]   [\u2009u\u2081\u2009]\n';
+    html += '[\u2009y\u2082\u2009]   [\u20091  x\u2082\u2081  x\u2082\u2082\u2009] [\u2009\u03B2\u2081\u2009]   [\u2009u\u2082\u2009]\n';
+    html += '[\u2009y\u2083\u2009] = [\u20091  x\u2083\u2081  x\u2083\u2082\u2009] [\u2009\u03B2\u2082\u2009] + [\u2009u\u2083\u2009]\n';
+    html += '[\u2009y\u2084\u2009]   [\u20091  x\u2084\u2081  x\u2084\u2082\u2009]         [\u2009u\u2084\u2009]\n';
+    html += '[\u2009y\u2085\u2009]   [\u20091  x\u2085\u2081  x\u2085\u2082\u2009]         [\u2009u\u2085\u2009]';
+    html += '</div>';
+    html += '</div>';
+    html += '<div style="text-align:center;margin:12px 0;">';
+    html += '<span class="deriv-label y-label">y = outcomes</span> ';
+    html += '<span class="deriv-label x-label">X = predictors (with intercept column)</span> ';
+    html += '<span class="deriv-label beta-label">\u03B2 = coefficients we want to find</span> ';
+    html += '<span class="deriv-label u-label">u = errors</span>';
+    html += '</div>';
+    html += '<div class="explain-box">This is the linear regression model written in matrix form. Each row represents one observation. The first column of X is all 1s (the intercept). The vector \u03B2 contains the unknown coefficients. The vector u contains the error terms &mdash; what our model cannot explain.</div>';
+  }
+  else if(step===1){
+    html += '<div class="formula-box">e = y &minus; X\u03B2\u0302</div>';
+    html += '<div class="explain-box">The <strong>prediction error</strong> (or residual) for each observation is the difference between the actual outcome y and the predicted value \u0177 = X\u03B2\u0302. Here, \u03B2\u0302 denotes our <em>estimate</em> of the true coefficients. We want to find the \u03B2\u0302 that makes these errors as small as possible.</div>';
+    html += '<div class="formula-box" style="font-size:1rem;">';
+    html += 'e\u2081 = y\u2081 &minus; (\u03B2\u0302\u2080 + \u03B2\u0302\u2081x\u2081\u2081 + \u03B2\u0302\u2082x\u2081\u2082)<br>';
+    html += 'e\u2082 = y\u2082 &minus; (\u03B2\u0302\u2080 + \u03B2\u0302\u2081x\u2082\u2081 + \u03B2\u0302\u2082x\u2082\u2082)<br>';
+    html += '&vellip;<br>';
+    html += 'e\u2085 = y\u2085 &minus; (\u03B2\u0302\u2080 + \u03B2\u0302\u2081x\u2085\u2081 + \u03B2\u0302\u2082x\u2085\u2082)';
+    html += '</div>';
+  }
+  else if(step===2){
+    html += '<div class="formula-box">SSE = e\'e = (y &minus; X\u03B2\u0302)\'(y &minus; X\u03B2\u0302)</div>';
+    html += '<div class="explain-box">The <strong>Sum of Squared Errors</strong> &mdash; we want to make this as small as possible. Squaring the errors ensures that positive and negative errors don\'t cancel out, and penalizes large errors more than small ones.</div>';
+    html += '<div class="formula-box" style="font-size:1rem;">';
+    html += 'SSE = e\u2081\u00B2 + e\u2082\u00B2 + e\u2083\u00B2 + e\u2084\u00B2 + e\u2085\u00B2 = \u03A3 e\u1D62\u00B2';
+    html += '</div>';
+    html += '<div class="explain-box">In matrix notation, <strong>e\'e</strong> means "transpose e and multiply by e." This is exactly the sum of each element squared &mdash; a compact way of writing the sum of squared errors.</div>';
+  }
+  else if(step===3){
+    html += '<div class="formula-box">\u2202SSE / \u2202\u03B2 = &minus;2X\'y + 2X\'X\u03B2\u0302 = 0</div>';
+    html += '<div class="explain-box"><strong>Calculus tells us:</strong> at the minimum, the derivative equals zero. We take the derivative of SSE with respect to \u03B2\u0302 and set it equal to zero. This gives us the condition that the optimal coefficients must satisfy.</div>';
+    html += '<div class="formula-box" style="font-size:1rem;">';
+    html += 'Expanding SSE:<br>';
+    html += 'SSE = y\'y &minus; 2\u03B2\u0302\'X\'y + \u03B2\u0302\'X\'X\u03B2\u0302<br><br>';
+    html += 'Taking the derivative with respect to \u03B2\u0302:<br>';
+    html += '\u2202SSE / \u2202\u03B2\u0302 = &minus;2X\'y + 2X\'X\u03B2\u0302<br><br>';
+    html += 'Setting equal to zero:<br>';
+    html += '&minus;2X\'y + 2X\'X\u03B2\u0302 = 0';
+    html += '</div>';
+  }
+  else if(step===4){
+    html += '<div class="explain-box" style="font-size:1.05rem;">Starting from the first-order condition, we solve for \u03B2\u0302 in two algebraic steps:</div>';
+    html += '<div class="formula-box" style="font-size:1.05rem;">';
+    html += '<strong>Step A:</strong> Rearrange to get the <em>normal equations</em>:<br>';
+    html += 'X\'X\u03B2\u0302 = X\'y';
+    html += '</div>';
+    html += '<div class="formula-box" style="font-size:1.05rem;">';
+    html += '<strong>Step B:</strong> Multiply both sides by (X\'X)\u207B\u00B9:<br>';
+    html += '(X\'X)\u207B\u00B9 X\'X \u03B2\u0302 = (X\'X)\u207B\u00B9 X\'y<br>';
+    html += 'I \u00B7 \u03B2\u0302 = (X\'X)\u207B\u00B9 X\'y';
+    html += '</div>';
+    html += '<div class="formula-box highlight" style="font-size:1.3rem;">';
+    html += '<strong>\u03B2\u0302 = (X\'X)\u207B\u00B9 X\'y</strong>';
+    html += '</div>';
+    html += '<div class="explain-box">This is the <strong>OLS formula</strong>. It gives us the coefficients that minimize the sum of squared errors. Section 3 below walks through each piece numerically.</div>';
+  }
+  else if(step===5){
+    html += '<div class="formula-box" style="font-size:1.1rem;">\u03B2\u0302 = <span style="border-bottom:2px solid var(--highlight-col);">(X\'X)\u207B\u00B9</span> <span style="border-bottom:2px solid var(--highlight-row);">X\'y</span></div>';
+    html += '<div class="explain-box" style="font-size:1.05rem;">';
+    html += '<strong style="color:var(--highlight-col);">(X\'X)\u207B\u00B9</strong> accounts for <strong>correlations between predictors</strong>. If two predictors move together, this matrix "untangles" their effects so each coefficient reflects only its own contribution.<br><br>';
+    html += '<strong style="color:var(--highlight-row);">X\'y</strong> measures <strong>how each predictor relates to the outcome</strong>. It captures the raw association between each predictor and y.<br><br>';
+    html += 'Together, they give each variable its own <strong>isolated effect</strong> &mdash; the effect of changing one predictor while holding all others constant. This is what makes multiple regression so powerful: it separates the individual contributions even when predictors are correlated.';
+    html += '</div>';
+  }
+
+  html += '</div>';
+  cont.innerHTML = html;
+}
+
+document.getElementById('btnNextDeriv').addEventListener('click', ()=>{ if(derivStep<5) renderDerivStep(derivStep+1); });
+document.getElementById('btnPrevDeriv').addEventListener('click', ()=>{ if(derivStep>0) renderDerivStep(derivStep-1); });
+document.querySelectorAll('#derivStepNav .step-dot').forEach(d=>d.addEventListener('click', function(){ renderDerivStep(+this.dataset.step); }));
+renderDerivStep(0);
+
+/* ========== SECTION 3: OLS Building Blocks (was Section 2) ========== */
 const X = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15]];
 const y = [[13],[19],[29],[24],[35]];
 // X' (3x5)
@@ -875,7 +1191,7 @@ const stepTitles = [
 function renderStep(step){
   currentStep = step;
   const cont = document.getElementById('s2Content');
-  document.querySelectorAll('.step-dot').forEach((d,i)=>{
+  document.querySelectorAll('#stepNav .step-dot').forEach((d,i)=>{
     d.classList.remove('active','done');
     if(i===step) d.classList.add('active');
     else if(i<step) d.classList.add('done');
@@ -969,10 +1285,10 @@ function renderStep(step){
 
 document.getElementById('btnNextStep').addEventListener('click', ()=>{ if(currentStep<5) renderStep(currentStep+1); });
 document.getElementById('btnPrevStep').addEventListener('click', ()=>{ if(currentStep>0) renderStep(currentStep-1); });
-document.querySelectorAll('.step-dot').forEach(d=>d.addEventListener('click', function(){ renderStep(+this.dataset.step); }));
+document.querySelectorAll('#stepNav .step-dot').forEach(d=>d.addEventListener('click', function(){ renderStep(+this.dataset.step); }));
 renderStep(0);
 
-/* ========== SECTION 3: Correlation Demo ========== */
+/* ========== SECTION 4: Correlation Demo (was Section 3) ========== */
 /* We generate data with controllable correlation and known DGP:
    y = 1 + 2*x1 + 3*x2 + eps
    True beta1 = 2. Simple regression beta1 will be biased when x1,x2 correlated. */
@@ -1101,15 +1417,15 @@ function drawScatter(data){
   ctx.lineTo(W-pad, H-pad);
   ctx.stroke();
 
-  // Labels
+  // Axis labels
   ctx.fillStyle = dark ? '#9999bb' : '#6b6b8d';
-  ctx.font = '13px system-ui';
+  ctx.font = 'bold 14px system-ui';
   ctx.textAlign = 'center';
-  ctx.fillText('x\u2081', W/2, H-12);
+  ctx.fillText('x\u2081 (predictor 1)', W/2, H-8);
   ctx.save();
   ctx.translate(14, H/2);
   ctx.rotate(-Math.PI/2);
-  ctx.fillText('x\u2082', 0, 0);
+  ctx.fillText('x\u2082 (predictor 2)', 0, 0);
   ctx.restore();
 
   // Scale
