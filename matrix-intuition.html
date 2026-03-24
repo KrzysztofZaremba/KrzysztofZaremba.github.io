@@ -33,7 +33,9 @@ h1{font-size:1.6rem;text-align:center;margin:12px 0 4px;color:var(--accent)}
 .eq{text-align:center;font-family:Georgia,serif;font-size:1.2rem;margin:14px 0;letter-spacing:.3px}
 .eq-sm{font-size:1.05rem}
 /* Beta-hat */
-.hat{font-family:Georgia,serif;font-style:italic}
+.hat{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;font-family:Georgia,serif;font-style:italic;line-height:1}
+.hat-top{font-size:.55em;line-height:.6;font-style:normal;margin-bottom:-0.15em}
+.hat-bot{line-height:1}
 .btn{background:var(--accent);color:#fff;border:none;padding:7px 16px;border-radius:var(--radius);cursor:pointer;font-size:.88rem;transition:.2s}
 .btn:hover{opacity:.85}
 .btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
@@ -119,7 +121,7 @@ function computeYhat(b){return X.map(r=>R(r[0]*b[0]+r[1]*b[1]+r[2]*b[2]));}
 function computeErrors(b){const yh=computeYhat(b);return y.map((v,i)=>R(v-yh[i]));}
 function computeSSE(b){const e=computeErrors(b);return R(e.reduce((s,v)=>s+v*v,0));}
 function eClass(v){const a=Math.abs(v);return a<0.5?'e-green':a<2?'e-orange':'e-red';}
-function H(l){return '<span class="hat">'+l+'\u0302</span>';}
+function H(l){return '<span class="hat"><span class="hat-top">^</span><span class="hat-bot">'+l+'</span></span>';}
 const XT='X<sup>\u22A4</sup>';
 
 /* ===== THEME ===== */
@@ -201,11 +203,11 @@ function mmAnimate(ri,ci,A,B,C){
 }
 
 /* ================= TAB 2: MODEL TO OLS (8 STEPS) ================= */
-const N_STEPS=8;
+const N_STEPS=7;
 function renderModel(el){
   let h='<div class="step-nav"><button class="btn btn-sm btn-outline" id="prevStep">\u2190 Previous</button>';
   h+='<div class="step-dots" id="stepDots">';
-  for(let i=0;i<N_STEPS;i++)h+='<span data-s="'+i+'" title="Step '+(i+1)+'"></span>';
+  for(let i=0;i<7;i++)h+='<span data-s="'+i+'" title="Step '+(i+1)+'"></span>';
   h+='</div><button class="btn btn-sm" id="nextStep">Next \u2192</button></div>';
   h+='<div id="stepBox"></div>';
   el.innerHTML=h;
@@ -221,7 +223,7 @@ function showStep(){
   $('#prevStep').disabled=currentStep===0;
   $('#nextStep').disabled=currentStep===N_STEPS-1;
   const box=$('#stepBox');
-  box.innerHTML=[stp1,stp2,stp3,stp4,stp5,stp6,stp7,stp8][currentStep]();
+  box.innerHTML=[stp1,stp2,stp3,stp4,stp5,stp6,stp7][currentStep]();
   if(currentStep>=1&&currentStep<=4)setTimeout(attachSliders,0);
 }
 /* Slider HTML shared by steps 2-4 */
@@ -303,6 +305,8 @@ function updateLive(){
     h+='<div style="margin:8px 0"><strong>SSE =</strong> ';
     h+=mxRow(y,'y\u1D40')+' '+mxV(y,'y');
     h+=' \u2212 2 '+mxRow(b.map(v=>R(v,1)),'b\u1D40')+' '+mxV(Xty,XT+'y');
+    h+='</div>';
+    h+='<div style="margin:8px 0;padding-left:40px;">';
     h+=' + '+mxRow(b.map(v=>R(v,1)),'b\u1D40')+' '+mx(XtX,XT+'X')+' '+mxV(b.map(v=>R(v,1)),'b');
     h+='</div>';
     h+='<div style="margin:12px 0;font-size:1.05rem;">';
@@ -383,42 +387,43 @@ function stp6(){
   h+='<p>\u2202/\u2202b [b\u1D40'+XT+'Xb] = <strong>2'+XT+'Xb</strong> &emsp;<span style="color:var(--accent)">(quadratic rule)</span></p>';
   h+='</div></div>';
   h+='<div class="proof-step"><div class="label">Set equal to the zero vector</div>';
-  h+='<div class="eq eq-sm">\u22122'+XT+'y + 2'+XT+'X'+H('\u03B2')+' = '+mxV(['0','0','0'],'0')+'</div>';
-  h+='<div style="font-family:Georgia,serif;font-size:.95rem;text-align:center;margin:8px 0;">';
-  h+='\u2192 &ensp; '+XT+'X'+H('\u03B2')+' = '+XT+'y';
+  h+='<div style="text-align:center;overflow-x:auto;font-family:Georgia,serif;font-size:1.05rem;">';
+  h+='\u22122'+XT+'y + 2'+XT+'X'+H('\u03B2')+' = '+mxV(['0','0','0'],'0');
   h+='</div></div>';
-  h+='<p style="margin:10px 0"><strong>Symbolic form with matrices:</strong></p>';
-  h+='<div style="text-align:center;overflow-x:auto">';
-  h+=mx([['1','x<sub>11</sub>','x<sub>12</sub>'],['\u22EE','\u22EE','\u22EE'],['1','x<sub>n1</sub>','x<sub>n2</sub>']],XT)+' ';
-  h+=mx([['1','\u2026','1'],['x<sub>11</sub>','\u2026','x<sub>n1</sub>'],['x<sub>12</sub>','\u2026','x<sub>n2</sub>']],'X')+' ';
-  h+=mxV([H('\u03B2')+'\u2080',H('\u03B2')+'\u2081',H('\u03B2')+'\u2082'],H('\u03B2'));
-  h+=' = ';
-  h+=mx([['1','x<sub>11</sub>','x<sub>12</sub>'],['\u22EE','\u22EE','\u22EE'],['1','x<sub>n1</sub>','x<sub>n2</sub>']],XT)+' ';
-  h+=mxV(['y\u2081','\u22EE','y<sub>n</sub>'],'y');
+  h+='<div class="proof-step"><div class="label">Rearrange \u2192 Normal equations</div>';
+  h+='<div style="text-align:center;overflow-x:auto;font-family:Georgia,serif;font-size:1.05rem;">';
+  h+=XT+'X '+H('\u03B2')+' = '+XT+'y';
+  h+='</div></div>';
+  h+='<div class="proof-step"><div class="label">Multiply both sides by ('+XT+'X)<sup>\u22121</sup></div>';
+  h+='<div style="text-align:center;overflow-x:auto;font-family:Georgia,serif;font-size:1.05rem;">';
+  h+='('+XT+'X)<sup>\u22121</sup>('+XT+'X) '+H('\u03B2')+' = ('+XT+'X)<sup>\u22121</sup> '+XT+'y';
   h+='</div>';
-  h+='<p style="margin:10px 0"><strong>With our data:</strong></p>';
-  h+='<div style="text-align:center;overflow-x:auto">'+mx(XtX,XT+'X')+' \u00d7 '+mxV([H('\u03B2')+'\u2080',H('\u03B2')+'\u2081',H('\u03B2')+'\u2082'],H('\u03B2'))+' = '+mxV(Xty,XT+'y')+'</div>';
-  h+='<p style="margin-top:10px">3 equations, 3 unknowns. Solve by inverting '+XT+'X.</p></div>';
+  h+='<div style="text-align:center;overflow-x:auto;font-family:Georgia,serif;font-size:1.05rem;margin-top:6px;">';
+  h+='I \u00b7 '+H('\u03B2')+' = ('+XT+'X)<sup>\u22121</sup> '+XT+'y';
+  h+='</div></div>';
+  h+='<div class="proof-step" style="background:rgba(67,65,138,.08);border-left-color:var(--accent);border-width:4px;"><div class="label" style="font-size:.9rem;">\u{1F3AF} The OLS Formula</div>';
+  h+='<div class="eq">'+H('\u03B2')+' = ('+XT+'X)<sup>\u22121</sup> '+XT+'y</div></div>';
+  h+='<p style="margin:12px 0"><strong>With our data:</strong></p>';
+  h+='<div class="proof-step"><div class="label">Symbolic</div>';
+  h+='<div style="text-align:center;overflow-x:auto">';
+  h+=mx([['?','?','?'],['?','?','?'],['?','?','?']],'('+XT+'X)<sup>\u22121</sup>');
+  h+=' \u00d7 '+mxV(['?','?','?'],XT+'y');
+  h+=' = '+mxV([H('\u03B2')+'\u2080',H('\u03B2')+'\u2081',H('\u03B2')+'\u2082'],H('\u03B2'));
+  h+='</div></div>';
+  h+='<div class="proof-step"><div class="label">Numeric</div>';
+  h+='<div style="text-align:center;overflow-x:auto">';
+  h+=mx(XtXinv.map(r=>r.map(v=>R(v,4))),'('+XT+'X)<sup>\u22121</sup>');
+  h+=' \u00d7 '+mxV(Xty,XT+'y');
+  h+=' = '+mxV(betaHat,H('\u03B2'));
+  h+='</div></div>';
+  h+='<div class="i-card i-green"><strong>Interpretation:</strong><br>';
+  h+=H('\u03B2')+'\u2080 = 3.97 \u2192 baseline sales of $3,970/month<br>';
+  h+=H('\u03B2')+'\u2081 = 2.69 \u2192 each extra employee \u2192 +$2,690/month<br>';
+  h+=H('\u03B2')+'\u2082 = 0.94 \u2192 each extra 100 sqft \u2192 +$940/month</div></div>';
   return h;
 }
 function stp7(){
-  let h='<div class="card"><h3>Step 7: Solution '+H('\u03B2')+' = ('+XT+'X)<sup>\u22121</sup>'+XT+'y</h3>';
-  h+='<div class="proof-step"><div class="label">Step A: We already computed '+XT+'X</div>';
-  h+='<div style="text-align:center">'+mx(XtX,XT+'X')+'</div></div>';
-  h+='<div class="proof-step"><div class="label">Step B: Invert it</div>';
-  h+='<div style="text-align:center">'+mx(XtXinv.map(r=>r.map(v=>R(v,4))),'('+XT+'X)<sup>\u22121</sup>')+'</div></div>';
-  h+='<div class="proof-step"><div class="label">Step C: '+XT+'y</div>';
-  h+='<div style="text-align:center">'+mxV(Xty,XT+'y')+'</div></div>';
-  h+='<div class="proof-step"><div class="label">Step D: Multiply</div>';
-  h+='<div style="text-align:center;overflow-x:auto">'+mx(XtXinv.map(r=>r.map(v=>R(v,4))),'('+XT+'X)<sup>\u22121</sup>')+' \u00d7 '+mxV(Xty,XT+'y')+' = '+mxV(betaHat,H('\u03B2'))+'</div></div>';
-  h+='<div class="i-card i-green" style="margin-top:12px"><strong>Interpretation:</strong><br>';
-  h+=H('\u03B2')+'\u2080 = 3.97 \u2192 baseline sales of $3,970/month<br>';
-  h+=H('\u03B2')+'\u2081 = 2.69 \u2192 each additional employee adds ~$2,690/month in sales<br>';
-  h+=H('\u03B2')+'\u2082 = 0.94 \u2192 each additional 100 sqft adds ~$940/month in sales</div></div>';
-  return h;
-}
-function stp8(){
-  let h='<div class="card"><h3>Step 8: Intuition \u2014 What Does Each Piece Do?</h3>';
+  let h='<div class="card"><h3>Step 7: Intuition \u2014 What Does Each Piece Do?</h3>';
   h+='<div class="eq">'+H('\u03B2')+' = <span style="color:var(--orange)">('+XT+'X)<sup>\u22121</sup></span> <span style="color:var(--blue)">'+XT+'y</span></div>';
   h+='<div class="i-card i-blue"><strong style="color:var(--blue)">'+XT+'y \u2014 Raw Association</strong>';
   h+='<p>This vector captures how much each predictor correlates with the outcome. It sums up x<sub>i</sub> \u00d7 y<sub>i</sub> for each predictor. Alone, this would give biased coefficients because it ignores correlations between predictors.</p>';
