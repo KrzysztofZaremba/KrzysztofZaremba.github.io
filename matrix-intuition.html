@@ -751,6 +751,7 @@ footer a { color: var(--accent); text-decoration: none; }
       <div class="step-dot" data-step="5">6</div>
       <div class="step-dot" data-step="6">7</div>
       <div class="step-dot" data-step="7">8</div>
+      <div class="step-dot" data-step="8">9</div>
     </div>
 
     <div id="derivContent" class="step-content">
@@ -1050,16 +1051,46 @@ initSection1();
 
 /* ========== SECTION 2: OLS Derivation ========== */
 let derivStep = 0;
+const DERIV_MAX = 8;
 const derivTitles = [
   'Step 1: The Model in Matrix Form',
-  'Step 2: Prediction Errors',
-  'Step 3: We Want to Minimize Total Error',
-  'Step 4: Take the Derivative and Set to Zero',
-  'Step 5: Solve for \u03B2\u0302',
-  'Step 6: What This Means',
-  'Step 7: Unbiasedness of OLS',
-  'Step 8: Variance of OLS'
+  'Step 2: \u{1F3AE} Interactive \u2014 Choose Your Own Coefficients!',
+  'Step 3: Prediction Errors (e = y \u2212 Xb)',
+  'Step 4: Sum of Squared Errors (SSE)',
+  'Step 5: Minimize SSE \u2014 Take the Derivative',
+  'Step 6: Solve \u2192 The OLS Formula',
+  'Step 7: Intuition: What Does Each Piece Do?',
+  'Step 8: Unbiasedness of OLS',
+  'Step 9: Variance of OLS'
 ];
+
+// Pretty matrix renderer
+function mat(data, opts){
+  opts = opts || {};
+  const lbl = opts.label || '';
+  const cls = opts.cls || '';
+  let h = '<div style="display:inline-block;text-align:center;vertical-align:middle;'+(opts.style||'')+'">';
+  if(lbl) h += '<div style="font-size:0.75rem;font-weight:bold;margin-bottom:3px;color:'+(opts.labelColor||'var(--text-muted)')+';">'+lbl+'</div>';
+  h += '<div style="display:inline-flex;align-items:center;">';
+  h += '<span style="font-size:2em;font-weight:100;color:var(--accent);">[</span>';
+  h += '<table style="border-collapse:collapse;margin:0 2px;">';
+  for(const row of data){
+    h += '<tr>';
+    const cells = Array.isArray(row) ? row : [row];
+    for(const v of cells){
+      const bg = opts.highlight ? 'background:rgba(217,74,74,0.12);' : '';
+      h += '<td style="padding:2px 7px;text-align:center;font-family:\'Georgia\',serif;font-size:0.9rem;'+bg+(opts.cellStyle||'')+'">'+v+'</td>';
+    }
+    h += '</tr>';
+  }
+  h += '</table>';
+  h += '<span style="font-size:2em;font-weight:100;color:var(--accent);">]</span>';
+  h += '</div></div>';
+  return h;
+}
+function op(symbol){ return '<span style="font-size:1.4rem;margin:0 8px;vertical-align:middle;">'+symbol+'</span>'; }
+function eq(text){ return '<div style="text-align:center;font-family:\'Georgia\',serif;font-size:1.15rem;margin:12px 0;letter-spacing:0.3px;">'+text+'</div>'; }
+function eqBox(text){ return '<div style="text-align:center;font-family:\'Georgia\',serif;font-size:1.3rem;margin:16px 0;padding:14px 20px;background:linear-gradient(135deg,var(--accent-pale),rgba(67,65,138,0.08));border:2px solid var(--accent);border-radius:10px;letter-spacing:0.5px;">'+text+'</div>'; }
 
 function renderDerivStep(step){
   derivStep = step;
@@ -1070,21 +1101,23 @@ function renderDerivStep(step){
     else if(i<step) d.classList.add('done');
   });
   document.getElementById('btnPrevDeriv').disabled = step===0;
-  document.getElementById('btnNextDeriv').disabled = step===7;
-  document.getElementById('btnNextDeriv').textContent = step<7 ? 'Next \u2192' : 'Done \u2713';
+  document.getElementById('btnNextDeriv').disabled = step===DERIV_MAX;
+  document.getElementById('btnNextDeriv').textContent = step<DERIV_MAX ? 'Next \u2192' : 'Done \u2713';
 
   let html = '<div class="derivation-step"><h3>'+derivTitles[step]+'</h3>';
 
-  // 8 students: Hours Studied, Hours Slept, Exam Score (with noise)
   const dX = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15],[1,1,4],[1,7,11],[1,3,6]];
   const dY = [14,18,30,24,34,11,33,18];
-  // OLS estimates (pre-computed): β̂ ≈ [3.97, 2.69, 0.94]
-  const dBeta = [3.97, 2.69, 0.94];
-  const dYhat = dX.map(r => +(dBeta[0]+dBeta[1]*r[1]+dBeta[2]*r[2]).toFixed(2));
-  const dE = dY.map((v,i) => +(v - dYhat[i]).toFixed(2));
-  const dSSE = +(dE.reduce((s,e)=>s+e*e, 0)).toFixed(2);
+  const dBetaOpt = [3.97, 2.69, 0.94];
   const dXtX = [[8,31,71],[31,149,323],[71,323,731]];
   const dXty = [182,828,1839];
+  function computeFromB(b){
+    const yh = dX.map(r => +(b[0]+b[1]*r[1]+b[2]*r[2]).toFixed(2));
+    const e = dY.map((v,i) => +(v - yh[i]).toFixed(2));
+    const sse = +(e.reduce((s,v)=>s+v*v, 0)).toFixed(2);
+    return {yhat:yh, e:e, sse:sse};
+  }
+  const dOpt = computeFromB(dBetaOpt);
 
   function matrixTable(data, opts){
     opts = opts || {};
@@ -1113,82 +1146,90 @@ function renderDerivStep(step){
   }
 
   if(step===0){
-    html += dualDisplay(
-      '<div style="font-size:1.3rem;text-align:center;margin:8px 0;"><strong>y = X\u03B2 + u</strong></div>' +
-      '<div style="font-size:0.9rem;margin-top:8px;"><strong>y</strong> = outcomes (what we observe)<br><strong>X</strong> = predictors (with a column of 1s for intercept)<br><strong>\u03B2</strong> = unknown coefficients we want to find<br><strong>u</strong> = error terms (what we can\'t explain)</div>',
-
-      '<div style="display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;">' +
-      '<div style="text-align:center;"><div style="color:var(--highlight-row);font-weight:bold;font-size:0.8rem;">y (scores)</div>' + matrixTable(dY.map(v=>[v])) + '</div>' +
-      '<span style="font-size:1.3rem;">=</span>' +
-      '<div style="text-align:center;"><div style="color:var(--accent);font-weight:bold;font-size:0.8rem;">X (predictors)</div>' + matrixTable(dX.map(r=>['<span style=color:#999>'+r[0]+'</span>',r[1],r[2]])) + '</div>' +
-      '<div style="text-align:center;"><div style="font-weight:bold;font-size:0.8rem;">\u03B2</div>' + matrixTable(['\u03B2\u2080','\u03B2\u2081','\u03B2\u2082'].map(v=>[v])) + '</div>' +
-      '<span>+</span>' +
-      '<div style="text-align:center;"><div style="color:var(--text-muted);font-weight:bold;font-size:0.8rem;">u</div>' + matrixTable(dY.map((_,i)=>['u'+(i+1)])) + '</div></div>' +
-      '<div style="font-size:0.85rem;margin-top:8px;text-align:center;">8 students &bull; Col 1 = intercept &bull; Col 2 = Hours Studied &bull; Col 3 = Hours Slept</div>'
-    );
-    html += '<div class="explain-box">Each row is one student. We observe <strong>y</strong> (exam scores) and <strong>X</strong> (how much they studied and slept). We want to find \u03B2 &mdash; the coefficients that best predict scores from studying and sleeping hours.</div>';
+    html += eq('<strong style="font-size:1.4rem;">y = X\u03B2 + u</strong>');
+    html += '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:16px 0;">';
+    html += '<div style="background:var(--accent-pale);border-radius:12px;padding:16px;border-top:3px solid var(--accent);min-width:220px;">';
+    html += '<div style="font-weight:bold;color:var(--accent);margin-bottom:10px;text-align:center;">\u{1F4D0} Symbolic</div>';
+    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">';
+    html += mat([['y\u2081'],['y\u2082'],['\u22EE'],['y\u2088']], {label:'y',labelColor:'var(--highlight-row)'});
+    html += op('=');
+    html += mat([['1','x\u2081\u2081','x\u2081\u2082'],['1','x\u2082\u2081','x\u2082\u2082'],['\u22EE','\u22EE','\u22EE'],['1','x\u2088\u2081','x\u2088\u2082']], {label:'X',labelColor:'var(--accent)'});
+    html += mat([['\u03B2\u2080'],['\u03B2\u2081'],['\u03B2\u2082']], {label:'\u03B2',labelColor:'var(--highlight-col)'});
+    html += op('+');
+    html += mat([['u\u2081'],['u\u2082'],['\u22EE'],['u\u2088']], {label:'u',labelColor:'var(--text-muted)'});
+    html += '</div></div>';
+    html += '<div style="background:rgba(74,144,217,0.08);border-radius:12px;padding:16px;border-top:3px solid var(--highlight-row);min-width:280px;">';
+    html += '<div style="font-weight:bold;color:var(--highlight-row);margin-bottom:10px;text-align:center;">\u{1F522} Our Data (8 students)</div>';
+    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">';
+    html += mat(dY.map(v=>[v]), {label:'Scores',labelColor:'var(--highlight-row)'});
+    html += op('=');
+    html += mat(dX.map(r=>['<span style=color:#aaa>'+r[0]+'</span>',r[1],r[2]]), {label:'X',labelColor:'var(--accent)'});
+    html += mat([['?'],['?'],['?']], {label:'\u03B2 = ?',labelColor:'var(--highlight-col)'});
+    html += op('+');
+    html += mat(dY.map(()=>['?']), {label:'u',labelColor:'var(--text-muted)'});
+    html += '</div>';
+    html += '<div style="font-size:0.8rem;text-align:center;margin-top:8px;color:var(--text-muted);">Col 1 = intercept &bull; Col 2 = Hrs Studied &bull; Col 3 = Hrs Slept</div>';
+    html += '</div></div>';
+    html += '<div class="explain-box">We observe <strong>y</strong> and <strong>X</strong>. We want to find <strong>\u03B2</strong> that best predicts y from X. Next: try choosing coefficients yourself!</div>';
   }
   else if(step===1){
-    // Use "b" (a guess) not β̂ (the optimal)
-    var guessB = [4, 2.5, 1]; // a reasonable but non-optimal guess
-    var guessYhat = dX.map(r => +(guessB[0]+guessB[1]*r[1]+guessB[2]*r[2]).toFixed(1));
-    var guessE = dY.map((v,i) => +(v - guessYhat[i]).toFixed(1));
-    html += dualDisplay(
-      '<div style="font-size:1.2rem;text-align:center;margin:8px 0;"><strong>\u0177 = Xb</strong></div>' +
-      '<div style="font-size:0.9rem;margin-top:8px;">Suppose we <strong>guess</strong> some coefficients <strong>b</strong> (not optimal yet!).<br><br>' +
-      'For each student, the predicted score is:<br>\u0177\u1D62 = b\u2080 + b\u2081 \u00D7 (Hours Studied)\u1D62 + b\u2082 \u00D7 (Hours Slept)\u1D62<br><br>' +
-      '<em>b is just a guess &mdash; we haven\'t found the best coefficients yet.</em></div>',
-
-      '<div style="font-size:0.9rem;">Using a guess <strong>b</strong> = [' + guessB.join(', ') + ']:<br><br>' +
-      '<table style="border-collapse:collapse;font-size:0.85rem;width:100%;">' +
-      '<tr style="background:var(--accent-pale);"><th style="padding:3px 6px;">Student</th><th>Calculation</th><th>\u0177</th></tr>' +
-      dX.map((r,i) => '<tr><td style="padding:3px 6px;text-align:center;">'+(i+1)+'</td><td style="padding:3px 6px;">'+guessB[0]+' + '+guessB[1]+'\u00D7'+r[1]+' + '+guessB[2]+'\u00D7'+r[2]+'</td><td style="padding:3px 6px;text-align:center;font-weight:bold;">'+guessYhat[i]+'</td></tr>').join('') +
-      '</table></div>'
-    );
-    html += '<div class="explain-box">With this <strong>guess</strong> b, we get predictions. But are they any good? Let\'s check the errors \u2192</div>';
+    html += '<div class="explain-box" style="text-align:center;font-size:1.05rem;">\u{1F3AE} Drag the sliders to choose coefficients <strong>b</strong>. Watch predictions, errors, and SSE update live!</div>';
+    html += '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:12px 0;">';
+    html += '<div style="text-align:center;"><label style="font-weight:bold;font-family:Georgia,serif;">b\u2080</label> <span style="font-size:0.85rem;">(intercept)</span><br><input type="range" id="sliderB0" min="-2" max="10" step="0.1" value="4" style="width:150px;accent-color:var(--accent);"><br><span id="valB0" style="font-family:monospace;font-size:1.1rem;font-weight:bold;">4.0</span></div>';
+    html += '<div style="text-align:center;"><label style="font-weight:bold;font-family:Georgia,serif;">b\u2081</label> <span style="font-size:0.85rem;">(study hrs)</span><br><input type="range" id="sliderB1" min="-1" max="6" step="0.1" value="2.5" style="width:150px;accent-color:var(--highlight-row);"><br><span id="valB1" style="font-family:monospace;font-size:1.1rem;font-weight:bold;">2.5</span></div>';
+    html += '<div style="text-align:center;"><label style="font-weight:bold;font-family:Georgia,serif;">b\u2082</label> <span style="font-size:0.85rem;">(sleep hrs)</span><br><input type="range" id="sliderB2" min="-2" max="4" step="0.1" value="1.0" style="width:150px;accent-color:var(--highlight-col);"><br><span id="valB2" style="font-family:monospace;font-size:1.1rem;font-weight:bold;">1.0</span></div>';
+    html += '</div>';
+    html += '<div style="text-align:center;margin:6px 0;"><button class="btn btn-secondary" id="btnShowOptimal" style="font-size:0.85rem;">Show optimal \u03B2\u0302 = [3.97, 2.69, 0.94]</button></div>';
+    html += '<div id="interactiveResults" style="margin:12px 0;"></div>';
+    html += '<div style="text-align:center;margin-top:10px;padding:14px;background:var(--accent-pale);border-radius:10px;">';
+    html += '<div style="font-size:0.9rem;margin-bottom:4px;">Sum of Squared Errors</div>';
+    html += '<div style="font-size:2rem;font-weight:bold;font-family:Georgia,serif;">SSE = <span id="interSSE" style="color:var(--accent);">0</span></div>';
+    html += '<div style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">Minimum possible (optimal \u03B2\u0302): <strong>' + dOpt.sse + '</strong></div>';
+    html += '</div>';
   }
   else if(step===2){
-    var guessB = [4, 2.5, 1];
-    var guessYhat = dX.map(r => +(guessB[0]+guessB[1]*r[1]+guessB[2]*r[2]).toFixed(1));
-    var guessE = dY.map((v,i) => +(v - guessYhat[i]).toFixed(1));
-    html += dualDisplay(
-      '<div style="font-size:1.2rem;text-align:center;margin:8px 0;"><strong>e = y &minus; Xb</strong></div>' +
-      '<div style="font-size:0.9rem;margin-top:8px;">The <strong>error</strong> for each student is the difference between actual score and our prediction:<br>e\u1D62 = y\u1D62 &minus; \u0177\u1D62<br><br>' +
-      'With a <strong>different guess</strong> b, we\'d get different errors. Our goal: find the b that makes errors smallest.</div>',
-
-      '<div style="display:flex;justify-content:center;align-items:center;gap:8px;">' +
-      '<div style="text-align:center;"><div style="font-weight:bold;font-size:0.8rem;">y (actual)</div>' + matrixTable(dY.map(v=>[v])) + '</div>' +
-      '<span style="font-size:1.3rem;">&minus;</span>' +
-      '<div style="text-align:center;"><div style="font-weight:bold;color:var(--accent);font-size:0.8rem;">\u0177 = Xb</div>' + matrixTable(guessYhat.map(v=>[v])) + '</div>' +
-      '<span style="font-size:1.3rem;">=</span>' +
-      '<div style="text-align:center;"><div style="font-weight:bold;color:var(--not-controlling-color);font-size:0.8rem;">e (errors)</div>' + matrixTable(guessE.map(v=>[v]), {highlight:true}) + '</div></div>'
-    );
-    html += '<div class="explain-box">These errors are <strong>not zero</strong> &mdash; our guess b = ['+guessB.join(', ')+'] isn\'t perfect. Some predictions are too high, others too low. Next: how do we measure the <em>total</em> error?</div>';
+    html += eq('<strong style="font-size:1.3rem;">e = y \u2212 X\u03B2\u0302</strong>');
+    html += '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:16px 0;">';
+    html += '<div style="background:var(--accent-pale);border-radius:12px;padding:16px;border-top:3px solid var(--accent);">';
+    html += '<div style="font-weight:bold;color:var(--accent);margin-bottom:10px;text-align:center;">\u{1F4D0} Symbolic</div>';
+    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;">';
+    html += mat([['e\u2081'],['e\u2082'],['\u22EE'],['e\u2088']], {label:'e'});
+    html += op('=');
+    html += mat([['y\u2081'],['y\u2082'],['\u22EE'],['y\u2088']], {label:'y'});
+    html += op('\u2212');
+    html += mat([['\u0177\u2081'],['\u0177\u2082'],['\u22EE'],['\u0177\u2088']], {label:'X\u03B2\u0302'});
+    html += '</div></div>';
+    html += '<div style="background:rgba(74,144,217,0.08);border-radius:12px;padding:16px;border-top:3px solid var(--highlight-row);">';
+    html += '<div style="font-weight:bold;color:var(--highlight-row);margin-bottom:10px;text-align:center;">\u{1F522} With optimal \u03B2\u0302 = ['+dBetaOpt.join(', ')+']</div>';
+    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;">';
+    html += mat(dY.map(v=>[v]), {label:'y'});
+    html += op('\u2212');
+    html += mat(dOpt.yhat.map(v=>[v]), {label:'\u0177'});
+    html += op('=');
+    html += mat(dOpt.e.map(v=>['<strong style="color:var(--not-controlling-color);">'+v+'</strong>']), {label:'e'});
+    html += '</div></div></div>';
+    html += '<div class="explain-box">Errors are non-zero \u2014 no model is perfect. But these are the <strong>smallest possible</strong> errors (in sum-of-squares sense). Try different b in Step 2 to see larger errors!</div>';
   }
   else if(step===3){
-    var guessB = [4, 2.5, 1];
-    var guessYhat = dX.map(r => +(guessB[0]+guessB[1]*r[1]+guessB[2]*r[2]).toFixed(1));
-    var guessE = dY.map((v,i) => +(v - guessYhat[i]).toFixed(1));
-    var guessSSE = +(guessE.reduce((s,e)=>s+e*e, 0)).toFixed(2);
-    html += dualDisplay(
-      '<div style="font-size:1.1rem;text-align:center;margin:8px 0;"><strong>SSE(b) = e\u1D40e = (y &minus; Xb)\u1D40(y &minus; Xb)</strong></div>' +
-      '<div style="font-size:0.9rem;margin-top:8px;">In matrix notation, <strong>e\u1D40e</strong> means "transpose e and dot-product with itself":<br><br>' +
-      'SSE = e\u2081\u00B2 + e\u2082\u00B2 + \u2026 + e\u2088\u00B2<br><br>' +
-      'Squaring ensures positive + negative errors don\'t cancel. Large errors get penalized more.<br><br>' +
-      '<strong>SSE depends on our choice of b!</strong> Different b \u2192 different errors \u2192 different SSE. We want to find the b that gives the <em>smallest</em> SSE.</div>',
-
-      '<div style="font-size:0.9rem;text-align:center;">' +
-      '<div style="margin-bottom:6px;">With guess b = [' + guessB.join(', ') + ']:</div>' +
-      '<div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-bottom:8px;">' +
-      '<div><div style="font-size:0.75rem;font-weight:bold;">e\u1D40</div>' + matrixTable([guessE]) + '</div>' +
-      '<span>\u00D7</span>' +
-      '<div><div style="font-size:0.75rem;font-weight:bold;">e</div>' + matrixTable(guessE.map(v=>[v])) + '</div></div>' +
-      '<div style="margin-top:8px;">' + guessE.map(v => '('+v+')\u00B2').join(' + ') + '</div>' +
-      '<div style="margin-top:4px;">' + guessE.map(v => (v*v).toFixed(2)).join(' + ') + '</div>' +
-      '<div style="margin-top:8px;font-size:1.2rem;font-weight:bold;color:var(--accent);">SSE(b) = ' + guessSSE + '</div>' +
-      '<div style="margin-top:6px;font-size:0.85rem;color:var(--text-muted);">Can we do better? The optimal \u03B2\u0302 will give SSE = ' + dSSE + ' (smaller!)</div></div>'
-    );
-    html += '<div class="explain-box">SSE is a function of b. We want to <strong>minimize</strong> it. How? Use calculus &mdash; take the derivative and set it to zero!</div>';
+    html += eq('<strong style="font-size:1.3rem;">SSE = e<sup>\u22A4</sup>e = \u03A3 e\u1D62\u00B2</strong>');
+    html += '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:16px 0;">';
+    html += '<div style="background:var(--accent-pale);border-radius:12px;padding:16px;border-top:3px solid var(--accent);min-width:220px;">';
+    html += '<div style="font-weight:bold;color:var(--accent);margin-bottom:10px;text-align:center;">\u{1F4D0} Symbolic</div>';
+    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">';
+    html += mat([dOpt.e.map((_,i)=>'e<sub>'+(i+1)+'</sub>')], {label:'e\u1D40'});
+    html += op('\u00D7');
+    html += mat(dOpt.e.map((_,i)=>['e<sub>'+(i+1)+'</sub>']), {label:'e'});
+    html += '</div>';
+    html += eq('= e\u2081\u00B2 + e\u2082\u00B2 + \u2026 + e\u2088\u00B2');
+    html += '</div>';
+    html += '<div style="background:rgba(74,144,217,0.08);border-radius:12px;padding:16px;border-top:3px solid var(--highlight-row);min-width:280px;">';
+    html += '<div style="font-weight:bold;color:var(--highlight-row);margin-bottom:10px;text-align:center;">\u{1F522} With Numbers</div>';
+    html += '<div style="text-align:center;font-family:Georgia,serif;font-size:0.9rem;">';
+    html += dOpt.e.map(v => '('+v+')\u00B2').join(' + ') + '<br><br>';
+    html += '= ' + dOpt.e.map(v => (v*v).toFixed(2)).join(' + ') + '<br><br>';
+    html += '<span style="font-size:1.4rem;font-weight:bold;color:var(--accent);">SSE = ' + dOpt.sse + '</span>';
+    html += '</div></div></div>';
+    html += '<div class="explain-box">SSE depends on <strong>b</strong>. We want the b that minimizes SSE. How? Take the derivative and set it to zero \u2192</div>';
   }
   else if(step===4){
     html += dualDisplay(
@@ -1308,10 +1349,57 @@ function renderDerivStep(step){
   cont.innerHTML = html;
 }
 
-document.getElementById('btnNextDeriv').addEventListener('click', ()=>{ if(derivStep<7) renderDerivStep(derivStep+1); });
+document.getElementById('btnNextDeriv').addEventListener('click', ()=>{ if(derivStep<DERIV_MAX) renderDerivStep(derivStep+1); });
 document.getElementById('btnPrevDeriv').addEventListener('click', ()=>{ if(derivStep>0) renderDerivStep(derivStep-1); });
 document.querySelectorAll('#derivStepNav .step-dot').forEach(d=>d.addEventListener('click', function(){ renderDerivStep(+this.dataset.step); }));
 renderDerivStep(0);
+
+// Interactive step handlers (step 1)
+function updateInteractive(){
+  const b0 = +document.getElementById('sliderB0').value;
+  const b1 = +document.getElementById('sliderB1').value;
+  const b2 = +document.getElementById('sliderB2').value;
+  document.getElementById('valB0').textContent = b0.toFixed(1);
+  document.getElementById('valB1').textContent = b1.toFixed(1);
+  document.getElementById('valB2').textContent = b2.toFixed(1);
+  const res = computeFromB([b0,b1,b2]);
+  // Build results table
+  let h = '<div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">';
+  h += mat(dY.map(v=>[v]), {label:'y',labelColor:'var(--highlight-row)'});
+  h += op('\u2212');
+  h += mat(res.yhat.map(v=>[v.toFixed(1)]), {label:'\u0177 = Xb',labelColor:'var(--accent)'});
+  h += op('=');
+  const eColors = res.e.map(v => {
+    const abs = Math.abs(v);
+    if(abs < 0.5) return 'color:#2e7d32;';
+    if(abs < 2) return 'color:#e65100;';
+    return 'color:#c62828;font-weight:bold;';
+  });
+  h += mat(res.e.map((v,i)=>['<span style="'+eColors[i]+'">'+v.toFixed(1)+'</span>']), {label:'e (errors)'});
+  h += '</div>';
+  document.getElementById('interactiveResults').innerHTML = h;
+  const sseEl = document.getElementById('interSSE');
+  sseEl.textContent = res.sse.toFixed(2);
+  sseEl.style.color = res.sse <= dOpt.sse + 0.1 ? '#2e7d32' : 'var(--accent)';
+}
+// Use MutationObserver to attach slider events when step 1 is rendered
+const derivCont = document.getElementById('derivContent');
+new MutationObserver(function(){
+  const s0 = document.getElementById('sliderB0');
+  if(s0 && !s0.dataset.bound){
+    s0.dataset.bound = '1';
+    ['sliderB0','sliderB1','sliderB2'].forEach(id => {
+      document.getElementById(id).addEventListener('input', updateInteractive);
+    });
+    document.getElementById('btnShowOptimal').addEventListener('click', function(){
+      document.getElementById('sliderB0').value = 3.97;
+      document.getElementById('sliderB1').value = 2.69;
+      document.getElementById('sliderB2').value = 0.94;
+      updateInteractive();
+    });
+    updateInteractive();
+  }
+}).observe(derivCont, {childList:true, subtree:true});
 
 /* ========== SECTION 3: OLS Building Blocks (was Section 2) ========== */
 const X = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15],[1,1,4],[1,7,11],[1,3,6]];
