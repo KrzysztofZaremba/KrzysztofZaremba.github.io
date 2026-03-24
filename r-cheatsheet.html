@@ -893,79 +893,83 @@ covcor: [
 dist: [
   { id:"pnorm", code:"pnorm(q, mean, sd)", brief:"Tells you what percentage of data falls below a value in a normal distribution. In this course, we use it to find p-values for hypothesis tests with large samples.",
     formula:{ text:'P(X \u2264 q) = area under the curve to the LEFT of q', note:'Standard normal: mean=0, sd=1' },
-    annotated:{ line:'<span class="func-name">pnorm</span>( <span class="arg-hl">q</span> , mean = <span class="num-lit">0</span> , sd = <span class="num-lit">1</span> )', args:[
+    annotated:{ line:'<span class="func-name">pnorm</span>( <span class="arg-hl">q</span> , mean = <span class="num-lit">0</span> , sd = <span class="num-lit">1</span> , lower.tail = <span class="num-lit">TRUE</span> )', args:[
       {name:'q', desc:'The value you have. "What is the probability of getting this or less?"', hl:'q'},
       {name:'mean', desc:'Center of the bell curve.', default:'0', hl:'mean'},
-      {name:'sd', desc:'Width of the bell curve.', default:'1', hl:'sd'}
+      {name:'sd', desc:'Width of the bell curve.', default:'1', hl:'sd'},
+      {name:'lower.tail', desc:'TRUE (default): area to the LEFT = P(X \u2264 q). Set to FALSE to get the area to the RIGHT = P(X > q). We often use lower.tail=FALSE to get upper-tail p-values.', default:'TRUE', hl:'lower.tail'}
     ]},
-    example:'<span class="cm"># P(Z \u2264 1.96) for standard normal</span>\n<span class="fn">pnorm</span>(<span class="nu">1.96</span>)\n<span class="cm"># [1] 0.975</span>\n\n<span class="cm"># P(income \u2264 50000) if Normal(45000, 5000)</span>\n<span class="fn">pnorm</span>(<span class="nu">50000</span>, mean = <span class="nu">45000</span>, sd = <span class="nu">5000</span>)\n<span class="cm"># [1] 0.8413</span>',
+    example:'<span class="cm"># P(Z \u2264 1.96) = area to the LEFT</span>\n<span class="fn">pnorm</span>(<span class="nu">1.96</span>)\n<span class="cm"># [1] 0.975</span>\n\n<span class="cm"># P(Z > 1.96) = area to the RIGHT</span>\n<span class="fn">pnorm</span>(<span class="nu">1.96</span>, lower.tail = <span class="nu">FALSE</span>)\n<span class="cm"># [1] 0.025</span>\n<span class="cm"># same as: 1 - pnorm(1.96)</span>',
     returns:'A probability between 0 and 1.'
   },
-  { id:"qnorm", code:"qnorm(p, mean, sd)", brief:"Finds the cutoff value where a given percentage of the normal distribution falls below. In this course, we use it to get z critical values like 1.96 for 95% confidence intervals.",
-    formula:{ text:'Find q such that P(X \u2264 q) = p. The inverse of pnorm.', note:'You give it an area, it gives you the cutoff value.' },
+  { id:"qnorm", code:"qnorm(p, mean, sd)", brief:"Returns the quantile (cutoff value) where a given percentage of the normal distribution falls below. In this course, we use it to get z critical values like 1.96 for 95% confidence intervals.",
+    formula:{ text:'Find the quantile q such that P(X \u2264 q) = p. The inverse of pnorm.', note:'You give it a probability (area), it gives you the quantile (cutoff value on the x-axis).' },
     annotated:{ line:'<span class="func-name">qnorm</span>( <span class="arg-hl">p</span> , mean = <span class="num-lit">0</span> , sd = <span class="num-lit">1</span> )', args:[
-      {name:'p', desc:'The probability you have. "What value has this much area to its left?"', hl:'p'},
+      {name:'p', desc:'The probability (area) you have. "What quantile has this much area to its left?"', hl:'p'},
       {name:'mean', desc:'Center of the bell curve.', default:'0', hl:'mean'},
       {name:'sd', desc:'Width of the bell curve.', default:'1', hl:'sd'}
     ]},
-    example:'<span class="cm"># 97.5th percentile \u2192 z* for 95% CI</span>\n<span class="fn">qnorm</span>(<span class="nu">0.975</span>)\n<span class="cm"># [1] 1.96</span>',
-    returns:'A value (quantile) in the same units as the distribution.'
+    example:'<span class="cm"># The 97.5th percentile (quantile) of the standard normal</span>\n<span class="fn">qnorm</span>(<span class="nu">0.975</span>)\n<span class="cm"># [1] 1.96  \u2190 this is the z* critical value for 95% CI</span>',
+    returns:'A quantile — a value on the x-axis of the distribution.'
   },
   { id:"pt", code:"pt(t, df)", brief:"Tells you the probability of getting a t-value this small or smaller. In this course, we use it to compute p-values from regression t-statistics.",
     formula:{ text:'P(T \u2264 t) = area to the left of t under the t-distribution', note:'Like Normal but with fatter tails. Use when n is small.' },
-    annotated:{ line:'<span class="func-name">pt</span>( <span class="arg-hl">t</span> , df = <span class="num-lit">498</span> )', args:[
+    annotated:{ line:'<span class="func-name">pt</span>( <span class="arg-hl">t</span> , df = <span class="num-lit">498</span> , lower.tail = <span class="num-lit">TRUE</span> )', args:[
       {name:'t', desc:'Your t-value (like a z-score but from a t-distribution).', hl:'t'},
-      {name:'df', desc:'Degrees of freedom. For simple regression: n - 2.', hl:'df'}
+      {name:'df', desc:'Degrees of freedom. For simple regression: n - 2.', hl:'df'},
+      {name:'lower.tail', desc:'TRUE (default): P(T \u2264 t). Set to FALSE to get P(T > t) — the upper-tail probability. We often use lower.tail=FALSE for one-sided p-values.', default:'TRUE', hl:'lower.tail'}
     ]},
-    example:'<span class="cm"># P(T \u2264 2.1) with 498 df</span>\n<span class="fn">pt</span>(<span class="nu">2.1</span>, df = <span class="nu">498</span>)\n<span class="cm"># [1] 0.982</span>\n\n<span class="cm"># Two-sided p-value</span>\n<span class="nu">2</span> * (<span class="nu">1</span> - <span class="fn">pt</span>(<span class="fn">abs</span>(t_stat), df = <span class="nu">498</span>))',
+    example:'<span class="cm"># P(T \u2264 2.1) = area to the LEFT</span>\n<span class="fn">pt</span>(<span class="nu">2.1</span>, df = <span class="nu">498</span>)\n<span class="cm"># [1] 0.982</span>\n\n<span class="cm"># One-sided p-value: P(T > 2.1)</span>\n<span class="fn">pt</span>(<span class="nu">2.1</span>, df = <span class="nu">498</span>, lower.tail = <span class="nu">FALSE</span>)\n<span class="cm"># [1] 0.018</span>\n\n<span class="cm"># Two-sided p-value</span>\n<span class="nu">2</span> * <span class="fn">pt</span>(<span class="fn">abs</span>(t_stat), df = <span class="nu">498</span>, lower.tail = <span class="nu">FALSE</span>)',
     returns:'A probability between 0 and 1.'
   },
-  { id:"qt", code:"qt(p, df)", brief:"Finds the t critical value for a given probability. In this course, we use it to build confidence intervals: coefficient +/- qt(0.975, df) * SE.",
-    formula:{ text:'Find t* such that P(T \u2264 t*) = p. Used for confidence intervals.', note:'b \u00B1 t* \u00D7 SE(b)' },
+  { id:"qt", code:"qt(p, df)", brief:"Returns the t quantile (critical value) for a given probability. In this course, we use it to build confidence intervals: coefficient +/- qt(0.975, df) * SE.",
+    formula:{ text:'Find the quantile t* such that P(T \u2264 t*) = p.', note:'The q stands for quantile — the value on the x-axis corresponding to a given area.' },
     annotated:{ line:'<span class="func-name">qt</span>( <span class="arg-hl">p</span> , df = <span class="num-lit">498</span> )', args:[
-      {name:'p', desc:'The probability. For 95% CI, use 0.975 (two-sided).', hl:'p'},
+      {name:'p', desc:'The probability (area to the left). For 95% CI, use 0.975 (two-sided).', hl:'p'},
       {name:'df', desc:'Degrees of freedom. For simple regression: n - 2.', hl:'df'}
     ]},
-    example:'<span class="cm"># Critical value for 95% CI</span>\n<span class="fn">qt</span>(<span class="nu">0.975</span>, df = <span class="nu">498</span>)\n<span class="cm"># [1] 1.965</span>\n\n<span class="cm"># Then: CI = b1 \u00B1 1.965 \u00D7 SE</span>',
-    returns:'A critical value (t-score).'
+    example:'<span class="cm"># The 97.5% quantile of t with 498 df</span>\n<span class="fn">qt</span>(<span class="nu">0.975</span>, df = <span class="nu">498</span>)\n<span class="cm"># [1] 1.965  \u2190 this is t* for 95% CI</span>\n\n<span class="cm"># Then: CI = b1 \u00B1 1.965 \u00D7 SE</span>',
+    returns:'A quantile (critical value) from the t-distribution.'
   },
   { id:"pchisq", code:"pchisq(x2, df)", brief:"Tells you the probability for a chi-squared distribution. In this course, we use it for the Jarque-Bera normality test: 1 - pchisq(JB, df=2) gives the p-value.",
     formula:{ text:'P(\u03C7\u00B2 \u2264 x2) = area to the left under the \u03C7\u00B2 distribution', note:'df=2 for Jarque-Bera test' },
-    annotated:{ line:'<span class="func-name">pchisq</span>( <span class="arg-hl">q</span> , df = <span class="num-lit">2</span> )', args:[
+    annotated:{ line:'<span class="func-name">pchisq</span>( <span class="arg-hl">q</span> , df = <span class="num-lit">2</span> , lower.tail = <span class="num-lit">TRUE</span> )', args:[
       {name:'q', desc:'The chi-squared statistic you computed.', hl:'q'},
-      {name:'df', desc:'Degrees of freedom. For Jarque-Bera: 2.', hl:'df'}
+      {name:'df', desc:'Degrees of freedom. For Jarque-Bera: 2.', hl:'df'},
+      {name:'lower.tail', desc:'TRUE (default): P(\u03C7\u00B2 \u2264 q). Set to FALSE to get P(\u03C7\u00B2 > q) directly — this is the p-value for chi-squared tests.', default:'TRUE', hl:'lower.tail'}
     ]},
-    example:'<span class="cm"># p-value for Jarque-Bera test</span>\n<span class="nu">1</span> - <span class="fn">pchisq</span>(JB_stat, df = <span class="nu">2</span>)',
+    example:'<span class="cm"># p-value for Jarque-Bera test (upper tail)</span>\n<span class="fn">pchisq</span>(JB_stat, df = <span class="nu">2</span>, lower.tail = <span class="nu">FALSE</span>)\n<span class="cm"># same as: 1 - pchisq(JB_stat, df = 2)</span>',
     returns:'A probability between 0 and 1.'
   },
-  { id:"qchisq", code:"qchisq(p, df)", brief:"Finds the chi-squared critical value for a given probability. In this course, we use it to get the cutoff for the Jarque-Bera test at 1% or 5% significance.",
-    formula:{ text:'Find c such that P(\u03C7\u00B2 \u2264 c) = p', note:'Compare your test statistic to this critical value' },
+  { id:"qchisq", code:"qchisq(p, df)", brief:"Returns the chi-squared quantile (critical value) for a given probability. In this course, we use it to get the cutoff for the Jarque-Bera test at 1% or 5% significance.",
+    formula:{ text:'Find the quantile c such that P(\u03C7\u00B2 \u2264 c) = p', note:'The q stands for quantile — the critical value you compare your test statistic to.' },
     annotated:{ line:'<span class="func-name">qchisq</span>( <span class="arg-hl">p</span> , df = <span class="num-lit">2</span> )', args:[
       {name:'p', desc:'The probability. For 1% significance, use 0.99.', hl:'p'},
       {name:'df', desc:'Degrees of freedom.', hl:'df'}
     ]},
-    example:'<span class="cm"># Critical value at 1% for JB test</span>\n<span class="fn">qchisq</span>(<span class="nu">0.99</span>, df = <span class="nu">2</span>)\n<span class="cm"># [1] 9.21</span>',
-    returns:'A critical value.'
+    example:'<span class="cm"># The 99% quantile of chi-squared with df=2</span>\n<span class="fn">qchisq</span>(<span class="nu">0.99</span>, df = <span class="nu">2</span>)\n<span class="cm"># [1] 9.21  \u2190 reject if JB > 9.21</span>',
+    returns:'A quantile (critical value) from the chi-squared distribution.'
   },
   { id:"pf", code:"pf(f, df1, df2)", brief:"Tells you the probability for an F-distribution. In this course, we use it to find the p-value for the overall F-test in regression.",
     formula:{ text:'P(F \u2264 f) = area to the left under the F-distribution', note:'F = MSR/MSE from the anova table' },
-    annotated:{ line:'<span class="func-name">pf</span>( <span class="arg-hl">q</span> , df1 = <span class="num-lit">1</span> , df2 = <span class="num-lit">498</span> )', args:[
+    annotated:{ line:'<span class="func-name">pf</span>( <span class="arg-hl">q</span> , df1 = <span class="num-lit">1</span> , df2 = <span class="num-lit">498</span> , lower.tail = <span class="num-lit">TRUE</span> )', args:[
       {name:'q', desc:'Your F-statistic.', hl:'q'},
       {name:'df1', desc:'Numerator df. For simple regression: 1.', hl:'df1'},
-      {name:'df2', desc:'Denominator df. For simple regression: n - 2.', hl:'df2'}
+      {name:'df2', desc:'Denominator df. For simple regression: n - 2.', hl:'df2'},
+      {name:'lower.tail', desc:'TRUE (default): P(F \u2264 q). Set to FALSE to get P(F > q) — the p-value for the F-test directly.', default:'TRUE', hl:'lower.tail'}
     ]},
-    example:'<span class="cm"># p-value for F-test</span>\n<span class="nu">1</span> - <span class="fn">pf</span>(F_stat, df1 = <span class="nu">1</span>, df2 = <span class="nu">498</span>)',
+    example:'<span class="cm"># p-value for F-test (upper tail)</span>\n<span class="fn">pf</span>(F_stat, df1 = <span class="nu">1</span>, df2 = <span class="nu">498</span>, lower.tail = <span class="nu">FALSE</span>)\n<span class="cm"># same as: 1 - pf(F_stat, df1=1, df2=498)</span>',
     returns:'A probability between 0 and 1.'
   },
-  { id:"qf", code:"qf(p, df1, df2)", brief:"Finds the F critical value for a given probability. In this course, we use it to get the cutoff: if your F-statistic exceeds this, the regression is significant.",
-    formula:{ text:'Find f* such that P(F \u2264 f*) = p', note:'If your F > f*, the regression is significant' },
+  { id:"qf", code:"qf(p, df1, df2)", brief:"Returns the F quantile (critical value) for a given probability. In this course, we use it to get the cutoff: if your F-statistic exceeds this, the regression is significant.",
+    formula:{ text:'Find the quantile f* such that P(F \u2264 f*) = p', note:'The q stands for quantile. If your F > f*, reject H\u2080.' },
     annotated:{ line:'<span class="func-name">qf</span>( <span class="arg-hl">p</span> , df1 = <span class="num-lit">1</span> , df2 = <span class="num-lit">498</span> )', args:[
       {name:'p', desc:'The probability. For 1% significance, use 0.99.', hl:'p'},
       {name:'df1', desc:'Numerator df.', hl:'df1'},
       {name:'df2', desc:'Denominator df.', hl:'df2'}
     ]},
-    example:'<span class="cm"># Critical value for F-test at 1%</span>\n<span class="fn">qf</span>(<span class="nu">0.99</span>, df1 = <span class="nu">1</span>, df2 = <span class="nu">498</span>)\n<span class="cm"># [1] 6.686</span>',
-    returns:'A critical value.'
+    example:'<span class="cm"># The 99% quantile of F(1, 498)</span>\n<span class="fn">qf</span>(<span class="nu">0.99</span>, df1 = <span class="nu">1</span>, df2 = <span class="nu">498</span>)\n<span class="cm"># [1] 6.686  \u2190 reject if F > 6.686</span>',
+    returns:'A quantile (critical value) from the F-distribution.'
   }
 ],
 reg: [
