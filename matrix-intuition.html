@@ -11,1695 +11,1189 @@ layout: null
 :root {
   --accent: #43418A;
   --accent-light: #6c69b3;
-  --accent-pale: #e8e7f5;
-  --bg: #f8f8fc;
-  --bg-card: #ffffff;
+  --bg: #ffffff;
+  --bg-alt: #f4f3f9;
   --text: #1a1a2e;
-  --text-muted: #6b6b8d;
-  --border: #e0e0ef;
-  --shadow: 0 4px 24px rgba(67,65,138,0.10);
-  --cell-bg: #f4f3fb;
-  --cell-border: #d4d3e8;
-  --highlight-row: #4a90d9;
-  --highlight-col: #e8913a;
-  --highlight-row-bg: rgba(74,144,217,0.15);
-  --highlight-col-bg: rgba(232,145,58,0.15);
-  --result-bg: rgba(67,65,138,0.12);
-  --code-bg: #f0f0f8;
-  --slider-track: #d4d3e8;
-  --transition: 0.3s ease;
-  --controlling-color: #4a90d9;
-  --not-controlling-color: #d94a4a;
+  --text-muted: #555;
+  --card-bg: #fff;
+  --card-border: #e0dff0;
+  --shadow: 0 2px 12px rgba(67,65,138,0.08);
+  --bracket-color: #43418A;
+  --highlight-row: rgba(67,65,138,0.12);
+  --highlight-col: rgba(67,65,138,0.12);
+  --highlight-cell: rgba(67,65,138,0.25);
+  --green: #2e7d32;
+  --orange: #e65100;
+  --red: #c62828;
+  --transition: 0.25s ease;
 }
-
 [data-theme="dark"] {
-  --bg: #13132b;
-  --bg-card: #1e1e3a;
-  --text: #e8e8f0;
-  --text-muted: #9999bb;
-  --border: #2e2e50;
-  --shadow: 0 4px 24px rgba(0,0,0,0.4);
-  --cell-bg: #262648;
-  --cell-border: #3a3a60;
-  --highlight-row-bg: rgba(74,144,217,0.25);
-  --highlight-col-bg: rgba(232,145,58,0.25);
-  --result-bg: rgba(67,65,138,0.3);
-  --accent-pale: #2a2a50;
-  --code-bg: #1a1a35;
-  --slider-track: #3a3a60;
-  --controlling-color: #6aacf0;
-  --not-controlling-color: #f06a6a;
+  --bg: #16152b;
+  --bg-alt: #1e1d38;
+  --text: #e8e7f0;
+  --text-muted: #a9a8c0;
+  --card-bg: #211f40;
+  --card-border: #35335a;
+  --shadow: 0 2px 12px rgba(0,0,0,0.3);
+  --bracket-color: #8a88cc;
+  --highlight-row: rgba(138,136,204,0.15);
+  --highlight-col: rgba(138,136,204,0.15);
+  --highlight-cell: rgba(138,136,204,0.3);
+  --green: #66bb6a;
+  --orange: #ffa726;
+  --red: #ef5350;
 }
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
+*, *::before, *::after { box-sizing: border-box; }
 body {
+  margin: 0; padding: 0;
   font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
   background: var(--bg);
   color: var(--text);
-  line-height: 1.7;
   transition: background var(--transition), color var(--transition);
+  line-height: 1.6;
 }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* Header */
 header {
   background: var(--accent);
   color: #fff;
-  padding: 48px 0 40px;
+  padding: 32px 0 28px;
+  text-align: center;
   position: relative;
-  overflow: hidden;
 }
-header::after {
-  content: '';
-  position: absolute;
-  bottom: -40px; left: -10%;
-  width: 120%; height: 80px;
-  background: var(--bg);
-  border-radius: 50% 50% 0 0;
-  transition: background var(--transition);
+header h1 { margin: 0 0 6px; font-size: 2rem; font-weight: 700; }
+header p { margin: 0; opacity: 0.85; font-size: 1.05rem; }
+#themeToggle {
+  position: absolute; top: 16px; right: 24px;
+  background: rgba(255,255,255,0.15); border: none; color: #fff;
+  padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.95rem;
+  transition: background 0.2s;
 }
-header h1 {
-  font-size: 2.4rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
-  margin-bottom: 8px;
-}
-header p {
-  font-size: 1.15rem;
-  opacity: 0.88;
-  max-width: 640px;
-}
+#themeToggle:hover { background: rgba(255,255,255,0.25); }
 
-/* Theme toggle */
-.theme-toggle {
-  position: fixed;
-  top: 18px; right: 18px;
-  z-index: 999;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  width: 44px; height: 44px;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  box-shadow: var(--shadow);
-  transition: background var(--transition), border var(--transition);
-  font-size: 1.3rem;
+.tab-nav {
+  display: flex; gap: 4px; justify-content: center;
+  background: var(--bg-alt); padding: 8px 8px 0; border-radius: 12px 12px 0 0;
+  margin-top: 28px; flex-wrap: wrap;
 }
-.theme-toggle:hover { transform: scale(1.1); }
+.tab-btn {
+  padding: 10px 22px; border: none; background: transparent;
+  color: var(--text-muted); cursor: pointer; font-size: 0.92rem;
+  border-radius: 8px 8px 0 0; transition: all 0.2s; font-weight: 500;
+}
+.tab-btn:hover { background: var(--card-bg); color: var(--text); }
+.tab-btn.active {
+  background: var(--card-bg); color: var(--accent);
+  font-weight: 600; box-shadow: var(--shadow);
+}
+.tab-content {
+  display: none; background: var(--card-bg);
+  padding: 32px; border-radius: 0 0 12px 12px;
+  box-shadow: var(--shadow); margin-bottom: 40px;
+}
+.tab-content.active { display: block; }
 
-/* Sections */
-section {
-  margin: 60px 0;
+.section-title {
+  font-size: 1.5rem; font-weight: 700; color: var(--accent);
+  margin: 0 0 8px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--card-border);
 }
-.section-card {
-  background: var(--bg-card);
-  border-radius: 16px;
-  padding: 40px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--border);
-  transition: background var(--transition), border var(--transition);
-}
-h2 {
-  font-size: 1.6rem;
-  color: var(--accent);
-  margin-bottom: 8px;
-  font-weight: 700;
-}
-h3 {
-  font-size: 1.15rem;
-  color: var(--accent-light);
-  margin: 24px 0 10px;
-  font-weight: 600;
-}
-.subtitle {
-  color: var(--text-muted);
-  font-size: 1rem;
-  margin-bottom: 28px;
-}
+.section-desc { color: var(--text-muted); margin: 0 0 24px; }
 
-/* Matrix display */
-.matrix-area {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin: 28px 0;
-  position: relative;
-  min-height: 160px;
-}
-.matrix-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-}
-.matrix-label {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--accent);
-}
+/* Matrix CSS - proper tall brackets */
 .matrix {
-  display: inline-grid;
-  gap: 4px;
-  padding: 8px;
-  background: var(--cell-bg);
-  border-radius: 10px;
-  border: 2px solid var(--cell-border);
-  position: relative;
-  transition: border-color 0.3s;
+  display: inline-flex;
+  align-items: center;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  vertical-align: middle;
+  margin: 2px 4px;
 }
-.matrix.bracket-left {
-  border-left: 3px solid var(--accent);
-  border-right: 3px solid var(--accent);
-  border-radius: 4px;
-  background: transparent;
-  border-top: none;
-  border-bottom: none;
+.matrix::before, .matrix::after {
+  content: '';
+  border: 2px solid var(--bracket-color);
+  width: 6px;
+  align-self: stretch;
 }
-.matrix-cell {
-  width: 50px; height: 50px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.05rem;
-  font-weight: 600;
-  border-radius: 6px;
-  background: var(--bg-card);
-  border: 1px solid var(--cell-border);
-  transition: all 0.3s;
-  position: relative;
-  user-select: none;
-}
-.matrix-cell.clickable {
-  cursor: pointer;
-}
-.matrix-cell.clickable:hover {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 2px var(--accent-pale);
-  transform: scale(1.05);
-}
-.matrix-cell.highlight-row {
-  background: var(--highlight-row-bg);
-  border-color: var(--highlight-row);
-  color: var(--highlight-row);
-}
-.matrix-cell.highlight-col {
-  background: var(--highlight-col-bg);
-  border-color: var(--highlight-col);
-  color: var(--highlight-col);
-}
-.matrix-cell.result-filled {
-  background: var(--result-bg);
-  border-color: var(--accent);
-  color: var(--accent);
-  font-weight: 700;
-}
-.matrix-cell.result-flash {
-  animation: flash 0.5s ease;
-}
-@keyframes flash {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.2); box-shadow: 0 0 16px rgba(67,65,138,0.4); }
-}
-.operator {
-  font-size: 1.8rem;
-  font-weight: 300;
-  color: var(--text-muted);
-  padding: 0 4px;
-}
-.equals { font-size: 1.8rem; font-weight: 300; color: var(--text-muted); }
-
-/* Animation overlay */
-.anim-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 10;
-}
-.flying-number {
-  position: absolute;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 6px;
+.matrix::before { border-right: none; border-radius: 4px 0 0 4px; }
+.matrix::after { border-left: none; border-radius: 0 4px 4px 0; }
+.matrix table { border-collapse: collapse; margin: 4px 6px; }
+.matrix td {
+  padding: 3px 8px; text-align: center; font-size: 0.95rem;
+  font-family: 'Georgia', 'Times New Roman', serif;
   white-space: nowrap;
-  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  z-index: 20;
-  pointer-events: none;
 }
-.flying-number.row-num {
-  background: rgba(74,144,217,0.15);
-  color: var(--highlight-row);
-  border: 1px solid var(--highlight-row);
-}
-.flying-number.col-num {
-  background: rgba(232,145,58,0.15);
-  color: var(--highlight-col);
-  border: 1px solid var(--highlight-col);
-}
-.flying-number.product {
-  background: var(--accent-pale);
-  color: var(--accent);
-  border: 1px solid var(--accent-light);
-}
-.flying-number.sum-result {
-  background: var(--accent);
-  color: #fff;
-  font-size: 1.15rem;
-  border: none;
-  box-shadow: 0 2px 12px rgba(67,65,138,0.3);
-}
+.matrix td.hl-row { background: var(--highlight-row); }
+.matrix td.hl-col { background: var(--highlight-col); }
+.matrix td.hl-cell { background: var(--highlight-cell); font-weight: 700; }
 
-/* Pair display for step 1 of animation */
-.pair-display {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 24px;
-  flex-wrap: wrap;
-  margin: 16px 0;
-  min-height: 60px;
-}
-.pair-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 16px;
-  border-radius: 10px;
-  background: var(--accent-pale);
-  border: 2px solid var(--accent-light);
-  font-size: 1.15rem;
-  font-weight: 700;
-  animation: fadeIn 0.4s ease;
-}
-.pair-item .row-val {
-  color: var(--highlight-row);
-}
-.pair-item .col-val {
-  color: var(--highlight-col);
-}
-.pair-item .times-sign {
-  color: var(--text-muted);
-  font-weight: 400;
-}
-.pair-item .equals-sign {
-  color: var(--text-muted);
-  font-weight: 400;
-}
-.pair-item .product-val {
-  color: var(--accent);
-}
-.sum-line {
+.matrix.small td { padding: 2px 5px; font-size: 0.82rem; }
+.matrix.tiny td { padding: 1px 4px; font-size: 0.75rem; }
+
+.math-block {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.1rem;
   text-align: center;
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--accent);
-  margin: 12px 0;
-  animation: fadeIn 0.4s ease;
+  margin: 18px 0;
+  overflow-x: auto;
+  padding: 12px 0;
 }
-
-/* Buttons */
-.btn-row {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin: 20px 0;
-  flex-wrap: wrap;
-}
-.btn {
-  padding: 10px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.btn-primary {
-  background: var(--accent);
-  color: #fff;
-}
-.btn-primary:hover { background: var(--accent-light); transform: translateY(-1px); }
-.btn-secondary {
-  background: var(--cell-bg);
-  color: var(--accent);
-  border: 1px solid var(--cell-border);
-}
-.btn-secondary:hover { background: var(--accent-pale); }
-.btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  transform: none !important;
-}
-
-/* Next step button for animation */
-.btn-next-step {
-  display: inline-block;
-  padding: 8px 20px;
-  background: var(--accent);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  animation: fadeIn 0.4s ease;
-  pointer-events: auto;
-}
-.btn-next-step:hover { background: var(--accent-light); transform: translateY(-1px); }
-
-/* Explain box */
-.explain-box {
-  background: var(--accent-pale);
-  border-left: 4px solid var(--accent);
-  border-radius: 0 10px 10px 0;
-  padding: 16px 20px;
-  margin: 20px 0;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--text);
-  transition: background var(--transition);
-}
-.explain-box strong { color: var(--accent); }
-
-/* Computation display */
-.computation-display {
-  text-align: center;
-  font-size: 1.15rem;
-  font-weight: 600;
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  color: var(--accent);
-  margin: 12px 0;
-  flex-wrap: wrap;
-}
-
-/* Workspace area for pairing animation */
-.workspace-area {
-  margin: 16px 0;
-  padding: 16px;
-  background: var(--cell-bg);
-  border-radius: 12px;
-  border: 2px dashed var(--cell-border);
-  min-height: 80px;
-  text-align: center;
-  transition: all 0.3s;
-}
-.workspace-area.active {
-  border-color: var(--accent-light);
-}
-.workspace-hint {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  margin-top: 8px;
+.math-inline {
+  font-family: 'Georgia', 'Times New Roman', serif;
   font-style: italic;
 }
-
-/* Section 2 stepper */
-.step-nav {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-  margin: 20px 0;
-  flex-wrap: wrap;
+.math-label {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 600;
+  color: var(--accent);
+  margin-right: 8px;
 }
+
+.btn {
+  display: inline-block; padding: 8px 20px;
+  background: var(--accent); color: #fff; border: none;
+  border-radius: 6px; cursor: pointer; font-size: 0.9rem;
+  font-weight: 500; transition: all 0.2s;
+}
+.btn:hover { background: var(--accent-light); transform: translateY(-1px); }
+.btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+.btn-outline {
+  background: transparent; color: var(--accent);
+  border: 2px solid var(--accent);
+}
+.btn-outline:hover { background: var(--accent); color: #fff; }
+.btn-sm { padding: 5px 14px; font-size: 0.82rem; }
+
+.card {
+  background: var(--bg-alt); border: 1px solid var(--card-border);
+  border-radius: 10px; padding: 20px; margin: 16px 0;
+}
+.card-purple { border-left: 4px solid var(--accent); }
+.card-green { border-left: 4px solid var(--green); }
+.card-orange { border-left: 4px solid var(--orange); }
+
+.two-col {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  align-items: start;
+}
+@media (max-width: 768px) { .two-col { grid-template-columns: 1fr; } }
+
+.step-nav { display: flex; align-items: center; justify-content: center; gap: 12px; margin: 24px 0 20px; flex-wrap: wrap; }
+.step-dots { display: flex; gap: 6px; flex-wrap: wrap; justify-content: center; }
 .step-dot {
-  width: 36px; height: 36px;
-  border-radius: 50%;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 2px solid var(--card-border); background: var(--bg-alt);
+  color: var(--text-muted); font-size: 0.75rem; font-weight: 600;
   display: flex; align-items: center; justify-content: center;
-  font-size: 0.85rem;
-  font-weight: 700;
-  border: 2px solid var(--cell-border);
-  background: var(--bg-card);
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.3s;
+  cursor: pointer; transition: all 0.2s;
 }
-.step-dot.active {
-  border-color: var(--accent);
-  background: var(--accent);
-  color: #fff;
-}
-.step-dot.done {
-  border-color: var(--accent-light);
-  background: var(--accent-pale);
-  color: var(--accent);
+.step-dot:hover { border-color: var(--accent); color: var(--accent); }
+.step-dot.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.step-dot.visited { border-color: var(--accent-light); color: var(--accent); }
+
+.result-cell { cursor: pointer; transition: all 0.15s; border-radius: 3px; }
+.result-cell:hover { background: var(--highlight-cell); }
+.result-cell.filled { color: var(--accent); font-weight: 700; }
+
+.comp-display {
+  background: var(--bg-alt); border-radius: 8px; padding: 16px;
+  margin: 16px 0; font-family: 'Georgia', 'Times New Roman', serif;
+  min-height: 60px; text-align: center;
 }
 
-/* OLS Derivation section */
-.derivation-step {
-  animation: fadeIn 0.4s ease;
+.slider-group { margin: 8px 0; display: flex; align-items: center; gap: 12px; }
+.slider-group label {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 600; min-width: 30px; color: var(--accent);
 }
-.formula-box {
-  background: var(--code-bg);
-  border: 2px solid var(--accent-light);
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin: 16px 0;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--accent);
-  line-height: 1.8;
-}
-.formula-box.highlight {
-  background: var(--accent);
-  color: #fff;
-  border-color: var(--accent);
-}
-.formula-box.highlight strong { color: #fff; }
-.matrix-display {
-  font-family: 'Courier New', monospace;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  background: var(--code-bg);
-  border-radius: 10px;
-  padding: 16px 20px;
-  margin: 16px auto;
-  display: inline-block;
-  text-align: left;
-  border: 1px solid var(--cell-border);
-  white-space: pre;
-}
-.deriv-label {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  margin: 4px;
-}
-.deriv-label.y-label { background: rgba(74,144,217,0.15); color: var(--highlight-row); }
-.deriv-label.x-label { background: rgba(232,145,58,0.15); color: var(--highlight-col); }
-.deriv-label.beta-label { background: rgba(67,65,138,0.15); color: var(--accent); }
-.deriv-label.u-label { background: rgba(200,80,80,0.15); color: #c85050; }
-
-/* Section 3 slider */
-.slider-container {
-  text-align: center;
-  margin: 28px 0;
-}
-.slider-container input[type="range"] {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 400px;
-  max-width: 90%;
-  height: 8px;
-  border-radius: 4px;
-  background: var(--slider-track);
-  outline: none;
-  margin: 12px 0;
-}
-.slider-container input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 22px; height: 22px;
-  border-radius: 50%;
-  background: var(--accent);
-  cursor: pointer;
-  border: 3px solid #fff;
-  box-shadow: 0 2px 8px rgba(67,65,138,0.3);
-}
-.slider-label {
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-.coeff-cards {
-  display: flex;
-  gap: 24px;
-  justify-content: center;
-  margin: 28px 0;
-  flex-wrap: wrap;
-}
-.coeff-card {
-  background: var(--cell-bg);
-  border: 3px solid var(--cell-border);
-  border-radius: 12px;
-  padding: 24px 32px;
-  min-width: 260px;
-  text-align: center;
-  transition: all 0.3s;
-}
-.coeff-card h4 {
-  font-size: 0.95rem;
-  color: var(--text-muted);
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-.coeff-value {
-  font-size: 2.4rem;
-  font-weight: 700;
-  transition: color 0.3s;
-}
-.coeff-card.controlling {
-  border-color: var(--controlling-color);
-}
-.coeff-card.controlling .coeff-value {
-  color: var(--controlling-color);
-}
-.coeff-card.not-controlling {
-  border-color: var(--not-controlling-color);
-}
-.coeff-card.not-controlling .coeff-value {
-  color: var(--not-controlling-color);
-}
-.coeff-card.diverging {
-  border-color: var(--highlight-col);
-}
-.coeff-card.diverging .coeff-value {
-  color: var(--highlight-col);
-}
-.true-value-note {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  margin-top: 6px;
+.slider-group input[type="range"] { flex: 1; max-width: 300px; accent-color: var(--accent); }
+.slider-val {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-weight: 700; min-width: 50px; color: var(--accent);
 }
 
-/* Canvas for scatter */
-canvas#scatterCanvas {
-  display: block;
-  margin: 20px auto;
-  border-radius: 12px;
-  border: 1px solid var(--cell-border);
-  max-width: 100%;
+.sse-box {
+  display: inline-block; padding: 10px 24px;
+  background: var(--accent); color: #fff; border-radius: 8px;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: 1.15rem; font-weight: 600; margin: 12px 0;
 }
 
-/* Correlation intro */
-.corr-intro {
-  background: var(--cell-bg);
-  border-radius: 12px;
-  padding: 20px 24px;
-  margin: 20px 0 28px;
-  line-height: 1.8;
-  font-size: 0.95rem;
+.err-green { color: var(--green); }
+.err-orange { color: var(--orange); }
+.err-red { color: var(--red); }
+
+.walk-step { margin: 16px 0; }
+.walk-step-title {
+  font-weight: 700; color: var(--accent); font-size: 1.05rem;
+  margin-bottom: 8px; cursor: pointer; user-select: none;
 }
-.corr-intro ul {
-  list-style: none;
-  padding: 0;
-  margin: 12px 0;
-}
-.corr-intro ul li {
-  padding: 8px 0 8px 0;
-}
-.corr-intro ul li strong.blue {
-  color: var(--controlling-color);
-}
-.corr-intro ul li strong.red {
-  color: var(--not-controlling-color);
+.walk-step-title:hover { text-decoration: underline; }
+.walk-step-content { padding: 12px 0; overflow-x: auto; }
+
+#corrPlot { border-radius: 8px; border: 1px solid var(--card-border); display: block; margin: 0 auto; }
+
+.flex-center { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; }
+.flex-col-center { display: flex; flex-direction: column; align-items: center; }
+
+.eq-sign {
+  font-family: 'Georgia', serif; font-size: 1.3rem; font-weight: 700;
+  margin: 0 8px; color: var(--text);
 }
 
-/* Footer */
-footer {
-  text-align: center;
-  padding: 40px 0 32px;
-  color: var(--text-muted);
-  font-size: 0.85rem;
-}
-footer a { color: var(--accent); text-decoration: none; }
+.msub { font-size: 0.7em; vertical-align: sub; }
+.msup { font-size: 0.7em; vertical-align: super; }
 
-/* Responsive */
-@media (max-width: 700px) {
-  header h1 { font-size: 1.6rem; }
-  .section-card { padding: 24px 18px; }
-  .matrix-cell { width: 38px; height: 38px; font-size: 0.85rem; }
-  .matrix-area { gap: 10px; }
-  .coeff-cards { flex-direction: column; align-items: center; }
-  .coeff-value { font-size: 1.8rem; }
-  .pair-item { font-size: 0.95rem; padding: 8px 12px; }
-}
-
-/* Small matrix variant */
-.matrix-cell.small {
-  width: 42px; height: 42px;
-  font-size: 0.9rem;
-}
-.matrix-cell.tiny {
-  width: 36px; height: 36px;
-  font-size: 0.8rem;
-}
-
-/* Step content transitions */
-.step-content {
-  animation: fadeIn 0.4s ease;
-}
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Transpose animation */
-.transpose-anim .matrix {
-  transition: transform 0.6s ease;
-}
-
-/* Progress bar for auto play */
-.progress-bar {
-  height: 4px;
-  background: var(--accent);
-  border-radius: 2px;
-  transition: width 0.3s;
-  margin-top: 8px;
-}
-
-/* Scroll progress */
-.scroll-progress {
-  position: fixed;
-  top: 0; left: 0;
-  height: 3px;
-  background: var(--accent);
-  z-index: 1000;
-  transition: width 0.1s;
-}
+footer { text-align: center; padding: 24px; color: var(--text-muted); font-size: 0.85rem; }
 </style>
 </head>
 <body>
-<div class="scroll-progress" id="scrollProgress"></div>
-<button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">&#9790;</button>
 
 <header>
   <div class="container">
-    <h1>Matrix Intuition for OLS</h1>
-    <p>An interactive guide to understanding how matrix operations power linear regression</p>
+    <h1>Matrix Intuition for OLS Regression</h1>
+    <p>An interactive guide to understanding the math behind Ordinary Least Squares</p>
   </div>
+  <button id="themeToggle" onclick="toggleTheme()">Dark Mode</button>
 </header>
 
-<!-- SECTION 1: Matrix Multiplication Basics -->
-<section class="container">
-  <div class="section-card">
-    <h2>1. Matrix Multiplication Basics</h2>
-    <p class="subtitle">Click any cell in the result matrix to see how it is computed. The animation has two steps: first you see which numbers pair up, then you see the computation.</p>
-
-    <div class="matrix-area" id="s1Area">
-      <div class="matrix-wrapper">
-        <span class="matrix-label">A (2x3)</span>
-        <div class="matrix" id="matA" style="grid-template-columns: repeat(3, 50px);">
-        </div>
-      </div>
-      <span class="operator">&times;</span>
-      <div class="matrix-wrapper">
-        <span class="matrix-label">B (3x2)</span>
-        <div class="matrix" id="matB" style="grid-template-columns: repeat(2, 50px);">
-        </div>
-      </div>
-      <span class="equals">=</span>
-      <div class="matrix-wrapper">
-        <span class="matrix-label">C (2x2)</span>
-        <div class="matrix" id="matC" style="grid-template-columns: repeat(2, 50px);">
-        </div>
-      </div>
-      <div class="anim-overlay" id="s1Overlay"></div>
-    </div>
-
-    <div class="workspace-area" id="s1Workspace" style="display:none;"></div>
-    <div class="computation-display" id="s1Computation"></div>
-
-    <div class="btn-row">
-      <button class="btn btn-secondary" id="btnReset1">Reset</button>
-    </div>
-
-    <div class="explain-box">
-      <strong>How it works:</strong> To get cell C[i,j], take row i from A and column j from B. Multiply each pair of numbers, then add all the products together. A (2&times;3) times B (3&times;2) gives C (2&times;2) because the inner dimensions (3) match and the outer dimensions (2&times;2) remain.
-    </div>
+<div class="container">
+  <div class="tab-nav">
+    <button class="tab-btn active" onclick="showTab(0)">1. Matrix Multiplication</button>
+    <button class="tab-btn" onclick="showTab(1)">2. From Model to Formula</button>
+    <button class="tab-btn" onclick="showTab(2)">3. OLS Building Blocks</button>
+    <button class="tab-btn" onclick="showTab(3)">4. Correlation Demo</button>
   </div>
-</section>
 
-<!-- SECTION 2: OLS Derivation -->
-<section class="container">
-  <div class="section-card">
-    <h2>2. From Model to Formula: How OLS Works</h2>
-    <p class="subtitle">A step-by-step visual derivation of the OLS formula. Use the buttons to walk through the algebra.</p>
-
-    <div class="step-nav" id="derivStepNav">
-      <div class="step-dot active" data-step="0">1</div>
-      <div class="step-dot" data-step="1">2</div>
-      <div class="step-dot" data-step="2">3</div>
-      <div class="step-dot" data-step="3">4</div>
-      <div class="step-dot" data-step="4">5</div>
-      <div class="step-dot" data-step="5">6</div>
-      <div class="step-dot" data-step="6">7</div>
-      <div class="step-dot" data-step="7">8</div>
-      <div class="step-dot" data-step="8">9</div>
-    </div>
-
-    <div id="derivContent" class="step-content">
-    </div>
-
-    <div class="btn-row">
-      <button class="btn btn-secondary" id="btnPrevDeriv" disabled>&larr; Previous</button>
-      <button class="btn btn-primary" id="btnNextDeriv">Next &rarr;</button>
-    </div>
+  <div class="tab-content active" id="tab0">
+    <h2 class="section-title">Matrix Multiplication</h2>
+    <p class="section-desc">Click a result cell, then click through the steps to see how each entry is computed.</p>
+    <div id="matmul-area"></div>
   </div>
-</section>
 
-<!-- SECTION 3: OLS Building Blocks -->
-<section class="container">
-  <div class="section-card">
-    <h2>3. The OLS Building Blocks: X'X, X'y, and &beta;</h2>
-    <p class="subtitle">Walk through each step of computing OLS coefficients from real data. Click the step numbers to navigate.</p>
-
-    <div class="step-nav" id="stepNav">
-      <div class="step-dot active" data-step="0">1</div>
-      <div class="step-dot" data-step="1">2</div>
-      <div class="step-dot" data-step="2">3</div>
-      <div class="step-dot" data-step="3">4</div>
-      <div class="step-dot" data-step="4">5</div>
-      <div class="step-dot" data-step="5">6</div>
+  <div class="tab-content" id="tab1">
+    <h2 class="section-title">From Model to Formula</h2>
+    <p class="section-desc">Follow the 10 steps from the OLS model to the properties of the estimator.</p>
+    <div class="step-nav">
+      <button class="btn btn-sm" id="prevStep" onclick="changeStep(-1)">Previous</button>
+      <div class="step-dots" id="stepDots"></div>
+      <button class="btn btn-sm" id="nextStep" onclick="changeStep(1)">Next</button>
     </div>
-
-    <div id="s2Content" class="step-content">
-    </div>
-
-    <div class="btn-row">
-      <button class="btn btn-secondary" id="btnPrevStep" disabled>&larr; Previous</button>
-      <button class="btn btn-primary" id="btnNextStep">Next &rarr;</button>
-    </div>
+    <div id="deriv-area"></div>
   </div>
-</section>
 
-<!-- SECTION 4: Correlation Demo -->
-<section class="container">
-  <div class="section-card">
-    <h2>4. Why Does Controlling for Correlation Matter?</h2>
-    <p class="subtitle">Adjust the correlation between x<sub>1</sub> and x<sub>2</sub> and see how it affects the estimated coefficient on x<sub>1</sub>.</p>
-
-    <div class="corr-intro">
-      <p>Imagine you want to measure the effect of <strong>advertising</strong> (x<sub>1</sub>) on <strong>sales</strong>. But advertising spending is correlated with <strong>store size</strong> (x<sub>2</sub>), and bigger stores also have more sales.</p>
-      <ul>
-        <li><strong class="red">Simple regression</strong> (only x<sub>1</sub>): The coefficient on advertising captures BOTH its own effect AND part of the store-size effect, because the two are tangled together.</li>
-        <li><strong class="blue">Multiple regression</strong> (x<sub>1</sub> and x<sub>2</sub>): The coefficient on advertising captures ONLY its own effect, because we control for store size.</li>
-      </ul>
-      <p>The slider below lets you see this in action. As the correlation between x<sub>1</sub> and x<sub>2</sub> increases, the simple regression coefficient becomes more biased &mdash; it picks up effects that actually belong to x<sub>2</sub>.</p>
-    </div>
-
-    <div class="slider-container">
-      <label>Correlation between x<sub>1</sub> and x<sub>2</sub>:</label><br>
-      <input type="range" id="corrSlider" min="-90" max="90" value="0" step="1">
-      <div class="slider-label" id="corrLabel">r = 0.00</div>
-    </div>
-
-    <canvas id="scatterCanvas" width="480" height="340"></canvas>
-
-    <div class="coeff-cards">
-      <div class="coeff-card not-controlling" id="cardSimple">
-        <h4>Simple Regression (ignoring x<sub>2</sub>)</h4>
-        <div class="coeff-value" id="betaSimple">&beta;<sub>1</sub> = 2.00</div>
-        <div class="true-value-note">True value: 2.00</div>
-      </div>
-      <div class="coeff-card controlling" id="cardMultiple">
-        <h4>Multiple Regression (controlling for x<sub>2</sub>)</h4>
-        <div class="coeff-value" id="betaMultiple">&beta;<sub>1</sub> = 2.00</div>
-        <div class="true-value-note">True value: 2.00</div>
-      </div>
-    </div>
-
-    <div class="explain-box" id="corrExplain">
-      When x<sub>1</sub> and x<sub>2</sub> are uncorrelated (r&nbsp;=&nbsp;0), the simple and multiple regression coefficients are identical. There is no confounding to adjust for.
-    </div>
+  <div class="tab-content" id="tab2">
+    <h2 class="section-title">OLS Building Blocks</h2>
+    <p class="section-desc">Numeric walkthrough with our 8-store dataset.</p>
+    <div id="blocks-area"></div>
   </div>
-</section>
 
-<footer>
-  <div class="container">
-    Built for Business Forecasting @ ITAM
+  <div class="tab-content" id="tab3">
+    <h2 class="section-title">Omitted Variable Bias &amp; Correlation</h2>
+    <p class="section-desc">See how correlation between regressors affects coefficient estimates.</p>
+    <div id="corr-area"></div>
   </div>
-</footer>
+</div>
+
+<footer>Matrix Intuition for OLS Regression &mdash; Interactive Teaching Tool</footer>
 
 <script>
-/* ========== THEME TOGGLE ========== */
-(function(){
-  const btn = document.getElementById('themeToggle');
-  const pref = localStorage.getItem('matrix-theme');
-  if(pref === 'dark') document.documentElement.setAttribute('data-theme','dark');
-  function toggle(){
-    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
-    if(dark){ document.documentElement.removeAttribute('data-theme'); localStorage.setItem('matrix-theme','light'); btn.innerHTML='&#9790;'; }
-    else { document.documentElement.setAttribute('data-theme','dark'); localStorage.setItem('matrix-theme','dark'); btn.innerHTML='&#9728;'; }
-    if(typeof drawScatter === 'function') drawScatter();
+/* ===== GLOBALS ===== */
+var ACCENT = '#43418A';
+var X = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15],[1,1,4],[1,7,11],[1,3,6]];
+var y_data = [14,18,30,24,34,11,33,18];
+var betaHat = [3.97, 2.69, 0.94];
+var XtX = [[8,31,71],[31,149,323],[71,323,731]];
+var Xty = [182, 828, 1839];
+var XtXinv = [[0.9243,0.0548,-0.1140],[0.0548,0.1625,-0.0771],[-0.1140,-0.0771,0.0465]];
+
+/* ===== THEME ===== */
+function toggleTheme() {
+  var d = document.documentElement;
+  var dark = d.getAttribute('data-theme') === 'dark';
+  d.setAttribute('data-theme', dark ? '' : 'dark');
+  document.getElementById('themeToggle').textContent = dark ? 'Dark Mode' : 'Light Mode';
+  if (typeof drawCorrelation === 'function') drawCorrelation();
+}
+
+/* ===== TABS ===== */
+function showTab(i) {
+  var btns = document.querySelectorAll('.tab-btn');
+  var tabs = document.querySelectorAll('.tab-content');
+  for (var j = 0; j < btns.length; j++) {
+    btns[j].classList.toggle('active', j === i);
+    tabs[j].classList.toggle('active', j === i);
   }
-  btn.addEventListener('click', toggle);
-  if(pref==='dark') btn.innerHTML='&#9728;';
-})();
+  if (i === 3) drawCorrelation();
+}
 
-/* Scroll progress */
-window.addEventListener('scroll', function(){
-  const h = document.documentElement.scrollHeight - window.innerHeight;
-  document.getElementById('scrollProgress').style.width = (h>0? (window.scrollY/h*100)+'%' : '0%');
-});
+/* ===== UTILITIES ===== */
+function fmt(n, d) {
+  if (d === undefined) d = 2;
+  return Number(n).toFixed(d);
+}
 
-/* ========== UTILITY ========== */
-function buildMatrixDOM(containerId, data, opts){
+function mat(data, opts) {
   opts = opts || {};
-  const el = document.getElementById(containerId);
-  el.innerHTML = '';
-  const cols = data[0].length;
-  const cls = opts.cellClass || '';
-  const sz = opts.small ? ' small' : (opts.tiny ? ' tiny' : '');
-  el.style.gridTemplateColumns = 'repeat('+cols+', '+(opts.tiny?'36px':(opts.small?'42px':'50px'))+')';
-  for(let r=0;r<data.length;r++){
-    for(let c=0;c<cols;c++){
-      const d = document.createElement('div');
-      d.className = 'matrix-cell' + sz + (cls?' '+cls:'');
-      d.textContent = data[r][c];
-      d.dataset.r = r;
-      d.dataset.c = c;
-      if(opts.clickable) d.classList.add('clickable');
-      el.appendChild(d);
-    }
-  }
-  return el;
-}
-
-function getCell(containerId, r, c){
-  return document.querySelector('#'+containerId+' .matrix-cell[data-r="'+r+'"][data-c="'+c+'"]');
-}
-
-function getCellRect(containerId, r, c, areaId){
-  const cell = getCell(containerId, r, c);
-  const area = document.getElementById(areaId);
-  const cr = cell.getBoundingClientRect();
-  const ar = area.getBoundingClientRect();
-  return { x: cr.left - ar.left + cr.width/2, y: cr.top - ar.top + cr.height/2, w: cr.width, h: cr.height };
-}
-
-function clearOverlay(id){ document.getElementById(id).innerHTML = ''; }
-
-function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
-
-/* ========== SECTION 1: Matrix Multiplication (Two-Step) ========== */
-const A = [[2,3,4],[1,0,2]];
-const B = [[5,1],[1,3],[6,2]];
-const C_result = [[37,19],[17,5]];
-let s1Busy = false;
-let s1Filled = [[false,false],[false,false]];
-// Track which cells are in "step 1" (pairs shown, waiting for step 2)
-let s1PendingStep2 = [[false,false],[false,false]];
-let s1PendingStep3 = {};
-
-function initSection1(){
-  buildMatrixDOM('matA', A);
-  buildMatrixDOM('matB', B);
-  const qm = C_result.map(r=>r.map(()=>'?'));
-  buildMatrixDOM('matC', qm, {clickable:true});
-  s1Filled = [[false,false],[false,false]];
-  s1PendingStep2 = [[false,false],[false,false]];
-  s1PendingStep3 = {};
-  document.getElementById('s1Computation').innerHTML = '';
-  document.getElementById('s1Workspace').style.display = 'none';
-  document.getElementById('s1Workspace').innerHTML = '';
-  clearOverlay('s1Overlay');
-  // attach click
-  document.querySelectorAll('#matC .matrix-cell').forEach(cell=>{
-    cell.addEventListener('click', function(){
-      if(s1Busy) return;
-      const ri = +this.dataset.r, ci = +this.dataset.c;
-      if(!s1Filled[ri][ci] && !s1PendingStep2[ri][ci] && !s1PendingStep3[ri+','+ci]){
-        animateS1Step1(ri, ci);
-      }
-    });
-  });
-}
-
-// Step 1: Show pairs (no auto-advance — waits for click)
-function animateS1Step1(ri, ci){
-  if(s1Busy || s1Filled[ri][ci] || s1PendingStep2[ri][ci] || s1PendingStep3[ri+','+ci]) return;
-  s1Busy = true;
-
-  const workspace = document.getElementById('s1Workspace');
-  const compDisp = document.getElementById('s1Computation');
-  workspace.innerHTML = '';
-  compDisp.innerHTML = '';
-  clearOverlay('s1Overlay');
-
-  document.querySelectorAll('#matA .matrix-cell').forEach(c => c.classList.remove('highlight-row'));
-  document.querySelectorAll('#matB .matrix-cell').forEach(c => c.classList.remove('highlight-col'));
-
-  for(let c=0;c<3;c++) getCell('matA',ri,c).classList.add('highlight-row');
-  for(let r=0;r<3;r++) getCell('matB',r,ci).classList.add('highlight-col');
-
-  workspace.style.display = 'block';
-  workspace.classList.add('active');
-
-  let pairsHTML = '<div class="pair-display">';
-  for(let k=0;k<3;k++){
-    pairsHTML += '<div class="pair-item">';
-    pairsHTML += '<span class="row-val">' + A[ri][k] + '</span>';
-    pairsHTML += '<span class="times-sign"> &times; </span>';
-    pairsHTML += '<span class="col-val">' + B[k][ci] + '</span>';
-    pairsHTML += '</div>';
-  }
-  pairsHTML += '</div>';
-  pairsHTML += '<div class="workspace-hint">Numbers paired. Click "Multiply" to compute each product.</div>';
-  pairsHTML += '<div style="text-align:center;margin-top:10px;">';
-  pairsHTML += '<button class="btn-next-step" id="btnMultiply" data-r="'+ri+'" data-c="'+ci+'">Multiply &rarr;</button>';
-  pairsHTML += '</div>';
-
-  workspace.innerHTML = pairsHTML;
-  document.getElementById('btnMultiply').addEventListener('click', function(){
-    animateS1Step2(+this.dataset.r, +this.dataset.c);
-  });
-
-  compDisp.innerHTML = '<span style="color:var(--text-muted);">Row ' + (ri+1) + ' of A &times; Column ' + (ci+1) + ' of B</span>';
-  s1PendingStep2[ri][ci] = true;
-  s1Busy = false;
-}
-
-// Step 2: Show products (waits for click to sum)
-function animateS1Step2(ri, ci){
-  if(s1Busy || !s1PendingStep2[ri][ci]) return;
-  s1Busy = true;
-
-  const workspace = document.getElementById('s1Workspace');
-  const compDisp = document.getElementById('s1Computation');
-
-  const products = [];
-  let pairsHTML = '<div class="pair-display">';
-  for(let k=0;k<3;k++){
-    const prod = A[ri][k] * B[k][ci];
-    products.push(prod);
-    pairsHTML += '<div class="pair-item">';
-    pairsHTML += '<span class="row-val">' + A[ri][k] + '</span>';
-    pairsHTML += '<span class="times-sign"> &times; </span>';
-    pairsHTML += '<span class="col-val">' + B[k][ci] + '</span>';
-    pairsHTML += '<span class="equals-sign"> = </span>';
-    pairsHTML += '<span class="product-val">' + prod + '</span>';
-    pairsHTML += '</div>';
-  }
-  pairsHTML += '</div>';
-  pairsHTML += '<div class="workspace-hint">Products computed. Click "Sum" to add them up.</div>';
-  pairsHTML += '<div style="text-align:center;margin-top:10px;">';
-  pairsHTML += '<button class="btn-next-step" id="btnSum" data-r="'+ri+'" data-c="'+ci+'">Sum &rarr;</button>';
-  pairsHTML += '</div>';
-
-  workspace.innerHTML = pairsHTML;
-  compDisp.innerHTML = products.join(' + ') + ' = ?';
-
-  document.getElementById('btnSum').addEventListener('click', function(){
-    animateS1Step3(+this.dataset.r, +this.dataset.c, products);
-  });
-
-  s1PendingStep2[ri][ci] = false;
-  s1PendingStep3[ri+','+ci] = true;
-  s1Busy = false;
-}
-
-// Step 3: Sum and fill result cell
-function animateS1Step3(ri, ci, products){
-  if(s1Busy) return;
-  s1Busy = true;
-
-  const workspace = document.getElementById('s1Workspace');
-  const compDisp = document.getElementById('s1Computation');
-  const total = products.reduce((a,b)=>a+b,0);
-
-  const sumHTML = '<div class="sum-line" style="font-size:1.3em;text-align:center;padding:15px;background:var(--accent-pale);border-radius:8px;margin-top:10px;">' + products.join(' + ') + ' = <strong style="color:var(--accent);font-size:1.3em;">' + total + '</strong></div>';
-  workspace.innerHTML += sumHTML;
-  compDisp.innerHTML = products.join(' + ') + ' = <strong>' + total + '</strong>';
-
-  const resultCell = getCell('matC', ri, ci);
-  resultCell.textContent = total;
-  resultCell.classList.add('result-filled','result-flash');
-  resultCell.classList.remove('clickable');
-  s1Filled[ri][ci] = true;
-  delete s1PendingStep3[ri+','+ci];
-
-  for(let c=0;c<3;c++) getCell('matA',ri,c).classList.remove('highlight-row');
-  for(let r=0;r<3;r++) getCell('matB',r,ci).classList.remove('highlight-col');
-
-  setTimeout(function(){
-    workspace.style.display = 'none';
-    workspace.innerHTML = '';
-    workspace.classList.remove('active');
-    s1Busy = false;
-  }, 1500);
-}
-
-document.getElementById('btnReset1').addEventListener('click', initSection1);
-initSection1();
-
-/* ========== SECTION 2: OLS Derivation ========== */
-let derivStep = 0;
-const DERIV_MAX = 8;
-const derivTitles = [
-  'Step 1: The Model in Matrix Form',
-  'Step 2: \u{1F3AE} Interactive \u2014 Choose Your Own Coefficients!',
-  'Step 3: Prediction Errors (e = y \u2212 Xb)',
-  'Step 4: Sum of Squared Errors (SSE)',
-  'Step 5: Minimize SSE \u2014 Take the Derivative',
-  'Step 6: Solve \u2192 The OLS Formula',
-  'Step 7: Intuition: What Does Each Piece Do?',
-  'Step 8: Unbiasedness of OLS',
-  'Step 9: Variance of OLS'
-];
-
-// Pretty matrix renderer
-function mat(data, opts){
-  opts = opts || {};
-  const lbl = opts.label || '';
-  const cls = opts.cls || '';
-  let h = '<div style="display:inline-block;text-align:center;vertical-align:middle;'+(opts.style||'')+'">';
-  if(lbl) h += '<div style="font-size:0.75rem;font-weight:bold;margin-bottom:3px;color:'+(opts.labelColor||'var(--text-muted)')+';">'+lbl+'</div>';
-  h += '<div style="display:inline-flex;align-items:center;">';
-  h += '<span style="font-size:2em;font-weight:100;color:var(--accent);">[</span>';
-  h += '<table style="border-collapse:collapse;margin:0 2px;">';
-  for(const row of data){
+  var cls = opts.cls || '';
+  var hlRow = (opts.hlRow !== undefined) ? opts.hlRow : -1;
+  var hlCol = (opts.hlCol !== undefined) ? opts.hlCol : -1;
+  var cellCls = opts.cellCls || null;
+  var cellStyle = opts.cellStyle || null;
+  var cellId = opts.cellId || null;
+  var cellClick = opts.cellClick || null;
+  var h = '<span class="matrix ' + cls + '"><table>';
+  for (var r = 0; r < data.length; r++) {
     h += '<tr>';
-    const cells = Array.isArray(row) ? row : [row];
-    for(const v of cells){
-      const bg = opts.highlight ? 'background:rgba(217,74,74,0.12);' : '';
-      h += '<td style="padding:2px 7px;text-align:center;font-family:\'Georgia\',serif;font-size:0.9rem;'+bg+(opts.cellStyle||'')+'">'+v+'</td>';
+    var row = Array.isArray(data[r]) ? data[r] : [data[r]];
+    for (var c = 0; c < row.length; c++) {
+      var tdCls = '';
+      if (r === hlRow && c === hlCol) tdCls = 'hl-cell';
+      else if (r === hlRow) tdCls = 'hl-row';
+      else if (c === hlCol) tdCls = 'hl-col';
+      if (cellCls) { var extra = cellCls(r, c); if (extra) tdCls += ' ' + extra; }
+      var style = cellStyle ? (cellStyle(r, c) || '') : '';
+      var id = cellId ? cellId(r, c) : '';
+      var click = cellClick ? cellClick(r, c) : '';
+      h += '<td';
+      if (tdCls.trim()) h += ' class="' + tdCls.trim() + '"';
+      if (style) h += ' style="' + style + '"';
+      if (id) h += ' id="' + id + '"';
+      if (click) h += ' onclick="' + click + '"';
+      h += '>' + row[c] + '</td>';
     }
     h += '</tr>';
   }
-  h += '</table>';
-  h += '<span style="font-size:2em;font-weight:100;color:var(--accent);">]</span>';
+  h += '</table></span>';
+  return h;
+}
+
+function colVec(arr, opts) {
+  return mat(arr.map(function(v) { return [v]; }), opts);
+}
+
+function symCol(entries) {
+  return mat(entries.map(function(e) { return [e]; }));
+}
+
+function symMat(rows) {
+  return mat(rows);
+}
+
+/* ===== SECTION 1: MATRIX MULTIPLICATION ===== */
+var mmA = [[2,0,1],[3,1,4]];
+var mmB = [[1,2],[0,3],[5,1]];
+var mmC = [[null,null],[null,null]];
+var mmSelected = null;
+var mmStep = 0;
+
+function renderMatMul() {
+  var area = document.getElementById('matmul-area');
+  var h = '<div class="flex-center" style="gap:16px;flex-wrap:wrap;">';
+
+  h += '<div class="flex-col-center"><span class="math-label">A (2&times;3)</span>';
+  h += mat(mmA, { hlRow: mmSelected ? mmSelected.r : -1, hlCol: -1 });
+  h += '</div>';
+  h += '<span class="eq-sign" style="font-size:1.5rem;">&times;</span>';
+  h += '<div class="flex-col-center"><span class="math-label">B (3&times;2)</span>';
+  h += mat(mmB, { hlCol: mmSelected ? mmSelected.c : -1, hlRow: -1 });
+  h += '</div>';
+  h += '<span class="eq-sign">=</span>';
+
+  var cData = mmC.map(function(row, r) {
+    return row.map(function(v, c) { return v !== null ? fmt(v, 0) : '?'; });
+  });
+  h += '<div class="flex-col-center"><span class="math-label">C (2&times;2)</span>';
+  h += mat(cData, {
+    cellCls: function(r, c) {
+      var cls = 'result-cell';
+      if (mmC[r][c] !== null) cls += ' filled';
+      if (mmSelected && mmSelected.r === r && mmSelected.c === c) cls += ' hl-cell';
+      return cls;
+    },
+    cellClick: function(r, c) { return 'selectResultCell(' + r + ',' + c + ')'; }
+  });
+  h += '</div></div>';
+
+  h += '<div class="comp-display" id="mm-comp">';
+  if (mmSelected) {
+    var r = mmSelected.r, c = mmSelected.c;
+    var rowVals = mmA[r];
+    var colVals = mmB.map(function(row) { return row[c]; });
+    if (mmStep === 0) {
+      h += '<div style="margin-bottom:8px"><strong>C[' + (r+1) + ',' + (c+1) + ']</strong>: Row ' + (r+1) + ' of A paired with Column ' + (c+1) + ' of B</div>';
+      h += '<div class="flex-center" style="gap:6px">';
+      for (var k = 0; k < rowVals.length; k++) {
+        if (k > 0) h += '<span style="margin:0 4px">;</span>';
+        h += '<span style="color:var(--accent);font-weight:600">(' + rowVals[k] + ' , ' + colVals[k] + ')</span>';
+      }
+      h += '</div>';
+      h += '<div style="margin-top:12px"><button class="btn btn-sm" onclick="mmAdvance()">Multiply &rarr;</button></div>';
+    } else if (mmStep === 1) {
+      h += '<div style="margin-bottom:8px"><strong>Products:</strong></div>';
+      var parts = [];
+      for (var k = 0; k < rowVals.length; k++) {
+        parts.push(rowVals[k] + '&times;' + colVals[k] + ' = ' + (rowVals[k] * colVals[k]));
+      }
+      h += '<div style="font-size:1.05rem">' + parts.join(' &nbsp;,&nbsp; ') + '</div>';
+      h += '<div style="margin-top:12px"><button class="btn btn-sm" onclick="mmAdvance()">Sum &rarr;</button></div>';
+    } else {
+      var sum = 0;
+      var prods = [];
+      for (var k = 0; k < rowVals.length; k++) { var p = rowVals[k] * colVals[k]; prods.push(p); sum += p; }
+      h += '<div style="font-size:1.1rem"><strong>' + prods.join(' + ') + ' = ' + sum + '</strong></div>';
+      h += '<div style="margin-top:6px;color:var(--text-muted)">C[' + (r+1) + ',' + (c+1) + '] = ' + sum + '</div>';
+    }
+  } else {
+    h += '<span style="color:var(--text-muted)">Click a cell in the result matrix C to begin.</span>';
+  }
+  h += '</div>';
+
+  h += '<div style="margin-top:12px;text-align:center"><button class="btn btn-outline btn-sm" onclick="mmReset()">Reset</button></div>';
+  area.innerHTML = h;
+}
+
+function selectResultCell(r, c) {
+  if (mmC[r][c] !== null) return;
+  mmSelected = { r: r, c: c };
+  mmStep = 0;
+  renderMatMul();
+}
+
+function mmAdvance() {
+  if (!mmSelected) return;
+  mmStep++;
+  if (mmStep >= 2) {
+    var r = mmSelected.r, c = mmSelected.c;
+    var rowVals = mmA[r];
+    var colVals = mmB.map(function(row) { return row[c]; });
+    var sum = 0;
+    for (var k = 0; k < rowVals.length; k++) sum += rowVals[k] * colVals[k];
+    mmC[r][c] = sum;
+    mmStep = 2;
+  }
+  renderMatMul();
+}
+
+function mmReset() {
+  mmC = [[null, null], [null, null]];
+  mmSelected = null;
+  mmStep = 0;
+  renderMatMul();
+}
+
+/* ===== SECTION 2: DERIVATION STEPS ===== */
+var currentStep = 0;
+var totalSteps = 10;
+
+function renderStepDots() {
+  var container = document.getElementById('stepDots');
+  var h = '';
+  for (var i = 0; i < totalSteps; i++) {
+    var cls = 'step-dot';
+    if (i === currentStep) cls += ' active';
+    else if (i < currentStep) cls += ' visited';
+    h += '<span class="' + cls + '" onclick="goToStep(' + i + ')">' + (i + 1) + '</span>';
+  }
+  container.innerHTML = h;
+  document.getElementById('prevStep').disabled = (currentStep === 0);
+  document.getElementById('nextStep').disabled = (currentStep === totalSteps - 1);
+}
+
+function changeStep(d) { goToStep(currentStep + d); }
+
+function goToStep(i) {
+  if (i < 0 || i >= totalSteps) return;
+  currentStep = i;
+  renderStepDots();
+  renderDerivStep();
+}
+
+function renderDerivStep() {
+  var area = document.getElementById('deriv-area');
+  var h = '';
+  switch (currentStep) {
+    case 0: h = renderStep1(); break;
+    case 1: h = renderStep2(); break;
+    case 2: h = renderStep3(); break;
+    case 3: h = renderStep4(); break;
+    case 4: h = renderStep5(); break;
+    case 5: h = renderStep6(); break;
+    case 6: h = renderStep7(); break;
+    case 7: h = renderStep8(); break;
+    case 8: h = renderStep9(); break;
+    case 9: h = renderStep10(); break;
+  }
+  area.innerHTML = h;
+  if (currentStep === 1) {
+    setTimeout(attachStep2Listeners, 0);
+  }
+}
+
+/* Step 1 */
+function renderStep1() {
+  var h = '<h3 style="color:var(--accent)">Step 1: The Model</h3>';
+  h += '<p>The OLS regression model in matrix form. Each row is one observation.</p>';
+  h += '<div class="two-col">';
+
+  h += '<div class="card card-purple">';
+  h += '<h4 style="margin-top:0">Symbolic</h4>';
+  h += '<div class="math-block">';
+  h += symCol(['y<sub class="msub">1</sub>', 'y<sub class="msub">2</sub>', '&#8942;', 'y<sub class="msub">n</sub>']);
+  h += '<span class="eq-sign">=</span>';
+  h += symMat([
+    ['1', 'x<sub class="msub">12</sub>', 'x<sub class="msub">13</sub>'],
+    ['1', 'x<sub class="msub">22</sub>', 'x<sub class="msub">23</sub>'],
+    ['&#8942;', '&#8942;', '&#8942;'],
+    ['1', 'x<sub class="msub">n2</sub>', 'x<sub class="msub">n3</sub>']
+  ]);
+  h += symCol(['&beta;<sub class="msub">0</sub>', '&beta;<sub class="msub">1</sub>', '&beta;<sub class="msub">2</sub>']);
+  h += '<span class="eq-sign">+</span>';
+  h += symCol(['u<sub class="msub">1</sub>', 'u<sub class="msub">2</sub>', '&#8942;', 'u<sub class="msub">n</sub>']);
+  h += '</div>';
+  h += '<div class="math-block" style="font-size:1.2rem;margin-top:12px"><strong><em>y</em> = <em>X&beta;</em> + <em>u</em></strong></div>';
+  h += '</div>';
+
+  h += '<div class="card card-green">';
+  h += '<h4 style="margin-top:0">Our Data (n=8, k=3)</h4>';
+  h += '<div class="math-block" style="font-size:0.9rem">';
+  h += colVec(y_data, { cls: 'small' });
+  h += '<span class="eq-sign">=</span>';
+  h += mat(X, { cls: 'small' });
+  h += symCol(['&beta;<sub class="msub">0</sub>', '&beta;<sub class="msub">1</sub>', '&beta;<sub class="msub">2</sub>']);
+  h += '<span class="eq-sign">+</span>';
+  h += symCol(['u<sub class="msub">1</sub>', 'u<sub class="msub">2</sub>', '&#8942;', 'u<sub class="msub">8</sub>']);
+  h += '</div>';
+  h += '<p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:0">Column 1: intercept (all 1s) | Column 2: ad spend ($k) | Column 3: store size (100 sqft)</p>';
+  h += '</div>';
+
+  h += '</div>';
+  return h;
+}
+
+/* Step 2 */
+function renderStep2() {
+  var h = '<h3 style="color:var(--accent)">Step 2: Predictions &ycirc; = Xb</h3>';
+  h += '<p>Choose values for <em>b</em> and see how predictions, errors, and SSE change in real time.</p>';
+
+  h += '<div class="card">';
+  h += '<div class="slider-group"><label><em>b</em><sub class="msub">0</sub></label>';
+  h += '<input type="range" id="sl-b0" min="-2" max="10" step="0.1" value="0">';
+  h += '<span class="slider-val" id="sv-b0">0.00</span></div>';
+
+  h += '<div class="slider-group"><label><em>b</em><sub class="msub">1</sub></label>';
+  h += '<input type="range" id="sl-b1" min="-1" max="6" step="0.1" value="0">';
+  h += '<span class="slider-val" id="sv-b1">0.00</span></div>';
+
+  h += '<div class="slider-group"><label><em>b</em><sub class="msub">2</sub></label>';
+  h += '<input type="range" id="sl-b2" min="-2" max="4" step="0.1" value="0">';
+  h += '<span class="slider-val" id="sv-b2">0.00</span></div>';
+
+  h += '<div style="margin-top:10px"><button class="btn btn-sm" id="showOptBtn">Show Optimal &beta;&#770;</button></div>';
+  h += '</div>';
+
+  h += '<div id="step2-live"></div>';
+  return h;
+}
+
+function attachStep2Listeners() {
+  var slB0 = document.getElementById('sl-b0');
+  var slB1 = document.getElementById('sl-b1');
+  var slB2 = document.getElementById('sl-b2');
+  var optBtn = document.getElementById('showOptBtn');
+  if (!slB0 || !slB1 || !slB2) return;
+
+  function update() {
+    var b = [parseFloat(slB0.value), parseFloat(slB1.value), parseFloat(slB2.value)];
+    document.getElementById('sv-b0').textContent = fmt(b[0]);
+    document.getElementById('sv-b1').textContent = fmt(b[1]);
+    document.getElementById('sv-b2').textContent = fmt(b[2]);
+    renderStep2Live(b);
+  }
+
+  slB0.addEventListener('input', update);
+  slB1.addEventListener('input', update);
+  slB2.addEventListener('input', update);
+
+  if (optBtn) {
+    optBtn.addEventListener('click', function() {
+      slB0.value = betaHat[0];
+      slB1.value = betaHat[1];
+      slB2.value = betaHat[2];
+      update();
+    });
+  }
+  update();
+}
+
+function renderStep2Live(b) {
+  var liveArea = document.getElementById('step2-live');
+  if (!liveArea) return;
+
+  var yhat = X.map(function(row) { return row[0]*b[0] + row[1]*b[1] + row[2]*b[2]; });
+  var errors = y_data.map(function(yi, i) { return yi - yhat[i]; });
+  var sse = errors.reduce(function(s, e) { return s + e * e; }, 0);
+
+  function errClass(e) {
+    var ae = Math.abs(e);
+    if (ae < 0.5) return 'err-green';
+    if (ae < 3) return 'err-orange';
+    return 'err-red';
+  }
+
+  var h = '<div class="math-block" style="overflow-x:auto">';
+  h += '<div class="flex-center" style="gap:8px;flex-wrap:nowrap">';
+
+  h += '<div class="flex-col-center"><span class="math-label" style="font-size:0.85rem"><em>y</em></span>';
+  h += colVec(y_data.map(function(v) { return fmt(v, 0); }), { cls: 'small' });
+  h += '</div>';
+
+  h += '<div class="flex-col-center"><span class="math-label" style="font-size:0.85rem"><em>&ycirc;</em> = <em>Xb</em></span>';
+  h += colVec(yhat.map(function(v) { return fmt(v, 1); }), { cls: 'small' });
+  h += '</div>';
+
+  h += '<div class="flex-col-center"><span class="math-label" style="font-size:0.85rem"><em>e</em> = <em>y</em> &minus; <em>&ycirc;</em></span>';
+  h += mat(errors.map(function(e) {
+    return ['<span class="' + errClass(e) + '">' + fmt(e, 2) + '</span>'];
+  }), { cls: 'small' });
+  h += '</div>';
+
+  h += '</div></div>';
+
+  h += '<div style="text-align:center">';
+  h += '<div class="sse-box">SSE = &Sigma;e<sub>i</sub>&sup2; = ' + fmt(sse, 2) + '</div>';
+  h += '</div>';
+
+  liveArea.innerHTML = h;
+}
+
+/* Step 3 */
+function renderStep3() {
+  var yhat = X.map(function(row) { return row[0]*betaHat[0] + row[1]*betaHat[1] + row[2]*betaHat[2]; });
+  var errors = y_data.map(function(yi, i) { return yi - yhat[i]; });
+
+  var h = '<h3 style="color:var(--accent)">Step 3: Errors e = y &minus; X&beta;&#770;</h3>';
+  h += '<div class="two-col">';
+
+  h += '<div class="card card-purple">';
+  h += '<h4 style="margin-top:0">Symbolic</h4>';
+  h += '<div class="math-block">';
+  h += symCol(['e<sub class="msub">1</sub>', 'e<sub class="msub">2</sub>', '&#8942;', 'e<sub class="msub">n</sub>']);
+  h += '<span class="eq-sign">=</span>';
+  h += symCol(['y<sub class="msub">1</sub>', 'y<sub class="msub">2</sub>', '&#8942;', 'y<sub class="msub">n</sub>']);
+  h += '<span class="eq-sign">&minus;</span>';
+  h += symMat([
+    ['1', 'x<sub class="msub">12</sub>', 'x<sub class="msub">13</sub>'],
+    ['1', 'x<sub class="msub">22</sub>', 'x<sub class="msub">23</sub>'],
+    ['&#8942;', '&#8942;', '&#8942;'],
+    ['1', 'x<sub class="msub">n2</sub>', 'x<sub class="msub">n3</sub>']
+  ]);
+  h += symCol(['&beta;&#770;<sub class="msub">0</sub>', '&beta;&#770;<sub class="msub">1</sub>', '&beta;&#770;<sub class="msub">2</sub>']);
+  h += '</div></div>';
+
+  h += '<div class="card card-green">';
+  h += '<h4 style="margin-top:0">With Our Data</h4>';
+  h += '<div class="math-block" style="font-size:0.88rem">';
+  h += colVec(errors.map(function(e) { return fmt(e, 2); }), { cls: 'small' });
+  h += '<span class="eq-sign">=</span>';
+  h += colVec(y_data.map(function(v) { return fmt(v, 0); }), { cls: 'small' });
+  h += '<span class="eq-sign">&minus;</span>';
+  h += mat(X, { cls: 'small' });
+  h += colVec(betaHat.map(function(v) { return fmt(v, 2); }), { cls: 'small' });
+  h += '</div></div>';
+
+  h += '</div>';
+  return h;
+}
+
+/* Step 4 */
+function renderStep4() {
+  var yhat = X.map(function(row) { return row[0]*betaHat[0] + row[1]*betaHat[1] + row[2]*betaHat[2]; });
+  var errors = y_data.map(function(yi, i) { return yi - yhat[i]; });
+  var squares = errors.map(function(e) { return e * e; });
+  var sse = squares.reduce(function(s, v) { return s + v; }, 0);
+
+  var h = '<h3 style="color:var(--accent)">Step 4: SSE = e&#7488;e</h3>';
+
+  h += '<div class="card card-purple">';
+  h += '<div class="math-block" style="font-size:1.1rem">';
+  h += '<strong>SSE = e&#7488;e = &Sigma;<sub>i=1</sub><sup>n</sup> e<sub>i</sub>&sup2;</strong>';
+  h += '</div></div>';
+
+  h += '<div class="card card-green">';
+  h += '<h4 style="margin-top:0">Numeric Computation</h4>';
+  h += '<div class="math-block">';
+
+  h += '<div style="margin-bottom:12px">';
+  h += mat([errors.map(function(e) { return fmt(e, 2); })], { cls: 'small' });
+  h += '<span class="eq-sign">&times;</span>';
+  h += colVec(errors.map(function(e) { return fmt(e, 2); }), { cls: 'small' });
+  h += '</div>';
+
+  h += '<div style="margin-bottom:8px">';
+  h += '= ' + errors.map(function(e) { return fmt(e, 2) + '&sup2;'; }).join(' + ');
+  h += '</div>';
+  h += '<div>';
+  h += '= ' + squares.map(function(s) { return fmt(s, 2); }).join(' + ');
+  h += '</div>';
+  h += '<div style="margin-top:8px;font-size:1.15rem;font-weight:700;color:var(--accent)">';
+  h += '= ' + fmt(sse, 2);
+  h += '</div>';
+
   h += '</div></div>';
   return h;
 }
-function op(symbol){ return '<span style="font-size:1.4rem;margin:0 8px;vertical-align:middle;">'+symbol+'</span>'; }
-function eq(text){ return '<div style="text-align:center;font-family:\'Georgia\',serif;font-size:1.15rem;margin:12px 0;letter-spacing:0.3px;">'+text+'</div>'; }
-function eqBox(text){ return '<div style="text-align:center;font-family:\'Georgia\',serif;font-size:1.3rem;margin:16px 0;padding:14px 20px;background:linear-gradient(135deg,var(--accent-pale),rgba(67,65,138,0.08));border:2px solid var(--accent);border-radius:10px;letter-spacing:0.5px;">'+text+'</div>'; }
 
-function renderDerivStep(step){
-  derivStep = step;
-  const cont = document.getElementById('derivContent');
-  document.querySelectorAll('#derivStepNav .step-dot').forEach((d,i)=>{
-    d.classList.remove('active','done');
-    if(i===step) d.classList.add('active');
-    else if(i<step) d.classList.add('done');
-  });
-  document.getElementById('btnPrevDeriv').disabled = step===0;
-  document.getElementById('btnNextDeriv').disabled = step===DERIV_MAX;
-  document.getElementById('btnNextDeriv').textContent = step<DERIV_MAX ? 'Next \u2192' : 'Done \u2713';
+/* Step 5 */
+function renderStep5() {
+  var h = '<h3 style="color:var(--accent)">Step 5: Expanding SSE in Matrix Form</h3>';
 
-  let html = '<div class="derivation-step"><h3>'+derivTitles[step]+'</h3>';
+  h += '<div class="card card-purple">';
+  h += '<div class="math-block" style="font-size:1.05rem;line-height:2.2">';
+  h += '<div>SSE = <strong>e&#7488;e</strong> = (<em>y</em> &minus; <em>Xb</em>)&#7488;(<em>y</em> &minus; <em>Xb</em>)</div>';
+  h += '<div style="margin-top:12px">Expanding the transpose product:</div>';
+  h += '<div style="margin-top:8px">= <em>y</em>&#7488;<em>y</em> &minus; <em>y</em>&#7488;<em>Xb</em> &minus; <em>b</em>&#7488;<em>X</em>&#7488;<em>y</em> + <em>b</em>&#7488;<em>X</em>&#7488;<em>Xb</em></div>';
+  h += '<div style="margin-top:8px">Since <em>y</em>&#7488;<em>Xb</em> is a scalar, <em>y</em>&#7488;<em>Xb</em> = (<em>y</em>&#7488;<em>Xb</em>)&#7488; = <em>b</em>&#7488;<em>X</em>&#7488;<em>y</em>:</div>';
+  h += '<div style="margin-top:8px;font-weight:700;font-size:1.15rem">SSE = <em>y</em>&#7488;<em>y</em> &minus; 2<em>b</em>&#7488;<em>X</em>&#7488;<em>y</em> + <em>b</em>&#7488;<em>X</em>&#7488;<em>Xb</em></div>';
+  h += '</div></div>';
 
-  const dX = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15],[1,1,4],[1,7,11],[1,3,6]];
-  const dY = [14,18,30,24,34,11,33,18];
-  const dBetaOpt = [3.97, 2.69, 0.94];
-  const dXtX = [[8,31,71],[31,149,323],[71,323,731]];
-  const dXty = [182,828,1839];
-  function computeFromB(b){
-    const yh = dX.map(r => +(b[0]+b[1]*r[1]+b[2]*r[2]).toFixed(2));
-    const e = dY.map((v,i) => +(v - yh[i]).toFixed(2));
-    const sse = +(e.reduce((s,v)=>s+v*v, 0)).toFixed(2);
-    return {yhat:yh, e:e, sse:sse};
-  }
-  const dOpt = computeFromB(dBetaOpt);
-
-  function matrixTable(data, opts){
-    opts = opts || {};
-    const cols = data[0].length || 1;
-    let h = '<table style="border-collapse:collapse;margin:0 auto;'+((opts.style)||'')+'">';
-    for(const row of data){
-      h += '<tr>';
-      const cells = Array.isArray(row) ? row : [row];
-      for(const v of cells){
-        const bg = opts.highlight ? 'background:var(--accent-pale);' : '';
-        h += '<td style="border:1px solid var(--border);padding:4px 10px;text-align:center;font-family:monospace;font-size:0.95rem;'+bg+'">'+v+'</td>';
-      }
-      h += '</tr>';
-    }
-    h += '</table>';
-    return h;
-  }
-
-  // Helper: side-by-side formula + numbers display
-  function dualDisplay(formula, numbers){
-    return '<div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin:16px 0;">' +
-      '<div style="flex:1;min-width:250px;background:var(--accent-pale);border-radius:10px;padding:14px;border-left:4px solid var(--accent);">' +
-      '<div style="font-weight:bold;color:var(--accent);margin-bottom:8px;font-size:0.85rem;">\u{1F4D0} FORMULA</div>' + formula + '</div>' +
-      '<div style="flex:1;min-width:250px;background:rgba(74,144,217,0.08);border-radius:10px;padding:14px;border-left:4px solid var(--highlight-row);">' +
-      '<div style="font-weight:bold;color:var(--highlight-row);margin-bottom:8px;font-size:0.85rem;">\u{1F522} WITH NUMBERS</div>' + numbers + '</div></div>';
-  }
-
-  if(step===0){
-    html += eq('<strong style="font-size:1.4rem;">y = X\u03B2 + u</strong>');
-    html += '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:16px 0;">';
-    html += '<div style="background:var(--accent-pale);border-radius:12px;padding:16px;border-top:3px solid var(--accent);min-width:220px;">';
-    html += '<div style="font-weight:bold;color:var(--accent);margin-bottom:10px;text-align:center;">\u{1F4D0} Symbolic</div>';
-    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">';
-    html += mat([['y\u2081'],['y\u2082'],['\u22EE'],['y\u2088']], {label:'y',labelColor:'var(--highlight-row)'});
-    html += op('=');
-    html += mat([['1','x\u2081\u2081','x\u2081\u2082'],['1','x\u2082\u2081','x\u2082\u2082'],['\u22EE','\u22EE','\u22EE'],['1','x\u2088\u2081','x\u2088\u2082']], {label:'X',labelColor:'var(--accent)'});
-    html += mat([['\u03B2\u2080'],['\u03B2\u2081'],['\u03B2\u2082']], {label:'\u03B2',labelColor:'var(--highlight-col)'});
-    html += op('+');
-    html += mat([['u\u2081'],['u\u2082'],['\u22EE'],['u\u2088']], {label:'u',labelColor:'var(--text-muted)'});
-    html += '</div></div>';
-    html += '<div style="background:rgba(74,144,217,0.08);border-radius:12px;padding:16px;border-top:3px solid var(--highlight-row);min-width:280px;">';
-    html += '<div style="font-weight:bold;color:var(--highlight-row);margin-bottom:10px;text-align:center;">\u{1F522} Our Data (8 students)</div>';
-    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">';
-    html += mat(dY.map(v=>[v]), {label:'Scores',labelColor:'var(--highlight-row)'});
-    html += op('=');
-    html += mat(dX.map(r=>['<span style=color:#aaa>'+r[0]+'</span>',r[1],r[2]]), {label:'X',labelColor:'var(--accent)'});
-    html += mat([['?'],['?'],['?']], {label:'\u03B2 = ?',labelColor:'var(--highlight-col)'});
-    html += op('+');
-    html += mat(dY.map(()=>['?']), {label:'u',labelColor:'var(--text-muted)'});
-    html += '</div>';
-    html += '<div style="font-size:0.8rem;text-align:center;margin-top:8px;color:var(--text-muted);">Col 1 = intercept &bull; Col 2 = Hrs Studied &bull; Col 3 = Hrs Slept</div>';
-    html += '</div></div>';
-    html += '<div class="explain-box">We observe <strong>y</strong> and <strong>X</strong>. We want to find <strong>\u03B2</strong> that best predicts y from X. Next: try choosing coefficients yourself!</div>';
-  }
-  else if(step===1){
-    html += '<div class="explain-box" style="text-align:center;font-size:1.05rem;">\u{1F3AE} Drag the sliders to choose coefficients <strong>b</strong>. Watch predictions, errors, and SSE update live!</div>';
-    html += '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:12px 0;">';
-    html += '<div style="text-align:center;"><label style="font-weight:bold;font-family:Georgia,serif;">b\u2080</label> <span style="font-size:0.85rem;">(intercept)</span><br><input type="range" id="sliderB0" min="-2" max="10" step="0.1" value="4" style="width:150px;accent-color:var(--accent);"><br><span id="valB0" style="font-family:monospace;font-size:1.1rem;font-weight:bold;">4.0</span></div>';
-    html += '<div style="text-align:center;"><label style="font-weight:bold;font-family:Georgia,serif;">b\u2081</label> <span style="font-size:0.85rem;">(study hrs)</span><br><input type="range" id="sliderB1" min="-1" max="6" step="0.1" value="2.5" style="width:150px;accent-color:var(--highlight-row);"><br><span id="valB1" style="font-family:monospace;font-size:1.1rem;font-weight:bold;">2.5</span></div>';
-    html += '<div style="text-align:center;"><label style="font-weight:bold;font-family:Georgia,serif;">b\u2082</label> <span style="font-size:0.85rem;">(sleep hrs)</span><br><input type="range" id="sliderB2" min="-2" max="4" step="0.1" value="1.0" style="width:150px;accent-color:var(--highlight-col);"><br><span id="valB2" style="font-family:monospace;font-size:1.1rem;font-weight:bold;">1.0</span></div>';
-    html += '</div>';
-    html += '<div style="text-align:center;margin:6px 0;"><button class="btn btn-secondary" id="btnShowOptimal" style="font-size:0.85rem;">Show optimal \u03B2\u0302 = [3.97, 2.69, 0.94]</button></div>';
-    html += '<div id="interactiveResults" style="margin:12px 0;"></div>';
-    html += '<div style="text-align:center;margin-top:10px;padding:14px;background:var(--accent-pale);border-radius:10px;">';
-    html += '<div style="font-size:0.9rem;margin-bottom:4px;">Sum of Squared Errors</div>';
-    html += '<div style="font-size:2rem;font-weight:bold;font-family:Georgia,serif;">SSE = <span id="interSSE" style="color:var(--accent);">0</span></div>';
-    html += '<div style="font-size:0.85rem;color:var(--text-muted);margin-top:4px;">Minimum possible (optimal \u03B2\u0302): <strong>' + dOpt.sse + '</strong></div>';
-    html += '</div>';
-  }
-  else if(step===2){
-    html += eq('<strong style="font-size:1.3rem;">e = y \u2212 X\u03B2\u0302</strong>');
-    html += '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:16px 0;">';
-    html += '<div style="background:var(--accent-pale);border-radius:12px;padding:16px;border-top:3px solid var(--accent);">';
-    html += '<div style="font-weight:bold;color:var(--accent);margin-bottom:10px;text-align:center;">\u{1F4D0} Symbolic</div>';
-    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;">';
-    html += mat([['e\u2081'],['e\u2082'],['\u22EE'],['e\u2088']], {label:'e'});
-    html += op('=');
-    html += mat([['y\u2081'],['y\u2082'],['\u22EE'],['y\u2088']], {label:'y'});
-    html += op('\u2212');
-    html += mat([['\u0177\u2081'],['\u0177\u2082'],['\u22EE'],['\u0177\u2088']], {label:'X\u03B2\u0302'});
-    html += '</div></div>';
-    html += '<div style="background:rgba(74,144,217,0.08);border-radius:12px;padding:16px;border-top:3px solid var(--highlight-row);">';
-    html += '<div style="font-weight:bold;color:var(--highlight-row);margin-bottom:10px;text-align:center;">\u{1F522} With optimal \u03B2\u0302 = ['+dBetaOpt.join(', ')+']</div>';
-    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;">';
-    html += mat(dY.map(v=>[v]), {label:'y'});
-    html += op('\u2212');
-    html += mat(dOpt.yhat.map(v=>[v]), {label:'\u0177'});
-    html += op('=');
-    html += mat(dOpt.e.map(v=>['<strong style="color:var(--not-controlling-color);">'+v+'</strong>']), {label:'e'});
-    html += '</div></div></div>';
-    html += '<div class="explain-box">Errors are non-zero \u2014 no model is perfect. But these are the <strong>smallest possible</strong> errors (in sum-of-squares sense). Try different b in Step 2 to see larger errors!</div>';
-  }
-  else if(step===3){
-    html += eq('<strong style="font-size:1.3rem;">SSE = e<sup>\u22A4</sup>e = \u03A3 e\u1D62\u00B2</strong>');
-    html += '<div style="display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin:16px 0;">';
-    html += '<div style="background:var(--accent-pale);border-radius:12px;padding:16px;border-top:3px solid var(--accent);min-width:220px;">';
-    html += '<div style="font-weight:bold;color:var(--accent);margin-bottom:10px;text-align:center;">\u{1F4D0} Symbolic</div>';
-    html += '<div style="display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap;">';
-    html += mat([dOpt.e.map((_,i)=>'e<sub>'+(i+1)+'</sub>')], {label:'e\u1D40'});
-    html += op('\u00D7');
-    html += mat(dOpt.e.map((_,i)=>['e<sub>'+(i+1)+'</sub>']), {label:'e'});
-    html += '</div>';
-    html += eq('= e\u2081\u00B2 + e\u2082\u00B2 + \u2026 + e\u2088\u00B2');
-    html += '</div>';
-    html += '<div style="background:rgba(74,144,217,0.08);border-radius:12px;padding:16px;border-top:3px solid var(--highlight-row);min-width:280px;">';
-    html += '<div style="font-weight:bold;color:var(--highlight-row);margin-bottom:10px;text-align:center;">\u{1F522} With Numbers</div>';
-    html += '<div style="text-align:center;font-family:Georgia,serif;font-size:0.9rem;">';
-    html += dOpt.e.map(v => '('+v+')\u00B2').join(' + ') + '<br><br>';
-    html += '= ' + dOpt.e.map(v => (v*v).toFixed(2)).join(' + ') + '<br><br>';
-    html += '<span style="font-size:1.4rem;font-weight:bold;color:var(--accent);">SSE = ' + dOpt.sse + '</span>';
-    html += '</div></div></div>';
-    html += '<div class="explain-box">SSE depends on <strong>b</strong>. We want the b that minimizes SSE. How? Take the derivative and set it to zero \u2192</div>';
-  }
-  else if(step===4){
-    html += dualDisplay(
-      '<div style="font-size:0.95rem;">' +
-      '<strong>1. Expand SSE:</strong><br>' +
-      'SSE = (y &minus; X\u03B2\u0302)\u1D40(y &minus; X\u03B2\u0302)<br>' +
-      '&nbsp;&nbsp;&nbsp;= y\u1D40y &minus; 2\u03B2\u0302\u1D40X\u1D40y + \u03B2\u0302\u1D40X\u1D40X\u03B2\u0302<br><br>' +
-      '<strong>2. Differentiate w.r.t. \u03B2\u0302:</strong><br>' +
-      '\u2202SSE/\u2202\u03B2\u0302 = &minus;2X\u1D40y + 2X\u1D40X\u03B2\u0302<br><br>' +
-      '<strong>3. Set = 0:</strong><br>' +
-      '&minus;2X\u1D40y + 2X\u1D40X\u03B2\u0302 = 0</div>',
-
-      '<div style="font-size:0.9rem;">At the minimum, the derivative equals zero. This gives us:<br><br>' +
-      '<div style="text-align:center;font-size:1.1rem;font-weight:bold;">X\u1D40X\u03B2\u0302 = X\u1D40y</div><br>' +
-      'These are the <strong>"normal equations"</strong> &mdash; a system of equations we can solve!<br><br>' +
-      'With our data:<br>' +
-      '<div style="display:flex;justify-content:center;align-items:center;gap:6px;margin:8px 0;">' +
-      matrixTable(dXtX) + '<span>\u03B2\u0302 = </span>' + matrixTable(dXty.map(v=>[v])) +
-      '</div></div>'
-    );
-    html += '<div class="explain-box">The normal equations say: "find the \u03B2\u0302 such that X\u1D40X times \u03B2\u0302 equals X\u1D40y." To solve, we need to invert X\u1D40X.</div>';
-  }
-  else if(step===5){
-    html += dualDisplay(
-      '<div style="font-size:0.95rem;">' +
-      '<strong>Multiply both sides by (X\u1D40X)\u207B\u00B9:</strong><br><br>' +
-      '(X\u1D40X)\u207B\u00B9 X\u1D40X \u03B2\u0302 = (X\u1D40X)\u207B\u00B9 X\u1D40y<br><br>' +
-      'Since (X\u1D40X)\u207B\u00B9(X\u1D40X) = I (identity):<br><br>' +
-      'I \u00B7 \u03B2\u0302 = (X\u1D40X)\u207B\u00B9 X\u1D40y</div>',
-
-      '<div style="font-size:0.85rem;text-align:center;">' +
-      '<div style="display:flex;justify-content:center;align-items:center;gap:6px;flex-wrap:wrap;">' +
-      '<div><div style="font-size:0.7rem;font-weight:bold;">(X\u1D40X)\u207B\u00B9</div>' + matrixTable([[0.924,0.055,-0.114],[0.055,0.163,-0.077],[-0.114,-0.077,0.047]]) + '</div>' +
-      '<span>\u00D7</span>' +
-      '<div><div style="font-size:0.7rem;font-weight:bold;">X\u1D40y</div>' + matrixTable(dXty.map(v=>[v])) + '</div>' +
-      '<span>=</span>' +
-      '<div><div style="font-size:0.7rem;font-weight:bold;">\u03B2\u0302</div>' + matrixTable(dBeta.map(v=>['<strong>'+v+'</strong>'])) + '</div>' +
-      '</div></div>'
-    );
-    html += '<div class="formula-box highlight" style="font-size:1.4rem;text-align:center;padding:16px;">';
-    html += '<strong>\u03B2\u0302 = (X\u1D40X)\u207B\u00B9 X\u1D40y</strong>';
-    html += '</div>';
-    html += '<div class="explain-box" style="text-align:center;font-size:1.05rem;">';
-    html += '<strong>\u03B2\u0302\u2080</strong> (Intercept) = <strong>3.97</strong> &nbsp;&bull;&nbsp; ';
-    html += '<strong>\u03B2\u0302\u2081</strong> (Hours Studied) = <strong>2.69</strong> &nbsp;&bull;&nbsp; ';
-    html += '<strong>\u03B2\u0302\u2082</strong> (Hours Slept) = <strong>0.94</strong><br><br>';
-    html += 'Each additional hour of studying increases the predicted score by <strong>2.69 points</strong> (holding sleep constant).<br>';
-    html += 'Each additional hour of sleep increases the predicted score by <strong>0.94 points</strong> (holding studying constant).';
-    html += '</div>';
-  }
-  else if(step===6){
-    html += '<div class="formula-box" style="font-size:1.1rem;text-align:center;">Is \u03B2\u0302 unbiased? &nbsp; E(\u03B2\u0302) = \u03B2 ?</div>';
-    html += '<div class="explain-box">We need to check: on average (across many samples), does our estimator give us the true coefficients?</div>';
-    html += '<div class="formula-box" style="font-size:0.95rem;">';
-    html += '<strong>Start:</strong> Substitute y = X\u03B2 + u into the OLS formula:<br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += '\u03B2\u0302 = (X\u1D40X)\u207B\u00B9X\u1D40<strong>y</strong> = (X\u1D40X)\u207B\u00B9X\u1D40(<strong>X\u03B2 + u</strong>)';
-    html += '</div><br>';
-    html += '<strong>Expand:</strong><br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += '= (X\u1D40X)\u207B\u00B9X\u1D40X\u03B2 + (X\u1D40X)\u207B\u00B9X\u1D40u';
-    html += '</div><br>';
-    html += '<strong>Simplify:</strong> (X\u1D40X)\u207B\u00B9X\u1D40X = I (identity matrix), so:<br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += '= I\u00B7\u03B2 + (X\u1D40X)\u207B\u00B9X\u1D40u = <strong>\u03B2 + (X\u1D40X)\u207B\u00B9X\u1D40u</strong>';
-    html += '</div><br>';
-    html += '<strong>Take expectations:</strong><br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += 'E(\u03B2\u0302) = \u03B2 + (X\u1D40X)\u207B\u00B9X\u1D40<span style="color:var(--accent);font-weight:bold;">E(u)</span>';
-    html += '</div><br>';
-    html += 'Since <span style="color:var(--accent);font-weight:bold;">E(u) = 0</span> (our key assumption):';
-    html += '</div>';
-    html += '<div class="formula-box highlight" style="font-size:1.3rem;text-align:center;padding:16px;">';
-    html += '<strong>E(\u03B2\u0302) = \u03B2</strong> &nbsp; \u2714 Unbiased!';
-    html += '</div>';
-    html += '<div class="explain-box">On average, OLS gives us the true coefficients. The "noise" term (X\u1D40X)\u207B\u00B9X\u1D40u averages out to zero across samples because errors have mean zero.</div>';
-  }
-  else if(step===7){
-    html += '<div class="formula-box" style="font-size:1.1rem;text-align:center;">Var(\u03B2\u0302) = ?</div>';
-    html += '<div class="explain-box">We know \u03B2\u0302 is unbiased, but how much does it vary across samples? How <strong>precise</strong> are our estimates?</div>';
-    html += '<div class="formula-box" style="font-size:0.95rem;">';
-    html += '<strong>Start:</strong> From the previous step, we know:<br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += '\u03B2\u0302 &minus; \u03B2 = (X\u1D40X)\u207B\u00B9X\u1D40u';
-    html += '</div><br>';
-    html += '<strong>Apply the variance formula:</strong><br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += 'Var(\u03B2\u0302) = E[(\u03B2\u0302 &minus; \u03B2)(\u03B2\u0302 &minus; \u03B2)\u1D40]';
-    html += '</div><br>';
-    html += '<strong>Substitute:</strong><br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += '= E[(X\u1D40X)\u207B\u00B9X\u1D40u \u00B7 u\u1D40X(X\u1D40X)\u207B\u00B9]';
-    html += '</div><br>';
-    html += '<strong>Pull out constants</strong> (X is fixed, not random):<br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += '= (X\u1D40X)\u207B\u00B9X\u1D40 <span style="background:rgba(67,65,138,0.15);padding:2px 8px;border-radius:4px;"><strong>E[uu\u1D40]</strong></span> X(X\u1D40X)\u207B\u00B9';
-    html += '</div><br>';
-    html += '<strong>Key assumption:</strong> E[uu\u1D40] = \u03C3\u00B2I &nbsp;(errors are homoskedastic and uncorrelated)<br><br>';
-    html += '<div style="text-align:center;font-size:1.05rem;">';
-    html += '= (X\u1D40X)\u207B\u00B9X\u1D40 \u00B7 <span style="color:var(--accent);font-weight:bold;">\u03C3\u00B2I</span> \u00B7 X(X\u1D40X)\u207B\u00B9';
-    html += '</div><br>';
-    html += '<strong>Simplify:</strong> X\u1D40 \u00B7 I \u00B7 X = X\u1D40X, then (X\u1D40X)\u207B\u00B9(X\u1D40X) = I:<br>';
-    html += '</div>';
-    html += '<div class="formula-box highlight" style="font-size:1.3rem;text-align:center;padding:16px;">';
-    html += '<strong>Var(\u03B2\u0302) = \u03C3\u00B2(X\u1D40X)\u207B\u00B9</strong>';
-    html += '</div>';
-    html += '<div style="display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin:16px 0;">';
-    html += '<div style="background:rgba(232,145,58,0.1);border:2px solid var(--highlight-col);border-radius:12px;padding:14px 18px;max-width:280px;font-size:0.95rem;">';
-    html += '<strong style="color:var(--highlight-col);">\u03C3\u00B2</strong><br>The error variance &mdash; more noise in the data means less precise estimates.</div>';
-    html += '<div style="background:rgba(74,144,217,0.1);border:2px solid var(--highlight-row);border-radius:12px;padding:14px 18px;max-width:280px;font-size:0.95rem;">';
-    html += '<strong style="color:var(--highlight-row);">(X\u1D40X)\u207B\u00B9</strong><br>Captures predictor correlations. More correlated predictors \u2192 larger diagonal entries \u2192 less precise estimates (multicollinearity!).</div>';
-    html += '</div>';
-    html += '<div class="explain-box">The variance of each individual coefficient \u03B2\u0302\u2096 is the corresponding <strong>diagonal element</strong>: Var(\u03B2\u0302\u2096) = \u03C3\u00B2 \u00B7 [(X\u1D40X)\u207B\u00B9]\u2096\u2096. The standard error is the square root of this.</div>';
-  }
-
-  html += '</div>';
-  cont.innerHTML = html;
-}
-
-document.getElementById('btnNextDeriv').addEventListener('click', ()=>{ if(derivStep<DERIV_MAX) renderDerivStep(derivStep+1); });
-document.getElementById('btnPrevDeriv').addEventListener('click', ()=>{ if(derivStep>0) renderDerivStep(derivStep-1); });
-document.querySelectorAll('#derivStepNav .step-dot').forEach(d=>d.addEventListener('click', function(){ renderDerivStep(+this.dataset.step); }));
-renderDerivStep(0);
-
-// Interactive step handlers (step 1)
-function updateInteractive(){
-  const b0 = +document.getElementById('sliderB0').value;
-  const b1 = +document.getElementById('sliderB1').value;
-  const b2 = +document.getElementById('sliderB2').value;
-  document.getElementById('valB0').textContent = b0.toFixed(1);
-  document.getElementById('valB1').textContent = b1.toFixed(1);
-  document.getElementById('valB2').textContent = b2.toFixed(1);
-  const res = computeFromB([b0,b1,b2]);
-  // Build results table
-  let h = '<div style="display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;">';
-  h += mat(dY.map(v=>[v]), {label:'y',labelColor:'var(--highlight-row)'});
-  h += op('\u2212');
-  h += mat(res.yhat.map(v=>[v.toFixed(1)]), {label:'\u0177 = Xb',labelColor:'var(--accent)'});
-  h += op('=');
-  const eColors = res.e.map(v => {
-    const abs = Math.abs(v);
-    if(abs < 0.5) return 'color:#2e7d32;';
-    if(abs < 2) return 'color:#e65100;';
-    return 'color:#c62828;font-weight:bold;';
-  });
-  h += mat(res.e.map((v,i)=>['<span style="'+eColors[i]+'">'+v.toFixed(1)+'</span>']), {label:'e (errors)'});
+  h += '<div class="card" style="color:var(--text-muted)">';
+  h += '<strong>Key insight:</strong> SSE is a quadratic function of <em>b</em>. The terms <em>X</em>&#7488;<em>X</em> and <em>X</em>&#7488;<em>y</em> are constants given the data.';
   h += '</div>';
-  document.getElementById('interactiveResults').innerHTML = h;
-  const sseEl = document.getElementById('interSSE');
-  sseEl.textContent = res.sse.toFixed(2);
-  sseEl.style.color = res.sse <= dOpt.sse + 0.1 ? '#2e7d32' : 'var(--accent)';
-}
-// Use MutationObserver to attach slider events when step 1 is rendered
-const derivCont = document.getElementById('derivContent');
-new MutationObserver(function(){
-  const s0 = document.getElementById('sliderB0');
-  if(s0 && !s0.dataset.bound){
-    s0.dataset.bound = '1';
-    ['sliderB0','sliderB1','sliderB2'].forEach(id => {
-      document.getElementById(id).addEventListener('input', updateInteractive);
-    });
-    document.getElementById('btnShowOptimal').addEventListener('click', function(){
-      document.getElementById('sliderB0').value = 3.97;
-      document.getElementById('sliderB1').value = 2.69;
-      document.getElementById('sliderB2').value = 0.94;
-      updateInteractive();
-    });
-    updateInteractive();
-  }
-}).observe(derivCont, {childList:true, subtree:true});
 
-/* ========== SECTION 3: OLS Building Blocks (was Section 2) ========== */
-const X = [[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15],[1,1,4],[1,7,11],[1,3,6]];
-const y = [[14],[18],[30],[24],[34],[11],[33],[18]];
-// X' (3x8)
-const Xt = [[1,1,1,1,1,1,1,1],[2,3,5,4,6,1,7,3],[5,8,12,10,15,4,11,6]];
-// X'X (3x3)
-const XtX = [[8,31,71],[31,149,323],[71,323,731]];
-// X'y (3x1)
-const Xty = [[182,828,1839]]; // stored as row for display
-const XtyCol = [[182],[828],[1839]];
-// (X'X)^-1
-const XtXinv = [[0.9243, 0.0548, -0.1140],[0.0548, 0.1625, -0.0771],[-0.1140, -0.0771, 0.0465]];
-// beta = (X'X)^-1 X'y  =>  approx [3.97, 2.69, 0.94]
-const beta = [[3.97],[2.69],[0.94]];
-
-let currentStep = 0;
-const stepTitles = [
-  'Step 1: The Data Matrix X and Outcome y',
-  'Step 2: Transpose X to get X\'',
-  'Step 3: Compute X\'X',
-  'Step 4: Compute X\'y',
-  'Step 5: Invert (X\'X)\u207B\u00B9',
-  'Step 6: Compute \u03B2 = (X\'X)\u207B\u00B9X\'y'
-];
-
-function renderStep(step){
-  currentStep = step;
-  const cont = document.getElementById('s2Content');
-  document.querySelectorAll('#stepNav .step-dot').forEach((d,i)=>{
-    d.classList.remove('active','done');
-    if(i===step) d.classList.add('active');
-    else if(i<step) d.classList.add('done');
-  });
-  document.getElementById('btnPrevStep').disabled = step===0;
-  document.getElementById('btnNextStep').disabled = step===5;
-  document.getElementById('btnNextStep').textContent = step<5 ? 'Next \u2192' : 'Done \u2713';
-
-  let html = '<h3>'+stepTitles[step]+'</h3>';
-
-  if(step===0){
-    html += '<div class="matrix-area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X (8\u00d73)</span><div class="matrix" id="s2X" style="grid-template-columns:repeat(3,42px);"></div></div>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">y (8\u00d71)</span><div class="matrix" id="s2y" style="grid-template-columns:42px;"></div></div>';
-    html += '</div>';
-    html += '<div class="explain-box">Each row is one of 8 students. <strong>Column 1</strong> is always 1 (the intercept term). <strong>Column 2</strong> is "Hours Studied" and <strong>Column 3</strong> is "Hours Slept." The vector y contains each student\'s exam score.</div>';
-    cont.innerHTML = html;
-    buildMatrixDOM('s2X', X, {small:true});
-    buildMatrixDOM('s2y', y, {small:true});
-  }
-  else if(step===1){
-    html += '<div class="matrix-area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X (8\u00d73)</span><div class="matrix" id="s2X2" style="grid-template-columns:repeat(3,42px);"></div></div>';
-    html += '<span class="operator">\u2192</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d78)</span><div class="matrix" id="s2Xt" style="grid-template-columns:repeat(8,36px);"></div></div>';
-    html += '</div>';
-    html += '<div class="explain-box">The <strong>transpose</strong> X\' flips rows into columns. Row 1 of X (all the 1s) becomes column 1 of X\'. Each original column &mdash; intercept, Hours Studied, Hours Slept &mdash; becomes a row in X\'. The shape changes from 8\u00d73 to 3\u00d78.</div>';
-    cont.innerHTML = html;
-    buildMatrixDOM('s2X2', X, {small:true});
-    buildMatrixDOM('s2Xt', Xt, {small:true});
-  }
-  else if(step===2){
-    html += '<div class="matrix-area" id="s2Step3Area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d78)</span><div class="matrix" id="s2Xt2" style="grid-template-columns:repeat(8,32px);"></div></div>';
-    html += '<span class="operator">\u00d7</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X (8\u00d73)</span><div class="matrix" id="s2X3" style="grid-template-columns:repeat(3,36px);"></div></div>';
-    html += '<span class="equals">=</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\'X (3\u00d73)</span><div class="matrix" id="s2XtX" style="grid-template-columns:repeat(3,50px);"></div></div>';
-    html += '</div>';
-    html += '<div class="explain-box"><strong>X\'X</strong> is a symmetric 3\u00d73 matrix that captures the relationships between your predictors. The <strong>diagonal</strong> entries measure how much each variable varies (sum of squares). The <strong>off-diagonal</strong> entries measure the cross-products, reflecting correlations between predictors.</div>';
-    cont.innerHTML = html;
-    buildMatrixDOM('s2Xt2', Xt, {tiny:true});
-    buildMatrixDOM('s2X3', X, {tiny:true});
-    buildMatrixDOM('s2XtX', XtX);
-  }
-  else if(step===3){
-    html += '<div class="matrix-area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\' (3\u00d78)</span><div class="matrix" id="s2Xt3" style="grid-template-columns:repeat(8,32px);"></div></div>';
-    html += '<span class="operator">\u00d7</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">y (8\u00d71)</span><div class="matrix" id="s2y2" style="grid-template-columns:42px;"></div></div>';
-    html += '<span class="equals">=</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\'y (3\u00d71)</span><div class="matrix" id="s2Xty" style="grid-template-columns:50px;"></div></div>';
-    html += '</div>';
-    html += '<div class="explain-box"><strong>X\'y</strong> is a 3\u00d71 vector that captures how each predictor relates to the outcome. The first entry (182) is the sum of all y values. The second (828) is the sum of Hours Studied \u00d7 Score. The third (1839) is the sum of Hours Slept \u00d7 Score. These are the "raw associations."</div>';
-    cont.innerHTML = html;
-    buildMatrixDOM('s2Xt3', Xt, {tiny:true});
-    buildMatrixDOM('s2y2', y, {small:true});
-    buildMatrixDOM('s2Xty', XtyCol);
-  }
-  else if(step===4){
-    html += '<div class="matrix-area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">(X\'X)\u207B\u00B9 (3\u00d73)</span><div class="matrix" id="s2inv" style="grid-template-columns:repeat(3,64px);"></div></div>';
-    html += '</div>';
-    html += '<div class="explain-box">Inverting <strong>X\'X</strong> "removes" the correlations between predictors. Where X\'X tells you how predictors overlap, (X\'X)\u207B\u00B9 undoes that overlap so each coefficient reflects its <strong>own unique effect</strong>. Without this step, a coefficient would conflate a predictor\'s direct effect with the indirect effect through correlated variables.</div>';
-    cont.innerHTML = html;
-    buildMatrixDOM('s2inv', XtXinv.map(r=>r.map(v=>v.toFixed(4))));
-    document.querySelectorAll('#s2inv .matrix-cell').forEach(c=>c.style.width='64px');
-  }
-  else if(step===5){
-    html += '<div class="matrix-area">';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">(X\'X)\u207B\u00B9</span><div class="matrix" id="s2inv2" style="grid-template-columns:repeat(3,56px);"></div></div>';
-    html += '<span class="operator">\u00d7</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">X\'y</span><div class="matrix" id="s2Xty2" style="grid-template-columns:50px;"></div></div>';
-    html += '<span class="equals">=</span>';
-    html += '<div class="matrix-wrapper"><span class="matrix-label">\u03B2</span><div class="matrix" id="s2beta" style="grid-template-columns:64px;"></div></div>';
-    html += '</div>';
-    html += '<div class="explain-box" style="text-align:center;font-size:1.1rem;">';
-    html += '<strong>\u03B2\u0302\u2080</strong> (Intercept) = <strong>3.97</strong> &nbsp;&bull;&nbsp; ';
-    html += '<strong>\u03B2\u0302\u2081</strong> (Hours Studied) = <strong>2.69</strong> &nbsp;&bull;&nbsp; ';
-    html += '<strong>\u03B2\u0302\u2082</strong> (Hours Slept) = <strong>0.94</strong>';
-    html += '<br><br>Each additional hour of studying increases the predicted score by <strong>2.69 points</strong> (holding sleep constant). Each additional hour of sleep increases it by <strong>0.94 points</strong> (holding studying constant).';
-    html += '</div>';
-    cont.innerHTML = html;
-    buildMatrixDOM('s2inv2', XtXinv.map(r=>r.map(v=>v.toFixed(2))), {small:true});
-    document.querySelectorAll('#s2inv2 .matrix-cell').forEach(c=>{c.style.width='56px';c.classList.add('small');});
-    buildMatrixDOM('s2Xty2', XtyCol);
-    buildMatrixDOM('s2beta', beta.map(r=>[r[0].toFixed(2)]));
-    document.querySelectorAll('#s2beta .matrix-cell').forEach(c=>{c.style.width='64px'; c.classList.add('result-filled');});
-  }
+  return h;
 }
 
-document.getElementById('btnNextStep').addEventListener('click', ()=>{ if(currentStep<5) renderStep(currentStep+1); });
-document.getElementById('btnPrevStep').addEventListener('click', ()=>{ if(currentStep>0) renderStep(currentStep-1); });
-document.querySelectorAll('#stepNav .step-dot').forEach(d=>d.addEventListener('click', function(){ renderStep(+this.dataset.step); }));
-renderStep(0);
+/* Step 6 */
+function renderStep6() {
+  var h = '<h3 style="color:var(--accent)">Step 6: Take Derivative, Set to Zero</h3>';
 
-/* ========== SECTION 4: Correlation Demo (was Section 3) ========== */
-/* We generate data with controllable correlation and known DGP:
-   y = 1 + 2*x1 + 3*x2 + eps
-   True beta1 = 2. Simple regression beta1 will be biased when x1,x2 correlated. */
+  h += '<div class="card card-purple">';
+  h += '<div class="math-block" style="font-size:1.05rem;line-height:2.4">';
+  h += '<div>Recall: SSE = <em>y</em>&#7488;<em>y</em> &minus; 2<em>b</em>&#7488;<em>X</em>&#7488;<em>y</em> + <em>b</em>&#7488;<em>X</em>&#7488;<em>Xb</em></div>';
+  h += '<div style="margin-top:16px">Taking the derivative with respect to <em>b</em>:</div>';
+  h += '<div style="margin-top:8px;font-size:1.1rem">';
+  h += '<sup>&part;SSE</sup>&frasl;<sub>&part;<em>b</em></sub> = &minus;2<em>X</em>&#7488;<em>y</em> + 2<em>X</em>&#7488;<em>Xb</em>';
+  h += '</div>';
+  h += '<div style="margin-top:16px">Setting equal to zero:</div>';
+  h += '<div style="margin-top:8px;font-size:1.1rem">';
+  h += '&minus;2<em>X</em>&#7488;<em>y</em> + 2<em>X</em>&#7488;<em>Xb</em> = <strong>0</strong>';
+  h += '</div>';
+  h += '</div></div>';
 
-let corrData = null;
-const N_PTS = 80;
-const TRUE_B0 = 1, TRUE_B1 = 2, TRUE_B2 = 3;
-const SEED = 42;
+  h += '<div class="card" style="color:var(--text-muted)">';
+  h += '<strong>Matrix calculus rules used:</strong><br>';
+  h += '&bull; &part;(<em>b</em>&#7488;<em>a</em>)/&part;<em>b</em> = <em>a</em> (derivative of linear term)<br>';
+  h += '&bull; &part;(<em>b</em>&#7488;<em>Ab</em>)/&part;<em>b</em> = 2<em>Ab</em> (derivative of quadratic form, <em>A</em> symmetric)';
+  h += '</div>';
 
-// Seeded pseudo-random (simple LCG)
-function seededRand(seed){
-  let s = seed;
-  return function(){
-    s = (s * 1664525 + 1013904223) & 0xFFFFFFFF;
-    return (s >>> 0) / 0xFFFFFFFF;
-  };
+  return h;
 }
 
-// Box-Muller for normal samples
-function normalSamples(n, rng){
-  const out = [];
-  for(let i=0;i<n;i+=2){
-    const u1 = rng(), u2 = rng();
-    const z0 = Math.sqrt(-2*Math.log(u1+1e-10))*Math.cos(2*Math.PI*u2);
-    const z1 = Math.sqrt(-2*Math.log(u1+1e-10))*Math.sin(2*Math.PI*u2);
-    out.push(z0);
-    if(i+1<n) out.push(z1);
-  }
-  return out;
+/* Step 7 */
+function renderStep7() {
+  var h = '<h3 style="color:var(--accent)">Step 7: Normal Equations &rarr; Solution</h3>';
+
+  h += '<div class="card card-purple">';
+  h += '<div class="math-block" style="font-size:1.05rem;line-height:2.2">';
+  h += '<div>From the first-order condition:</div>';
+  h += '<div style="margin-top:8px;font-size:1.15rem;font-weight:700"><em>X</em>&#7488;<em>X</em> &beta;&#770; = <em>X</em>&#7488;<em>y</em></div>';
+  h += '<div style="margin-top:16px">Multiply both sides by (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup>:</div>';
+  h += '<div style="margin-top:8px;font-size:1.2rem;font-weight:700;color:var(--accent)">&beta;&#770; = (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>y</em></div>';
+  h += '</div></div>';
+
+  h += '<div class="card card-green">';
+  h += '<h4 style="margin-top:0">With Our Data</h4>';
+  h += '<div class="math-block" style="font-size:0.85rem">';
+  h += colVec(betaHat.map(function(v) { return fmt(v, 2); }), { cls: 'small' });
+  h += '<span class="eq-sign">=</span>';
+  h += mat(XtXinv.map(function(r) { return r.map(function(v) { return fmt(v, 4); }); }), { cls: 'tiny' });
+  h += colVec(Xty, { cls: 'small' });
+  h += '</div></div>';
+
+  return h;
 }
 
-function generateData(rho){
-  const rng = seededRand(SEED);
-  const z1 = normalSamples(N_PTS, rng);
-  const z2 = normalSamples(N_PTS, rng);
-  const eps = normalSamples(N_PTS, rng);
-  const x1 = [], x2 = [], yy = [];
-  for(let i=0;i<N_PTS;i++){
-    x1[i] = z1[i];
-    x2[i] = rho * z1[i] + Math.sqrt(1 - rho*rho) * z2[i];
-    yy[i] = TRUE_B0 + TRUE_B1*x1[i] + TRUE_B2*x2[i] + eps[i]*1.0;
-  }
-  return {x1, x2, y: yy};
+/* Step 8 */
+function renderStep8() {
+  var h = '<h3 style="color:var(--accent)">Step 8: Intuition Behind the Formula</h3>';
+  h += '<p style="font-family:Georgia,serif;font-size:1.05rem">&beta;&#770; = (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>y</em></p>';
+
+  h += '<div class="two-col">';
+
+  h += '<div class="card card-purple">';
+  h += '<h4 style="margin-top:0;color:var(--accent)">(<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> &mdash; Scaling Factor</h4>';
+  h += '<p><em>X</em>&#7488;<em>X</em> captures the <strong>variance and covariance structure</strong> of the regressors. Its inverse adjusts for how spread out and correlated the X variables are.</p>';
+  h += '<p>When regressors are highly correlated, <em>X</em>&#7488;<em>X</em> is close to singular, and its inverse has large entries &rarr; <strong>large variance</strong> of estimates.</p>';
+  h += '<p><strong>Analogy:</strong> In simple regression, this corresponds to 1/&Sigma;(x<sub>i</sub> &minus; x&#772;)&sup2;.</p>';
+  h += '</div>';
+
+  h += '<div class="card card-green">';
+  h += '<h4 style="margin-top:0;color:var(--green)"><em>X</em>&#7488;<em>y</em> &mdash; Cross-Product</h4>';
+  h += '<p><em>X</em>&#7488;<em>y</em> measures the <strong>raw correlation</strong> between each regressor and the outcome variable.</p>';
+  h += '<p>Each element of <em>X</em>&#7488;<em>y</em> sums how much each regressor &ldquo;moves with&rdquo; the outcome: &Sigma; x<sub>ij</sub> y<sub>i</sub>.</p>';
+  h += '<p><strong>Analogy:</strong> In simple regression, this corresponds to &Sigma;(x<sub>i</sub> &minus; x&#772;)(y<sub>i</sub> &minus; y&#772;).</p>';
+  h += '</div>';
+
+  h += '</div>';
+
+  h += '<div class="card" style="text-align:center;font-style:italic;color:var(--text-muted)">';
+  h += 'OLS balances &ldquo;how much X moves with y&rdquo; against &ldquo;how much X varies on its own&rdquo; to isolate the independent contribution of each regressor.';
+  h += '</div>';
+
+  return h;
 }
 
-function olsSimple(x, y){
-  const n = x.length;
-  let sx=0, sy=0, sxy=0, sx2=0;
-  for(let i=0;i<n;i++){ sx+=x[i]; sy+=y[i]; sxy+=x[i]*y[i]; sx2+=x[i]*x[i]; }
-  const b = (sxy - sx*sy/n) / (sx2 - sx*sx/n);
-  return b;
+/* Step 9 */
+function renderStep9() {
+  var h = '<h3 style="color:var(--accent)">Step 9: Unbiasedness of &beta;&#770;</h3>';
+  h += '<p>We show that E(&beta;&#770;) = &beta; (the OLS estimator is unbiased).</p>';
+
+  h += '<div class="card card-purple">';
+  h += '<div class="math-block" style="font-size:1rem;line-height:2.4;text-align:left;padding-left:20px">';
+  h += '<div><strong>Start with:</strong> &beta;&#770; = (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>y</em></div>';
+  h += '<div style="margin-top:10px"><strong>Substitute</strong> <em>y</em> = <em>X&beta;</em> + <em>u</em>:</div>';
+  h += '<div style="margin-left:20px">&beta;&#770; = (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;(<em>X&beta;</em> + <em>u</em>)</div>';
+  h += '<div style="margin-top:10px"><strong>Distribute:</strong></div>';
+  h += '<div style="margin-left:20px">&beta;&#770; = (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>X&beta;</em> + (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>u</em></div>';
+  h += '<div style="margin-top:10px"><strong>Simplify</strong> (since (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup>(<em>X</em>&#7488;<em>X</em>) = <em>I</em>):</div>';
+  h += '<div style="margin-left:20px;font-weight:700">&beta;&#770; = &beta; + (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>u</em></div>';
+  h += '<div style="margin-top:14px"><strong>Take expectations</strong> (conditioning on <em>X</em>):</div>';
+  h += '<div style="margin-left:20px">E(&beta;&#770; | <em>X</em>) = &beta; + (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488; E(<em>u</em> | <em>X</em>)</div>';
+  h += '<div style="margin-top:10px">Under the assumption E(<em>u</em> | <em>X</em>) = <strong>0</strong>:</div>';
+  h += '<div style="margin-left:20px;font-size:1.2rem;font-weight:700;color:var(--accent)">E(&beta;&#770; | <em>X</em>) = &beta;</div>';
+  h += '</div></div>';
+
+  h += '<div class="card" style="color:var(--text-muted)">';
+  h += '<strong>Key assumption:</strong> E(<em>u</em> | <em>X</em>) = 0 (strict exogeneity). This means the error is uncorrelated with all regressors. If this fails, OLS is biased.';
+  h += '</div>';
+
+  return h;
 }
 
-function olsMultiple(x1, x2, y){
-  // Manual 2-predictor OLS with intercept
-  const n = x1.length;
-  let s1=0,s2=0,sy=0,s11=0,s22=0,s12=0,s1y=0,s2y=0;
-  for(let i=0;i<n;i++){
-    s1+=x1[i]; s2+=x2[i]; sy+=y[i];
-    s11+=x1[i]*x1[i]; s22+=x2[i]*x2[i]; s12+=x1[i]*x2[i];
-    s1y+=x1[i]*y[i]; s2y+=x2[i]*y[i];
-  }
-  // Demeaned sums
-  const m1=s1/n, m2=s2/n, my=sy/n;
-  let v11=0,v22=0,v12=0,v1y=0,v2y=0;
-  for(let i=0;i<n;i++){
-    const d1=x1[i]-m1, d2=x2[i]-m2, dy=y[i]-my;
-    v11+=d1*d1; v22+=d2*d2; v12+=d1*d2; v1y+=d1*dy; v2y+=d2*dy;
-  }
-  const det = v11*v22 - v12*v12;
-  const b1 = (v22*v1y - v12*v2y)/det;
-  const b2 = (v11*v2y - v12*v1y)/det;
-  return {b1, b2};
+/* Step 10 */
+function renderStep10() {
+  var h = '<h3 style="color:var(--accent)">Step 10: Variance of &beta;&#770;</h3>';
+  h += '<p>Deriving the variance-covariance matrix of the OLS estimator.</p>';
+
+  h += '<div class="card card-purple">';
+  h += '<div class="math-block" style="font-size:1rem;line-height:2.4;text-align:left;padding-left:20px">';
+  h += '<div><strong>From Step 9:</strong> &beta;&#770; &minus; &beta; = (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>u</em></div>';
+  h += '<div style="margin-top:12px"><strong>Variance definition:</strong></div>';
+  h += '<div style="margin-left:20px">Var(&beta;&#770; | <em>X</em>) = E[(&beta;&#770; &minus; &beta;)(&beta;&#770; &minus; &beta;)&#7488; | <em>X</em>]</div>';
+  h += '<div style="margin-top:10px"><strong>Substitute:</strong></div>';
+  h += '<div style="margin-left:20px">= E[(<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>uu</em>&#7488;<em>X</em> (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> | <em>X</em>]</div>';
+  h += '<div style="margin-top:10px"><strong>Factor out non-random terms:</strong></div>';
+  h += '<div style="margin-left:20px">= (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488; E(<em>uu</em>&#7488; | <em>X</em>) <em>X</em> (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup></div>';
+  h += '<div style="margin-top:12px">Under <strong>homoskedasticity</strong>: E(<em>uu</em>&#7488; | <em>X</em>) = &sigma;&sup2;<em>I</em></div>';
+  h += '<div style="margin-left:20px">= &sigma;&sup2; (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> <em>X</em>&#7488;<em>X</em> (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup></div>';
+  h += '<div style="margin-left:20px">= &sigma;&sup2; (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup></div>';
+  h += '<div style="margin-top:12px;font-size:1.2rem;font-weight:700;color:var(--accent)">Var(&beta;&#770; | <em>X</em>) = &sigma;&sup2; (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup></div>';
+  h += '</div></div>';
+
+  h += '<div class="card card-green">';
+  h += '<h4 style="margin-top:0">With Our Data: (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup></h4>';
+  h += '<div class="math-block">';
+  h += mat(XtXinv.map(function(r) { return r.map(function(v) { return fmt(v, 4); }); }));
+  h += '</div>';
+  h += '<p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:0">Multiply by &sigma;&sup2; to get the variance of each coefficient. Diagonal entries give Var(&beta;&#770;<sub>j</sub>).</p>';
+  h += '</div>';
+
+  h += '<div class="card" style="color:var(--text-muted)">';
+  h += '<strong>Implications:</strong><br>';
+  h += '&bull; More variation in <em>X</em> (larger <em>X</em>&#7488;<em>X</em>) &rarr; smaller variance &rarr; more precise estimates<br>';
+  h += '&bull; Higher correlation among regressors &rarr; larger off-diagonal entries in (<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> &rarr; multicollinearity';
+  h += '</div>';
+
+  return h;
 }
 
-function updateSection3(){
-  const rho = +document.getElementById('corrSlider').value / 100;
-  document.getElementById('corrLabel').textContent = 'r = ' + rho.toFixed(2);
+/* ===== SECTION 3: OLS BUILDING BLOCKS ===== */
+function renderBlocks() {
+  var area = document.getElementById('blocks-area');
+  var h = '';
 
-  const data = generateData(rho);
-  const bSimple = olsSimple(data.x1, data.y);
-  const bMult = olsMultiple(data.x1, data.x2, data.y);
-
-  document.getElementById('betaSimple').innerHTML = '&beta;<sub>1</sub> = ' + bSimple.toFixed(2);
-  document.getElementById('betaMultiple').innerHTML = '&beta;<sub>1</sub> = ' + bMult.b1.toFixed(2);
-
-  // Divergence styling
-  const diff = Math.abs(bSimple - bMult.b1);
-  document.getElementById('cardSimple').classList.toggle('diverging', diff > 0.5);
-
-  // Explanation
-  const expEl = document.getElementById('corrExplain');
-  const absR = Math.abs(rho);
-  if(absR < 0.05){
-    expEl.innerHTML = 'When x<sub>1</sub> and x<sub>2</sub> are uncorrelated (r&nbsp;\u2248&nbsp;0), the simple and multiple regression coefficients are virtually identical. There is no confounding to adjust for.';
-  } else if(absR < 0.4){
-    expEl.innerHTML = 'With a mild correlation of r&nbsp;=&nbsp;'+rho.toFixed(2)+', the simple regression coefficient (' + bSimple.toFixed(2) + ') starts to differ from the multiple regression coefficient (' + bMult.b1.toFixed(2) + '). The simple regression partially picks up x<sub>2</sub>\'s effect through the correlated x<sub>1</sub>.';
-  } else {
-    const dir = rho > 0 ? 'positively' : 'negatively';
-    expEl.innerHTML = 'With x<sub>1</sub> and x<sub>2</sub> '+dir+' correlated at r&nbsp;=&nbsp;'+rho.toFixed(2)+', the simple regression coefficient (&beta;<sub>1</sub>&nbsp;=&nbsp;' + bSimple.toFixed(2) + ') is substantially '+(rho>0?'inflated':'deflated')+' compared to the multiple regression estimate (&beta;<sub>1</sub>&nbsp;=&nbsp;' + bMult.b1.toFixed(2) + '). The true value is 2.00. The simple regression '+(rho>0?'attributes some of x<sub>2</sub>\'s positive effect to x<sub>1</sub>':'is pulled in the opposite direction by x<sub>2</sub>\'s effect flowing through the negative correlation')+', because it cannot distinguish the two predictors\' contributions.';
+  // Transpose of X
+  var Xt = [];
+  for (var c = 0; c < X[0].length; c++) {
+    Xt.push(X.map(function(row) { return row[c]; }));
   }
 
-  drawScatter(data);
+  // Step 1: X
+  h += '<div class="walk-step"><div class="walk-step-title" onclick="toggleWalk(this)">Step 1: The Design Matrix X (8 &times; 3)</div>';
+  h += '<div class="walk-step-content">';
+  h += '<div class="math-block"><span class="math-label"><em>X</em> = </span>';
+  h += mat(X);
+  h += '</div>';
+  h += '<p style="color:var(--text-muted);font-size:0.88rem">8 stores, 3 columns: intercept (1s), ad spend ($k), store size (100 sqft). y = monthly revenue ($k).</p>';
+  h += '</div></div>';
+
+  // Step 2: X'
+  h += '<div class="walk-step"><div class="walk-step-title" onclick="toggleWalk(this)">Step 2: Transpose X&#7488; (3 &times; 8)</div>';
+  h += '<div class="walk-step-content">';
+  h += '<div class="math-block"><span class="math-label"><em>X</em>&#7488; = </span>';
+  h += mat(Xt, { cls: 'small' });
+  h += '</div>';
+  h += '<p style="color:var(--text-muted);font-size:0.88rem">Rows become columns: each row of X&#7488; represents one variable across all observations.</p>';
+  h += '</div></div>';
+
+  // Step 3: X'X
+  h += '<div class="walk-step"><div class="walk-step-title" onclick="toggleWalk(this)">Step 3: X&#7488;X (3 &times; 3)</div>';
+  h += '<div class="walk-step-content">';
+  h += '<div class="math-block"><span class="math-label"><em>X</em>&#7488;<em>X</em> = </span>';
+  h += mat(XtX);
+  h += '</div>';
+  h += '<p style="color:var(--text-muted);font-size:0.88rem">Captures the variation and covariation of the regressors. Diagonal: sum of squares. Off-diagonal: cross-products.</p>';
+  h += '</div></div>';
+
+  // Step 4: X'y
+  h += '<div class="walk-step"><div class="walk-step-title" onclick="toggleWalk(this)">Step 4: X&#7488;y (3 &times; 1)</div>';
+  h += '<div class="walk-step-content">';
+  h += '<div class="math-block"><span class="math-label"><em>X</em>&#7488;<em>y</em> = </span>';
+  h += colVec(Xty);
+  h += '</div>';
+  h += '<p style="color:var(--text-muted);font-size:0.88rem">Cross-product of regressors with the outcome. Measures how each X variable co-moves with y.</p>';
+  h += '</div></div>';
+
+  // Step 5: (X'X)^-1
+  h += '<div class="walk-step"><div class="walk-step-title" onclick="toggleWalk(this)">Step 5: (X&#7488;X)<sup>&minus;1</sup> (3 &times; 3)</div>';
+  h += '<div class="walk-step-content">';
+  h += '<div class="math-block"><span class="math-label">(<em>X</em>&#7488;<em>X</em>)<sup>&minus;1</sup> = </span>';
+  h += mat(XtXinv.map(function(r) { return r.map(function(v) { return fmt(v, 4); }); }));
+  h += '</div>';
+  h += '<p style="color:var(--text-muted);font-size:0.88rem">The inverse &ldquo;undoes&rdquo; the scaling of X&#7488;X. Proportional to the variance-covariance matrix of &beta;&#770;.</p>';
+  h += '</div></div>';
+
+  // Step 6: beta hat
+  h += '<div class="walk-step"><div class="walk-step-title" onclick="toggleWalk(this)">Step 6: &beta;&#770; = (X&#7488;X)<sup>&minus;1</sup> X&#7488;y</div>';
+  h += '<div class="walk-step-content">';
+  h += '<div class="math-block">';
+  h += '<span class="math-label">&beta;&#770; = </span>';
+  h += mat(XtXinv.map(function(r) { return r.map(function(v) { return fmt(v, 4); }); }), { cls: 'small' });
+  h += colVec(Xty, { cls: 'small' });
+  h += '<span class="eq-sign">=</span>';
+  h += colVec(betaHat.map(function(v) { return fmt(v, 2); }));
+  h += '</div>';
+  h += '<p style="color:var(--text-muted);font-size:0.88rem">&beta;&#770;<sub>0</sub> = ' + fmt(betaHat[0], 2) + ' (intercept), &beta;&#770;<sub>1</sub> = ' + fmt(betaHat[1], 2) + ' (ad spend), &beta;&#770;<sub>2</sub> = ' + fmt(betaHat[2], 2) + ' (store size).</p>';
+  h += '</div></div>';
+
+  area.innerHTML = h;
 }
 
-function drawScatter(data){
-  if(!data){
-    const rho = +document.getElementById('corrSlider').value / 100;
-    data = generateData(rho);
+function toggleWalk(el) {
+  var content = el.nextElementSibling;
+  content.style.display = (content.style.display === 'none') ? 'block' : 'none';
+}
+
+/* ===== SECTION 4: CORRELATION DEMO ===== */
+var corrVal = 0.3;
+
+function renderCorrArea() {
+  var area = document.getElementById('corr-area');
+  var h = '';
+
+  h += '<div class="card">';
+  h += '<div class="slider-group">';
+  h += '<label>Corr(x<sub>1</sub>, x<sub>2</sub>)</label>';
+  h += '<input type="range" id="sl-corr" min="-0.95" max="0.95" step="0.05" value="' + corrVal + '">';
+  h += '<span class="slider-val" id="sv-corr">' + fmt(corrVal, 2) + '</span>';
+  h += '</div></div>';
+
+  h += '<div class="two-col" style="margin-top:16px">';
+  h += '<div><canvas id="corrPlot" width="420" height="340"></canvas></div>';
+  h += '<div id="corr-explain"></div>';
+  h += '</div>';
+
+  area.innerHTML = h;
+
+  setTimeout(function() {
+    var sl = document.getElementById('sl-corr');
+    if (sl) {
+      sl.addEventListener('input', function() {
+        corrVal = parseFloat(this.value);
+        document.getElementById('sv-corr').textContent = fmt(corrVal, 2);
+        drawCorrelation();
+      });
+    }
+    drawCorrelation();
+  }, 0);
+}
+
+function drawCorrelation() {
+  var canvas = document.getElementById('corrPlot');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width, H = canvas.height;
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  var bgColor = isDark ? '#211f40' : '#fff';
+  var textColor = isDark ? '#e8e7f0' : '#1a1a2e';
+  var gridColor = isDark ? '#35335a' : '#e0e0e0';
+
+  ctx.fillStyle = bgColor;
+  ctx.fillRect(0, 0, W, H);
+
+  var n = 80;
+  var rho = corrVal;
+
+  // Seeded PRNG
+  var seed = 42;
+  function nextSeed() { seed = (seed * 16807 + 0) % 2147483647; return seed / 2147483647; }
+  function boxMuller() {
+    var u1 = nextSeed(), u2 = nextSeed();
+    return Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
   }
-  const canvas = document.getElementById('scatterCanvas');
-  const ctx = canvas.getContext('2d');
-  const W = canvas.width, H = canvas.height;
-  const dark = document.documentElement.getAttribute('data-theme') === 'dark';
 
-  ctx.clearRect(0,0,W,H);
-  ctx.fillStyle = dark ? '#1e1e3a' : '#fafafe';
-  ctx.fillRect(0,0,W,H);
+  // True: y = 2 + 1.5*x1 + 1.0*x2 + noise
+  var trueB1 = 1.5;
+  var x1s = [], x2s = [], ys = [];
+  var pts = [];
+  for (var i = 0; i < n; i++) {
+    var z1 = boxMuller(), z2 = boxMuller();
+    var xi1 = z1 * 2 + 5;
+    var xi2 = (rho * z1 + Math.sqrt(1 - rho * rho) * z2) * 2 + 5;
+    var yi = 2 + 1.5 * xi1 + 1.0 * xi2 + boxMuller() * 1.5;
+    x1s.push(xi1); x2s.push(xi2); ys.push(yi);
+    pts.push({ x: xi1, y: yi });
+  }
 
-  // Axes
-  const pad = 50;
-  ctx.strokeStyle = dark ? '#3a3a60' : '#d4d3e8';
-  ctx.lineWidth = 1;
+  // Simple regression: y ~ x1
+  var sx1 = 0, sy = 0, sx1x1 = 0, sx1y = 0;
+  for (var i = 0; i < n; i++) {
+    sx1 += x1s[i]; sy += ys[i]; sx1x1 += x1s[i] * x1s[i]; sx1y += x1s[i] * ys[i];
+  }
+  var b1_simple = (n * sx1y - sx1 * sy) / (n * sx1x1 - sx1 * sx1);
+  var b0_simple = (sy - b1_simple * sx1) / n;
+
+  // Multiple regression: y ~ x1 + x2
+  function solveOLS3(x1, x2, yy) {
+    var nn = x1.length;
+    var a = [[0,0,0],[0,0,0],[0,0,0]], b = [0,0,0];
+    for (var i = 0; i < nn; i++) {
+      var row = [1, x1[i], x2[i]];
+      for (var j = 0; j < 3; j++) {
+        b[j] += row[j] * yy[i];
+        for (var k = 0; k < 3; k++) a[j][k] += row[j] * row[k];
+      }
+    }
+    function det3(m) {
+      return m[0][0]*(m[1][1]*m[2][2]-m[1][2]*m[2][1])
+           - m[0][1]*(m[1][0]*m[2][2]-m[1][2]*m[2][0])
+           + m[0][2]*(m[1][0]*m[2][1]-m[1][1]*m[2][0]);
+    }
+    var D = det3(a);
+    function repl(col, vals) {
+      return a.map(function(row, i) { return row.map(function(v, j) { return j === col ? vals[i] : v; }); });
+    }
+    return [det3(repl(0,b))/D, det3(repl(1,b))/D, det3(repl(2,b))/D];
+  }
+  var bMulti = solveOLS3(x1s, x2s, ys);
+
+  // Draw
+  var margin = { t: 20, r: 20, b: 40, l: 50 };
+  var pw = W - margin.l - margin.r, ph = H - margin.t - margin.b;
+  var xMin = Math.min.apply(null, x1s) - 0.5, xMax = Math.max.apply(null, x1s) + 0.5;
+  var yMin = Math.min.apply(null, ys) - 1, yMax = Math.max.apply(null, ys) + 1;
+  function tx(v) { return margin.l + (v - xMin) / (xMax - xMin) * pw; }
+  function ty(v) { return margin.t + ph - (v - yMin) / (yMax - yMin) * ph; }
+
+  // Grid
+  ctx.strokeStyle = gridColor;
+  ctx.lineWidth = 0.5;
+  for (var i = 0; i <= 4; i++) {
+    var gy = margin.t + ph * i / 4;
+    ctx.beginPath(); ctx.moveTo(margin.l, gy); ctx.lineTo(W - margin.r, gy); ctx.stroke();
+  }
+
+  // Dots
+  ctx.fillStyle = ACCENT;
+  ctx.globalAlpha = 0.5;
+  for (var i = 0; i < pts.length; i++) {
+    ctx.beginPath(); ctx.arc(tx(pts[i].x), ty(pts[i].y), 3.5, 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.globalAlpha = 1;
+
+  // Simple regression line
+  ctx.strokeStyle = '#e65100';
+  ctx.lineWidth = 2.5;
   ctx.beginPath();
-  ctx.moveTo(pad, pad); ctx.lineTo(pad, H-pad);
-  ctx.lineTo(W-pad, H-pad);
+  ctx.moveTo(tx(xMin), ty(b0_simple + b1_simple * xMin));
+  ctx.lineTo(tx(xMax), ty(b0_simple + b1_simple * xMax));
   ctx.stroke();
 
-  // Axis labels
-  ctx.fillStyle = dark ? '#9999bb' : '#6b6b8d';
-  ctx.font = 'bold 14px system-ui';
+  // Multiple regression line (at mean x2)
+  var mx2 = x2s.reduce(function(a, b) { return a + b; }, 0) / n;
+  var multiIntercept = bMulti[0] + bMulti[2] * mx2;
+  ctx.strokeStyle = '#2e7d32';
+  ctx.lineWidth = 2.5;
+  ctx.setLineDash([6, 4]);
+  ctx.beginPath();
+  ctx.moveTo(tx(xMin), ty(multiIntercept + bMulti[1] * xMin));
+  ctx.lineTo(tx(xMax), ty(multiIntercept + bMulti[1] * xMax));
+  ctx.stroke();
+  ctx.setLineDash([]);
+
+  // Labels
+  ctx.fillStyle = textColor;
+  ctx.font = '12px sans-serif';
   ctx.textAlign = 'center';
-  ctx.fillText('x\u2081 (predictor 1)', W/2, H-8);
+  ctx.fillText('x\u2081', W / 2, H - 5);
   ctx.save();
-  ctx.translate(14, H/2);
-  ctx.rotate(-Math.PI/2);
-  ctx.fillText('x\u2082 (predictor 2)', 0, 0);
+  ctx.translate(14, H / 2);
+  ctx.rotate(-Math.PI / 2);
+  ctx.fillText('y', 0, 0);
   ctx.restore();
 
-  // Scale
-  const minX = Math.min(...data.x1) - 0.5;
-  const maxX = Math.max(...data.x1) + 0.5;
-  const minY = Math.min(...data.x2) - 0.5;
-  const maxY = Math.max(...data.x2) + 0.5;
-  function sx(v){ return pad + (v - minX)/(maxX - minX)*(W - 2*pad); }
-  function sy(v){ return H - pad - (v - minY)/(maxY - minY)*(H - 2*pad); }
+  // Legend
+  ctx.font = '11px sans-serif';
+  ctx.fillStyle = '#e65100';
+  ctx.fillRect(margin.l + 10, margin.t + 8, 18, 3);
+  ctx.fillStyle = textColor;
+  ctx.textAlign = 'left';
+  ctx.fillText('Simple: y ~ x\u2081', margin.l + 32, margin.t + 14);
+  ctx.fillStyle = '#2e7d32';
+  ctx.setLineDash([4, 3]);
+  ctx.strokeStyle = '#2e7d32';
+  ctx.lineWidth = 2;
+  ctx.beginPath(); ctx.moveTo(margin.l + 10, margin.t + 26); ctx.lineTo(margin.l + 28, margin.t + 26); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.fillStyle = textColor;
+  ctx.fillText('Multiple: y ~ x\u2081 + x\u2082', margin.l + 32, margin.t + 30);
 
-  // Points
-  for(let i=0;i<data.x1.length;i++){
-    ctx.beginPath();
-    ctx.arc(sx(data.x1[i]), sy(data.x2[i]), 4, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(67,65,138,0.6)';
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(67,65,138,0.8)';
-    ctx.lineWidth = 1;
-    ctx.stroke();
-  }
+  // Explanation
+  var explainDiv = document.getElementById('corr-explain');
+  if (explainDiv) {
+    var eh = '<div class="card card-purple">';
+    eh += '<h4 style="margin-top:0">Coefficient on x<sub>1</sub></h4>';
+    eh += '<table style="width:100%;font-family:Georgia,serif;font-size:0.95rem">';
+    eh += '<tr><td>Simple regression:</td><td style="font-weight:700;color:#e65100">' + fmt(b1_simple, 3) + '</td></tr>';
+    eh += '<tr><td>Multiple regression:</td><td style="font-weight:700;color:#2e7d32">' + fmt(bMulti[1], 3) + '</td></tr>';
+    eh += '<tr><td>True value:</td><td style="font-weight:700">' + fmt(trueB1, 3) + '</td></tr>';
+    eh += '</table>';
+    eh += '</div>';
 
-  // Tick marks
-  ctx.fillStyle = dark ? '#9999bb' : '#6b6b8d';
-  ctx.font = '11px system-ui';
-  ctx.textAlign = 'center';
-  for(let v = Math.ceil(minX); v <= Math.floor(maxX); v++){
-    ctx.fillText(v, sx(v), H - pad + 16);
-  }
-  ctx.textAlign = 'right';
-  for(let v = Math.ceil(minY); v <= Math.floor(maxY); v++){
-    ctx.fillText(v, pad - 8, sy(v) + 4);
+    eh += '<div class="card">';
+    var absR = Math.abs(corrVal);
+    if (absR < 0.15) {
+      eh += '<p>With <strong>near-zero correlation</strong> between x<sub>1</sub> and x<sub>2</sub>, the simple and multiple regression coefficients are similar. Omitting x<sub>2</sub> causes little bias.</p>';
+    } else if (absR < 0.5) {
+      eh += '<p>With <strong>moderate correlation</strong> (r=' + fmt(corrVal, 2) + '), the simple regression coefficient starts to deviate from the true value. The omitted variable x<sub>2</sub> is partially captured by x<sub>1</sub>.</p>';
+    } else {
+      eh += '<p>With <strong>high correlation</strong> (r=' + fmt(corrVal, 2) + '), omitting x<sub>2</sub> causes substantial <strong>omitted variable bias</strong>. The simple regression coefficient on x<sub>1</sub> absorbs the effect of x<sub>2</sub>.</p>';
+    }
+    eh += '<p style="font-size:0.88rem;color:var(--text-muted)">True DGP: y = 2 + 1.5x<sub>1</sub> + 1.0x<sub>2</sub> + noise</p>';
+    eh += '</div>';
+
+    explainDiv.innerHTML = eh;
   }
 }
 
-document.getElementById('corrSlider').addEventListener('input', updateSection3);
-updateSection3();
+/* ===== INIT ===== */
+document.addEventListener('DOMContentLoaded', function() {
+  renderMatMul();
+  renderStepDots();
+  renderDerivStep();
+  renderBlocks();
+  renderCorrArea();
+});
 </script>
 </body>
 </html>
