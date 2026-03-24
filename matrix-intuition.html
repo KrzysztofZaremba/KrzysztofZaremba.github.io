@@ -33,8 +33,8 @@ h1{font-size:1.6rem;text-align:center;margin:12px 0 4px;color:var(--accent)}
 .eq{text-align:center;font-family:Georgia,serif;font-size:1.2rem;margin:14px 0;letter-spacing:.3px}
 .eq-sm{font-size:1.05rem}
 /* Beta-hat */
-.hat{position:relative;font-family:Georgia,serif;font-style:italic;display:inline-block}
-.hat::after{content:'\u0302';position:absolute;left:0;top:-0.15em;font-size:1em}
+.hat{position:relative;font-family:Georgia,serif;font-style:italic;display:inline-block;padding-top:0.15em}
+.hat::after{content:'\u0302';position:absolute;left:50%;top:-0.1em;transform:translateX(-50%);font-size:1.1em;font-style:normal}
 .btn{background:var(--accent);color:#fff;border:none;padding:7px 16px;border-radius:var(--radius);cursor:pointer;font-size:.88rem;transition:.2s}
 .btn:hover{opacity:.85}
 .btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
@@ -104,13 +104,17 @@ const $=s=>document.querySelector(s);
 const $$=s=>document.querySelectorAll(s);
 const R=(v,d)=>+(v).toFixed(d===undefined?2:d);
 
-function mx(rows,cls){
-  let h='<span class="mx'+(cls?' '+cls:'')+'"><table>';
+function mx(rows,label){
+  let h='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table>';
   rows.forEach(r=>{h+='<tr>';(Array.isArray(r)?r:[r]).forEach(c=>{h+='<td>'+c+'</td>';});h+='</tr>';});
-  return h+'</table></span>';
+  h+='</table></span>';
+  if(label) h+='<span style="font-size:0.75rem;color:var(--accent);font-weight:600;margin-top:2px;font-family:Georgia,serif;">'+label+'</span>';
+  h+='</span>';
+  return h;
 }
-function mxV(arr){return mx(arr.map(v=>[v]));}
-function mxRow(arr){return mx([arr]);}
+function mxV(arr,label){return mx(arr.map(v=>[v]),label);}
+function mxRow(arr,label){return mx([arr],label);}
 
 function computeYhat(b){return X.map(r=>R(r[0]*b[0]+r[1]*b[1]+r[2]*b[2]));}
 function computeErrors(b){const yh=computeYhat(b);return y.map((v,i)=>R(v-yh[i]));}
@@ -252,7 +256,7 @@ function updateLive(){
   const p2=$('#liveCalc');
   if(p2){
     let h='<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:center;overflow-x:auto">';
-    h+=mx(X)+' \u00d7 '+mxV(bVals.map(v=>R(v,2)))+' = '+mxV(yh);
+    h+=mx(X,'X')+' \u00d7 '+mxV(bVals.map(v=>R(v,2)),'b')+' = '+mxV(yh,'\u0177 = Xb');
     h+='</div>';
     h+='<div style="margin-top:12px"><table style="width:100%;border-collapse:collapse;font-size:.9rem">';
     h+='<tr style="font-weight:600;border-bottom:2px solid var(--border)"><td>Store</td><td>Employees</td><td>Floor (100sf)</td><td>\u0177</td><td>y</td><td>e = y\u2212\u0177</td></tr>';
@@ -270,7 +274,7 @@ function updateLive(){
   const p3=$('#liveStep3');
   if(p3){
     let h='<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:center;overflow-x:auto">';
-    h+=mxV(y)+' \u2212 '+mxV(yh)+' = '+mxV(errs.map(v=>'<span class="'+eClass(v)+'">'+v+'</span>'));
+    h+=mxV(y,'y')+' \u2212 '+mxV(yh,'\u0177 = Xb')+' = '+mxV(errs.map(v=>'<span class="'+eClass(v)+'">'+v+'</span>'),'e = y\u2212Xb');
     h+='</div>';
     p3.innerHTML=h;
   }
@@ -278,11 +282,12 @@ function updateLive(){
   const p4=$('#liveStep4');
   if(p4){
     const sq=errs.map(v=>R(v*v));
-    let h='<div style="text-align:center;font-family:Georgia;margin:8px 0">';
-    h+=errs.map(v=>'('+v+')\u00b2').join(' + ');
-    h+='</div><div style="text-align:center;font-family:Georgia;margin:4px 0">';
-    h+='= '+sq.join(' + ')+' = <strong>'+sse+'</strong></div>';
-    h+='<div class="sse-box">Your SSE = <strong>'+sse+'</strong> &emsp;|&emsp; Minimum possible SSE = <strong>4.64</strong></div>';
+    let h='<div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;justify-content:center;overflow-x:auto;margin-bottom:10px">';
+    h+=mxRow(errs,'e\u1D40')+' \u00d7 '+mxV(errs,'e')+' = <span style="font-family:Georgia;font-size:1.1rem;font-weight:bold;color:var(--accent)">'+sse+'</span>';
+    h+='</div>';
+    h+='<div style="text-align:center;font-family:Georgia;font-size:.9rem;margin:6px 0">';
+    h+=errs.map(v=>'('+v+')\u00b2').join(' + ')+' = '+sq.join(' + ')+' = <strong>'+sse+'</strong></div>';
+    h+='<div class="sse-box">Your SSE = <strong>'+sse+'</strong> &emsp;|&emsp; Optimal SSE = <strong>4.64</strong></div>';
     p4.innerHTML=h;
   }
 }
@@ -292,16 +297,16 @@ function stp1(){
   let h='<div class="card"><h3>Step 1: The Model</h3>';
   h+='<div class="eq">y = X\u03B2 + u</div>';
   h+='<div class="two-col"><div>';
-  h+='<h3 style="font-size:.95rem">Symbolic Form</h3>';
+  h+='<h3 style="font-size:.95rem">\u{1F4D0} Symbolic</h3>';
   h+='<div style="text-align:center;overflow-x:auto">';
-  h+=mxV(['y\u2081','y\u2082','\u22EE','y<sub>n</sub>'])+' = ';
-  h+=mx([['1','x<sub>11</sub>','x<sub>12</sub>'],['1','x<sub>21</sub>','x<sub>22</sub>'],['\u22EE','\u22EE','\u22EE'],['1','x<sub>n1</sub>','x<sub>n2</sub>']])+' ';
-  h+=mxV(['\u03B2\u2080','\u03B2\u2081','\u03B2\u2082'])+' + '+mxV(['u\u2081','u\u2082','\u22EE','u<sub>n</sub>']);
+  h+=mxV(['y\u2081','y\u2082','\u22EE','y<sub>n</sub>'],'y')+' = ';
+  h+=mx([['1','x<sub>11</sub>','x<sub>12</sub>'],['1','x<sub>21</sub>','x<sub>22</sub>'],['\u22EE','\u22EE','\u22EE'],['1','x<sub>n1</sub>','x<sub>n2</sub>']],'X')+' ';
+  h+=mxV(['\u03B2\u2080','\u03B2\u2081','\u03B2\u2082'],'\u03B2')+' + '+mxV(['u\u2081','u\u2082','\u22EE','u<sub>n</sub>'],'u');
   h+='</div></div><div>';
-  h+='<h3 style="font-size:.95rem">Our Data (8 Stores)</h3>';
-  h+='<p style="font-size:.82rem;margin-bottom:4px"><em>Columns: intercept, employees, floor space (100 sqft) \u2192 sales ($k)</em></p>';
+  h+='<h3 style="font-size:.95rem">\u{1F522} Our Data (8 Stores)</h3>';
+  h+='<p style="font-size:.82rem;margin-bottom:4px"><em>Intercept | Employees | Floor space (100 sqft) \u2192 Sales ($k)</em></p>';
   h+='<div style="text-align:center;overflow-x:auto">';
-  h+=mxV(y)+' = '+mx(X)+' \u03B2 + u';
+  h+=mxV(y,'y: sales')+' = '+mx(X,'X: predictors')+' '+mxV(['?','?','?'],'\u03B2 = ?')+' + '+mxV(y.map(()=>'?'),'u: errors');
   h+='</div></div></div>';
   h+='<p style="margin-top:10px">Each row is one store. We observe sales (y) and predictors (X). We want to find coefficients \u03B2 that best predict sales from number of employees and floor space.</p></div>';
   return h;
@@ -309,7 +314,8 @@ function stp1(){
 function stp2(){
   let h=sliderBlock();
   h+='<div class="card"><h3>Step 2: See Xb Live</h3>';
-  h+='<p style="margin-bottom:8px">The matrix product Xb gives predicted sales for each store. Adjust sliders to see predictions and errors update in real-time.</p>';
+  h+='<div class="eq eq-sm">\u0177 = Xb &emsp;\u2192&emsp; e = y \u2212 \u0177 &emsp;\u2192&emsp; SSE = \u03A3 e<sub>i</sub>\u00b2</div>';
+  h+='<p style="margin-bottom:8px">Adjust sliders \u2192 matrix Xb updates \u2192 predictions, errors, and SSE all change in real time.</p>';
   h+='<div id="liveCalc"></div></div>';
   return h;
 }
@@ -334,11 +340,11 @@ function stp5(){
   h+='<div class="eq eq-sm">SSE = (y \u2212 Xb)<sup>\u22A4</sup>(y \u2212 Xb) = y<sup>\u22A4</sup>y \u2212 2b<sup>\u22A4</sup>'+XT+'y + b<sup>\u22A4</sup>'+XT+'Xb</div>';
   h+='<p style="margin:10px 0">Each piece computed with our data:</p>';
   h+='<div class="proof-step"><div class="label">y<sup>\u22A4</sup>y</div>';
-  h+='<div style="overflow-x:auto;text-align:center">'+mxRow(y)+' \u00d7 '+mxV(y)+' = '+y.map(v=>v+'\u00b2').join(' + ')+' = <strong>'+yty+'</strong></div></div>';
-  h+='<div class="proof-step"><div class="label">'+XT+'X (3\u00d73 matrix)</div>';
-  h+='<div style="overflow-x:auto;text-align:center">'+mx(XtX)+'</div></div>';
-  h+='<div class="proof-step"><div class="label">'+XT+'y (3\u00d71 vector)</div>';
-  h+='<div style="overflow-x:auto;text-align:center">'+mxV(Xty)+'</div></div>';
+  h+='<div style="overflow-x:auto;text-align:center">'+mxRow(y,'y\u1D40')+' \u00d7 '+mxV(y,'y')+' = '+y.map(v=>v+'\u00b2').join(' + ')+' = <strong>'+yty+'</strong></div></div>';
+  h+='<div class="proof-step"><div class="label">'+XT+'X (3\u00d73)</div>';
+  h+='<div style="overflow-x:auto;text-align:center">'+mx(XtX,XT+'X')+'</div></div>';
+  h+='<div class="proof-step"><div class="label">'+XT+'y (3\u00d71)</div>';
+  h+='<div style="overflow-x:auto;text-align:center">'+mxV(Xty,XT+'y')+'</div></div>';
   h+='<p>With these three pieces, SSE is a quadratic function of b \u2014 a bowl shape with a unique minimum.</p></div>';
   return h;
 }
@@ -348,20 +354,20 @@ function stp6(){
   h+='<p style="margin:10px 0">Setting the derivative to zero and rearranging gives the <strong>normal equations</strong>:</p>';
   h+='<div class="eq">'+XT+'X '+H('\u03B2')+' = '+XT+'y</div>';
   h+='<p style="margin:10px 0">With our data:</p>';
-  h+='<div style="text-align:center;overflow-x:auto">'+mx(XtX)+' '+mxV([H('\u03B2')+'\u2080',H('\u03B2')+'\u2081',H('\u03B2')+'\u2082'])+' = '+mxV(Xty)+'</div>';
+  h+='<div style="text-align:center;overflow-x:auto">'+mx(XtX,XT+'X')+' \u00d7 '+mxV([H('\u03B2')+'\u2080',H('\u03B2')+'\u2081',H('\u03B2')+'\u2082'],H('\u03B2'))+' = '+mxV(Xty,XT+'y')+'</div>';
   h+='<p style="margin-top:10px">This is a system of 3 equations in 3 unknowns. We solve by inverting '+XT+'X.</p></div>';
   return h;
 }
 function stp7(){
   let h='<div class="card"><h3>Step 7: Solution '+H('\u03B2')+' = ('+XT+'X)<sup>\u22121</sup>'+XT+'y</h3>';
   h+='<div class="proof-step"><div class="label">Step A: We already computed '+XT+'X</div>';
-  h+='<div style="text-align:center">'+mx(XtX)+'</div></div>';
-  h+='<div class="proof-step"><div class="label">Step B: Invert it \u2192 ('+XT+'X)<sup>\u22121</sup></div>';
-  h+='<div style="text-align:center">'+mx(XtXinv.map(r=>r.map(v=>R(v,4))))+'</div></div>';
-  h+='<div class="proof-step"><div class="label">Step C: We already computed '+XT+'y</div>';
-  h+='<div style="text-align:center">'+mxV(Xty)+'</div></div>';
-  h+='<div class="proof-step"><div class="label">Step D: Multiply \u2192 '+H('\u03B2')+'</div>';
-  h+='<div class="eq">('+XT+'X)<sup>\u22121</sup> '+XT+'y = '+H('\u03B2')+' = '+mxV(betaHat)+'</div></div>';
+  h+='<div style="text-align:center">'+mx(XtX,XT+'X')+'</div></div>';
+  h+='<div class="proof-step"><div class="label">Step B: Invert it</div>';
+  h+='<div style="text-align:center">'+mx(XtXinv.map(r=>r.map(v=>R(v,4))),'('+XT+'X)<sup>\u22121</sup>')+'</div></div>';
+  h+='<div class="proof-step"><div class="label">Step C: '+XT+'y</div>';
+  h+='<div style="text-align:center">'+mxV(Xty,XT+'y')+'</div></div>';
+  h+='<div class="proof-step"><div class="label">Step D: Multiply</div>';
+  h+='<div style="text-align:center;overflow-x:auto">'+mx(XtXinv.map(r=>r.map(v=>R(v,4))),'('+XT+'X)<sup>\u22121</sup>')+' \u00d7 '+mxV(Xty,XT+'y')+' = '+mxV(betaHat,H('\u03B2'))+'</div></div>';
   h+='<div class="i-card i-green" style="margin-top:12px"><strong>Interpretation:</strong><br>';
   h+=H('\u03B2')+'\u2080 = 3.97 \u2192 baseline sales of $3,970/month<br>';
   h+=H('\u03B2')+'\u2081 = 2.69 \u2192 each additional employee adds ~$2,690/month in sales<br>';
