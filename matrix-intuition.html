@@ -33,8 +33,7 @@ h1{font-size:1.6rem;text-align:center;margin:12px 0 4px;color:var(--accent)}
 .eq{text-align:center;font-family:Georgia,serif;font-size:1.2rem;margin:14px 0;letter-spacing:.3px}
 .eq-sm{font-size:1.05rem}
 /* Beta-hat */
-.hat{position:relative;font-family:Georgia,serif;font-style:italic;display:inline-block;padding-top:0.15em}
-.hat::after{content:'\u0302';position:absolute;left:50%;top:-0.1em;transform:translateX(-50%);font-size:1.1em;font-style:normal}
+.hat{font-family:Georgia,serif;font-style:italic}
 .btn{background:var(--accent);color:#fff;border:none;padding:7px 16px;border-radius:var(--radius);cursor:pointer;font-size:.88rem;transition:.2s}
 .btn:hover{opacity:.85}
 .btn-outline{background:transparent;color:var(--accent);border:1px solid var(--accent)}
@@ -120,7 +119,7 @@ function computeYhat(b){return X.map(r=>R(r[0]*b[0]+r[1]*b[1]+r[2]*b[2]));}
 function computeErrors(b){const yh=computeYhat(b);return y.map((v,i)=>R(v-yh[i]));}
 function computeSSE(b){const e=computeErrors(b);return R(e.reduce((s,v)=>s+v*v,0));}
 function eClass(v){const a=Math.abs(v);return a<0.5?'e-green':a<2?'e-orange':'e-red';}
-function H(l){return '<span class="hat">'+l+'</span>';}
+function H(l){return '<span class="hat">'+l+'\u0302</span>';}
 const XT='X<sup>\u22A4</sup>';
 
 /* ===== THEME ===== */
@@ -223,7 +222,7 @@ function showStep(){
   $('#nextStep').disabled=currentStep===N_STEPS-1;
   const box=$('#stepBox');
   box.innerHTML=[stp1,stp2,stp3,stp4,stp5,stp6,stp7,stp8][currentStep]();
-  if(currentStep>=1&&currentStep<=3)setTimeout(attachSliders,0);
+  if(currentStep>=1&&currentStep<=4)setTimeout(attachSliders,0);
 }
 /* Slider HTML shared by steps 2-4 */
 function sliderBlock(){
@@ -290,6 +289,26 @@ function updateLive(){
     h+='<div class="sse-box">Your SSE = <strong>'+sse+'</strong> &emsp;|&emsp; Optimal SSE = <strong>4.64</strong></div>';
     p4.innerHTML=h;
   }
+  /* Step 5 panel — show full expansion with current b */
+  const p5=$('#liveStep5');
+  if(p5){
+    const b=bVals;
+    const bTXTy = R(b[0]*Xty[0]+b[1]*Xty[1]+b[2]*Xty[2]);
+    // b'X'Xb
+    let bXXb=0;
+    for(let i=0;i<3;i++) for(let j=0;j<3;j++) bXXb+=b[i]*XtX[i][j]*b[j];
+    bXXb=R(bXXb);
+    const sseCalc = R(yty - 2*bTXTy + bXXb);
+    let h='<div class="proof-step"><div class="label">With your b = ['+b.map(v=>R(v,1)).join(', ')+']</div>';
+    h+='<div style="font-family:Georgia,serif;font-size:.95rem;text-align:center;">';
+    h+='SSE = y\u1D40y \u2212 2b\u1D40'+XT+'y + b\u1D40'+XT+'Xb<br><br>';
+    h+='= '+yty+' \u2212 2\u00d7'+bTXTy+' + '+bXXb+'<br><br>';
+    h+='= '+yty+' \u2212 '+(2*bTXTy).toFixed(2)+' + '+bXXb+'<br><br>';
+    h+='= <strong style="color:var(--accent);font-size:1.2rem">'+sseCalc+'</strong>';
+    h+='</div></div>';
+    h+='<div class="sse-box">SSE(b) = <strong>'+sseCalc+'</strong> &emsp;|&emsp; Optimal SSE = <strong>4.64</strong></div>';
+    p5.innerHTML=h;
+  }
 }
 
 /* --- Individual step builders --- */
@@ -336,26 +355,38 @@ function stp4(){
   return h;
 }
 function stp5(){
-  let h='<div class="card"><h3>Step 5: Expanding SSE Algebraically</h3>';
+  let h=sliderBlock();
+  h+='<div class="card"><h3>Step 5: SSE in Matrix Form</h3>';
   h+='<div class="eq eq-sm">SSE = (y \u2212 Xb)<sup>\u22A4</sup>(y \u2212 Xb) = y<sup>\u22A4</sup>y \u2212 2b<sup>\u22A4</sup>'+XT+'y + b<sup>\u22A4</sup>'+XT+'Xb</div>';
-  h+='<p style="margin:10px 0">Each piece computed with our data:</p>';
-  h+='<div class="proof-step"><div class="label">y<sup>\u22A4</sup>y</div>';
-  h+='<div style="overflow-x:auto;text-align:center">'+mxRow(y,'y\u1D40')+' \u00d7 '+mxV(y,'y')+' = '+y.map(v=>v+'\u00b2').join(' + ')+' = <strong>'+yty+'</strong></div></div>';
-  h+='<div class="proof-step"><div class="label">'+XT+'X (3\u00d73)</div>';
+  h+='<p style="margin:10px 0">Three building blocks (constant matrices from data) + your choice of b:</p>';
+  h+='<div class="proof-step"><div class="label">\u2460 y<sup>\u22A4</sup>y (constant = '+yty+')</div>';
+  h+='<div style="overflow-x:auto;text-align:center">'+mxRow(y,'y\u1D40')+' \u00d7 '+mxV(y,'y')+' = <strong>'+yty+'</strong></div></div>';
+  h+='<div class="proof-step"><div class="label">\u2461 '+XT+'X (constant 3\u00d73 matrix)</div>';
   h+='<div style="overflow-x:auto;text-align:center">'+mx(XtX,XT+'X')+'</div></div>';
-  h+='<div class="proof-step"><div class="label">'+XT+'y (3\u00d71)</div>';
+  h+='<div class="proof-step"><div class="label">\u2462 '+XT+'y (constant 3\u00d71 vector)</div>';
   h+='<div style="overflow-x:auto;text-align:center">'+mxV(Xty,XT+'y')+'</div></div>';
-  h+='<p>With these three pieces, SSE is a quadratic function of b \u2014 a bowl shape with a unique minimum.</p></div>';
+  h+='<div id="liveStep5" style="margin-top:10px"></div></div>';
   return h;
 }
 function stp6(){
-  let h='<div class="card"><h3>Step 6: Derivative \u2192 Normal Equations</h3>';
-  h+='<div class="eq eq-sm">\u2202SSE/\u2202b = \u22122'+XT+'y + 2'+XT+'Xb = 0</div>';
-  h+='<p style="margin:10px 0">Setting the derivative to zero and rearranging gives the <strong>normal equations</strong>:</p>';
-  h+='<div class="eq">'+XT+'X '+H('\u03B2')+' = '+XT+'y</div>';
+  let h='<div class="card"><h3>Step 6: Minimize SSE \u2014 Derivative Rules</h3>';
+  h+='<p style="margin-bottom:10px">To minimize SSE(b) = y\u1D40y \u2212 2b\u1D40'+XT+'y + b\u1D40'+XT+'Xb, we take the derivative w.r.t. b and set it to zero.</p>';
+  h+='<div class="proof-step"><div class="label">Matrix derivative rules</div>';
+  h+='<div style="font-family:Georgia,serif;font-size:.95rem;">';
+  h+='<table style="border-collapse:collapse;margin:0 auto"><tr><td style="padding:4px 12px;border-bottom:1px solid var(--border)">If f(b) = c\u1D40b &ensp;(linear)</td><td style="padding:4px 12px;border-bottom:1px solid var(--border)">\u2192 \u2202f/\u2202b = c</td></tr>';
+  h+='<tr><td style="padding:4px 12px;border-bottom:1px solid var(--border)">If f(b) = b\u1D40Ab &ensp;(quadratic, A symmetric)</td><td style="padding:4px 12px;border-bottom:1px solid var(--border)">\u2192 \u2202f/\u2202b = 2Ab</td></tr>';
+  h+='<tr><td style="padding:4px 12px">If f(b) = constant</td><td style="padding:4px 12px">\u2192 \u2202f/\u2202b = 0</td></tr></table></div></div>';
+  h+='<div class="proof-step"><div class="label">Apply to SSE</div>';
+  h+='<div style="font-family:Georgia,serif;font-size:.95rem;">';
+  h+='<p>\u2202/\u2202b [y\u1D40y] = 0 &emsp;<span style="color:var(--accent)">(constant, no b)</span></p>';
+  h+='<p>\u2202/\u2202b [\u22122b\u1D40'+XT+'y] = \u22122'+XT+'y &emsp;<span style="color:var(--accent)">(linear rule, c = '+XT+'y)</span></p>';
+  h+='<p>\u2202/\u2202b [b\u1D40'+XT+'Xb] = 2'+XT+'Xb &emsp;<span style="color:var(--accent)">(quadratic rule, A = '+XT+'X)</span></p>';
+  h+='</div></div>';
+  h+='<div class="proof-step"><div class="label">Set to zero \u2192 Normal equations</div>';
+  h+='<div class="eq eq-sm">\u22122'+XT+'y + 2'+XT+'Xb = 0 &ensp;\u2192&ensp; '+XT+'X'+H('\u03B2')+' = '+XT+'y</div></div>';
   h+='<p style="margin:10px 0">With our data:</p>';
   h+='<div style="text-align:center;overflow-x:auto">'+mx(XtX,XT+'X')+' \u00d7 '+mxV([H('\u03B2')+'\u2080',H('\u03B2')+'\u2081',H('\u03B2')+'\u2082'],H('\u03B2'))+' = '+mxV(Xty,XT+'y')+'</div>';
-  h+='<p style="margin-top:10px">This is a system of 3 equations in 3 unknowns. We solve by inverting '+XT+'X.</p></div>';
+  h+='<p style="margin-top:10px">3 equations, 3 unknowns. Solve by inverting '+XT+'X.</p></div>';
   return h;
 }
 function stp7(){
