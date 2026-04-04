@@ -535,6 +535,37 @@ function stp6b(){
   h+='<span style="background:#fce4ec;padding:2px 7px;border-radius:4px;color:var(--red);font-weight:600">\u25CF Off-diagonal: cross products (co-variation)</span>';
   h+='</div></div>';
 
+  // ====== SYMBOLIC 3x3 INVERSE ======
+  h+='<div class="proof-step"><div class="label">Symbolic inverse of the full 3\u00d73 X\u1D40X</div>';
+  h+='<p style="font-size:.85rem;margin-bottom:8px;">Using shorthand: <strong style="color:var(--green)">a</strong>=n, <strong style="color:var(--blue)">b</strong>=\u03A3x<sub>1i</sub>, <strong style="color:var(--blue)">c</strong>=\u03A3x<sub>2i</sub>, <strong style="color:var(--orange)">d</strong>=\u03A3x<sub>1i</sub>\u00b2, <strong style="color:var(--red)">e</strong>=\u03A3x<sub>1i</sub>x<sub>2i</sub>, <strong style="color:var(--orange)">f</strong>=\u03A3x<sub>2i</sub>\u00b2</p>';
+
+  // The matrix to invert
+  h+='<div style="text-align:center;overflow-x:auto;font-family:Georgia,serif;font-size:.92rem;margin:8px 0;">';
+  h+=mx([['<span style=\"color:var(--green)\">a</span>','<span style=\"color:var(--blue)\">b</span>','<span style=\"color:var(--blue)\">c</span>'],['<span style=\"color:var(--blue)\">b</span>','<span style=\"color:var(--orange)\">d</span>','<span style=\"color:var(--red)\">e</span>'],['<span style=\"color:var(--blue)\">c</span>','<span style=\"color:var(--red)\">e</span>','<span style=\"color:var(--orange)\">f</span>']],'X\u1D40X');
+  h+='<span style="vertical-align:middle;margin:0 4px;font-size:1rem;">\u207B\u00B9</span>';
+  h+='<span style="vertical-align:middle;margin:0 8px;font-size:1.1rem;">=</span>';
+  h+='<span style="vertical-align:middle;font-size:.85rem;margin-right:4px;">1 / det \u00d7</span>';
+  h+=mx([['df \u2212 e\u00b2','\u2212(bf \u2212 ce)','be \u2212 cd'],['\u2212(bf \u2212 ce)','af \u2212 c\u00b2','\u2212(ae \u2212 bc)'],['be \u2212 cd','\u2212(ae \u2212 bc)','ad \u2212 b\u00b2']],'adj(X\u1D40X)');
+  h+='</div>';
+
+  // Determinant
+  h+='<div style="text-align:center;font-family:Georgia,serif;font-size:.88rem;margin:10px 0;padding:8px;background:rgba(67,65,138,.05);border-radius:6px;">';
+  h+='<strong>det(X\u1D40X)</strong> = <span style="color:var(--green)">a</span>(<span style="color:var(--orange)">d</span><span style="color:var(--orange)">f</span> \u2212 <span style="color:var(--red)">e</span>\u00b2) \u2212 <span style="color:var(--blue)">b</span>(<span style="color:var(--blue)">b</span><span style="color:var(--orange)">f</span> \u2212 <span style="color:var(--blue)">c</span><span style="color:var(--red)">e</span>) + <span style="color:var(--blue)">c</span>(<span style="color:var(--blue)">b</span><span style="color:var(--red)">e</span> \u2212 <span style="color:var(--blue)">c</span><span style="color:var(--orange)">d</span>)';
+  h+='</div>';
+
+  // Written out with full names
+  h+='<details style="margin-top:8px;"><summary style="cursor:pointer;font-size:.85rem;color:var(--accent);font-weight:600;">\u25B6 Click to see with full variable names</summary>';
+  h+='<div style="overflow-x:auto;font-family:Georgia,serif;font-size:.82rem;margin-top:8px;padding:10px;background:var(--card);border-radius:6px;border:1px solid var(--border);">';
+  h+='<table style="margin:0 auto;border-collapse:collapse;">';
+  h+='<tr><td style="padding:2px 6px;font-weight:600;color:var(--accent);">Element</td><td style="padding:2px 6px;font-weight:600;color:var(--accent);">Formula</td><td style="padding:2px 6px;font-weight:600;color:var(--accent);">What it captures</td></tr>';
+  h+='<tr><td style="padding:3px 6px;border-top:1px solid var(--border);">(1,1)</td><td style="padding:3px 6px;border-top:1px solid var(--border);">\u03A3x\u2081\u00b2\u00b7\u03A3x\u2082\u00b2 \u2212 (\u03A3x\u2081x\u2082)\u00b2</td><td style="padding:3px 6px;border-top:1px solid var(--border);font-size:.78rem;">Uncertainty in intercept (depends on both predictors\u2019 spread)</td></tr>';
+  h+='<tr><td style="padding:3px 6px;border-top:1px solid var(--border);">(2,2)</td><td style="padding:3px 6px;border-top:1px solid var(--border);">n\u00b7\u03A3x\u2082\u00b2 \u2212 (\u03A3x\u2082)\u00b2</td><td style="padding:3px 6px;border-top:1px solid var(--border);font-size:.78rem;">Uncertainty in \u03B2\u2081 (more spread in x\u2082 \u2192 smaller)</td></tr>';
+  h+='<tr><td style="padding:3px 6px;border-top:1px solid var(--border);">(3,3)</td><td style="padding:3px 6px;border-top:1px solid var(--border);">n\u00b7\u03A3x\u2081\u00b2 \u2212 (\u03A3x\u2081)\u00b2</td><td style="padding:3px 6px;border-top:1px solid var(--border);font-size:.78rem;">Uncertainty in \u03B2\u2082 (more spread in x\u2081 \u2192 smaller)</td></tr>';
+  h+='<tr><td style="padding:3px 6px;border-top:1px solid var(--border);">(2,3)</td><td style="padding:3px 6px;border-top:1px solid var(--border);">\u2212(n\u00b7\u03A3x\u2081x\u2082 \u2212 \u03A3x\u2081\u00b7\u03A3x\u2082)</td><td style="padding:3px 6px;border-top:1px solid var(--border);font-size:.78rem;">Negative \u2192 subtracts correlation between predictors</td></tr>';
+  h+='</table>';
+  h+='<p style="margin-top:8px;font-size:.82rem;">\u{1F4A1} Notice: the off-diagonal terms contain <strong>\u03A3x\u2081x\u2082</strong> (the cross product) with a <strong>minus sign</strong>. This is exactly how OLS \u201cremoves\u201d the effect of predictor correlation. If x\u2081 and x\u2082 were uncorrelated (\u03A3x\u2081x\u2082 = \u03A3x\u2081\u00b7\u03A3x\u2082/n), these off-diagonal elements would be zero and each coefficient could be estimated independently.</p>';
+  h+='</div></details></div>';
+
   // ====== NUMERIC SECOND ======
   h+='<div class="proof-step"><div class="label">With our 8-store data \u2014 hover over any element!</div>';
   h+='<p style="font-size:.85rem;margin-bottom:8px;">Now the same thing with actual numbers. Each element is a sum of products you can verify.</p>';
