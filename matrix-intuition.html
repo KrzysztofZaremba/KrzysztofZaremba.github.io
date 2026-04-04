@@ -252,6 +252,35 @@ function attachSliders(){
   });
   updateLive();
 }
+/* ===== X'X INTERACTIVE HIGHLIGHT ===== */
+const _Xt=[[1,1,1,1,1,1,1,1],[2,3,5,4,6,1,7,3],[5,8,12,10,15,4,11,6]];
+const _Xc=[[1,2,5],[1,3,8],[1,5,12],[1,4,10],[1,6,15],[1,1,4],[1,7,11],[1,3,6]];
+const _cN=['1 (intercept)','x\u2081 (employees)','x\u2082 (floor space)'];
+const _HL='rgba(67,65,138,.25)';const _HLr='rgba(67,65,138,.35)';
+function hlXtX(r,c){
+  // highlight row r in X' and col c in X
+  for(let i=0;i<8;i++){
+    const xt=document.getElementById('xt-'+r+'-'+i);if(xt)xt.style.background=_HL;
+    const xc=document.getElementById('x-'+i+'-'+c);if(xc)xc.style.background=_HL;
+  }
+  // highlight result cell
+  const res=document.getElementById('xtx-'+r+'-'+c);if(res)res.style.background=_HLr;
+  // build explanation
+  const el=document.getElementById('xtx-explain');if(!el)return;
+  let parts=[];for(let i=0;i<8;i++)parts.push(_Xt[r][i]+'\u00d7'+_Xc[i][c]);
+  const val=XtX[r][c];
+  el.innerHTML='<strong style="color:var(--accent)">Element ('+(_cN[r])+' , '+(_cN[c])+')</strong><br>'
+    +'<span style="font-family:Georgia,serif;font-size:.85rem;">= '+parts.join(' + ')+' = <strong>'+val+'</strong></span>';
+}
+function clrXtX(){
+  for(let r=0;r<3;r++)for(let c=0;c<8;c++){
+    const xt=document.getElementById('xt-'+r+'-'+c);if(xt)xt.style.background='';
+    const xc=document.getElementById('x-'+c+'-'+r<3?r:0);
+  }
+  for(let r=0;r<8;r++)for(let c=0;c<3;c++){const xc=document.getElementById('x-'+r+'-'+c);if(xc)xc.style.background='';}
+  for(let r=0;r<3;r++)for(let c=0;c<3;c++){const res=document.getElementById('xtx-'+r+'-'+c);if(res)res.style.background='';}
+  const el=document.getElementById('xtx-explain');if(el)el.innerHTML='\u{1F449} Hover over any element in X\u1D40X to see how it\u2019s computed';
+}
 function updateLive(){
   const yh=computeYhat(bVals),errs=computeErrors(bVals),sse=computeSSE(bVals);
   /* Step 2 panel */
@@ -431,36 +460,58 @@ function stp6(){
   return h;
 }
 function stp6b(){
-  let h=stepHead('6b','What is X\u1D40X and what does its inverse look like?','Before we can compute the OLS formula, we need to understand the key building block: X\u1D40X. Each element has a clear meaning.');
+  let h=stepHead('6b','What is X\u1D40X and what does its inverse look like?','X\u1D40X is the product of the transpose of X times X. Click any element in the result to see which row and column produced it.');
   h+='<div class="card" style="margin-top:0;border-top:none;">';
 
-  // X'X symbolic structure
-  h+='<div class="proof-step"><div class="label">The structure of X\u1D40X (3\u00d73 with intercept + 2 predictors)</div>';
-  h+='<p style="font-size:.88rem;margin-bottom:8px;">Each element of X\u1D40X is a sum of products of the columns of X. The diagonal captures <strong>variation</strong> within each predictor; the off-diagonal captures <strong>co-variation</strong> between predictors.</p>';
-  h+='<div style="text-align:center;overflow-x:auto;font-size:.9rem;">';
-  h+=mx([['<span style=\"color:var(--green)\">n</span>','<span style=\"color:var(--blue)\">\u03A3x<sub>1i</sub></span>','<span style=\"color:var(--blue)\">\u03A3x<sub>2i</sub></span>'],['<span style=\"color:var(--blue)\">\u03A3x<sub>1i</sub></span>','<span style=\"color:var(--orange)\">\u03A3x<sub>1i</sub>\u00b2</span>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>'],['<span style=\"color:var(--blue)\">\u03A3x<sub>2i</sub></span>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>','<span style=\"color:var(--orange)\">\u03A3x<sub>2i</sub>\u00b2</span>']],'X\u1D40X (symbolic)');
+  // Interactive X' x X multiplication
+  h+='<div class="proof-step"><div class="label">X\u1D40X = X\u1D40 \u00d7 X \u2014 click any element in the result!</div>';
+  h+='<p style="font-size:.85rem;margin-bottom:10px;">X\u1D40 (transpose) flips rows \u2194 columns. Each element of the result is a <strong>dot product</strong> of a row of X\u1D40 (= column of X) with a column of X.</p>';
+
+  // Build X transpose (3x8)
+  const Xt=[['1','1','1','1','1','1','1','1'],['2','3','5','4','6','1','7','3'],['5','8','12','10','15','4','11','6']];
+  const Xrows=[['1','2','5'],['1','3','8'],['1','5','12'],['1','4','10'],['1','6','15'],['1','1','4'],['1','7','11'],['1','3','6']];
+  const XtXvals=[[8,31,71],[31,149,323],[71,323,731]];
+  const colNames=['1','x<sub>1</sub>','x<sub>2</sub>'];
+
+  h+='<div id="xtx-interactive" style="text-align:center;overflow-x:auto;padding:8px 0;">';
+  // X transpose matrix
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="xt-table">';
+  for(let r=0;r<3;r++){h+='<tr>';for(let c=0;c<8;c++){h+='<td id="xt-'+r+'-'+c+'" style="font-size:.78rem;padding:2px 4px;">'+Xt[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X\u1D40 (3\u00d78)</span></span>';
+
+  h+='<span style="font-family:Georgia,serif;font-size:1.2rem;vertical-align:middle;margin:0 6px;">\u00d7</span>';
+
+  // X matrix
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="x-table">';
+  for(let r=0;r<8;r++){h+='<tr>';for(let c=0;c<3;c++){h+='<td id="x-'+r+'-'+c+'" style="font-size:.78rem;padding:2px 4px;">'+Xrows[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X (8\u00d73)</span></span>';
+
+  h+='<span style="font-family:Georgia,serif;font-size:1.2rem;vertical-align:middle;margin:0 6px;">=</span>';
+
+  // Result X'X matrix (clickable)
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="xtx-table">';
+  for(let r=0;r<3;r++){h+='<tr>';for(let c=0;c<3;c++){h+='<td id="xtx-'+r+'-'+c+'" style="padding:4px 8px;cursor:pointer;border-radius:3px;transition:.2s;font-weight:600;" onmouseover="hlXtX('+r+','+c+')" onmouseout="clrXtX()">'+XtXvals[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X\u1D40X (3\u00d73)</span></span>';
   h+='</div>';
-  h+='<div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px;font-size:.82rem;">';
-  h+='<span style="background:#e8f5e9;padding:3px 8px;border-radius:4px;color:var(--green);font-weight:600">\u25CF Diagonal (1,1): n = sample size</span>';
-  h+='<span style="background:#e3f2fd;padding:3px 8px;border-radius:4px;color:var(--blue);font-weight:600">\u25CF Off-diag row 1: sums of each predictor</span>';
-  h+='<span style="background:#fff3e0;padding:3px 8px;border-radius:4px;color:var(--orange);font-weight:600">\u25CF Diagonal: sum of squares (variation)</span>';
-  h+='<span style="background:#fce4ec;padding:3px 8px;border-radius:4px;color:var(--red);font-weight:600">\u25CF Off-diagonal: cross products (co-variation)</span>';
+
+  // Explanation box that updates on hover
+  h+='<div id="xtx-explain" style="text-align:center;font-size:.88rem;min-height:50px;padding:8px;margin:6px 0;background:var(--card);border:1px dashed var(--accent);border-radius:6px;transition:.3s;">';
+  h+='\u{1F449} Hover over any element in X\u1D40X to see how it\u2019s computed';
   h+='</div></div>';
 
-  // X'X with numbers
-  h+='<div class="proof-step"><div class="label">With our 8-store data (x<sub>1</sub> = employees, x<sub>2</sub> = floor space)</div>';
+  // Symbolic version
+  h+='<div class="proof-step"><div class="label">Symbolic: each element is a sum of products</div>';
   h+='<div style="text-align:center;overflow-x:auto;font-size:.9rem;">';
-  h+=mx([['<span style=\"color:var(--green)\">8</span>','<span style=\"color:var(--blue)\">31</span>','<span style=\"color:var(--blue)\">71</span>'],['<span style=\"color:var(--blue)\">31</span>','<span style=\"color:var(--orange)\">149</span>','<span style=\"color:var(--red)\">323</span>'],['<span style=\"color:var(--blue)\">71</span>','<span style=\"color:var(--red)\">323</span>','<span style=\"color:var(--orange)\">731</span>']],'X\u1D40X (numbers)');
+  h+=mx([['<span style=\"color:var(--green)\">n</span>','<span style=\"color:var(--blue)\">\u03A3x<sub>1i</sub></span>','<span style=\"color:var(--blue)\">\u03A3x<sub>2i</sub></span>'],['<span style=\"color:var(--blue)\">\u03A3x<sub>1i</sub></span>','<span style=\"color:var(--orange)\">\u03A3x<sub>1i</sub>\u00b2</span>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>'],['<span style=\"color:var(--blue)\">\u03A3x<sub>2i</sub></span>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>','<span style=\"color:var(--orange)\">\u03A3x<sub>2i</sub>\u00b2</span>']],'X\u1D40X');
   h+='</div>';
-
-  // Explain each element
-  h+='<div style="margin-top:10px;font-size:.85rem;">';
-  h+='<table style="border-collapse:collapse;width:100%;"><tr style="border-bottom:1px solid var(--border)"><th style="text-align:left;padding:4px 8px;color:var(--accent)">Element</th><th style="text-align:left;padding:4px 8px;color:var(--accent)">Formula</th><th style="text-align:left;padding:4px 8px;color:var(--accent)">Value</th><th style="text-align:left;padding:4px 8px;color:var(--accent)">Meaning</th></tr>';
-  h+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:4px 8px;color:var(--green)">(1,1)</td><td style="padding:4px 8px;font-family:Georgia,serif">\u03A31 = n</td><td style="padding:4px 8px"><strong>8</strong></td><td style="padding:4px 8px">Number of observations</td></tr>';
-  h+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:4px 8px;color:var(--orange)">(2,2)</td><td style="padding:4px 8px;font-family:Georgia,serif">\u03A3x<sub>1i</sub>\u00b2</td><td style="padding:4px 8px"><strong>149</strong></td><td style="padding:4px 8px">Total "energy" in employees (how spread out)</td></tr>';
-  h+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:4px 8px;color:var(--orange)">(3,3)</td><td style="padding:4px 8px;font-family:Georgia,serif">\u03A3x<sub>2i</sub>\u00b2</td><td style="padding:4px 8px"><strong>731</strong></td><td style="padding:4px 8px">Total "energy" in floor space</td></tr>';
-  h+='<tr style="border-bottom:1px solid var(--border)"><td style="padding:4px 8px;color:var(--red)">(2,3)=(3,2)</td><td style="padding:4px 8px;font-family:Georgia,serif">\u03A3x<sub>1i</sub>x<sub>2i</sub></td><td style="padding:4px 8px"><strong>323</strong></td><td style="padding:4px 8px">How employees & floor space move together</td></tr>';
-  h+='</table></div></div>';
+  h+='<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px;font-size:.8rem;">';
+  h+='<span style="background:#e8f5e9;padding:2px 7px;border-radius:4px;color:var(--green);font-weight:600">\u25CF n = sample size</span>';
+  h+='<span style="background:#fff3e0;padding:2px 7px;border-radius:4px;color:var(--orange);font-weight:600">\u25CF Diagonal: sum of squares (variation)</span>';
+  h+='<span style="background:#fce4ec;padding:2px 7px;border-radius:4px;color:var(--red);font-weight:600">\u25CF Off-diagonal: cross products (co-variation)</span>';
+  h+='</div></div>';
 
   // The inverse
   h+='<div class="proof-step"><div class="label">The inverse: (X\u1D40X)<sup>\u22121</sup> \u2014 "undoing" the correlations</div>';
@@ -484,6 +535,21 @@ function stp6b(){
   h+='<div style="background:#e8f5e9;padding:6px 10px;border-radius:6px;flex:1;min-width:200px;"><strong style="color:var(--green)">Diagonal elements</strong><br>Scale the coefficient estimates. Larger diagonal \u2192 more uncertainty in that coefficient (used for standard errors: SE(\u03B2\u0302<sub>j</sub>) = \u03C3\u0302 \u00d7 \u221A diagonal<sub>jj</sub>)</div>';
   h+='<div style="background:#fce4ec;padding:6px 10px;border-radius:6px;flex:1;min-width:200px;"><strong style="color:var(--red)">Off-diagonal elements (negative)</strong><br>The negative values tell us: when employees and floor space are positively correlated, the inverse <em>subtracts out</em> their shared variation to isolate each effect.</div>';
   h+='</div></div></div>';
+
+  // Symbolic inverse for simple case (no intercept, 2 predictors)
+  h+='<div class="proof-step"><div class="label">Symbolic inverse: the 2\u00d72 case (simplest form)</div>';
+  h+='<p style="font-size:.85rem;margin-bottom:8px;">For a 2\u00d72 matrix, the inverse has a clean formula. If we ignore the intercept for a moment and just have two predictors:</p>';
+  h+='<div style="text-align:center;overflow-x:auto;font-size:.92rem;margin:8px 0;font-family:Georgia,serif;">';
+  h+='A = '+mx([['a','b'],['c','d']])+' &emsp;\u27f9&emsp; A<sup>\u22121</sup> = <span style="font-size:.85rem;">1/(ad\u2212bc)</span> \u00d7 '+mx([['d','\u2212b'],['\u2212c','a']]);
+  h+='</div>';
+  h+='<p style="font-size:.85rem;margin:8px 0;">The denominator <strong>ad \u2212 bc</strong> is the <em>determinant</em>. If it\u2019s zero, the matrix can\u2019t be inverted (the predictors are perfectly correlated).</p>';
+  h+='<p style="font-size:.85rem;margin-bottom:8px;">For our X\u1D40X (without intercept, just employees and floor space):</p>';
+  h+='<div style="text-align:center;overflow-x:auto;font-size:.88rem;margin:8px 0;font-family:Georgia,serif;">';
+  h+=mx([['\u03A3x<sub>1</sub>\u00b2','\u03A3x<sub>1</sub>x<sub>2</sub>'],['\u03A3x<sub>1</sub>x<sub>2</sub>','\u03A3x<sub>2</sub>\u00b2']])+' &ensp;\u27f9&ensp; ';
+  h+='<span style="font-size:.8rem">1/(\u03A3x<sub>1</sub>\u00b2\u00b7\u03A3x<sub>2</sub>\u00b2 \u2212 (\u03A3x<sub>1</sub>x<sub>2</sub>)\u00b2)</span> \u00d7 ';
+  h+=mx([['\u03A3x<sub>2</sub>\u00b2','\u2212\u03A3x<sub>1</sub>x<sub>2</sub>'],['\u2212\u03A3x<sub>1</sub>x<sub>2</sub>','\u03A3x<sub>1</sub>\u00b2']]);
+  h+='</div>';
+  h+='<div class="i-card i-blue" style="font-size:.85rem;"><strong>Notice:</strong> The off-diagonal \u03A3x<sub>1</sub>x<sub>2</sub> (cross product = correlation between predictors) appears with a <strong>minus sign</strong> in the inverse. This is how OLS <em>subtracts out</em> the shared variation between predictors to isolate each one\u2019s effect. If predictors are uncorrelated (\u03A3x<sub>1</sub>x<sub>2</sub> = 0), the inverse becomes diagonal and each coefficient can be estimated independently.</div></div>';
 
   // Key insight
   h+='<div class="i-card i-green"><strong>Key insight:</strong> X\u1D40X bundles everything together. (X\u1D40X)<sup>\u22121</sup> untangles it. Together with X\u1D40y, we get each predictor\u2019s <em>own</em> effect on y, free from contamination by the other predictors.</div>';
