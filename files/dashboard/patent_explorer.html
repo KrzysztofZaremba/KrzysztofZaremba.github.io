@@ -47,30 +47,75 @@
   #chart { width: 100%; height: 1000px; }
   .status { font-size: 13px; color: #888; margin-bottom: 12px; }
   .hint { font-size: 12px; color: #999; margin-top: 4px; }
+  .tabs { display: flex; gap: 0; margin-bottom: 0; }
+  .tab {
+    padding: 10px 20px; cursor: pointer; font-size: 14px; font-weight: 500;
+    border: 1px solid #ddd; border-bottom: none; border-radius: 8px 8px 0 0;
+    background: #eee; color: #666; transition: all 0.2s;
+  }
+  .tab.active { background: #fff; color: #333; border-bottom: 1px solid #fff; margin-bottom: -1px; z-index: 1; }
+  .tab:hover:not(.active) { background: #f0f0f0; }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+  .patent-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; }
+  .patent-table th { background: #f0f4f8; padding: 8px 12px; text-align: left; border-bottom: 2px solid #ddd;
+    position: sticky; top: 0; cursor: pointer; user-select: none; }
+  .patent-table th:hover { background: #dbeafe; }
+  .patent-table td { padding: 6px 12px; border-bottom: 1px solid #f0f0f0; }
+  .patent-table tr:hover { background: #f8fafc; }
+  .patent-table tr.clickable { cursor: pointer; }
+  .table-container { max-height: 700px; overflow-y: auto; border: 1px solid #ddd; border-radius: 8px; }
+  .table-filter { margin-bottom: 12px; }
+  .table-filter input { padding: 8px 12px; font-size: 14px; border: 2px solid #ddd; border-radius: 8px;
+    outline: none; width: 300px; }
+  .table-filter input:focus { border-color: #4a90d9; }
 </style>
 </head>
 <body>
 <div class="container">
   <h1>CENADI Patent Drug Explorer &mdash; Entradas around Patent Expiry</h1>
-  <div class="search-box">
-    <div class="label">Search by drug name or clave (only drugs with patent data shown)</div>
-    <input type="text" id="searchInput" placeholder="e.g. METFORMINA, ATORVASTATINA, 010000..." autocomplete="off">
-    <div class="dropdown" id="dropdown"></div>
+  <div class="tabs">
+    <div class="tab active" onclick="switchExpTab('explorer')">Drug Explorer</div>
+    <div class="tab" onclick="switchExpTab('table')">All Patent Drugs (226)</div>
   </div>
-  <div class="hint">Select a drug to view weekly CENADI entrada data around its patent expiry date.</div>
-  <div class="status" id="status"></div>
-  <div class="info-panel" id="infoPanel">
-    <h2 id="drugTitle"></h2>
-    <div class="info-grid">
-      <div class="info-item"><span class="lbl">Clave: </span><span class="val" id="infoClave"></span></div>
-      <div class="info-item"><span class="lbl">Patent Expiry: </span><span class="val" id="infoExpiry"></span></div>
-      <div class="info-item"><span class="lbl">Molecule: </span><span class="val" id="infoMolecule"></span></div>
-      <div class="info-item"><span class="lbl">Suppliers Before Expiry: </span><span class="val" id="infoSupBefore"></span></div>
-      <div class="info-item"><span class="lbl">Suppliers After Expiry: </span><span class="val" id="infoSupAfter"></span></div>
+  <div id="tab-explorer" class="tab-content active">
+    <div class="search-box" style="margin-top:16px;">
+      <div class="label">Search by drug name or clave</div>
+      <input type="text" id="searchInput" placeholder="e.g. METFORMINA, ATORVASTATINA, 010000..." autocomplete="off">
+      <div class="dropdown" id="dropdown"></div>
+    </div>
+    <div class="hint">Select a drug to view weekly CENADI entrada data around its patent expiry date.</div>
+    <div class="status" id="status"></div>
+    <div class="info-panel" id="infoPanel">
+      <h2 id="drugTitle"></h2>
+      <div class="info-grid">
+        <div class="info-item"><span class="lbl">Clave: </span><span class="val" id="infoClave"></span></div>
+        <div class="info-item"><span class="lbl">Patent Expiry: </span><span class="val" id="infoExpiry"></span></div>
+        <div class="info-item"><span class="lbl">Molecule: </span><span class="val" id="infoMolecule"></span></div>
+        <div class="info-item"><span class="lbl">Suppliers Before Expiry: </span><span class="val" id="infoSupBefore"></span></div>
+        <div class="info-item"><span class="lbl">Suppliers After Expiry: </span><span class="val" id="infoSupAfter"></span></div>
+      </div>
+    </div>
+    <div class="chart-panel" id="chartPanel">
+      <div id="chart"></div>
     </div>
   </div>
-  <div class="chart-panel" id="chartPanel">
-    <div id="chart"></div>
+  <div id="tab-table" class="tab-content">
+    <div class="table-filter" style="margin-top:16px;">
+      <input type="text" id="tableFilter" placeholder="Filter by molecule, clave, or year..." oninput="filterTable()">
+    </div>
+    <div class="table-container">
+      <table class="patent-table" id="patentTable">
+        <thead><tr>
+          <th onclick="sortTable(0)">Expiry Year</th>
+          <th onclick="sortTable(1)">Expiry Date</th>
+          <th onclick="sortTable(2)">Molecule</th>
+          <th onclick="sortTable(3)">Clave</th>
+          <th onclick="sortTable(4)">Description</th>
+        </tr></thead>
+        <tbody id="patentTableBody"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
@@ -104,11 +149,8 @@ searchInput.addEventListener("input", function() {
   matches.forEach((d, i) => {
     const div = document.createElement("div");
     div.className = "item";
-    const molecule = d.denom || d.name || "";
-    const descTxt = d.desc ? d.desc.slice(0, 80) : "";
-    div.innerHTML = '<span class="clave">' + d.clave + '</span> ' +
-      '<b style="color:#1a1a2e">' + molecule + '</b>' +
-      '<span class="desc"> ' + descTxt + ' [exp: ' + (d.vigencia || "?") + ']</span>';
+    div.innerHTML = '<span class="clave">' + d.clave + '</span><span class="desc"> ' +
+      (d.desc || d.name || "") + ' [exp: ' + (d.vigencia || "?") + ']</span>';
     div.onclick = () => selectDrug(d.clave);
     dropdown.appendChild(div);
   });
@@ -247,6 +289,80 @@ function selectDrug(clave) {
 
   Plotly.react("chart", traces, layout, { responsive: true });
   statusEl.textContent = "Showing: " + clave + " (" + wdata.length + " weeks of data)";
+}
+
+// === TAB SWITCHING ===
+function switchExpTab(tab) {
+  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".tab-content").forEach(t => t.classList.remove("active"));
+  if (tab === "explorer") {
+    document.querySelectorAll(".tab")[0].classList.add("active");
+    document.getElementById("tab-explorer").classList.add("active");
+  } else {
+    document.querySelectorAll(".tab")[1].classList.add("active");
+    document.getElementById("tab-table").classList.add("active");
+    buildTable();
+  }
+}
+
+// === PATENT TABLE ===
+let tableBuilt = false;
+let tableData = [];
+
+function buildTable() {
+  if (tableBuilt) return;
+  tableBuilt = true;
+  tableData = drugs.map(d => ({
+    year: d.vigencia ? d.vigencia.slice(0,4) : "",
+    date: d.vigencia || "",
+    molecule: d.denom || d.name || "",
+    clave: d.clave,
+    desc: d.desc || ""
+  }));
+  tableData.sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+  renderTable(tableData);
+}
+
+function renderTable(data) {
+  const tbody = document.getElementById("patentTableBody");
+  tbody.innerHTML = data.map(d =>
+    '<tr class="clickable" onclick="switchExpTab(\'explorer\'); searchAndSelect(\'' + d.clave + '\')">\n' +
+    "<td>" + d.year + "</td>" +
+    "<td>" + d.date + "</td>" +
+    "<td>" + d.molecule + "</td>" +
+    "<td>" + d.clave + "</td>" +
+    "<td>" + (d.desc.length > 80 ? d.desc.slice(0,80) + "..." : d.desc) + "</td></tr>"
+  ).join("");
+}
+
+function searchAndSelect(clave) {
+  selectDrug(clave);
+}
+
+function filterTable() {
+  const q = document.getElementById("tableFilter").value.trim().toUpperCase();
+  if (!q) { renderTable(tableData); return; }
+  const filtered = tableData.filter(d =>
+    d.molecule.toUpperCase().includes(q) ||
+    d.clave.includes(q) ||
+    d.year.includes(q) ||
+    d.desc.toUpperCase().includes(q)
+  );
+  renderTable(filtered);
+}
+
+let sortCol = -1, sortAsc = true;
+function sortTable(col) {
+  if (sortCol === col) { sortAsc = !sortAsc; } else { sortCol = col; sortAsc = true; }
+  const keys = ["year", "date", "molecule", "clave", "desc"];
+  const key = keys[col];
+  tableData.sort((a, b) => {
+    if (a[key] < b[key]) return sortAsc ? -1 : 1;
+    if (a[key] > b[key]) return sortAsc ? 1 : -1;
+    return 0;
+  });
+  const q = document.getElementById("tableFilter").value.trim().toUpperCase();
+  if (q) { filterTable(); } else { renderTable(tableData); }
 }
 </script>
 </body>
