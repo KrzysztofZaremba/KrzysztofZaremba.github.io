@@ -281,6 +281,35 @@ function clrXtX(){
   for(let r=0;r<3;r++)for(let c=0;c<3;c++){const res=document.getElementById('xtx-'+r+'-'+c);if(res)res.style.background='';}
   const el=document.getElementById('xtx-explain');if(el)el.innerHTML='\u{1F449} Hover over any element in X\u1D40X to see how it\u2019s computed';
 }
+/* ===== SYMBOLIC X'X HIGHLIGHT ===== */
+const _sExp=[
+  ['1\u00b71 + 1\u00b71 + \u2026 + 1\u00b71 = <strong>n</strong> (count of observations)',
+   '1\u00b7x<sub>11</sub> + 1\u00b7x<sub>12</sub> + \u2026 + 1\u00b7x<sub>1n</sub> = <strong>\u03A3x<sub>1i</sub></strong> (sum of employees)',
+   '1\u00b7x<sub>21</sub> + 1\u00b7x<sub>22</sub> + \u2026 + 1\u00b7x<sub>2n</sub> = <strong>\u03A3x<sub>2i</sub></strong> (sum of floor space)'],
+  ['\u03A3x<sub>1i</sub> \u00b7 1 = <strong>\u03A3x<sub>1i</sub></strong> (symmetric with row 1)',
+   'x<sub>11</sub>\u00b7x<sub>11</sub> + x<sub>12</sub>\u00b7x<sub>12</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub>\u00b2</strong> (variation in employees)',
+   'x<sub>11</sub>\u00b7x<sub>21</sub> + x<sub>12</sub>\u00b7x<sub>22</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub>x<sub>2i</sub></strong> (co-variation between predictors)'],
+  ['\u03A3x<sub>2i</sub> \u00b7 1 = <strong>\u03A3x<sub>2i</sub></strong> (symmetric with row 1)',
+   'x<sub>21</sub>\u00b7x<sub>11</sub> + x<sub>22</sub>\u00b7x<sub>12</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub>x<sub>2i</sub></strong> (symmetric with (2,3))',
+   'x<sub>21</sub>\u00b7x<sub>21</sub> + x<sub>22</sub>\u00b7x<sub>22</sub> + \u2026 = <strong>\u03A3x<sub>2i</sub>\u00b2</strong> (variation in floor space)']
+];
+const _sRN=['1 (intercept)','x\u2081 (employees)','x\u2082 (floor space)'];
+function hlSXtX(r,c){
+  for(let i=0;i<4;i++){
+    const xt=document.getElementById('sxt-'+r+'-'+i);if(xt)xt.style.background=_HL;
+    const xc=document.getElementById('sx-'+i+'-'+c);if(xc)xc.style.background=_HL;
+  }
+  const res=document.getElementById('sxtx-'+r+'-'+c);if(res)res.style.background=_HLr;
+  const el=document.getElementById('sxtx-explain');if(!el)return;
+  el.innerHTML='<strong style="color:var(--accent)">Row '+_sRN[r]+' \u00d7 Col '+_sRN[c]+'</strong><br>'
+    +'<span style="font-family:Georgia,serif;font-size:.88rem;">'+_sExp[r][c]+'</span>';
+}
+function clrSXtX(){
+  for(let r=0;r<3;r++)for(let c=0;c<4;c++){const e=document.getElementById('sxt-'+r+'-'+c);if(e)e.style.background='';}
+  for(let r=0;r<4;r++)for(let c=0;c<3;c++){const e=document.getElementById('sx-'+r+'-'+c);if(e)e.style.background='';}
+  for(let r=0;r<3;r++)for(let c=0;c<3;c++){const e=document.getElementById('sxtx-'+r+'-'+c);if(e)e.style.background='';}
+  const el=document.getElementById('sxtx-explain');if(el)el.innerHTML='\u{1F449} Hover over any element in the symbolic X\u1D40X to see how the dot product works';
+}
 function updateLive(){
   const yh=computeYhat(bVals),errs=computeErrors(bVals),sse=computeSSE(bVals);
   /* Step 2 panel */
@@ -502,11 +531,50 @@ function stp6b(){
   h+='\u{1F449} Hover over any element in X\u1D40X to see how it\u2019s computed';
   h+='</div></div>';
 
-  // Symbolic version
-  h+='<div class="proof-step"><div class="label">Symbolic: each element is a sum of products</div>';
-  h+='<div style="text-align:center;overflow-x:auto;font-size:.9rem;">';
-  h+=mx([['<span style=\"color:var(--green)\">n</span>','<span style=\"color:var(--blue)\">\u03A3x<sub>1i</sub></span>','<span style=\"color:var(--blue)\">\u03A3x<sub>2i</sub></span>'],['<span style=\"color:var(--blue)\">\u03A3x<sub>1i</sub></span>','<span style=\"color:var(--orange)\">\u03A3x<sub>1i</sub>\u00b2</span>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>'],['<span style=\"color:var(--blue)\">\u03A3x<sub>2i</sub></span>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>','<span style=\"color:var(--orange)\">\u03A3x<sub>2i</sub>\u00b2</span>']],'X\u1D40X');
+  // Symbolic interactive version
+  h+='<div class="proof-step"><div class="label">Symbolic form: X\u1D40 \u00d7 X \u2014 click any element!</div>';
+  h+='<p style="font-size:.85rem;margin-bottom:8px;">The columns of X are: <strong>1</strong> (intercept), <strong>x<sub>1</sub></strong> (employees), <strong>x<sub>2</sub></strong> (floor space). The rows of X\u1D40 are the same columns transposed.</p>';
+
+  // Symbolic X' (3 x n)
+  const sXt=[['1','1','\u2026','1'],['x<sub>11</sub>','x<sub>12</sub>','\u2026','x<sub>1n</sub>'],['x<sub>21</sub>','x<sub>22</sub>','\u2026','x<sub>2n</sub>']];
+  const sX=[['1','x<sub>11</sub>','x<sub>21</sub>'],['1','x<sub>12</sub>','x<sub>22</sub>'],['\u22ee','\u22ee','\u22ee'],['1','x<sub>1n</sub>','x<sub>2n</sub>']];
+  const sXtX=[['<span style=\"color:var(--green)\">n</span>','\u03A3x<sub>1i</sub>','\u03A3x<sub>2i</sub>'],['\u03A3x<sub>1i</sub>','<span style=\"color:var(--orange)\">\u03A3x<sub>1i</sub>\u00b2</span>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>'],['\u03A3x<sub>2i</sub>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>','<span style=\"color:var(--orange)\">\u03A3x<sub>2i</sub>\u00b2</span>']];
+  const sRowLabels=['1 (intercept)','x\u2081 (employees)','x\u2082 (floor space)'];
+  const sExplain=[
+    ['1\u00b71 + 1\u00b71 + \u2026 + 1\u00b71 = <strong>n</strong> (count of observations)','1\u00b7x<sub>11</sub> + 1\u00b7x<sub>12</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub></strong> (sum of employees)','1\u00b7x<sub>21</sub> + 1\u00b7x<sub>22</sub> + \u2026 = <strong>\u03A3x<sub>2i</sub></strong> (sum of floor space)'],
+    ['\u03A3x<sub>1i</sub> (same as above by symmetry)','x<sub>11</sub>\u00b7x<sub>11</sub> + x<sub>12</sub>\u00b7x<sub>12</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub>\u00b2</strong> (variation in employees)','x<sub>11</sub>\u00b7x<sub>21</sub> + x<sub>12</sub>\u00b7x<sub>22</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub>x<sub>2i</sub></strong> (co-variation)'],
+    ['\u03A3x<sub>2i</sub> (same as above by symmetry)','\u03A3x<sub>1i</sub>x<sub>2i</sub> (same as above by symmetry)','x<sub>21</sub>\u00b7x<sub>21</sub> + x<sub>22</sub>\u00b7x<sub>22</sub> + \u2026 = <strong>\u03A3x<sub>2i</sub>\u00b2</strong> (variation in floor space)']
+  ];
+
+  h+='<div id="sxtx-interactive" style="text-align:center;overflow-x:auto;padding:8px 0;">';
+  // Symbolic X'
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="sxt-table">';
+  for(let r=0;r<3;r++){h+='<tr>';for(let c=0;c<4;c++){h+='<td id="sxt-'+r+'-'+c+'" style="font-size:.78rem;padding:2px 5px;font-family:Georgia,serif;">'+sXt[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X\u1D40 (3\u00d7n)</span></span>';
+
+  h+='<span style="font-family:Georgia,serif;font-size:1.2rem;vertical-align:middle;margin:0 6px;">\u00d7</span>';
+
+  // Symbolic X
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="sx-table">';
+  for(let r=0;r<4;r++){h+='<tr>';for(let c=0;c<3;c++){h+='<td id="sx-'+r+'-'+c+'" style="font-size:.78rem;padding:2px 5px;font-family:Georgia,serif;">'+sX[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X (n\u00d73)</span></span>';
+
+  h+='<span style="font-family:Georgia,serif;font-size:1.2rem;vertical-align:middle;margin:0 6px;">=</span>';
+
+  // Symbolic X'X result (clickable)
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="sxtx-table">';
+  for(let r=0;r<3;r++){h+='<tr>';for(let c=0;c<3;c++){h+='<td id="sxtx-'+r+'-'+c+'" style="padding:4px 8px;cursor:pointer;border-radius:3px;transition:.2s;font-weight:600;font-family:Georgia,serif;" onmouseover="hlSXtX('+r+','+c+')" onmouseout="clrSXtX()">'+sXtX[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X\u1D40X (3\u00d73)</span></span>';
   h+='</div>';
+
+  // Symbolic explanation box
+  h+='<div id="sxtx-explain" style="text-align:center;font-size:.88rem;min-height:50px;padding:8px;margin:6px 0;background:var(--card);border:1px dashed var(--accent);border-radius:6px;transition:.3s;">';
+  h+='\u{1F449} Hover over any element in the symbolic X\u1D40X to see how the dot product works';
+  h+='</div>';
+
   h+='<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px;font-size:.8rem;">';
   h+='<span style="background:#e8f5e9;padding:2px 7px;border-radius:4px;color:var(--green);font-weight:600">\u25CF n = sample size</span>';
   h+='<span style="background:#fff3e0;padding:2px 7px;border-radius:4px;color:var(--orange);font-weight:600">\u25CF Diagonal: sum of squares (variation)</span>';
