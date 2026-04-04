@@ -489,62 +489,16 @@ function stp6(){
   return h;
 }
 function stp6b(){
-  let h=stepHead('6b','What is X\u1D40X and what does its inverse look like?','X\u1D40X is the product of the transpose of X times X. Click any element in the result to see which row and column produced it.');
+  let h=stepHead('6b','What is X\u1D40X and what does its inverse look like?','X\u1D40X is the product of the transpose of X times X. Each element is a dot product of a column of X with another column of X.');
   h+='<div class="card" style="margin-top:0;border-top:none;">';
 
-  // Interactive X' x X multiplication
-  h+='<div class="proof-step"><div class="label">X\u1D40X = X\u1D40 \u00d7 X \u2014 click any element in the result!</div>';
-  h+='<p style="font-size:.85rem;margin-bottom:10px;">X\u1D40 (transpose) flips rows \u2194 columns. Each element of the result is a <strong>dot product</strong> of a row of X\u1D40 (= column of X) with a column of X.</p>';
+  // ====== SYMBOLIC FIRST ======
+  h+='<div class="proof-step"><div class="label">Symbolic: X\u1D40 \u00d7 X for the 3\u00d73 case \u2014 hover over any element!</div>';
+  h+='<p style="font-size:.85rem;margin-bottom:8px;">X has columns: <strong>1</strong> (intercept), <strong>x<sub>1</sub></strong>, <strong>x<sub>2</sub></strong>. X\u1D40 is the transpose (rows become columns). Each element of the product is a <strong>dot product</strong> of a row of X\u1D40 with a column of X.</p>';
 
-  // Build X transpose (3x8)
-  const Xt=[['1','1','1','1','1','1','1','1'],['2','3','5','4','6','1','7','3'],['5','8','12','10','15','4','11','6']];
-  const Xrows=[['1','2','5'],['1','3','8'],['1','5','12'],['1','4','10'],['1','6','15'],['1','1','4'],['1','7','11'],['1','3','6']];
-  const XtXvals=[[8,31,71],[31,149,323],[71,323,731]];
-  const colNames=['1','x<sub>1</sub>','x<sub>2</sub>'];
-
-  h+='<div id="xtx-interactive" style="text-align:center;overflow-x:auto;padding:8px 0;">';
-  // X transpose matrix
-  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
-  h+='<span class="mx"><table id="xt-table">';
-  for(let r=0;r<3;r++){h+='<tr>';for(let c=0;c<8;c++){h+='<td id="xt-'+r+'-'+c+'" style="font-size:.78rem;padding:2px 4px;">'+Xt[r][c]+'</td>';}h+='</tr>';}
-  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X\u1D40 (3\u00d78)</span></span>';
-
-  h+='<span style="font-family:Georgia,serif;font-size:1.2rem;vertical-align:middle;margin:0 6px;">\u00d7</span>';
-
-  // X matrix
-  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
-  h+='<span class="mx"><table id="x-table">';
-  for(let r=0;r<8;r++){h+='<tr>';for(let c=0;c<3;c++){h+='<td id="x-'+r+'-'+c+'" style="font-size:.78rem;padding:2px 4px;">'+Xrows[r][c]+'</td>';}h+='</tr>';}
-  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X (8\u00d73)</span></span>';
-
-  h+='<span style="font-family:Georgia,serif;font-size:1.2rem;vertical-align:middle;margin:0 6px;">=</span>';
-
-  // Result X'X matrix (clickable)
-  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
-  h+='<span class="mx"><table id="xtx-table">';
-  for(let r=0;r<3;r++){h+='<tr>';for(let c=0;c<3;c++){h+='<td id="xtx-'+r+'-'+c+'" style="padding:4px 8px;cursor:pointer;border-radius:3px;transition:.2s;font-weight:600;" onmouseover="hlXtX('+r+','+c+')" onmouseout="clrXtX()">'+XtXvals[r][c]+'</td>';}h+='</tr>';}
-  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X\u1D40X (3\u00d73)</span></span>';
-  h+='</div>';
-
-  // Explanation box that updates on hover
-  h+='<div id="xtx-explain" style="text-align:center;font-size:.88rem;min-height:50px;padding:8px;margin:6px 0;background:var(--card);border:1px dashed var(--accent);border-radius:6px;transition:.3s;">';
-  h+='\u{1F449} Hover over any element in X\u1D40X to see how it\u2019s computed';
-  h+='</div></div>';
-
-  // Symbolic interactive version
-  h+='<div class="proof-step"><div class="label">Symbolic form: X\u1D40 \u00d7 X \u2014 click any element!</div>';
-  h+='<p style="font-size:.85rem;margin-bottom:8px;">The columns of X are: <strong>1</strong> (intercept), <strong>x<sub>1</sub></strong> (employees), <strong>x<sub>2</sub></strong> (floor space). The rows of X\u1D40 are the same columns transposed.</p>';
-
-  // Symbolic X' (3 x n)
   const sXt=[['1','1','\u2026','1'],['x<sub>11</sub>','x<sub>12</sub>','\u2026','x<sub>1n</sub>'],['x<sub>21</sub>','x<sub>22</sub>','\u2026','x<sub>2n</sub>']];
   const sX=[['1','x<sub>11</sub>','x<sub>21</sub>'],['1','x<sub>12</sub>','x<sub>22</sub>'],['\u22ee','\u22ee','\u22ee'],['1','x<sub>1n</sub>','x<sub>2n</sub>']];
   const sXtX=[['<span style=\"color:var(--green)\">n</span>','\u03A3x<sub>1i</sub>','\u03A3x<sub>2i</sub>'],['\u03A3x<sub>1i</sub>','<span style=\"color:var(--orange)\">\u03A3x<sub>1i</sub>\u00b2</span>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>'],['\u03A3x<sub>2i</sub>','<span style=\"color:var(--red)\">\u03A3x<sub>1i</sub>x<sub>2i</sub></span>','<span style=\"color:var(--orange)\">\u03A3x<sub>2i</sub>\u00b2</span>']];
-  const sRowLabels=['1 (intercept)','x\u2081 (employees)','x\u2082 (floor space)'];
-  const sExplain=[
-    ['1\u00b71 + 1\u00b71 + \u2026 + 1\u00b71 = <strong>n</strong> (count of observations)','1\u00b7x<sub>11</sub> + 1\u00b7x<sub>12</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub></strong> (sum of employees)','1\u00b7x<sub>21</sub> + 1\u00b7x<sub>22</sub> + \u2026 = <strong>\u03A3x<sub>2i</sub></strong> (sum of floor space)'],
-    ['\u03A3x<sub>1i</sub> (same as above by symmetry)','x<sub>11</sub>\u00b7x<sub>11</sub> + x<sub>12</sub>\u00b7x<sub>12</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub>\u00b2</strong> (variation in employees)','x<sub>11</sub>\u00b7x<sub>21</sub> + x<sub>12</sub>\u00b7x<sub>22</sub> + \u2026 = <strong>\u03A3x<sub>1i</sub>x<sub>2i</sub></strong> (co-variation)'],
-    ['\u03A3x<sub>2i</sub> (same as above by symmetry)','\u03A3x<sub>1i</sub>x<sub>2i</sub> (same as above by symmetry)','x<sub>21</sub>\u00b7x<sub>21</sub> + x<sub>22</sub>\u00b7x<sub>22</sub> + \u2026 = <strong>\u03A3x<sub>2i</sub>\u00b2</strong> (variation in floor space)']
-  ];
 
   h+='<div id="sxtx-interactive" style="text-align:center;overflow-x:auto;padding:8px 0;">';
   // Symbolic X'
@@ -572,7 +526,7 @@ function stp6b(){
 
   // Symbolic explanation box
   h+='<div id="sxtx-explain" style="text-align:center;font-size:.88rem;min-height:50px;padding:8px;margin:6px 0;background:var(--card);border:1px dashed var(--accent);border-radius:6px;transition:.3s;">';
-  h+='\u{1F449} Hover over any element in the symbolic X\u1D40X to see how the dot product works';
+  h+='\u{1F449} Hover over any element in X\u1D40X to see which row \u00d7 column produces it';
   h+='</div>';
 
   h+='<div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px;font-size:.8rem;">';
@@ -580,6 +534,40 @@ function stp6b(){
   h+='<span style="background:#fff3e0;padding:2px 7px;border-radius:4px;color:var(--orange);font-weight:600">\u25CF Diagonal: sum of squares (variation)</span>';
   h+='<span style="background:#fce4ec;padding:2px 7px;border-radius:4px;color:var(--red);font-weight:600">\u25CF Off-diagonal: cross products (co-variation)</span>';
   h+='</div></div>';
+
+  // ====== NUMERIC SECOND ======
+  h+='<div class="proof-step"><div class="label">With our 8-store data \u2014 hover over any element!</div>';
+  h+='<p style="font-size:.85rem;margin-bottom:8px;">Now the same thing with actual numbers. Each element is a sum of products you can verify.</p>';
+
+  const Xt2=[['1','1','1','1','1','1','1','1'],['2','3','5','4','6','1','7','3'],['5','8','12','10','15','4','11','6']];
+  const Xrows2=[['1','2','5'],['1','3','8'],['1','5','12'],['1','4','10'],['1','6','15'],['1','1','4'],['1','7','11'],['1','3','6']];
+  const XtXvals2=[[8,31,71],[31,149,323],[71,323,731]];
+
+  h+='<div id="xtx-interactive" style="text-align:center;overflow-x:auto;padding:8px 0;">';
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="xt-table">';
+  for(let r=0;r<3;r++){h+='<tr>';for(let c=0;c<8;c++){h+='<td id="xt-'+r+'-'+c+'" style="font-size:.78rem;padding:2px 4px;">'+Xt2[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X\u1D40 (3\u00d78)</span></span>';
+
+  h+='<span style="font-family:Georgia,serif;font-size:1.2rem;vertical-align:middle;margin:0 6px;">\u00d7</span>';
+
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="x-table">';
+  for(let r=0;r<8;r++){h+='<tr>';for(let c=0;c<3;c++){h+='<td id="x-'+r+'-'+c+'" style="font-size:.78rem;padding:2px 4px;">'+Xrows2[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X (8\u00d73)</span></span>';
+
+  h+='<span style="font-family:Georgia,serif;font-size:1.2rem;vertical-align:middle;margin:0 6px;">=</span>';
+
+  h+='<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:2px 4px;">';
+  h+='<span class="mx"><table id="xtx-table">';
+  for(let r=0;r<3;r++){h+='<tr>';for(let c=0;c<3;c++){h+='<td id="xtx-'+r+'-'+c+'" style="padding:4px 8px;cursor:pointer;border-radius:3px;transition:.2s;font-weight:600;" onmouseover="hlXtX('+r+','+c+')" onmouseout="clrXtX()">'+XtXvals2[r][c]+'</td>';}h+='</tr>';}
+  h+='</table></span><span style="font-size:.72rem;color:var(--accent);font-weight:600;margin-top:2px;">X\u1D40X (3\u00d73)</span></span>';
+  h+='</div>';
+
+  h+='<div id="xtx-explain" style="text-align:center;font-size:.88rem;min-height:50px;padding:8px;margin:6px 0;background:var(--card);border:1px dashed var(--accent);border-radius:6px;transition:.3s;">';
+  h+='\u{1F449} Hover over any element to see the calculation';
+  h+='</div></div>';
+
 
   // The inverse
   h+='<div class="proof-step"><div class="label">The inverse: (X\u1D40X)<sup>\u22121</sup> \u2014 "undoing" the correlations</div>';
