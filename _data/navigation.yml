@@ -1,11 +1,13 @@
-# main links links
+# main navigation
 main:
   - title: "Research"
     url: /publications/
 
-  - title: "Academic Curriculum Vitae"
-    url: /cv/
-    
-  - title: "Professional Resume"
-    url: /Resume/
+  - title: "Teaching"
+    url: /teaching/
 
+  - title: "CV"
+    url: /cv/
+
+  - title: "Resume"
+    url: /Resume/
