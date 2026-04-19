@@ -8,14 +8,13 @@
 # Site Settings
 locale                   : "en-US"
 title                    : "Krzysztof Zaremba"
-title_separator          : "·"
+title_separator          : "-"
 name                     : &name "Krzysztof Zaremba"
-description              : &description "Krzysztof Zaremba — Assistant Professor of Economics at ITAM Business School. Research in health economics, network economics, and family economics."
+description              : &description "My personal description about me"
 url                      : https://krzysztofzaremba.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "krzysztofzaremba/krzysztofzaremba.github.io"
-teaser                   : Krzysiek_profile.jpg
-og_image                 : Krzysiek_profile.jpg
+teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
 future                   : true
@@ -63,7 +62,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-# og_image set above
+og_image                 :  # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
@@ -83,12 +82,12 @@ analytics:
 author:
   name             : "Krzysztof Zaremba"
   avatar           : "Krzysiek_profile.jpg"
-  bio              : "Assistant Professor of Economics, ITAM Business School"
-  location         : "Mexico City"
-  employer         : "ITAM Business School"
-  pubmed           :
-  googlescholar    : "https://scholar.google.com/citations?user=mQFWPiYAAAAJ&hl=en"
-  email            : "krzysztof.zaremba@itam.mx"
+  bio              : 
+  location         : 
+  employer         :
+  pubmed           : 
+  googlescholar    : 
+  email            : "kz2303@columbia.edu"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
@@ -97,14 +96,14 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "krzysztofzaremba"
+  github           : 
   google_plus      :
   keybase          :
   instagram        :
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
-  linkedin         : krzysztof-z-743a4b11b
-  orcid            : "https://orcid.org/0000-0001-9007-3497"
+  linkedin         : krzysztof-z-743a4b11b 
+  orcid            : 
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username

@@ -1,91 +1,12 @@
 ---
 layout: archive
-title: "Teaching & Resources"
+title: "Teaching"
 permalink: /teaching/
 author_profile: true
-classes: wide
-excerpt: "Courses, lecture materials, and interactive teaching tools by Krzysztof Zaremba."
 ---
 
 {% include base_path %}
 
-<style>
-  .kz-teach { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif; color: #1f2933; }
-  .kz-intro { font-size: 1.0em; color: #4a5568; max-width: 50em; margin-bottom: 1.6em; line-height: 1.6; }
-
-  .kz-section-h {
-    font-size: 0.78em; font-weight: 700; letter-spacing: 0.12em;
-    text-transform: uppercase; color: #718096;
-    margin: 2em 0 1em; padding-bottom: 0.4em;
-    border-bottom: 1px solid #ececec;
-  }
-
-  .kz-tools { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1em; }
-  .kz-tool {
-    display: block; padding: 1.1em 1.2em; border: 1px solid #e2e8f0; border-radius: 8px;
-    background: #fff; text-decoration: none; color: inherit;
-    transition: all 0.15s ease;
-  }
-  .kz-tool:hover {
-    border-color: #1a365d; box-shadow: 0 4px 14px rgba(26,54,93,0.08);
-    transform: translateY(-1px);
-  }
-  .kz-tool .kz-tool-tag {
-    display: inline-block; font-size: 0.72em; font-weight: 600;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: #1a365d; background: #ebf4ff;
-    padding: 0.2em 0.6em; border-radius: 3px; margin-bottom: 0.6em;
-  }
-  .kz-tool .kz-tool-title {
-    font-size: 1.05em; font-weight: 600; color: #1a365d;
-    margin-bottom: 0.3em;
-  }
-  .kz-tool .kz-tool-body { font-size: 0.9em; color: #4a5568; line-height: 1.5; }
-  .kz-tool .kz-tool-arrow { color: #1a365d; font-weight: 600; margin-top: 0.5em; font-size: 0.88em; }
-
-  .kz-empty {
-    padding: 1em 1.2em; border: 1px dashed #cbd5e0; border-radius: 8px;
-    color: #718096; font-size: 0.92em; background: #fafbfc;
-  }
-</style>
-
-<div class="kz-teach">
-
-<p class="kz-intro">
-  Materials I have built for students — interactive tools that make linear algebra,
-  econometrics, and statistical computing easier to reason about visually.
-</p>
-
-<h2 class="kz-section-h">Interactive Tools</h2>
-
-<div class="kz-tools">
-
-  <a class="kz-tool" href="{{ base_path }}/matrix-intuition/">
-    <span class="kz-tool-tag">Linear Algebra</span>
-    <div class="kz-tool-title">Matrix Intuition for OLS</div>
-    <div class="kz-tool-body">
-      An interactive walkthrough of the geometry behind ordinary least squares:
-      projection, residuals, and how matrix algebra delivers the regression line.
-    </div>
-    <div class="kz-tool-arrow">Open tool →</div>
-  </a>
-
-  <a class="kz-tool" href="{{ base_path }}/r-cheatsheet/">
-    <span class="kz-tool-tag">Statistical Computing</span>
-    <div class="kz-tool-title">R Cheatsheet</div>
-    <div class="kz-tool-body">
-      A searchable reference of R idioms for data manipulation, regression, and
-      visualization — built for students starting their first empirical project.
-    </div>
-    <div class="kz-tool-arrow">Open tool →</div>
-  </a>
-
-</div>
-
-<h2 class="kz-section-h">Courses</h2>
-
-<div class="kz-empty">
-  Course pages and syllabi will be posted here.
-</div>
-
-</div>
+{% for post in site.teaching reversed %}
+  {% include archive-single.html %}
+{% endfor %}
