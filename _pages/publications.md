@@ -59,7 +59,23 @@ classes: wide
     <summary><em>Click to view abstract & figure</em></summary>
     <div class="paper-flex">
       <div class="abstract">
-        Widely used public policies fully subsidizing essential goods and services aim to improve access, but removing price signals may also produce distortions. We investigate this problem by leveraging Poland’s Free Drugs for Seniors program, which provides free prescription medications to individuals above an age threshold, as a natural experiment. Using event studies, detailed administrative and survey data, we draw two main conclusions. First, the program improved access: medication consumption increased, particularly for higher-cost products, to some extent displacing cheaper alternatives. Second, the shift in consumption patterns increased public payer costs per dose of treatment. These findings highlight the challenges of subsidy programs that eliminate price signals, as they can alter demand in ways that improve access but undermine cost-effectiveness.
+Eliminating prices for socially valuable goods can improve access but also distort
+demand and raise fiscal cost. We study this trade-off in the context of a policy
+adopted by many governments to expand pharmaceutical access: full elimination
+of copayments at the point of purchase. We ask what are the market and health
+consequences of full drug subsidies. We exploit Poland’s Drugs 75+ reform, which
+made hundreds of prescription drugs free of charge for seniors above an age threshold. Using administrative reimbursement data over 2014–2024, we leverage the
+age-eligibility cutoff and the staggered adoption of drugs into the free list in a
+robust event-study framework. Consumption rises by about 11% on impact and
+grows to 14% by twelve months, increasing monotonically in the pre-policy copay. Within chemically equivalent substitutes, patients shift toward higher-priced
+variants. Together, the additional coverage, quantity, and substitution responses
+roughly double per-drug government spending. Comparing cohorts reaching the
+eligibility age just before and just after the reform, we find a significant increase
+in primary care visits but do not detect effects on specialist visits, hospitalizations,
+or urgent care over 18 months. Using a structural model of the antihypertensive
+market, we investigate an alternative design that makes only the cheapest product
+in each substitute group free: it would deliver 62% of the fiscal savings of repealing
+the policy while reducing eligible-senior consumption by only 6%.
       </div>
       <div class="paper-image">
         <img src="../images/raw_avg_price_trt.png">
@@ -111,24 +127,7 @@ classes: wide
   </details>
 </div>
 
-<div class="paper-card">
-  <h3>
-    <a href="https://krzysztofzaremba.github.io/files/Household_penalty_Chicago.pdf" target="_blank">
-      Household Penalty: Gendered Costs of Spousal Infectious Diseases on Labor and Health
-    </a>
-    <span class="badge badge-rr">Revise & Resubmit at Economic Development & Cultural Change</span>
-  </h3>
-  <p><em>with Xinming Du</em></p>
-  <details>
-    <summary><em>Click to view abstract</em></summary>
-    <div class="paper-flex">
-      <div class="abstract">
-        This paper examines the gendered impact of spousal health shocks on labor and health outcomes. Using Mexican labor surveys and a difference-in-differences approach, we find women’s labor supply decreases by 15% after a partner’s health shock, compared to a 10% reduction for men. A significant part of this is driven by women’s higher probability of household infection. Analysis of U.S. insurance claims shows a partner’s infection increases infection risk by 1.2 percentage points for men and 2.2 for women. Household specialization underpins these effects: as women’s income share rises, their penalty decreases while men’s increases.
-      </div>
-      <div class="paper-image"></div>
-    </div>
-  </details>
-</div>
+
 
 ---
 
