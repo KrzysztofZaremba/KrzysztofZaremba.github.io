@@ -112,7 +112,7 @@ the policy while reducing eligible-senior consumption by only 6%.
     <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5218496" target="_blank">
       The Role of Dating Markets in Shaping Maternal and Neonatal Health: Evidence from Sex Ratios at Birth
     </a>
-    <span class="badge badge-rr">Revise & Resubmit at Journal of Public Economics</span>
+    <span class="badge badge-rr">Accepted at Journal of Public Economics</span>
   </h3>
   <details>
     <summary><em>Click to view abstract & figure</em></summary>
