@@ -109,8 +109,8 @@ the policy while reducing eligible-senior consumption by only 6%.
 
 <div class="paper-card">
   <h3>
-    <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5218496" target="_blank">
-      The Role of Dating Markets in Shaping Maternal and Neonatal Health: Evidence from Sex Ratios at Birth
+    <a href="https://krzysztofzaremba.github.io/files/JMP_draft.pdf" target="_blank">
+      The Effect of Dating Markets on Maternal and Neonatal Health
     </a>
     <span class="badge badge-rr">Accepted at Journal of Public Economics</span>
   </h3>
@@ -118,7 +118,7 @@ the policy while reducing eligible-senior consumption by only 6%.
     <summary><em>Click to view abstract & figure</em></summary>
     <div class="paper-flex">
       <div class="abstract">
-        This paper provides the first causal evidence on how the strength of women’s position in the dating market influences maternal and neonatal health outcomes. I proxy the strength of women’s position by the availability of adult male partners. I introduce a novel instrument based on randomness in sex at birth to address the endogeneity of this variable. A stronger female position in the dating market leads to a reduction in out-of-wedlock births, lowers rates of chlamydia and hypertension in mothers, and decreases the incidence of low APGAR scores in newborns. Connecting this to racial health disparities, Black women’s limited partner prospects contribute to 5–10% of the racial health gap. Eliminating racial disparities in incarceration would prevent 200–700 adverse outcomes annually among Black mothers.
+This paper provides causal evidence that the sex composition of dating markets affects maternal and neonatal health.  Using a novel instrument that leverages randomness in sex at birth to vary the availability of male partners, I find that a more favorable dating market for women decreases non-marital but increases marital fertility, lowers rates of chlamydia and hypertension among mothers, and decreases the incidence of low APGAR scores and a composite index of adverse birth outcomes. These effects appear to operate primarily through changes in relationship dynamics and selection into motherhood. Connecting this to inequalities, racial disparities in partner availability can explain 5–10 of the Black–White pregnancy health gap.
       </div>
       <div class="paper-image">
         <img src="../images/Prop_vis_ols_mother.png">
