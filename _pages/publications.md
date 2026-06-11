@@ -107,12 +107,20 @@ the policy while reducing eligible-senior consumption by only 6%.
   </details>
 </div>
 
+
+
+
+
+---
+
+## ✅ Published Papers
+
 <div class="paper-card">
   <h3>
     <a href="https://krzysztofzaremba.github.io/files/JMP_draft.pdf" target="_blank">
       The Effect of Dating Markets on Maternal and Neonatal Health
     </a>
-    <span class="badge badge-rr">Accepted at Journal of Public Economics</span>
+    <span class="badge badge-rr">Journal of Public Economics, 2026</span>
   </h3>
   <details>
     <summary><em>Click to view abstract & figure</em></summary>
@@ -126,12 +134,6 @@ This paper provides causal evidence that the sex composition of dating markets a
     </div>
   </details>
 </div>
-
-
-
----
-
-## ✅ Published Papers
 
 <div class="paper-card">
   <h3>
