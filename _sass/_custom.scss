@@ -140,36 +140,37 @@ body.kz-single .page {
 /* ---------- Home: hero ---------- */
 .kz-hero {
   display: grid;
-  grid-template-columns: 160px minmax(0, 1fr);
-  gap: 2.2rem;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 1.8rem;
   align-items: start;
-  margin-bottom: 3rem;
+  margin-bottom: 2.8rem;
 }
 .kz-hero-photo {
-  width: 160px;
-  height: 160px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   object-fit: cover;
-  margin-top: 0.35rem;
+  margin-top: 0.15rem;
 }
 .kz-hero h1 {
   font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
   font-weight: 600;
-  font-size: 2.5rem;
+  font-size: 2.15rem;
   letter-spacing: -0.02em;
   line-height: 1.1;
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.35rem;
 }
 .kz-hero .kz-role {
   color: #6b7280;
-  font-size: 0.95rem;
-  margin: 0 0 1.1rem;
+  font-size: 0.92rem;
+  margin: 0 0 1rem;
 }
 .kz-hero .kz-lede {
-  font-size: 1.03rem;
+  font-size: 1rem;
   line-height: 1.7;
-  max-width: 36em;
-  margin: 0 0 1.1rem;
+  max-width: 34em;
+  margin: 0 0 1rem;
+  color: #374151;
 }
 .kz-hero-links {
   display: flex;
@@ -189,9 +190,11 @@ body.kz-single .page {
   font-weight: 400;
 }
 @media (max-width: 640px) {
-  .kz-hero { grid-template-columns: 1fr; gap: 1.3rem; margin-bottom: 2.4rem; }
-  .kz-hero-photo { width: 120px; height: 120px; }
-  .kz-hero h1 { font-size: 2.05rem; }
+  .kz-hero { display: block; margin-bottom: 2.2rem; }
+  .kz-hero-photo { float: left; width: 68px; height: 68px; margin: 0.25rem 1rem 0.5rem 0; }
+  .kz-hero h1 { font-size: 1.7rem; }
+  .kz-hero .kz-role { margin-bottom: 0.9rem; }
+  .kz-hero .kz-lede { clear: both; padding-top: 0.2rem; }
 }
 
 /* ---------- Home: interests ---------- */
