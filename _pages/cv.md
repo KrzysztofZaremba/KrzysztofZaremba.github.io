@@ -31,15 +31,6 @@ excerpt: "CV of Krzysztof Zaremba, Assistant Professor of Business at ITAM Busin
 </section>
 
 <section class="kz-section">
-  <h2 class="kz-section-title">Working papers</h2>
-  <ul class="kz-plain">
-    <li><a href="/files/Majewska_Zaremba.pdf" target="_blank" rel="noopener"><strong>Universal Subsidies in Pharmaceutical Markets: Lessons from Poland&rsquo;s Drugs 75+ Policy</strong></a> (with Gosia Majewska)</li>
-    <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank" rel="noopener"><strong>Lead Effects Through Generations</strong></a> (with Xinming Du)</li>
-    <li><a href="/files/Household_penalty_Chicago.pdf" target="_blank" rel="noopener"><strong>Household Penalty: Gendered Costs of Spousal Infectious Diseases on Labor and Health</strong></a> (with Xinming Du)</li>
-  </ul>
-</section>
-
-<section class="kz-section">
   <h2 class="kz-section-title">Presentations</h2>
   <ul class="kz-timeline">
     <li><div class="kz-when">2026</div><div class="kz-what">XXIII Ridge Forum Health Economics Workshop; 2nd Tex-Mex IO Conference; 2026 Health Economics Initiative Conference (Becker Friedman Institute for Economics); 7th Swiss Health Economics Workshop*<span class="kz-sub">scheduled</span></div></li>
