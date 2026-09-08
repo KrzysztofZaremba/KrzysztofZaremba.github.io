@@ -404,17 +404,32 @@ a.kz-card:hover .kz-card-cta { text-decoration: underline; }
 .kz-wip li:last-child { border-bottom: 0; }
 
 /* ---------- CV page ---------- */
-.kz-pdf { margin-top: 1.2em; }
-.kz-pdf object,
-.kz-pdf iframe {
-  width: 100%;
-  height: 85vh;
-  min-height: 600px;
-  border: 1px solid #e3e7ec;
-  border-radius: 8px;
-  background: #fff;
+.kz-cv-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6em 1em;
+  margin: -0.4em 0 1.6em;
 }
-.kz-pdf p { color: #5b6773; font-size: 0.9em; }
+.kz-cv-head p { margin: 0; color: #5b6773; font-size: 0.95em !important; }
+.kz-cv .kz-timeline li { grid-template-columns: 6.5em 1fr; padding: 0.55em 0; }
+.kz-cv .kz-what { color: #3b4653; }
+.kz-cv .kz-what em { font-style: italic; color: #3b4653; }
+.kz-cv .kz-what a { color: #1f2933; }
+.kz-cv .kz-what a:hover { color: #1f5f8b; }
+.kz-cv .kz-what .kz-sub {
+  display: block;
+  color: #5b6773;
+  font-size: 0.9em;
+  margin-top: 0.15em;
+}
+.kz-cv .kz-what .kz-sub + .kz-sub { margin-top: 0.05em; }
+.kz-cv .kz-badge { margin-left: 0.4em; vertical-align: middle; }
+.kz-cv .kz-note { color: #5b6773; font-size: 0.85em !important; margin: 0.6em 0 0; }
+.kz-cv .kz-plain { list-style: none; margin: 0; padding: 0; }
+.kz-cv .kz-plain li { padding: 0.35em 0; font-size: 0.95em !important; color: #3b4653; }
+.kz-cv .kz-plain li strong { color: #1f2933; font-weight: 600; }
 
 /* ---------- Footer ---------- */
 .page__footer {

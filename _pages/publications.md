@@ -19,18 +19,18 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
         <summary>Abstract</summary>
         <div class="kz-abstract">
           <p>Eliminating prices for socially valuable goods can improve access but also distort demand and raise fiscal cost. We study this trade-off in the context of a policy adopted by many governments to expand pharmaceutical access: full elimination of copayments at the point of purchase. We ask what are the market and health consequences of full drug subsidies. We exploit Poland&rsquo;s Drugs 75+ reform, which made hundreds of prescription drugs free of charge for seniors above an age threshold. Using administrative reimbursement data over 2014&ndash;2024, we leverage the age-eligibility cutoff and the staggered adoption of drugs into the free list in a robust event-study framework. Consumption rises by about 11% on impact and grows to 14% by twelve months, increasing monotonically in the pre-policy copay. Within chemically equivalent substitutes, patients shift toward higher-priced variants. Together, the additional coverage, quantity, and substitution responses roughly double per-drug government spending. Comparing cohorts reaching the eligibility age just before and just after the reform, we find a significant increase in primary care visits but do not detect effects on specialist visits, hospitalizations, or urgent care over 18 months. Using a structural model of the antihypertensive market, we investigate an alternative design that makes only the cheapest product in each substitute group free: it would deliver 62% of the fiscal savings of repealing the policy while reducing eligible-senior consumption by only 6%.</p>
-          <img src="/images/raw_avg_price_trt.png" alt="Average price paid, treated versus control cohorts" loading="lazy">
+          <img src="/images/Drugs75_price_tiers.png" alt="Change in consumption by within-group price tier around the listing date" loading="lazy">
         </div>
       </details>
     </div>
     </div>
-    <a class="kz-fig" href="/images/raw_avg_price_trt.png" target="_blank" rel="noopener"><img src="/images/thumbs/drugs75.jpg" alt="Price per dose paid by seniors above vs. below the age-75 cutoff" loading="lazy"><span>Price per dose paid by seniors above vs. below the age-75 cutoff</span></a>
+    <a class="kz-fig" href="/images/Drugs75_price_tiers.png" target="_blank" rel="noopener"><img src="/images/thumbs/drugs75.jpg" alt="Change in consumption by within-group price tier around the listing date" loading="lazy"><span>Once drugs become free, purchases shift from the cheapest to mid-priced and most expensive variants</span></a>
   </div>
 
   <div class="kz-paper kz-paper--fig">
     <div class="kz-body">
     <h3><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank" rel="noopener">Lead Effects Through Generations</a></h3>
-    <p class="kz-meta"><span class="kz-authors">with Xinming Du</span><span class="kz-badge kz-badge--wp">Under review</span></p>
+    <p class="kz-meta"><span class="kz-authors">with Xinming Du</span><span class="kz-badge kz-badge--wp">Working paper</span></p>
     <p class="kz-summary">The phase-out of leaded gasoline in Mexico reduced fetal and infant deaths, and the effects of prenatal lead exposure carry over to the next generation in disadvantaged municipalities.</p>
     <div class="kz-links">
       <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank" rel="noopener">SSRN</a>
@@ -49,7 +49,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
   <div class="kz-paper kz-paper--fig">
     <div class="kz-body">
     <h3><a href="/files/Household_penalty_Chicago.pdf" target="_blank" rel="noopener">Household Penalty: Gendered Costs of Spousal Infectious Diseases on Labor and Health</a></h3>
-    <p class="kz-meta"><span class="kz-authors">with Xinming Du</span><span class="kz-badge kz-badge--wp">Under review</span></p>
+    <p class="kz-meta"><span class="kz-authors">with Xinming Du</span><span class="kz-badge kz-badge--wp">Working paper</span></p>
     <p class="kz-summary">After a partner&rsquo;s health shock, women&rsquo;s labor supply falls by 15% compared with 10% for men, largely because women are more likely to be infected at home. The gap shrinks as women&rsquo;s share of household income rises.</p>
     <div class="kz-links">
       <a href="/files/Household_penalty_Chicago.pdf" target="_blank" rel="noopener">PDF</a>

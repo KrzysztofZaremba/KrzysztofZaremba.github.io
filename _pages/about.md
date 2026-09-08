@@ -1,6 +1,6 @@
 ---
 permalink: /
-excerpt: "Krzysztof Zaremba is an Assistant Professor of Economics at ITAM Business School in Mexico City, working on health economics, networks, and family economics."
+excerpt: "Krzysztof Zaremba is an Assistant Professor of Business at ITAM Business School in Mexico City, working on health economics, networks, and family economics."
 author_profile: true
 redirect_from:
   - /about/
@@ -10,7 +10,7 @@ redirect_from:
 <section class="kz-hero">
   <h1>Krzysztof Zaremba</h1>
   <p class="kz-role">
-    Assistant Professor of Economics
+    Assistant Professor of Business
     <span class="kz-sep">&middot;</span> ITAM Business School
     <span class="kz-sep">&middot;</span> Mexico City
   </p>
@@ -49,7 +49,7 @@ redirect_from:
   <ul class="kz-timeline">
     <li>
       <div class="kz-when">2023 &ndash; present</div>
-      <div class="kz-what"><strong>Assistant Professor of Economics</strong><span>ITAM Business School, Mexico City</span></div>
+      <div class="kz-what"><strong>Assistant Professor of Business</strong><span>ITAM Business School, Mexico City</span></div>
     </li>
     <li>
       <div class="kz-when">2023</div>
@@ -74,6 +74,5 @@ redirect_from:
     <li><i class="fas fa-fw fa-graduation-cap"></i><a href="https://scholar.google.com/citations?user=mQFWPiYAAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a></li>
     <li><i class="ai ai-orcid ai-fw"></i><a href="https://orcid.org/0000-0001-9007-3497" target="_blank" rel="noopener">ORCID</a></li>
     <li><i class="fab fa-fw fa-linkedin"></i><a href="https://www.linkedin.com/in/krzysztof-z-743a4b11b" target="_blank" rel="noopener">LinkedIn</a></li>
-    <li><i class="fab fa-fw fa-github"></i><a href="https://github.com/krzysztofzaremba" target="_blank" rel="noopener">GitHub</a></li>
   </ul>
 </section>

@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Krzysztof Zaremba"
 title_separator          : "-"
 name                     : &name "Krzysztof Zaremba"
-description              : &description "Krzysztof Zaremba is an Assistant Professor of Economics at ITAM Business School in Mexico City. Research in health economics, networks, and family economics."
+description              : &description "Krzysztof Zaremba is an Assistant Professor of Business at ITAM Business School in Mexico City. Research in health economics, networks, and family economics."
 url                      : https://krzysztofzaremba.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "krzysztofzaremba/krzysztofzaremba.github.io"
@@ -82,7 +82,7 @@ analytics:
 author:
   name             : "Krzysztof Zaremba"
   avatar           : "profile_square.jpg"
-  bio              : "Assistant Professor of Economics"
+  bio              : "Assistant Professor of Business"
   location         : "Mexico City"
   employer         : "ITAM Business School"
   pubmed           : 
@@ -96,7 +96,7 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "krzysztofzaremba"
+  github           :
   google_plus      :
   keybase          :
   instagram        :
