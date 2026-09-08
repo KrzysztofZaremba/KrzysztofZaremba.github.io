@@ -1,2 +1,10 @@
 <!-- start custom footer snippets -->
+<script>
+  /* Re-run the greedy-nav measurement once web fonts have loaded, so menu
+     items are not pushed into the hamburger on laptop-width screens. */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(function () { window.dispatchEvent(new Event('resize')); });
+  }
+  window.addEventListener('load', function () { window.dispatchEvent(new Event('resize')); });
+</script>
 <!-- end custom footer snippets -->
