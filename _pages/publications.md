@@ -1,7 +1,8 @@
 ---
 title: "Research"
 permalink: /publications/
-author_profile: true
+author_profile: false
+classes: [kz-single]
 excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremba."
 ---
 
@@ -12,7 +13,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
     <a class="kz-fig" title="Once drugs become free, purchases shift from the cheapest to mid-priced and most expensive variants" href="/images/Drugs75_price_tiers.png" target="_blank" rel="noopener"><img src="/images/thumbs/drugs75.jpg" alt="Change in consumption by within-group price tier around the listing date" loading="lazy"></a>
     <div class="kz-body">
       <h3><a href="/files/Majewska_Zaremba.pdf" target="_blank" rel="noopener">Universal Subsidies in Pharmaceutical Markets: Lessons from Poland&rsquo;s Drugs 75+ Policy</a></h3>
-      <p class="kz-meta"><span class="kz-authors">with Gosia Majewska</span><span class="kz-badge kz-badge--wp">Working paper</span></p>
+      <p class="kz-meta"><span class="kz-venue">Working paper</span><span class="kz-authors">with Gosia Majewska</span></p>
       <p class="kz-summary">Making hundreds of drugs free for seniors raised consumption by 11&ndash;14% and roughly doubled per-drug public spending. A design that makes only the cheapest substitute free would recover most of the savings at a small cost in access.</p>
       <div class="kz-links">
       <a href="/files/Majewska_Zaremba.pdf" target="_blank" rel="noopener">PDF</a>
@@ -31,7 +32,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
     <a class="kz-fig" title="Air lead in Mexico City around the phase-out of leaded gasoline" href="/images/Mexico_City_Lead.png" target="_blank" rel="noopener"><img src="/images/thumbs/lead.jpg" alt="Air lead in Mexico City around the phase-out of leaded gasoline" loading="lazy"></a>
     <div class="kz-body">
       <h3><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank" rel="noopener">Lead Effects Through Generations</a></h3>
-      <p class="kz-meta"><span class="kz-authors">with Xinming Du</span><span class="kz-badge kz-badge--wp">Working paper</span></p>
+      <p class="kz-meta"><span class="kz-venue">Working paper</span><span class="kz-authors">with Xinming Du</span></p>
       <p class="kz-summary">The phase-out of leaded gasoline in Mexico reduced fetal and infant deaths, and the effects of prenatal lead exposure carry over to the next generation in disadvantaged municipalities.</p>
       <div class="kz-links">
       <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank" rel="noopener">SSRN</a>
@@ -50,7 +51,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
     <a class="kz-fig" title="Working hours around a partner's illness, men vs. women" href="/images/Household_penalty_fig1.png" target="_blank" rel="noopener"><img src="/images/thumbs/household.jpg" alt="Event study of working hours around a partner's illness, by gender" loading="lazy"></a>
     <div class="kz-body">
       <h3><a href="/files/Household_penalty_Chicago.pdf" target="_blank" rel="noopener">Household Penalty: Gendered Costs of Spousal Infectious Diseases on Labor and Health</a></h3>
-      <p class="kz-meta"><span class="kz-authors">with Xinming Du</span><span class="kz-badge kz-badge--wp">Working paper</span></p>
+      <p class="kz-meta"><span class="kz-venue">Working paper</span><span class="kz-authors">with Xinming Du</span></p>
       <p class="kz-summary">After a partner&rsquo;s health shock, women&rsquo;s labor supply falls by 15% compared with 10% for men, largely because women are more likely to be infected at home. The gap shrinks as women&rsquo;s share of household income rises.</p>
       <div class="kz-links">
       <a href="/files/Household_penalty_Chicago.pdf" target="_blank" rel="noopener">PDF</a>
@@ -73,7 +74,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
     <a class="kz-fig" title="Maternal and birth outcomes against the share of males at birth" href="/images/JMP_pic.png" target="_blank" rel="noopener"><img src="/images/thumbs/dating.jpg" alt="Maternal and birth outcomes against the share of males at birth" loading="lazy"></a>
     <div class="kz-body">
       <h3><a href="https://doi.org/10.1016/j.jpubeco.2026.105687" target="_blank" rel="noopener">The Effect of Dating Markets on Maternal and Neonatal Health</a></h3>
-      <p class="kz-meta"><span class="kz-badge kz-badge--pub">Journal of Public Economics, 2026</span></p>
+      <p class="kz-meta"><span class="kz-venue">Journal of Public Economics &middot; 2026</span></p>
       <p class="kz-summary">A more favourable dating market for women lowers non-marital fertility, improves maternal health, and reduces adverse birth outcomes. Differences in partner availability explain 5&ndash;10% of the Black&ndash;White gap in pregnancy health.</p>
       <div class="kz-links">
       <a href="https://doi.org/10.1016/j.jpubeco.2026.105687" target="_blank" rel="noopener">Journal</a>
@@ -94,7 +95,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
     <a class="kz-fig" title="Household medication spending around the age-75 threshold" href="/images/Post_policy_exp.png" target="_blank" rel="noopener"><img src="/images/thumbs/freedrugs.jpg" alt="Household medication spending around the age-75 threshold" loading="lazy"></a>
     <div class="kz-body">
       <h3><a href="https://doi.org/10.1002/hec.70083" target="_blank" rel="noopener">The Financial and Behavioral Effects of Free Prescription Drugs: Evidence from a Policy Discontinuity in Poland</a></h3>
-      <p class="kz-meta"><span class="kz-authors">with Gosia Majewska</span><span class="kz-badge kz-badge--pub">Health Economics, 2026</span></p>
+      <p class="kz-meta"><span class="kz-venue">Health Economics &middot; 2026</span><span class="kz-authors">with Gosia Majewska</span></p>
       <p class="kz-summary">Free prescription drugs at age 75 cut catastrophic medication spending by 62%, but the gains accrued mostly to wealthier households and came with higher spending on alcohol and cigarettes.</p>
       <div class="kz-links">
       <a href="https://doi.org/10.1002/hec.70083" target="_blank" rel="noopener">Journal</a>
@@ -114,7 +115,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
     <span class="kz-fig kz-fig--empty" aria-hidden="true"></span>
     <div class="kz-body">
       <h3><a href="https://doi.org/10.1016/j.energy.2025.138473" target="_blank" rel="noopener">Decarbonizing Power Generation: Integrating Green Hydrogen in the Economic Dispatch of Combined-Cycle Power Plants</a></h3>
-      <p class="kz-meta"><span class="kz-authors">with Roberto Jair Lorenzo Diaz, Jaime Robles Garc&iacute;a, and Mohamed Badaoui</span><span class="kz-badge kz-badge--pub">Energy, 2025</span></p>
+      <p class="kz-meta"><span class="kz-venue">Energy &middot; 2025</span><span class="kz-authors">with Roberto Jair Lorenzo Diaz, Jaime Robles Garc&iacute;a, and Mohamed Badaoui</span></p>
       <p class="kz-summary">A mixed-integer model of combined-cycle plant dispatch with green hydrogen, carbon taxation, and operational state transitions. Solar-based electrolysis raises costs by about 8% while advancing decarbonization.</p>
       <div class="kz-links">
       <a href="https://doi.org/10.1016/j.energy.2025.138473" target="_blank" rel="noopener">Journal</a>
@@ -126,7 +127,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
     <a class="kz-fig" title="Influenza-like illness among school children around winter break" href="/images/Infections_by_ferie_week_school_kids_first_vs_last.png" target="_blank" rel="noopener"><img src="/images/thumbs/schools.jpg" alt="Influenza-like illness among school children around winter break" loading="lazy"></a>
     <div class="kz-body">
       <h3><a href="https://doi.org/10.1093/aje/kwae453" target="_blank" rel="noopener">School Closures and Respiratory Infections Transmission and Mortality: Evidence from School Holidays in Poland</a></h3>
-      <p class="kz-meta"><span class="kz-badge kz-badge--pub">American Journal of Epidemiology, 2024</span></p>
+      <p class="kz-meta"><span class="kz-venue">American Journal of Epidemiology &middot; 2024</span></p>
       <p class="kz-summary">Winter school holidays in Poland cut influenza-like illness by up to 75% among school-age children, with spillovers to adults and the elderly, and lowered respiratory mortality among the elderly by 7%.</p>
       <div class="kz-links">
       <a href="https://doi.org/10.1093/aje/kwae453" target="_blank" rel="noopener">Journal</a>
@@ -146,7 +147,7 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
     <a class="kz-fig" title="Facebook users near ski resorts around the reopening" href="/images/Ski_pic.png" target="_blank" rel="noopener"><img src="/images/thumbs/ski.jpg" alt="Facebook users near ski resorts around the reopening" loading="lazy"></a>
     <div class="kz-body">
       <h3><a href="https://doi.org/10.1002/hec.4660" target="_blank" rel="noopener">Opening of Hotels and Ski Facilities: Impact on Mobility, Spending, and Covid-19 Outcomes</a></h3>
-      <p class="kz-meta"><span class="kz-badge kz-badge--pub">Health Economics, 2023</span></p>
+      <p class="kz-meta"><span class="kz-venue">Health Economics &middot; 2023</span></p>
       <p class="kz-summary">Reopening ski resorts during the pandemic boosted tourism and mobility, but the resulting infections, hospitalizations, and deaths cost far more than the economic gains, even in the resorts themselves.</p>
       <div class="kz-links">
       <a href="https://doi.org/10.1002/hec.4660" target="_blank" rel="noopener">Journal</a>

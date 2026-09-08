@@ -2,7 +2,8 @@
 layout: single
 title: "Curriculum Vitae"
 permalink: /cv/
-author_profile: true
+author_profile: false
+classes: [kz-single]
 excerpt: "CV of Krzysztof Zaremba, Assistant Professor of Business at ITAM Business School."
 ---
 
@@ -10,7 +11,7 @@ excerpt: "CV of Krzysztof Zaremba, Assistant Professor of Business at ITAM Busin
 
 <div class="kz-cv-head">
   <p>Assistant Professor of Business, ITAM Business School, Mexico City</p>
-  <a class="kz-btn kz-btn--ghost" href="/files/Krzysztof_Zaremba_A_CV.pdf" target="_blank" rel="noopener"><i class="fas fa-fw fa-file-pdf"></i> PDF version</a>
+  <a href="/files/Krzysztof_Zaremba_A_CV.pdf" target="_blank" rel="noopener">PDF version &darr;</a>
 </div>
 
 <section class="kz-section kz-section--first">
