@@ -10,7 +10,7 @@ locale                   : "en-US"
 title                    : "Krzysztof Zaremba"
 title_separator          : "-"
 name                     : &name "Krzysztof Zaremba"
-description              : &description "My personal description about me"
+description              : &description "Krzysztof Zaremba is an Assistant Professor of Economics at ITAM Business School in Mexico City. Research in health economics, networks, and family economics."
 url                      : https://krzysztofzaremba.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "krzysztofzaremba/krzysztofzaremba.github.io"
@@ -62,7 +62,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 :  # Open Graph/Twitter default site image
+og_image                 : "profile_square.jpg"
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
@@ -81,13 +81,13 @@ analytics:
 # Site Author
 author:
   name             : "Krzysztof Zaremba"
-  avatar           : "Krzysiek_profile.jpg"
-  bio              : 
-  location         : 
-  employer         :
+  avatar           : "profile_square.jpg"
+  bio              : "Assistant Professor of Economics"
+  location         : "Mexico City"
+  employer         : "ITAM Business School"
   pubmed           : 
-  googlescholar    : 
-  email            : "kz2303@columbia.edu"
+  googlescholar    : "https://scholar.google.com/citations?user=mQFWPiYAAAAJ&hl=en"
+  email            : "zaremba@itam.mx"
   researchgate     :  # example: "https://www.researchgate.net/profile/yourprofile"
   uri              :
   bitbucket        :
@@ -96,20 +96,20 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : 
+  github           : "krzysztofzaremba"
   google_plus      :
   keybase          :
   instagram        :
   impactstory      : #"https://profiles.impactstory.org/u/xxxx-xxxx-xxxx-xxxx"
   lastfm           :
   linkedin         : krzysztof-z-743a4b11b 
-  orcid            : 
+  orcid            : "https://orcid.org/0000-0001-9007-3497"
   pinterest        :
   soundcloud       :
   stackoverflow    : # http://stackoverflow.com/users/123456/username
   steam            :
   tumblr           :
-  twitter          : "Kzysiek2"
+  twitter          :
   vine             :
   weibo            :
   xing             :

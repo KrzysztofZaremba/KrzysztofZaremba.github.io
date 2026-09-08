@@ -1,0 +1,438 @@
+/* ==========================================================================
+   Site styling for krzysztofzaremba.github.io
+   Imported last from assets/css/main.scss so it overrides the theme.
+   Written as plain CSS on purpose (no nesting, no variables) so the file
+   can be previewed without a Sass compiler.
+
+   Palette
+     primary       #1f5f8b   links, buttons, accents
+     primary-dark  #174a6d   hover
+     tint          #e8f1f7   soft highlight
+     text          #1f2933   headings / body
+     body          #3b4653   paragraph text
+     muted         #5b6773   secondary text
+     border        #e3e7ec   rules and card borders
+     page          #fbfbfa   page background
+   ========================================================================== */
+
+/* ---------- Base ---------- */
+html { background: #fbfbfa; }
+body {
+  color: #1f2933;
+  background: #fbfbfa;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.page__content { line-height: 1.65; }
+.page__content p,
+.page__content li { font-size: 0.97em; }
+.page__content a { color: #1f5f8b; text-decoration: none; }
+.page__content a:hover { text-decoration: underline; }
+
+/* ---------- Masthead / navigation ---------- */
+.masthead {
+  background: #fff;
+  border-bottom: 1px solid #e3e7ec;
+}
+.masthead__inner-wrap { padding: 0.85em 1em; }
+.masthead__menu-item--lg a {
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 1.2em;
+  color: #1f2933;
+  letter-spacing: -0.005em;
+}
+.greedy-nav { background: #fff; }
+.greedy-nav a {
+  color: #5b6773;
+  font-weight: 500;
+  font-size: 0.95em;
+}
+.greedy-nav a:hover { color: #1f5f8b; }
+.greedy-nav .visible-links a:before { background: #1f5f8b; }
+.greedy-nav .hidden-links { border-color: #e3e7ec; }
+.greedy-nav .hidden-links a { color: #1f2933; }
+.greedy-nav button { background: #1f5f8b; }
+.greedy-nav .navicon,
+.greedy-nav .navicon:before,
+.greedy-nav .navicon:after { background: #fff; }
+
+/* ---------- Sidebar (author card) ---------- */
+.author__avatar img {
+  border-radius: 50%;
+  padding: 0 !important;
+  border: 3px solid #fff !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.10);
+  max-width: 160px;
+}
+.sidebar .author__name {
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 1.15em;
+  color: #1f2933;
+}
+.author__bio {
+  color: #5b6773;
+  font-size: 0.85em;
+  line-height: 1.45;
+}
+.author__urls-wrapper { cursor: default; }
+.author__urls-wrapper button { display: none; }
+.author__urls {
+  display: block;
+  position: static;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  z-index: auto;
+}
+.author__urls:before,
+.author__urls:after { display: none; }
+.author__urls li { font-size: 0.82em; color: #5b6773; }
+.author__urls a { color: #5b6773; font-size: 1em; }
+.author__urls a:hover { color: #1f5f8b; text-decoration: none; }
+.author__urls .fa,
+.author__urls .fas,
+.author__urls .fab,
+.author__urls .ai { color: #1f5f8b; }
+
+/* Below the theme's large breakpoint the author card is a table; make it a
+   compact row instead. */
+@media (max-width: 924px) {
+  .sidebar > div[itemscope] {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4em 1em;
+    padding-bottom: 0.9em;
+    border-bottom: 1px solid #e3e7ec;
+  }
+  .author__avatar,
+  .author__content,
+  .author__urls-wrapper {
+    display: block;
+    width: auto;
+    padding: 0;
+  }
+  .author__avatar img { max-width: 64px; }
+  .author__content { line-height: 1.3; }
+  .author__bio { margin: 0.2em 0 0; }
+  .author__urls-wrapper { flex-basis: 100%; }
+  .author__urls li { display: inline-block; margin-right: 0.9em; }
+  .author__urls li a { display: inline; margin: 0; padding: 0; }
+}
+
+/* ---------- Section blocks ---------- */
+.kz-section { margin: 2.4em 0 0; }
+.kz-section--first { margin-top: 0; }
+.page__content h2.kz-section-title,
+.kz-section-title {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.78em;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #5b6773;
+  margin: 0 0 1em;
+  padding-bottom: 0.5em;
+  border-bottom: 1px solid #e3e7ec;
+}
+
+/* ---------- Hero (home) ---------- */
+.kz-hero h1 {
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 2.35em;
+  letter-spacing: -0.012em;
+  line-height: 1.15;
+  margin: 0 0 0.2em;
+}
+.kz-hero .kz-role {
+  color: #5b6773;
+  font-size: 1.05em;
+  margin: 0 0 1em;
+}
+.kz-hero .kz-sep { color: #b8c0c8; margin: 0 0.45em; }
+.kz-hero .kz-lede {
+  font-size: 1.05em;
+  max-width: 42em;
+  color: #3b4653;
+}
+
+.kz-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  margin-top: 1.2em;
+}
+.kz-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.55em 1.05em;
+  border-radius: 6px;
+  font-size: 0.92em;
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none !important;
+  border: 1px solid #1f5f8b;
+  transition: all 0.15s ease;
+}
+.kz-btn i { font-size: 0.95em; }
+.kz-btn--primary { background: #1f5f8b; color: #fff !important; }
+.kz-btn--primary:hover { background: #174a6d; border-color: #174a6d; }
+.kz-btn--ghost { background: #fff; color: #1f5f8b !important; border-color: #e3e7ec; }
+.kz-btn--ghost:hover { border-color: #1f5f8b; background: #e8f1f7; }
+
+/* ---------- Card grid ---------- */
+.kz-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1em;
+}
+.kz-card {
+  background: #fff;
+  border: 1px solid #e3e7ec;
+  border-radius: 10px;
+  padding: 1.1em 1.2em;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.kz-card:hover { border-color: #b7cfe0; box-shadow: 0 4px 16px rgba(31, 95, 139, 0.08); }
+.kz-card h3 {
+  font-size: 1em;
+  font-weight: 600;
+  color: #1f5f8b;
+  margin: 0 0 0.4em;
+}
+.kz-card p {
+  margin: 0;
+  font-size: 0.9em !important;
+  color: #5b6773;
+  line-height: 1.55;
+}
+a.kz-card {
+  display: block;
+  text-decoration: none !important;
+  color: inherit;
+}
+a.kz-card .kz-card-cta {
+  display: inline-block;
+  margin-top: 0.7em;
+  font-size: 0.85em;
+  font-weight: 500;
+  color: #1f5f8b;
+}
+a.kz-card:hover .kz-card-cta { text-decoration: underline; }
+
+/* ---------- Timeline list ---------- */
+.kz-timeline { list-style: none; margin: 0; padding: 0; }
+.kz-timeline li {
+  display: grid;
+  grid-template-columns: 7.5em 1fr;
+  gap: 1em;
+  padding: 0.6em 0;
+  border-bottom: 1px dashed #e3e7ec;
+  font-size: 0.95em !important;
+}
+.kz-timeline li:last-child { border-bottom: 0; }
+.kz-timeline .kz-when {
+  color: #5b6773;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.9em;
+  padding-top: 0.12em;
+}
+.kz-timeline .kz-what strong { font-weight: 600; color: #1f2933; }
+.kz-timeline .kz-what span {
+  display: block;
+  color: #5b6773;
+  font-size: 0.9em;
+  margin-top: 0.1em;
+}
+@media (max-width: 600px) {
+  .kz-timeline li { grid-template-columns: 1fr; gap: 0.1em; }
+}
+
+/* ---------- Contact row ---------- */
+.kz-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em 1.6em;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.kz-contact li { font-size: 0.95em !important; }
+.kz-contact i { color: #1f5f8b; margin-right: 0.4em; }
+
+/* ---------- Research page ---------- */
+.kz-paper {
+  background: #fff;
+  border: 1px solid #e3e7ec;
+  border-radius: 10px;
+  padding: 1.15em 1.35em;
+  margin-bottom: 1em;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.kz-paper:hover { border-color: #b7cfe0; box-shadow: 0 4px 16px rgba(31, 95, 139, 0.08); }
+.kz-paper--fig {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 210px;
+  gap: 1.3em;
+  align-items: start;
+}
+.kz-paper .kz-body { min-width: 0; }
+.kz-fig {
+  display: block;
+  padding: 6px;
+  background: #fff;
+  border: 1px solid #e3e7ec;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: border-color 0.15s ease;
+}
+.kz-fig:hover { border-color: #1f5f8b; }
+.kz-fig img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.kz-fig span {
+  display: block;
+  margin-top: 0.45em;
+  font-size: 0.72em;
+  line-height: 1.35;
+  color: #5b6773;
+  text-align: center;
+}
+@media (max-width: 700px) {
+  .kz-paper--fig { grid-template-columns: 1fr; }
+  .kz-fig { max-width: 320px; }
+}
+.kz-paper h3 {
+  font-size: 1.08em;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0 0 0.4em;
+}
+.kz-paper h3 a { color: #1f2933; text-decoration: none; }
+.kz-paper h3 a:hover { color: #1f5f8b; text-decoration: none; }
+.kz-paper .kz-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4em 0.9em;
+  font-size: 0.9em;
+  color: #5b6773;
+  margin: 0 0 0.6em;
+}
+.kz-paper .kz-authors { font-style: italic; }
+.kz-paper .kz-summary {
+  font-size: 0.95em !important;
+  color: #3b4653;
+  margin: 0 0 0.8em;
+}
+
+.kz-badge {
+  display: inline-block;
+  padding: 0.2em 0.65em;
+  border-radius: 999px;
+  font-size: 0.76em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  font-style: normal;
+}
+.kz-badge--pub { background: #e3f3e8; color: #1e6b3a; }
+.kz-badge--wp  { background: #e8f1f7; color: #1f5f8b; }
+.kz-badge--wip { background: #eef1f4; color: #4b5563; }
+
+.kz-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+.kz-links a,
+.kz-links summary {
+  display: inline-block;
+  font-size: 0.82em;
+  font-weight: 500;
+  padding: 0.32em 0.8em;
+  border-radius: 6px;
+  background: #f3f5f7;
+  color: #1f2933;
+  text-decoration: none !important;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.kz-links a:hover,
+.kz-links summary:hover { background: #e8f1f7; color: #1f5f8b; }
+.kz-links details { display: contents; }
+.kz-links summary { list-style: none; }
+.kz-links summary::-webkit-details-marker { display: none; }
+.kz-links details[open] summary { background: #e8f1f7; color: #1f5f8b; }
+.kz-abstract {
+  flex-basis: 100%;
+  margin-top: 0.7em;
+  padding-top: 0.9em;
+  border-top: 1px solid #e3e7ec;
+  font-size: 0.92em;
+  line-height: 1.6;
+  color: #3b4653;
+}
+.kz-abstract p { font-size: 1em !important; margin: 0 0 0.8em; }
+.kz-abstract img {
+  display: block;
+  width: 100%;
+  max-width: 560px;
+  margin: 0.4em auto 0;
+  border-radius: 6px;
+  border: 1px solid #e3e7ec;
+}
+
+.kz-wip { list-style: none; margin: 0; padding: 0; }
+.kz-wip li {
+  padding: 0.7em 0;
+  border-bottom: 1px dashed #e3e7ec;
+  font-size: 0.97em !important;
+  font-weight: 500;
+  color: #1f2933;
+}
+.kz-wip li:last-child { border-bottom: 0; }
+
+/* ---------- CV page ---------- */
+.kz-pdf { margin-top: 1.2em; }
+.kz-pdf object,
+.kz-pdf iframe {
+  width: 100%;
+  height: 85vh;
+  min-height: 600px;
+  border: 1px solid #e3e7ec;
+  border-radius: 8px;
+  background: #fff;
+}
+.kz-pdf p { color: #5b6773; font-size: 0.9em; }
+
+/* ---------- Footer ---------- */
+.page__footer {
+  background: #fff;
+  border-top: 1px solid #e3e7ec;
+  color: #5b6773;
+  margin-top: 3em;
+}
+.page__footer a { color: #5b6773; text-decoration: none; }
+.page__footer a:hover { color: #1f5f8b; }
+.page__footer .kz-footer-sep { margin: 0 0.5em; color: #b8c0c8; }
+.page__footer-copyright { font-size: 0.85em; }
+
+/* ---------- Inner page titles ---------- */
+.page__title {
+  font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+  font-weight: 600;
+  font-size: 2em;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.6em;
+}

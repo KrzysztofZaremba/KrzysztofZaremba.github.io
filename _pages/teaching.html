@@ -1,12 +1,41 @@
 ---
-layout: archive
+layout: single
 title: "Teaching"
 permalink: /teaching/
 author_profile: true
+excerpt: "Courses taught by Krzysztof Zaremba and open resources for students."
 ---
 
-{% include base_path %}
+<section class="kz-section" style="margin-top:0">
+  <h2 class="kz-section-title">Courses</h2>
+  <ul class="kz-timeline">
+    <li>
+      <div class="kz-when">2023 &ndash; present</div>
+      <div class="kz-what"><strong>Business Forecasting</strong><span>ITAM Business School &middot; main instructor &middot; statistics and forecasting for business decisions, taught in R</span></div>
+    </li>
+    <li>
+      <div class="kz-when">2018 &ndash; 2020</div>
+      <div class="kz-what"><strong>Principles of Economics</strong><span>Columbia University &middot; teaching assistant</span></div>
+    </li>
+    <li>
+      <div class="kz-when">2019</div>
+      <div class="kz-what"><strong>Introduction to Econometrics</strong><span>Columbia University &middot; teaching assistant</span></div>
+    </li>
+  </ul>
+</section>
 
-{% for post in site.teaching reversed %}
-  {% include archive-single.html %}
-{% endfor %}
+<section class="kz-section">
+  <h2 class="kz-section-title">Resources for students</h2>
+  <div class="kz-grid">
+    <a class="kz-card" href="/r-cheatsheet/">
+      <h3>R cheat sheet</h3>
+      <p>A compact reference of the base R functions used in class, organised by task.</p>
+      <span class="kz-card-cta">Open &rarr;</span>
+    </a>
+    <a class="kz-card" href="/matrix-intuition/">
+      <h3>Matrix intuition for OLS</h3>
+      <p>An interactive walk-through of the matrix algebra behind least squares, one step at a time.</p>
+      <span class="kz-card-cta">Open &rarr;</span>
+    </a>
+  </div>
+</section>
