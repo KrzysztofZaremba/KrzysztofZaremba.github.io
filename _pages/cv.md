@@ -30,41 +30,11 @@ excerpt: "CV of Krzysztof Zaremba, Assistant Professor of Business at ITAM Busin
 </section>
 
 <section class="kz-section">
-  <h2 class="kz-section-title">Fields</h2>
-  <ul class="kz-plain">
-    <li><strong>Primary:</strong> Health Economics</li>
-    <li><strong>Secondary:</strong> Applied Econometrics, Family Economics, Networks</li>
-  </ul>
-</section>
-
-<section class="kz-section">
-  <h2 class="kz-section-title">Publications</h2>
-  <ul class="kz-timeline">
-    <li><div class="kz-when">2026</div><div class="kz-what"><a href="https://doi.org/10.1016/j.jpubeco.2026.105687" target="_blank" rel="noopener"><strong>The Effect of Dating Markets on Maternal and Neonatal Health</strong></a><span class="kz-sub"><em>Journal of Public Economics</em>, 260, 105687</span></div></li>
-    <li><div class="kz-when">2026</div><div class="kz-what"><a href="https://doi.org/10.1002/hec.70083" target="_blank" rel="noopener"><strong>The Financial and Behavioral Effects of Free Prescription Drugs: Evidence from a Policy Discontinuity in Poland</strong></a> (with Gosia Majewska)<span class="kz-sub"><em>Health Economics</em>, 35(5), 796&ndash;830</span></div></li>
-    <li><div class="kz-when">2025</div><div class="kz-what"><a href="https://doi.org/10.1016/j.energy.2025.138473" target="_blank" rel="noopener"><strong>Decarbonizing Power Generation: Integrating Green Hydrogen in the Economic Dispatch of Combined-Cycle Power Plants</strong></a> (with Roberto Jair Lorenzo Diaz, Jaime Robles Garc&iacute;a, Mohamed Badaoui)<span class="kz-sub"><em>Energy</em>, 336, 138473</span></div></li>
-    <li><div class="kz-when">2024</div><div class="kz-what"><a href="https://doi.org/10.1093/aje/kwae453" target="_blank" rel="noopener"><strong>School Closures and Respiratory Infections Transmission and Mortality: Evidence from School Holidays in Poland</strong></a><span class="kz-sub"><em>American Journal of Epidemiology</em></span></div></li>
-    <li><div class="kz-when">2023</div><div class="kz-what"><a href="https://doi.org/10.1002/hec.4660" target="_blank" rel="noopener"><strong>Opening of Hotels and Ski Facilities: Impact on Mobility, Spending, and Covid-19 Outcomes</strong></a><span class="kz-sub"><em>Health Economics</em>, 32(5), 1148&ndash;1180</span></div></li>
-  </ul>
-</section>
-
-<section class="kz-section">
   <h2 class="kz-section-title">Working papers</h2>
   <ul class="kz-plain">
     <li><a href="/files/Majewska_Zaremba.pdf" target="_blank" rel="noopener"><strong>Universal Subsidies in Pharmaceutical Markets: Lessons from Poland&rsquo;s Drugs 75+ Policy</strong></a> (with Gosia Majewska)</li>
     <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5214598" target="_blank" rel="noopener"><strong>Lead Effects Through Generations</strong></a> (with Xinming Du)</li>
     <li><a href="/files/Household_penalty_Chicago.pdf" target="_blank" rel="noopener"><strong>Household Penalty: Gendered Costs of Spousal Infectious Diseases on Labor and Health</strong></a> (with Xinming Du)</li>
-  </ul>
-</section>
-
-<section class="kz-section">
-  <h2 class="kz-section-title">Work in progress</h2>
-  <ul class="kz-plain">
-    <li>Imbalanced Sex Ratios and Teen Fertility</li>
-    <li>Multisourcing and Pharmaceutical Shortages: Evidence from a Regression Discontinuity Design</li>
-    <li>Longer Workdays and the Quality of Physician Decision-Making</li>
-    <li>Prescribing Under Scarcity: How Physicians Respond to Medication Shortages</li>
-    <li>Beware of Fake Friends: Spurious Links and Peer Effects in Networks</li>
   </ul>
 </section>
 
@@ -89,33 +59,8 @@ excerpt: "CV of Krzysztof Zaremba, Assistant Professor of Business at ITAM Busin
 </section>
 
 <section class="kz-section">
-  <h2 class="kz-section-title">Professional experience</h2>
-  <ul class="kz-timeline">
-    <li><div class="kz-when">2019 &ndash; 2021</div><div class="kz-what"><strong>Research Assistant</strong>, Prof. Michael Best &middot; Columbia University<span class="kz-sub">Tax evasion in the Paraguayan production network (with the Paraguayan Tax Authority)</span></div></li>
-    <li><div class="kz-when">2019</div><div class="kz-what"><strong>Research Assistant</strong>, Prof. Jos&eacute; L. Montiel Olea &middot; Columbia University<span class="kz-sub">Review of research on educational peer effects in networks</span></div></li>
-    <li><div class="kz-when">2019</div><div class="kz-what"><strong>Research Assistant</strong>, Prof. Alessandra Casella &middot; Columbia University<span class="kz-sub">Analysis of data from a lab experiment in political economy</span></div></li>
-    <li><div class="kz-when">2017</div><div class="kz-what"><strong>Trainee, DataLab</strong> &middot; European Commission, DG HR, Brussels<span class="kz-sub">Impact of mental health and staff well-being on careers</span></div></li>
-    <li><div class="kz-when">2016 &ndash; 2017</div><div class="kz-what"><strong>Research Assistant</strong>, Prof. Fernando Vega-Redondo &middot; Bocconi University<span class="kz-sub">Spanish production network (with the Spanish Tax Authority); field experiment on peer effects in entrepreneurship in Accra, Ghana</span></div></li>
-  </ul>
-</section>
-
-<section class="kz-section">
-  <h2 class="kz-section-title">Honors and awards</h2>
-  <ul class="kz-timeline">
-    <li><div class="kz-when">2022</div><div class="kz-what">Dissertation Fellowship, Department of Economics, Columbia University</div></li>
-    <li><div class="kz-when">2020</div><div class="kz-what">Data Purchase Grant, Program for Economic Research, Columbia University</div></li>
-    <li><div class="kz-when">2017 &ndash; 2021</div><div class="kz-what">Dean&rsquo;s Fellowship, Department of Economics, Columbia University</div></li>
-    <li><div class="kz-when">2016</div><div class="kz-what">Summa Cum Laude, Bocconi University</div></li>
-    <li><div class="kz-when">2014 &ndash; 2016</div><div class="kz-what">Bocconi Merit Award</div></li>
-    <li><div class="kz-when">2014</div><div class="kz-what">Cum Laude, Sciences Po Paris</div></li>
-    <li><div class="kz-when">2012 &ndash; 2014</div><div class="kz-what">Award for top student, Sciences Po Paris, Dijon campus</div></li>
-  </ul>
-</section>
-
-<section class="kz-section">
-  <h2 class="kz-section-title">Skills and service</h2>
+  <h2 class="kz-section-title">Other</h2>
   <ul class="kz-plain">
-    <li><strong>Programming:</strong> R, MATLAB, Python, SQL, Stata, Linux shell scripting</li>
     <li><strong>Languages:</strong> Polish (native), English, Italian, French (fluent)</li>
     <li><strong>Refereeing:</strong> American Journal of Health Economics, Preventive Medicine, Young Economists Forum, Journal of Human Resources, Social Science &amp; Medicine</li>
   </ul>
