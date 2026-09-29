@@ -10,6 +10,25 @@ excerpt: "Working papers, publications, and work in progress by Krzysztof Zaremb
   <h2 class="kz-section-title">Working papers</h2>
 
   <div class="kz-paper">
+    <a class="kz-fig" title="Early births rise with the share of boys among the births of her cohort" href="/images/Marriage_market_early.png" target="_blank" rel="noopener"><img src="/images/thumbs/marriage_market.jpg" alt="Births per 1,000 girls in 2021&ndash;2025 against the share male at birth of her cohort" loading="lazy"></a>
+    <div class="kz-body">
+      <h3><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7537860" target="_blank" rel="noopener">The Marriage Market Comes Early: Sex Ratios, Early Motherhood and Girls&rsquo; Schooling</a></h3>
+      <p class="kz-meta"><span class="kz-venue">Working paper</span></p>
+      <p class="kz-summary">Girls whose birth cohort happens to have more boys form unions and become mothers earlier: an interquartile increase in the sex ratio of the market they face raises births before age eighteen by 13%. They are also more likely to leave school and take up household chores.</p>
+      <div class="kz-links">
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7537860" target="_blank" rel="noopener">SSRN</a>
+      <details>
+        <summary>Abstract</summary>
+        <div class="kz-abstract">
+          <p>Women on the short side of the marriage market are expected to gain from their scarcity. I study what scarcity does to adolescent girls. The random sex of births generates idiosyncratic variation in the sex composition of birth cohorts in small places, which I use as an instrument for the marriage market a girl faces as a teenager. Using birth registry and census data from Mexico, I find that girls in boy-heavy cohorts form unions and become mothers early: an interquartile increase in the sex ratio of the market she faces raises births before age eighteen by 13 percent. The additional unions are mostly consensual and formed with boys of her own age. However, girls in these cohorts are also more likely to leave school and to report household chores as their main activity. A favorable dating market moves girls away from investment in schooling and toward early family formation, decisions that are often irreversible.</p>
+          <img src="/images/Marriage_market_early.png" alt="Births per 1,000 girls in 2021&ndash;2025 against the share male at birth of her cohort" loading="lazy">
+        </div>
+      </details>
+    </div>
+    </div>
+  </div>
+
+  <div class="kz-paper">
     <a class="kz-fig" title="Once drugs become free, purchases shift from the cheapest to mid-priced and most expensive variants" href="/images/Drugs75_price_tiers.png" target="_blank" rel="noopener"><img src="/images/thumbs/drugs75.jpg" alt="Change in consumption by within-group price tier around the listing date" loading="lazy"></a>
     <div class="kz-body">
       <h3><a href="/files/Majewska_Zaremba.pdf" target="_blank" rel="noopener">Universal Subsidies in Pharmaceutical Markets: Lessons from Poland&rsquo;s Drugs 75+ Policy</a></h3>
