@@ -191,6 +191,11 @@ collections:
 
 # Defaults
 defaults:
+  # Unlisted course materials (linked only from the unlisted teaching page): keep out of sitemap.xml
+  - scope:
+      path: "files/teaching"
+    values:
+      sitemap: false
   # _posts
   - scope:
       path: ""

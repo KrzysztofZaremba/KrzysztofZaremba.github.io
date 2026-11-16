@@ -1,0 +1,477 @@
+---
+layout: null
+permalink: /teaching/forecasting-jf8fnl/
+sitemap: false
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Business Forecasting · Fall 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --text: #1a1a1a;
+  --meta: #6b7280;
+  --accent: #1f5f8b;
+  --accent-soft: #e8f0f6;
+  --rule: #e6e8eb;
+  --panel: #f7f8fa;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+}
+* { box-sizing: border-box; }
+html { font-size: 17px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Top bar, same feel as the main site */
+.masthead { border-bottom: 1px solid var(--rule); }
+.masthead .inner {
+  max-width: 900px; margin: 0 auto; padding: 1rem 1.5rem;
+  display: flex; align-items: baseline; justify-content: space-between; gap: 1rem;
+}
+.masthead .name { font-family: var(--serif); font-weight: 600; font-size: 1.2rem; color: var(--text); }
+.masthead .where { font-size: 0.8rem; color: var(--meta); letter-spacing: 0.04em; text-transform: uppercase; }
+
+main { max-width: 900px; margin: 0 auto; padding: 2.4rem 1.5rem 4rem; }
+
+.hero h1 {
+  font-family: var(--serif); font-weight: 600; font-size: 2.1rem; line-height: 1.2;
+  margin: 0 0 0.35rem; letter-spacing: -0.01em;
+}
+.hero .sub { color: var(--meta); margin: 0; font-size: 0.95rem; }
+
+nav.jump {
+  position: sticky; top: 0; z-index: 5;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(4px);
+  border-bottom: 1px solid var(--rule);
+  margin: 1.6rem -1.5rem 0; padding: 0.6rem 1.5rem;
+  display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem;
+  font-size: 0.88rem; font-weight: 500;
+}
+nav.jump a { color: var(--text); }
+nav.jump a:hover { color: var(--accent); text-decoration: none; }
+nav.jump .syl { margin-left: auto; color: var(--accent); }
+
+section { padding-top: 2.6rem; scroll-margin-top: 3rem; }
+h2 {
+  font-family: var(--serif); font-weight: 600; font-size: 1.55rem; line-height: 1.25;
+  margin: 0 0 1rem; padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule);
+}
+h3 { font-size: 1.02rem; font-weight: 600; margin: 1.9rem 0 0.5rem; }
+h4 { font-size: 0.95rem; font-weight: 600; margin: 1.3rem 0 0.3rem; }
+p, li { font-size: 1rem; }
+p { margin: 0 0 0.8rem; }
+ul, ol { margin: 0 0 0.9rem; padding-left: 1.3rem; }
+li { margin-bottom: 0.25rem; }
+.note { color: var(--meta); font-size: 0.88rem; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2rem 0; }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 0.4rem 0 1rem; font-size: 0.93rem; }
+th {
+  text-align: left; font-weight: 600; font-size: 0.78rem; color: var(--meta);
+  text-transform: uppercase; letter-spacing: 0.05em;
+  padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--rule);
+}
+td { padding: 0.62rem 0.75rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+tbody tr:hover td { background: var(--panel); }
+
+/* Weekly materials table */
+.weeks td.wk { font-variant-numeric: tabular-nums; color: var(--meta); white-space: nowrap; width: 3.5rem; }
+.weeks td.links { white-space: nowrap; }
+.weeks .dash { color: #b8bdc4; }
+.pill {
+  display: inline-block; padding: 0.12rem 0.55rem; margin: 0.1rem 0.3rem 0.1rem 0;
+  border: 1px solid #cfdce6; border-radius: 999px; font-size: 0.82rem; font-weight: 500;
+  background: #fff; line-height: 1.5;
+}
+.pill:hover { background: var(--accent-soft); text-decoration: none; }
+.pill.solid { background: var(--accent); border-color: var(--accent); color: #fff; }
+.pill.solid:hover { background: #184d72; }
+
+/* Material lists in the exam section */
+.block { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.2rem; margin: 0.6rem 0 1rem; }
+.block h4:first-child { margin-top: 0; }
+.row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.2rem 0.4rem; padding: 0.35rem 0; }
+.row + .row { border-top: 1px solid var(--rule); }
+.row .label { min-width: 14rem; font-size: 0.95rem; }
+.facts { display: grid; grid-template-columns: 7.5rem 1fr; gap: 0.35rem 1rem; margin: 0 0 1rem; }
+.facts dt { color: var(--meta); font-size: 0.9rem; }
+.facts dd { margin: 0; }
+
+footer { max-width: 900px; margin: 0 auto; padding: 1.4rem 1.5rem 3rem; border-top: 1px solid var(--rule); color: var(--meta); font-size: 0.85rem; }
+
+@media (max-width: 640px) {
+  html { font-size: 16px; }
+  .masthead .inner, main, footer { padding-left: 1rem; padding-right: 1rem; }
+  nav.jump { margin-left: -1rem; margin-right: -1rem; padding-left: 1rem; padding-right: 1rem; }
+  nav.jump .syl { margin-left: 0; }
+  .hero h1 { font-size: 1.7rem; }
+  .masthead .where { display: none; }
+  /* Weekly table becomes one card per week */
+  .weeks thead { display: none; }
+  .weeks, .weeks tbody, .weeks tr, .weeks td { display: block; width: 100%; }
+  .weeks tr { border-bottom: 1px solid var(--rule); padding: 0.7rem 0; }
+  .weeks td { border: 0; padding: 0.1rem 0; }
+  .weeks td.wk { width: auto; font-size: 0.8rem; }
+  .weeks td.wk::before { content: "Week "; }
+  .weeks td.topic { font-weight: 500; margin-bottom: 0.2rem; }
+  .weeks td.links { white-space: normal; }
+  .weeks td.links[data-label]::before { content: attr(data-label); display: inline-block; width: 5.2rem; color: var(--meta); font-size: 0.8rem; }
+  .weeks td.empty { display: none; }
+  .row .label { min-width: 100%; }
+  .facts { grid-template-columns: 1fr; gap: 0 0; }
+  .facts dd { margin-bottom: 0.5rem; }
+  .scroll { overflow-x: auto; }
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="inner">
+    <a class="name" href="/">Krzysztof Zaremba</a>
+    <span class="where">ITAM Business School</span>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <h1>Business Forecasting</h1>
+    <p class="sub">Fall 2026 · Course materials</p>
+  </div>
+
+  <nav class="jump" aria-label="Sections">
+    <a href="#weekly">Slides and exercises</a>
+    <a href="#project">Final project</a>
+    <a href="#final">Final exam</a>
+    <a class="syl" href="https://krzysztofzaremba.github.io/Syllabus_Forecasting/Syllabus.pdf">Syllabus (PDF)</a>
+  </nav>
+
+  <!-- ================================================================== -->
+  <section id="weekly">
+    <h2>Slides and exercises</h2>
+
+    <table class="weeks">
+      <thead>
+        <tr><th>Week</th><th>Topic</th><th>Slides</th><th>Exercises</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="wk">1</td>
+          <td class="topic">Introduction to business forecasting</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W01/W01_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W01/W01_slides.pdf">PDF</a></td>
+          <td class="links empty"><span class="dash">—</span></td>
+        </tr>
+        <tr>
+          <td class="wk">2</td>
+          <td class="topic">Describing data: centre and spread</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W02/W02_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W02/W02_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W02_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W02_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">3</td>
+          <td class="topic">Distributions and associations</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W03/W03_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W03/W03_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W03_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W03_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">4</td>
+          <td class="topic">Sampling and the Central Limit Theorem</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W04/W04_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W04/W04_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W04_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W04_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">5</td>
+          <td class="topic">Confidence intervals</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W05/W05_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W05/W05_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W05_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W05_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">6</td>
+          <td class="topic">Hypothesis testing</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W06/W06_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W06/W06_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W06_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W06_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">7</td>
+          <td class="topic">Simple regression I: estimation and interpretation</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W07/W07_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W07/W07_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W07_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W07_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">8</td>
+          <td class="topic">Simple regression II: inference and prediction</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W08/W08_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W08/W08_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W08_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W08_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">9</td>
+          <td class="topic">Regression diagnostics and model fit</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W09/W09_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W09/W09_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W09_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W09_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">10</td>
+          <td class="topic">Multiple regression I: one outcome, several causes</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W10/W10_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W10/W10_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W10_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W10_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">11</td>
+          <td class="topic">Multiple regression II: categories and interactions</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W11/W11_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W11/W11_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W11_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W11_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">12</td>
+          <td class="topic">Multiple regression III: inference with several regressors</td>
+          <td class="links" data-label="Slides"><a class="pill solid" href="https://krzysztofzaremba.github.io/Slides/Live/W12/W12_live.html">Live deck</a><a class="pill" href="https://krzysztofzaremba.github.io/Slides/Live/W12/W12_slides.pdf">PDF</a></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W12_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W12_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">13</td>
+          <td class="topic">Time series I: components and decomposition</td>
+          <td class="links empty"><span class="dash">—</span></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W13_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W13_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">14</td>
+          <td class="topic">Time series II: smoothing and forecast accuracy</td>
+          <td class="links empty"><span class="dash">—</span></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W14_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W14_solutions.pdf">Solutions</a></td>
+        </tr>
+        <tr>
+          <td class="wk">15</td>
+          <td class="topic">Forecasting practice and review</td>
+          <td class="links empty"><span class="dash">—</span></td>
+          <td class="links" data-label="Exercises"><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W15_exercises.pdf">Exercises</a><a class="pill" href="/files/teaching/forecasting-jf8fnl/exercises/W15_solutions.pdf">Solutions</a></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="note">Slides for weeks 13–15 will be added here.</p>
+  </section>
+
+  <!-- ================================================================== -->
+  <section id="project">
+    <h2>Final project</h2>
+
+    <p>The final project is your chance to use what you learned in this course on a question you care about: something from your job, your industry, a hobby, or a problem in your city. You choose the topic, you find the data, you do the analysis, and at the end you explain your work in person.</p>
+    <p>Think of it as a project at work: a short team presentation, then individual questions. Grades are individual. The project is worth 20% of your course grade.</p>
+
+    <h3>Key dates</h3>
+    <div class="scroll">
+    <table>
+      <thead><tr><th>Step</th><th>When</th><th>What you do</th></tr></thead>
+      <tbody>
+        <tr><td>1. Form a team</td><td>Tuesday, September 1</td><td>Teams of 3 or 4 people.</td></tr>
+        <tr><td>2. Topic idea</td><td>Tuesday, September 29</td><td>Send me a brief email with the question you want to answer.</td></tr>
+        <tr><td>3. Data check</td><td>Tuesday, October 27</td><td>Send me a short email with a link to your data.</td></tr>
+        <tr><td>4. Final report</td><td>Friday, November 27, 23:59</td><td>One upload per team in the Final Project assignment on Canvas: report, code, data.</td></tr>
+        <tr><td>5. Oral defense</td><td>Tuesday, December 1, and a make-up class the same week (date to be announced)</td><td>In class.</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>Steps 1 to 3 are graded.</p>
+
+    <h3>How the project is graded</h3>
+    <p>The project is 20% of the course grade. Inside the project, most of the weight is on the defense, because that is where you show the work is really yours:</p>
+    <div class="scroll">
+    <table>
+      <thead><tr><th>Component</th><th>Share of the project grade</th><th>Graded</th></tr></thead>
+      <tbody>
+        <tr><td>Steps 1 to 3 (team, topic, data check)</td><td>5%</td><td>Per team</td></tr>
+        <tr><td>Final report</td><td>15%</td><td>Per team</td></tr>
+        <tr><td>Oral defense</td><td>80%</td><td>Per student</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p>So two people in the same team can get different project grades. A member who cannot explain the team's own work scores low, without dragging down teammates who can.</p>
+
+    <h3>Step 1 — Form a team</h3>
+    <p>Teams of 3 or 4 people. Your work will not be reviewed if you are not in a team of at least 3 people. If you struggle to find a group, contact me before the deadline for setting up the teams and I will help you arrange one.</p>
+
+    <h3>Step 2 — Pick a topic and send me a brief email</h3>
+    <p>Pick something you genuinely find interesting. First choose the topic; once you have it, I can help you choose the data. You do not need the data at this step.</p>
+    <p>I do not recommend using AI to pick the topic. You will get something generic, and this part should reflect your own creativity and interests. Prioritize a simple question that you can answer well. There is no need for anything complicated.</p>
+    <p>Some projects students did in previous semesters, to give you an idea of the range:</p>
+    <ul>
+      <li>The gender pay gap in Mexico.</li>
+      <li>Does playing at home give the Mexican national football team an edge?</li>
+      <li>What predicts informal employment in Mexico?</li>
+      <li>Hotel occupancy in Mexico: tourism demand, seasonality and destination type.</li>
+      <li>Antifreeze sales in the Bajío region and their forecast.</li>
+      <li>Explaining vote choice in Mexico City's 2024 election.</li>
+      <li>Are electronic payments associated with higher household spending?</li>
+      <li>International conflicts and the S&amp;P 500.</li>
+    </ul>
+    <h4>Three rules for the topic</h4>
+    <ul>
+      <li>It cannot be anything we analysed in class, or any dataset used in this course in previous years.</li>
+      <li>It cannot be made-up or simulated data. The data must be real.</li>
+      <li>It cannot come from Kaggle.</li>
+    </ul>
+    <p>Topics are first come, first served: two teams cannot work on the same question with the same data. If in doubt, ask me before the deadline.</p>
+
+    <h3>Step 3 — Data check (short email)</h3>
+    <p>Send me a short email with a link to your data (or the file attached) and one or two lines on what the variables are.</p>
+    <h4>Your data must satisfy all of these</h4>
+    <ul>
+      <li>At least 200 observations (rows).</li>
+      <li>At least 5 candidate predictors, with a mix of numeric and categorical variables.</li>
+      <li>Recent data. At least some observations must be from the last 12 months.</li>
+      <li>Reproducible. You will upload the data and code, and I must be able to run it. If the data is confidential, show me that it exists and then share a synthetic version with me (feel free to email me about this).</li>
+    </ul>
+    <h4>Things you can use</h4>
+    <ul>
+      <li>Data from your workplace.</li>
+      <li>Mexican public data: INEGI, Banxico, CENACE, CONAGUA, CDMX Datos Abiertos, Secretaría de Salud, CRE.</li>
+      <li>International public data: FRED, World Bank, Eurostat, data.gov.</li>
+      <li>Data you collect yourself from public websites.</li>
+    </ul>
+
+    <h3>Step 4 — The final report (15% of the project grade)</h3>
+    <p>Due Friday, November 27, 23:59, uploaded in the Final Project assignment on Canvas. Maximum 15 pages including cover. Figures go within the text, next to the paragraph that discusses them, not at the end. Code goes in an appendix and does not count toward the page limit. The report is scored out of 100 points.</p>
+    <h4>Introduction (10 points)</h4>
+    <p>The question, why it matters for a business or a decision, and the scope of what you did.</p>
+    <h4>Data description (15 points)</h4>
+    <p>Source, unit of observation, summary statistics, and plots of the outcome and the main predictors.</p>
+    <h4>Analysis (55 points)</h4>
+    <p>Your analysis needs to include at least the following. This is not an exhaustive list: the project is about showing that you can use the tools from the course on real data, so use whatever your question needs.</p>
+    <ul>
+      <li>Summary statistics and plots that answer a first version of your question.</li>
+      <li>Confidence intervals for the quantities you care about.</li>
+      <li>Hypothesis tests, with both hypotheses stated and the conclusion explained in plain words, including hypotheses about multiple coefficients.</li>
+      <li>A simple regression with one predictor, with the slope interpreted.</li>
+      <li>A multiple regression with your predictors, with the coefficients interpreted and compared to the simple model.</li>
+      <li>Categorical predictors and at least one interaction, with an explanation of what the interaction means for your question.</li>
+      <li>Model checks: residual plots, outliers, whether the assumptions look reasonable.</li>
+    </ul>
+    <h4>Conclusion (20 points)</h4>
+    <ul>
+      <li>Main findings in business terms: what should a manager do differently after reading your report?</li>
+      <li>Limitations: what your data and analysis cannot tell us.</li>
+    </ul>
+    <h4>What to upload</h4>
+    <p>One member uploads for the whole team, and the cover page lists every team member. The report must be written in English. No reports are accepted after the deadline of Friday, November 27, 23:59.</p>
+    <ul>
+      <li>The report as a PDF.</li>
+      <li>Your R or Rmd code, which must run from start to finish.</li>
+      <li>The data file, or a script that downloads it.</li>
+      <li>The AI-use paragraph at the end of the report (see below).</li>
+    </ul>
+    <p>Use only methods learned in class.</p>
+
+    <h3>Step 5 — The oral defense (80% of the project grade)</h3>
+    <p>Defenses are held in class on Tuesday, December 1, and in the make-up class the same week. The format is simple:</p>
+    <ul>
+      <li>The entire team presents the project for 5 minutes.</li>
+      <li>Then I ask each team member questions about the project. That is it.</li>
+    </ul>
+    <p>You must be able to explain any part of your team's report, not only the part you wrote: the code, the results, and what they mean for the question. Inability to explain means a grade of 0, as evidence of plagiarism. Think of it as being unable to explain what you wrote in a presentation during an important meeting at work.</p>
+
+    <h3>AI tools and academic integrity</h3>
+    <p>AI tools (ChatGPT, Claude, Copilot, and others) are allowed and encouraged for finding and cleaning data, writing plotting code, drafting text, and fixing grammar. Two conditions:</p>
+    <ol>
+      <li>Your report ends with one paragraph that says exactly what AI helped with.</li>
+      <li>You can explain everything you submitted. Being unable to explain your own code or results means a project grade of 0 (see the oral defense section).</li>
+    </ol>
+    <p>Undeclared AI use or copying another project means a project grade of zero.</p>
+
+    <h3>Questions?</h3>
+    <p>You are welcome to talk to me about the project at any point: in office hours, after class, or by email. The earlier you ask, the more I can help.</p>
+  </section>
+
+  <!-- ================================================================== -->
+  <section id="final">
+    <h2>Final exam</h2>
+
+    <dl class="facts">
+      <dt>When and where</dt><dd>Finals period. Date and room to be announced.</dd>
+      <dt>Covers</dt><dd>All weeks (cumulative), with emphasis on time series and forecasting.</dd>
+    </dl>
+
+    <h3>Exam sheets</h3>
+    <div class="block">
+      <div class="row">
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/Formula_sheet_final.pdf">Formula sheet</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/R_code_sheet_final.pdf">R code sheet</a>
+      </div>
+    </div>
+
+    <h3>Review sheets</h3>
+    <div class="block">
+      <div class="row">
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/Review_sheet_part_1.pdf">Part 1</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/Review_sheet_part_2.pdf">Part 2</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/Review_sheet_part_3.pdf">Part 3</a>
+      </div>
+    </div>
+
+    <h3>Past finals</h3>
+    <div class="block">
+      <div class="row">
+        <span class="label">Final exam, Fall 2025</span>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/past-finals/fall-2025/Final_fall_2025_answer_key.pdf">Answer key (PDF)</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/past-finals/fall-2025/Final_fall_2025_Qs.R" download>R script</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/past-finals/fall-2025/Final_fall_2025_solutions.R" download>R solutions</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/past-finals/fall-2025/Delivery.Rda" download>Delivery.Rda</a>
+      </div>
+      <div class="row">
+        <span class="label">Final exam, Spring 2026</span>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/past-finals/spring-2026/Final_spring_2026_answer_key.pdf">Answer key (PDF)</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/past-finals/spring-2026/Final_spring_2026_Qs.R" download>R script</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/past-finals/spring-2026/Final_spring_2026_solutions.R" download>R solutions</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/past-finals/spring-2026/exports.Rda" download>exports.Rda</a>
+      </div>
+    </div>
+
+    <h3>Practice exams</h3>
+    <div class="block">
+      <div class="row">
+        <span class="label">Midterm 2 in-class practice, Fall 2026</span>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-fall-2026/M2_in_class_practice.pdf">Questions</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-fall-2026/vans.Rda" download>vans.Rda</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-fall-2026/vans.csv" download>vans.csv</a>
+      </div>
+      <div class="row">
+        <span class="label">Practice midterm 2, Spring 2026</span>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-spring-2026/M2_practice.pdf">Questions</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-spring-2026/M2_practice_solutions.pdf">Solutions</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-spring-2026/gym.Rda" download>gym.Rda</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-spring-2026/gym.csv" download>gym.csv</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-spring-2026/retail.Rda" download>retail.Rda</a>
+        <a class="pill" href="/files/teaching/forecasting-jf8fnl/final-exam/practice/midterm2-spring-2026/retail.csv" download>retail.csv</a>
+      </div>
+    </div>
+
+    <h3>Weekly exercise sets</h3>
+    <p>Weeks 2–15, with solutions: <a href="#weekly">Slides and exercises</a>.</p>
+
+    <hr>
+    <p>Try the past finals first without AI or solutions, timed. That is the only way to know if you are prepared.</p>
+    <p>If you have questions, reach out.</p>
+  </section>
+</main>
+
+<footer>
+  <a href="/">Krzysztof Zaremba</a> · ITAM Business School
+</footer>
+
+</body>
+</html>
